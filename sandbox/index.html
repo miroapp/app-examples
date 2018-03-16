@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+<script>
+	(function () {
+		function getParameterByName(name) {
+			name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]")
+			const regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+				results = regex.exec(location.search)
+			return !results ? "" : decodeURIComponent(results[1])
+		}
+
+		function addScript(src) {
+			var s = document.createElement('script')
+			s.setAttribute('src', src)
+			document.body.appendChild(s)
+		}
+
+		var sandboxSdkURL = getParameterByName('sdk') || 'https://realtimeboard.com/app/static/sandbox.sdk.js'
+		addScript(sandboxSdkURL)
+	})();
+</script>
+
+</body>
+</html>
