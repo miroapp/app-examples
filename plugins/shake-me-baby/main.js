@@ -4,7 +4,6 @@ rtb.initialize({
 		function animate() {
 			zoomIn().then(zoomOut).then(animate)
 		}
-
 		// animate()
 	}
 })

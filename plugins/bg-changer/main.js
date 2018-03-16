@@ -1,4 +1,4 @@
-const sidebarUrl = 'https://8eefe858.ngrok.io/plugins/bg-changer/sidebar.html'
+const sidebarUrl = 'sidebar.html'
 
 rtb.initialize({
 	extensionPoints: {
@@ -6,7 +6,7 @@ rtb.initialize({
 			title: 'awesome plugin',
 			svgIcon: '',
 			onClick: function () {
-				alert('Hi!')
+				rtb.board.ui.openLeftSidebar(sidebarUrl)
 			}
 		}
 	}
