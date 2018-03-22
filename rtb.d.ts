@@ -13,6 +13,7 @@ interface IBoardCommands {
 	getViewport():Promise<any>
 	setViewport():void
 	selectWidgets():void
+	setBackgroundColor(color:number):Promise<void>
 }
 
 interface IPluginConfig {

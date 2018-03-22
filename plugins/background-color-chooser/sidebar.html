@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<script src="https://realtimeboard.com/app/static/rtb.sdk.js"></script>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+    }
+</style>
+<body>
+<script>
+	function selectColor(e) {
+		var colorAsString = e.target.value
+		var color = parseInt('0x' + colorAsString.slice(1), 16)
+		rtb.board.setBackgroundColor(color)
+	}
+
+	function resetColor() {
+		rtb.board.setBackgroundColor(0xF2F2F2)
+	}
+</script>
+<h2>Background chooser</h2>
+<p>
+    <label>Select background color <input type="color" onchange="selectColor(event)"/></label>
+    <br><br>
+    <button onclick="resetColor()">Reset background color</button>
+</p>
+</body>
+</html>

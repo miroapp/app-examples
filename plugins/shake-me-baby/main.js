@@ -1,10 +1,19 @@
 rtb.initialize({
-	pluginId: 'shaker',
-	onStart: () => {
-		function animate() {
-			zoomIn().then(zoomOut).then(animate)
+	onStart: function () {
+		console.log('Shaker: onStart()')
+	},
+	extensionPoints: {
+		bottomBar: {
+			title: 'Shake me baby',
+			svgIcon: '',
+			onClick: function () {
+				function animate() {
+					zoomIn().then(zoomOut).then(animate)
+				}
+
+				animate()
+			}
 		}
-		// animate()
 	}
 })
 

@@ -1,4 +1,4 @@
-{
-  "bg-changer": "https://realtimeboard.com/api/awesome-plugins/plugins/bg-changer/main.js",
-  "shake-me-baby": "https://realtimeboard.com/api/awesome-plugins/plugins/shake-me-baby/main.js"
-}
+[
+  "background-color-chooser",
+  "shake-me-baby"
+]
