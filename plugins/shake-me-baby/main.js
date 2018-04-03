@@ -6,6 +6,7 @@ rtb.initialize({
 		bottomBar: {
 			title: 'Shake me baby',
 			svgIcon: '',
+			positionPriority: 2,
 			onClick: function () {
 				function animate() {
 					zoomIn().then(zoomOut).then(animate)

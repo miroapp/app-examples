@@ -1,36 +1,77 @@
-interface IUIBoardCommands {
-	openLeftSidebar(url:string):Promise<void>
-	openRightSidebar(url:string):Promise<void>
+///<reference path="rtb.helpers.d.ts" />
+
+interface IWidgetCommands {
+	getAll():Promise<SDKWidgetInfo[]>
+	getById(widgetId:string):Promise<SDKWidgetInfo|undefined>
+	create(data:any):Promise<SDKWidgetInfo>
+	updateById(widgetId:string, data:any):Promise<SDKWidgetInfo>
+	deleteById(widgetId:string):Promise<void>
+}
+
+interface SDKLinkInfoCommands {
+	getAll():Promise<SDKLinkInfo[]>
+	getById(linkId:string):Promise<SDKLinkInfo|undefined>
+	connectWidgets(widgetAId:string, widgetBId:string, data:any):Promise<SDKLinkInfo>
+	updateById(linkId:string, data:any):Promise<SDKLinkInfo>
+	deleteById(linkId:string):Promise<void>
 }
 
 interface IBoardCommands {
-	ui:IUIBoardCommands
-	getInfo():Promise<any>
+	widgets:IWidgetCommands
+	links:SDKLinkInfoCommands
+
+	// iframe extension points
+	openLeftSidebar(iframeURL:string):Promise<void>
+	openRightSidebar(iframeURL:string):Promise<void>
+	openLibrary(iframeURL:string):Promise<void>
+	openModal(iframeURL:string):Promise<void>
+
+	// get basic board info
+	getInfo():Promise<SDKBoardInfo>
+
 	setZoom(value:number)
-	selectTool():Promise<void>
 	getZoom():Promise<number>
-	createWidget():Promise<{widgetId:string}>
-	getViewport():Promise<any>
-	setViewport():void
-	selectWidgets():void
-	setBackgroundColor(color:number):Promise<void>
+
+	// set HAND or CURSOR tool, depends on  EDIT_RIGHTS
+	selectDefaultTool():Promise<void>
+
+	// get current canvas viewport
+	getViewport():Promise<IRect>
+
+	// set canvas viewport
+	setViewport(viewport:IRect):Promise<IRect>
+	setViewportWithAnimation(viewport:IRect):Promise<IRect>
+	zoomInToWidget(widgetId:string, selectWidget?:boolean):void
+
+	// get selected widget id after user selects it
+	enterSelectWidgetMode():Promise<{widgetId:string}>
+
+	// utils methods to edit frames 
+	getFrameChildren(frameId:string):Promise<SDKWidgetInfo[]>
+	setFrameChildren(frameId:string, widgetIds:string[]):Promise<void>
 }
 
 interface IPluginConfig {
 	onStart?:() => void,
 	onStop?:() => void,
 	extensionPoints?:{
+		upload?:{
+			title:string,
+			svgIcon:string,
+			onClick:() => void
+		},
 		toolbar?:{
 			title:string,
 			toolbarSvgIcon:string,
 			librarySvgIcon:string,
-			onClick?:() => void
+			onClick:() => void
 		},
 		bottomBar?:{
 			title:string,
 			svgIcon:string,
-			onClick:() => void
-			getNotification?: () => any // Если обработчик есть, то он опрашивается приложением раз в секунду
+			positionPriority:number,
+			onClick:() => void,
+			getNotification?:() => any // Если обработчик есть, то он опрашивается приложением раз в секунду
 		},
 		exportMenu?:{
 			title:string,
@@ -59,8 +100,11 @@ interface RtbSDK {
 	//common
 	board:IBoardCommands
 
-	addListener()
-	removeListener()
+	addListener(event:string, listener:(e) => void)
+	removeListener(event:string, listener:(e) => void)
+
+	showNotification(text:string)
+	showErrorNotification(text:string)
 }
 
 declare const rtb:RtbSDK

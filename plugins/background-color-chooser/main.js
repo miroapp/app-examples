@@ -5,8 +5,9 @@ rtb.initialize({
 		bottomBar: {
 			title: 'Background chooser',
 			svgIcon: '',
+			positionPriority: 1,
 			onClick: function () {
-				rtb.board.ui.openLeftSidebar(sidebarUrl)
+				rtb.board.openLeftSidebar(sidebarUrl)
 			}
 		}
 	}
