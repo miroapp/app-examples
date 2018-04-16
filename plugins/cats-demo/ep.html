@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<script src="https://site.ptdev.multivi.ru/app/static/rtb.sdk.js"></script>
+<!--<script src="https://realtimeboard.com/app/static/rtb.sdk.js"></script>-->
+<style>
+    html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+        font-size: 14px;
+    }
+
+    #container {
+        height: 100%;
+        overflow: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px 0;
+        box-sizing: border-box;
+    }
+
+    .image-item {
+        display: block;
+    }
+
+
+</style>
+<body>
+<div id="container">
+</div>
+<script>
+
+	let imagesSRC = [
+		'http://icons.iconarchive.com/icons/iconka/meow/256/cat-walk-icon.png',
+		'http://icons.iconarchive.com/icons/iconka/meow-2/256/cat-hungry-icon.png',
+		'http://icons.iconarchive.com/icons/iconka/meow/256/cat-tied-icon.png',
+		'http://icons.iconarchive.com/icons/iconka/meow/256/cat-grumpy-icon.png',
+		'http://icons.iconarchive.com/icons/iconka/meow-2/256/cat-paper-icon.png',
+		'http://icons.iconarchive.com/icons/iconka/meow/256/cat-poo-icon.png'
+	]
+
+	function bootstrap() {
+		let container = document.getElementById('container')
+		let imagesAsHTML = imagesSRC.map(src => `<img class="image-item" src="${src}">`).join('')
+		container.innerHTML = imagesAsHTML
+		rtb.helpers.initScrollableContainerWithDraggableImages(container, {imageItemClassSelector: 'image-item'})
+	}
+
+	rtb.onReady(bootstrap)
+</script>
+</body>
+</html>

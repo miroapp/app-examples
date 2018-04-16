@@ -8,7 +8,7 @@ interface IWidgetCommands {
 	deleteById(widgetId:string):Promise<void>
 }
 
-interface SDKLinkInfoCommands {
+interface ILinksCommands {
 	getAll():Promise<SDKLinkInfo[]>
 	getById(linkId:string):Promise<SDKLinkInfo|undefined>
 	connectWidgets(widgetAId:string, widgetBId:string, data:any):Promise<SDKLinkInfo>
@@ -18,12 +18,12 @@ interface SDKLinkInfoCommands {
 
 interface IBoardCommands {
 	widgets:IWidgetCommands
-	links:SDKLinkInfoCommands
+	links:ILinksCommands
 
 	// iframe extension points
 	openLeftSidebar(iframeURL:string):Promise<void>
 	openRightSidebar(iframeURL:string):Promise<void>
-	openLibrary(iframeURL:string):Promise<void>
+	openLibrary(title:string, iframeURL:string):Promise<void>
 	openModal(iframeURL:string):Promise<void>
 
 	// get basic board info
@@ -49,6 +49,10 @@ interface IBoardCommands {
 	// utils methods to edit frames 
 	getFrameChildren(frameId:string):Promise<SDKWidgetInfo[]>
 	setFrameChildren(frameId:string, widgetIds:string[]):Promise<void>
+
+	// drop images to board
+	// for iframe extension point only
+	draggableImagePressed(options:DraggableImageOptions):Promise<SDKWidgetInfo|undefined>
 }
 
 interface IPluginConfig {
@@ -90,6 +94,12 @@ interface IPluginConfig {
 	}
 }
 
+interface SDKHelpers {
+	initScrollableContainerWithDraggableImages(container:Element, options:{
+		imageItemClassSelector:string
+	}):HTMLElement
+}
+
 interface RtbSDK {
 	// for sandbox only
 	initialize(config:IPluginConfig)
@@ -105,6 +115,8 @@ interface RtbSDK {
 
 	showNotification(text:string)
 	showErrorNotification(text:string)
+
+	helpers:SDKHelpers
 }
 
 declare const rtb:RtbSDK
