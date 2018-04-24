@@ -3,14 +3,6 @@ const icon48 = '<path stroke="null" fill="currentColor" d="m46.433974,3.149851c0
 
 rtb.initialize({
 	extensionPoints: {
-		bottomBar: {
-			title: 'Cats set',
-			svgIcon: icon24,
-			positionPriority: 3,
-			onClick: function () {
-				rtb.board.openLeftSidebar('ep.html')
-			}
-		},
 		toolbar: {
 			title: 'Cats set',
 			toolbarSvgIcon: icon24,
