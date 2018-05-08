@@ -5,6 +5,10 @@ echo "["
 ASSETS=./img/*.svg
 for f in ${ASSETS}
 do
+  #f2=${f// /_}
+  #mv "${f}" "${f2}"
+  #f=${f2}
+
   CONTENT=$(cat "${f}")
   if [[ ${CONTENT} =~ (viewBox=\"0 0 ([0-9\.]*) ([0-9\.]*)\") ]]; then
     WIDTH=${BASH_REMATCH[2]}
