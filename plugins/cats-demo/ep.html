@@ -52,9 +52,9 @@
 
 	function bootstrap() {
 		let container = document.getElementById('container')
-		let imagesAsHTML = imagesSRC.map(src => `<img class="image-item" src="${src}">`).join('')
+		let imagesAsHTML = imagesSRC.map(src => `<img class="image-item" src="${src}" data-image-url="${src}">`).join('')
 		container.innerHTML = imagesAsHTML
-		rtb.helpers.initScrollableContainerWithDraggableImages(container, {imageItemClassSelector: 'image-item'})
+		rtb.helpers.initScrollableContainerWithDraggableImages(container, {imageItemClassSelector: '.image-item'})
 	}
 
 	rtb.onReady(bootstrap)

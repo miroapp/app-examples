@@ -105,31 +105,31 @@
 		{src: 'img/Asset_9.svg', width: 211.51, height: 246.24},
 	]
 
-    function imgToHtmlBox(img) {
-		var box = '<div class="image-item-box">'
-        if (img) {
+	function imgToHtmlBox(img) {
+		var box = '<div class="image-item-box" data-image-url="' + img.src + '">'
+		if (img) {
 			//var w = Math.round(image.width)
 			//var h = Math.round(image.height)
 			//return '<img class="image-item" src="' + image.src + '" width="' + w + '" height="' + h + '">'
 			box += '<img src="' + img.src + '">'
-        }
+		}
 		box += '</div>'
-        return box
-    }
+		return box
+	}
 
 	function bootstrap() {
 		var container = document.getElementById('container')
-        var rows = []
+		var rows = []
 
 		for (var i = 0; i < images.length; i += 2) {
 			var row = '<div class="images-row">'
-            row += imgToHtmlBox(images[i])
-            row += imgToHtmlBox(images[i + 1])
-            row += '</div>'
-            rows.push(row)
-        }
+			row += imgToHtmlBox(images[i])
+			row += imgToHtmlBox(images[i + 1])
+			row += '</div>'
+			rows.push(row)
+		}
 		container.innerHTML = rows.join('')
-		rtb.helpers.initScrollableContainerWithDraggableImages(container, {imageItemClassSelector: 'image-item'})
+		rtb.helpers.initScrollableContainerWithDraggableImages(container, {imageItemClassSelector: '.image-item-box'})
 	}
 
 	rtb.onReady(bootstrap)
