@@ -1,3 +1,5 @@
+type EventNames = 'WIDGET_SELECTED'|'WIDGET_CREATED'
+
 type CanvasObjectType =
 	//widgets
 	'TEXT'|

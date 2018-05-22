@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="https://site.ptdev.multivi.ru/app/static/rtb.uikit.css">
+    <script src="https://site.ptdev.multivi.ru/app/static/rtb.sdk.js"></script>
+
+
+    <!--<script src="https://realtimeboard.com/app/static/rtb.sdk.js"></script>-->
+
+    <style>
+        .rtb-sidebar-caption {
+            font-size: 14px;
+            font-weight: bold;
+            color: rgba(0, 0, 0, 0.8);
+            padding: 24px 0 0 24px;
+        }
+
+        .no-selected-widget {
+            font-size: 18px;
+            text-align: center;
+            margin-top: 60px;
+            color: #999;
+        }
+
+        .widget-info {
+            padding: 20px 24px 0 24px;
+            height: 100%;
+        }
+
+        .editor {
+            width: 310px;
+            height: calc(100% - 120px);
+            border: 1px solid #ccc;
+            padding: 10px;
+            box-sizing: border-box;
+            font-family: Arial;
+            font-size: 14px;
+            margin: 0 -10px;
+            resize: none;
+        }
+    </style>
+</head>
+
+<body>
+<div class="rtb-sidebar-caption">Extra notes</div>
+<div class="no-selected-widget">
+    Please select one widget <br>to add notes  ✏️
+</div>
+<div class="widget-info">
+    <p id="widget-name"></p>
+    <textarea placeholder="Add some notes here. Saves locally" id="editor" class="editor">text word</textarea>
+</div>
+<script>
+	let lastSelectedWidgetId
+	let widgetName = document.querySelector('#widget-name')
+	let widgetInfo = document.querySelector('.widget-info')
+	let editor = document.querySelector('#editor')
+	let placeholder = document.querySelector('.no-selected-widget')
+
+	function onSelectionChange(e) {
+		let selectedWidgets = e.data
+		updateSelection(selectedWidgets)
+	}
+
+	function updateSelection(selectedWidgets) {
+		let selectedWidget = selectedWidgets[0]
+		if (selectedWidgets.length === 1) {
+			showElement(widgetInfo)
+			hideElement(placeholder)
+			lastSelectedWidgetId = selectedWidget.id
+			widgetName.innerText = selectedWidget.type
+			editor.value = getData(lastSelectedWidgetId)
+		} else {
+			showElement(placeholder)
+			hideElement(widgetInfo)
+		}
+	}
+
+	function showElement(el) {
+		el.style.display = 'block'
+	}
+
+	function hideElement(el) {
+		el.style.display = 'none'
+	}
+
+	hideElement(placeholder)
+	hideElement(widgetInfo)
+
+	rtb.onReady(() => {
+		rtb.addListener('SELECTION_CHANGED', onSelectionChange)
+		rtb.board.getSelection().then((selectedWidgets) => {
+			updateSelection(selectedWidgets)
+		})
+	})
+
+	editor.addEventListener('change', () => {
+		if (lastSelectedWidgetId) {
+			saveData(lastSelectedWidgetId, editor.value)
+		}
+	})
+
+	const LS_KEY = 'rtb-plugin-widget-info'
+
+	function saveData(widgetId, text) {
+		let data = JSON.parse(localStorage.getItem(LS_KEY)) || {}
+		data[widgetId] = text
+		localStorage.setItem(LS_KEY, JSON.stringify(data))
+	}
+
+	function getData(widgetId) {
+		let data = JSON.parse(localStorage.getItem(LS_KEY)) || {}
+		return data[widgetId] || ''
+	}
+</script>
+</body>
+</html>

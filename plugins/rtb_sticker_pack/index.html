@@ -130,7 +130,7 @@
 			rows.push(row)
 		}
 		container.innerHTML = rows.join('')
-		rtb.helpers.initScrollableContainerWithDraggableImages(container, {imageItemClassSelector: '.image-item-box'})
+		rtb.helpers.initScrollableContainerWithDraggableImages(container, {draggableImageSelector: '.image-item-box'})
 	}
 
 	rtb.onReady(bootstrap)

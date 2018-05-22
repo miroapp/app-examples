@@ -53,6 +53,9 @@ interface IBoardCommands {
 	// drop images to board
 	// for iframe extension point only
 	draggableImagePressed(options:DraggableImageOptions):Promise<SDKWidgetInfo|undefined>
+
+	// return current selected widgets
+	getSelection():Promise<{type:string, id:string}[]>
 }
 
 interface IPluginConfig {
@@ -96,7 +99,7 @@ interface IPluginConfig {
 
 interface SDKHelpers {
 	initScrollableContainerWithDraggableImages(container:Element, options:{
-		imageItemClassSelector:string
+		draggableImageSelector:string
 	}):HTMLElement
 }
 
@@ -110,8 +113,8 @@ interface RtbSDK {
 	//common
 	board:IBoardCommands
 
-	addListener(event:string, listener:(e) => void)
-	removeListener(event:string, listener:(e) => void)
+	addListener(event:EventNames, listener:(e) => void)
+	removeListener(event:EventNames, listener:(e) => void)
 
 	showNotification(text:string)
 	showErrorNotification(text:string)
