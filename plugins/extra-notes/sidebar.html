@@ -68,6 +68,7 @@
 		if (selectedWidgets.length === 1) {
 			showElement(widgetInfo)
 			hideElement(placeholder)
+			saveEditorData()
 			lastSelectedWidgetId = selectedWidget.id
 			widgetName.innerText = selectedWidget.type
 			editor.value = getData(lastSelectedWidgetId)
@@ -95,11 +96,14 @@
 		})
 	})
 
-	editor.addEventListener('change', () => {
+	editor.addEventListener('change', saveEditorData)
+
+	function saveEditorData() {
 		if (lastSelectedWidgetId) {
 			saveData(lastSelectedWidgetId, editor.value)
+			lastSelectedWidgetId = undefined
 		}
-	})
+	}
 
 	const LS_KEY = 'rtb-plugin-widget-info'
 
