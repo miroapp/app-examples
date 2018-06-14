@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="https://site.ptdev.multivi.ru/app/static/rtb.uikit.css">
+    <script src="https://site.ptdev.multivi.ru/app/static/rtb.sdk.js"></script>
+
+    <!--<link rel="stylesheet" type="text/css" href="https://realtimeboard.com/app/static/rtb.uikit.css">-->
+    <!--<script src="https://realtimeboard.com/app/static/rtb.sdk.js"></script>-->
+
+    <style>
+        .rtb-sidebar-caption {
+            font-size: 14px;
+            font-weight: bold;
+            color: rgba(0, 0, 0, 0.8);
+            padding: 24px 0 0 24px;
+        }
+
+        .actions {
+            padding: 20px 24px 0 24px;
+        }
+
+        button {
+            height: 32px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+            line-height: 30px;
+            text-align: center;
+            color: #fff;
+            min-width: 65px;
+            background-color: #2a79ff;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    </style>
+</head>
+
+<body>
+<div class="rtb-sidebar-caption">Tank-ops</div>
+<div class="actions">
+    <button onclick="onMoveClick()">move selected widgets</button>
+</div>
+
+<script>
+	'use strict'
+
+	async function onMoveClick() {
+		let selectedWidgets = await rtb.board.getSelection()
+		let selectedWidgetsIds = selectedWidgets.map(w => w.id)
+		rtb.board.transform(selectedWidgetsIds, 0, 20, 20)
+	}
+</script>
+</body>
+</html>

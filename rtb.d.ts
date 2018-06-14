@@ -1,24 +1,13 @@
 ///<reference path="rtb.helpers.d.ts" />
 
-interface IWidgetCommands {
-	getAll():Promise<SDKWidgetInfo[]>
-	getById(widgetId:string):Promise<SDKWidgetInfo|undefined>
-	create(data:any):Promise<SDKWidgetInfo>
-	updateById(widgetId:string, data:any):Promise<SDKWidgetInfo>
-	deleteById(widgetId:string):Promise<void>
-}
-
-interface ILinksCommands {
-	getAll():Promise<SDKLinkInfo[]>
-	getById(linkId:string):Promise<SDKLinkInfo|undefined>
-	connectWidgets(widgetAId:string, widgetBId:string, data:any):Promise<SDKLinkInfo>
-	updateById(linkId:string, data:any):Promise<SDKLinkInfo>
-	deleteById(linkId:string):Promise<void>
-}
-
 interface IBoardCommands {
-	widgets:IWidgetCommands
-	links:ILinksCommands
+	widgets:IBoardWidgetsCommands
+	frames
+
+	getAllObjects():IBaseWidget[]
+	getById<T>(objectId:string):Promise<T|undefined>
+	deleteById(objectIds:string|string[]):void
+	transform(objectIds:string|string[], deltaX:number, deltaY:number, deltaRotation:number):void
 
 	// iframe extension points
 	openLeftSidebar(iframeURL:string):Promise<void>
@@ -46,16 +35,15 @@ interface IBoardCommands {
 	// get selected widget id after user selects it
 	enterSelectWidgetMode():Promise<{widgetId:string}>
 
-	// utils methods to edit frames 
-	getFrameChildren(frameId:string):Promise<SDKWidgetInfo[]>
-	setFrameChildren(frameId:string, widgetIds:string[]):Promise<void>
-
-	// drop images to board
-	// for iframe extension point only
-	draggableImagePressed(options:DraggableImageOptions):Promise<SDKWidgetInfo|undefined>
+	// select target widgets
+	selectWidgets(widgetId:string|string[]):void
 
 	// return current selected widgets
 	getSelection():Promise<{type:string, id:string}[]>
+
+	// drop images to board
+	// for iframe extension point only
+	draggableImagePressed(options:DraggableImageOptions):Promise<IBaseWidget|undefined>
 }
 
 interface IPluginConfig {
