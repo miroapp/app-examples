@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="https://site.ptdev.multivi.ru/app/static/rtb.uikit.css">
+    <script src="https://site.ptdev.multivi.ru/app/static/rtb.sdk.js"></script>
+
+    <!--<link rel="stylesheet" type="text/css" href="https://realtimeboard.com/app/static/rtb.uikit.css">-->
+    <!--<script src="https://realtimeboard.com/app/static/rtb.sdk.js"></script>-->
+
+    <style>
+        .rtb-sidebar-caption {
+            font-size: 14px;
+            font-weight: bold;
+            color: rgba(0, 0, 0, 0.8);
+            padding: 24px 0 0 24px;
+        }
+
+        .actions {
+            padding: 20px 24px 0 24px;
+        }
+
+        button {
+            display: block;
+            height: 40px;
+            margin-top: 20px;
+            background-color: cornsilk;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            min-width: 240px;
+            text-align: left;
+            font-size: 14px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+<div class="rtb-sidebar-caption">SDK tests</div>
+<div class="actions">
+    <button onclick="testAll()">Test all</button>
+    <button onclick="testViewportCommands()">Test viewport commands</button>
+    <button onclick="testCommonWidgetCommands()">Test common widget commands</button>
+    <button onclick="testShapes()">Test shapes</button>
+    <button onclick="testStickers()">Test stickers</button>
+    <button onclick="testImages()">Test images</button>
+</div>
+
+<script>
+	'use strict'
+
+	async function testAll() {
+		await testViewportCommands()
+		await testCommonWidgetCommands()
+		await testShapes()
+		await testStickers()
+		await testImages()
+		rtb.showNotification('Test completed')
+	}
+
+	async function testViewportCommands() {
+		let boardInfo = await rtb.board.getInfo()
+		assertEq(typeof boardInfo.id, 'string', 'board.getInfo should return boardInfo')
+
+		await rtb.board.setZoom(2)
+		await rtb.board.setZoom(1)
+		let zoom = await rtb.board.getZoom()
+		assertEq(zoom, 1, 'setZoom and getZoom should work')
+
+		let currentVP = await rtb.board.getViewport()
+		let targetVP = {...currentVP, x: currentVP.x + 100}
+		let newVP = await rtb.board.setViewport(targetVP)
+		assertEq(targetVP, newVP, 'getViewport and setViewport should work')
+
+		await rtb.board.setViewportWithAnimation(currentVP)
+		newVP = await rtb.board.getViewport()
+		assertEq(currentVP, newVP, 'setViewportWithAnimation should work')
+
+		console.log('Done: testViewportCommands')
+	}
+
+	async function testCommonWidgetCommands() {
+		await clearBoard()
+
+		await rtb.board.widgets.shapes.create()
+		await rtb.board.widgets.stickers.create({x: 150})
+		let allObjects = await rtb.board.getAllObjects()
+		assertCondition(allObjects.length === 2, 'shape and sticker should had been created')
+
+		let selection = await rtb.board.getSelection()
+		assertCondition(selection.length === 0, 'selection should be empty')
+
+		await rtb.board.selectWidgets(allObjects.map(o => o.id))
+		selection = await rtb.board.getSelection()
+		assertCondition(selection.length === 2, 'shape and sticker should had been selected')
+
+		let objId1 = allObjects[0].id
+		let objId2 = allObjects[1].id
+		let obj1 = await rtb.board.getById(objId1)
+		let obj2 = await rtb.board.getById(objId2)
+		assertEq(allObjects[0], obj1, 'getById should work 1')
+		assertNotEq(allObjects[0], obj2, 'getById should work 2')
+
+		await rtb.board.transformDelta(obj1.id, 10, 10, 10)
+		let obj11 = await rtb.board.getById(obj1.id)
+		assertEq(obj11.x, obj1.x + 10, 'transformDelta.x should work')
+		assertEq(obj11.y, obj1.y + 10, 'transformDelta.y should work')
+		assertEq(obj11.rotation, obj1.rotation + 10, 'transformDelta.rotation should work')
+
+		await rtb.board.transformDelta(obj2.id, undefined, undefined, 10)
+		let obj22 = await rtb.board.getById(obj2.id)
+		assertEq(obj22.rotation, obj2.rotation, 'transformDelta.rotation should not work in stickers')
+
+		await rtb.board.transform([{objectId: obj1.id, x: 20, y: 20, rotation: 20}])
+		obj11 = await rtb.board.getById(obj1.id)
+		assertEq(obj11.x, 20, 'transform.x should work')
+		assertEq(obj11.y, 20, 'transform.y should work')
+		assertEq(obj11.rotation, 20, 'transform.rotation should work')
+
+		await rtb.board.transform([{objectId: obj1.id, y: 50}])
+		obj11 = await rtb.board.getById(obj1.id)
+		assertEq(obj11.x, 20, 'partial transform.x should work')
+		assertEq(obj11.y, 50, 'partial transform.y should work')
+
+		console.log('Done: testCommonWidgetCommands')
+	}
+
+	async function testShapes() {
+		await clearBoard()
+
+		let shape = await rtb.board.widgets.shapes.create({width: 200, height: 300, text: 'hello', style: {textColor: '#F00', borderColor: 'transparent'}})
+		let shapes = await rtb.board.widgets.shapes.get()
+
+		assertEq(shapes.length, 1, 'there are should be only one shape')
+		assertEq(shapes[0], shape, 'shapes.get() should work')
+		assertEq(shape.width, 200, 'shapes.create width should work')
+		assertEq(shape.height, 300, 'shapes.create height should work')
+		assertEq(shape.text, 'hello', 'shapes.create text should work')
+		assertEq(shape.style.textColor, '#ff0000', 'shapes.create textColor should work')
+		assertEq(shape.style.borderColor, 'transparent', 'shapes.create borderColor should work')
+
+		let updatingShapeData = {width: 100, height: 100, text: '', style: {textColor: '#00ff00'}}
+		let updatedShape = await rtb.board.widgets.shapes.update(shape.id, updatingShapeData)
+		assertEq(updatedShape.height, updatingShapeData.width, 'shapes.update height should work')
+		assertEq(updatedShape.width, updatingShapeData.height, 'shapes.update width should work')
+		assertEq(updatedShape.text, updatingShapeData.text, 'shapes.update text should work')
+		assertEq(updatedShape.style.textColor, updatingShapeData.style.textColor, 'shapes.update textColor should work')
+		assertEq(updatedShape.style.borderColor, 'transparent', 'shapes.update borderColor should work')
+
+		console.log('Done: testShapes')
+	}
+
+	async function testStickers() {
+		await clearBoard()
+
+		let sticker = await rtb.board.widgets.stickers.create({width: 199, text: 'hello', style: {textAlign: 'l', stickerBackgroundColor: '#ff0000'}})
+		let stickers = await rtb.board.widgets.stickers.get()
+		assertEq(stickers.length, 1, 'there are should be only one sticker')
+		assertEq(stickers[0], sticker, 'sticker.get() should work')
+		assertEq(sticker.width, 199, 'stickers.create width should work')
+		assertEq(sticker.text, 'hello', 'stickers.create text should work')
+		assertEq(sticker.style.stickerBackgroundColor, '#ff0000', 'stickers.create backgroundColor should work')
+		assertEq(sticker.style.textAlign, 'l', 'stickers.create textAlign should work')
+
+		let updatingStickerData = {width: 398, text: '', style: {stickerBackgroundColor: '#00ff00'}}
+		let updatedSticker = await rtb.board.widgets.stickers.update(sticker.id, updatingStickerData)
+
+		assertEq(updatedSticker.width, 398, 'stickers.update width should work')
+		assertEq(updatedSticker.text, updatingStickerData.text, 'stickers.update text should work')
+		assertEq(updatedSticker.style.stickerBackgroundColor, updatingStickerData.style.stickerBackgroundColor, 'stickers.update stickerBackgroundColor should work')
+		assertEq(updatedSticker.style.textAlign, 'l', 'stickers.update textAlign should not change')
+
+		console.log('Done: testStickers')
+	}
+
+	async function testImages() {
+		await clearBoard()
+
+		const imgURL = 'https://hsto.org/webt/fo/u0/zl/fou0zlybtv_lmaatmyrfcktrkro.jpeg'
+		const imgWidth = 800
+		const imgHeight = 439
+
+		let image = await rtb.board.widgets.images.createByURL(imgURL)
+		assertEq(image.width, imgWidth, 'image.create with no width')
+		assertEq(image.height, imgHeight, 'image.create with no width')
+
+		let newImageCaption = 'new caption'
+		let updatedImage = (await rtb.board.widgets.images.update(image.id, {width: 400, caption: newImageCaption}))
+		assertEq(updatedImage.caption, newImageCaption, 'image.update newImageCaption should work')
+		assertEq(updatedImage.width, 400, 'image.update width should work')
+
+		image = await rtb.board.widgets.images.createByURL(imgURL, {width: 200})
+		assertEq(image.width, 200, 'image created with preset width')
+
+		console.log('Done: testImages')
+	}
+
+	////////////////////////////////////////////////////////////////////////////////////
+	// HELPERS
+	////////////////////////////////////////////////////////////////////////////////////
+
+	async function clearBoard() {
+		let allObjects = await rtb.board.getAllObjects()
+		await rtb.board.deleteById(allObjects.map(o => o.id))
+		allObjects = await rtb.board.getAllObjects()
+		assertCondition(allObjects.length === 0, 'board should be empty')
+	}
+
+	function assertCondition(cond, message) {
+		console.assert(cond, message)
+	}
+
+	function assertEq(value, expectedValue, message) {
+		if (typeof value === 'object') {
+			console.assert(isEquivalent(value, expectedValue), message, value, expectedValue)
+		} else {
+			console.assert(value === expectedValue, `'${value}' !== '${expectedValue}', ${message}`)
+		}
+	}
+
+	function assertNotEq(value, expectedValue, message) {
+		if (typeof value === 'object') {
+			console.assert(!isEquivalent(value, expectedValue), message, value, expectedValue)
+		} else {
+			console.assert(value !== expectedValue, `'${value}' === '${expectedValue}', ${message}`)
+		}
+	}
+
+	function isEquivalent(a, b) {
+		return JSON.stringify(a) === JSON.stringify(b)
+	}
+</script>
+</body>
+</html>

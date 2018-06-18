@@ -7,7 +7,9 @@ interface IBoardCommands {
 	getAllObjects():IBaseWidget[]
 	getById<T>(objectId:string):Promise<T|undefined>
 	deleteById(objectIds:string|string[]):void
-	transform(objectIds:string|string[], deltaX:number, deltaY:number, deltaRotation:number):void
+	transformDelta(objectIds:string|string[], deltaX:number|undefined, deltaY:number|undefined, deltaRotation:number|undefined):void
+	transform(transformations:{objectId:string, x:number|undefined, y:number|undefined, rotation:number|undefined}[]):void
+
 
 	// iframe extension points
 	openLeftSidebar(iframeURL:string):Promise<void>

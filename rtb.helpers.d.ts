@@ -127,32 +127,33 @@ interface IBaseWidget {
 
 interface IBoardWidgetsCommands {
 	images:{
-		createByURL(url:string, data:IImageWidgetData):Promise<IImageWidgetData&IBaseWidget|undefined>
+		createByURL(url:string, data?:IImageWidgetData):Promise<IImageWidgetData&IBaseWidget|undefined>
 		get():Promise<IImageWidgetData&IBaseWidget[]>
-		update(ids:string|string[], data:IImageWidgetData):Promise<IImageWidgetData&IBaseWidget[]>
+		update(id:string, data:IImageWidgetData):Promise<IImageWidgetData&IBaseWidget>
+		update(ids:string[], data:IImageWidgetData):Promise<IImageWidgetData&IBaseWidget[]>
 	}
 	stickers:{
-		create(data:IStickerWidgetData):Promise<IStickerWidgetData&IBaseWidget>
+		create(data?:IStickerWidgetData):Promise<IStickerWidgetData&IBaseWidget>
 		get():Promise<IStickerWidgetData&IBaseWidget[]>
 		update(ids:string|string[], data:IStickerWidgetData):Promise<IStickerWidgetData&IBaseWidget|undefined[]>
 	}
 	shapes:{
-		create(data:IShapeWidgetData):Promise<IShapeWidgetData&IBaseWidget>
+		create(data?:IShapeWidgetData):Promise<IShapeWidgetData&IBaseWidget>
 		get():Promise<IShapeWidgetData&IBaseWidget[]>
 		update(ids:string|string[], data:IShapeWidgetData):Promise<IShapeWidgetData&IBaseWidget[]>
 	}
 	lines:{
-		create(data:ILineWidgetData):Promise<ILineWidgetData&IBaseWidget>
+		create(data?:ILineWidgetData):Promise<ILineWidgetData&IBaseWidget>
 		get():Promise<ILineWidgetData&IBaseWidget[]>
 		update(ids:string|string[], data:ILineWidgetData):Promise<ILineWidgetData&IBaseWidget[]>
 	}
 	webScreenshots:{
-		create(url:string, data:IWebScreenshotWidgetData):Promise<IWebScreenshotWidgetData&IBaseWidget>
+		create(url:string, data?:IWebScreenshotWidgetData):Promise<IWebScreenshotWidgetData&IBaseWidget>
 		get():Promise<IWebScreenshotWidgetData&IBaseWidget[]>
 		update(ids:string|string[], data:IWebScreenshotWidgetData):Promise<IWebScreenshotWidgetData&IBaseWidget[]>
 	}
 	embeds:{
-		create(htmlCode:string, data:IEmbedWidgetData):Promise<IEmbedWidgetData&IBaseWidget>
+		create(htmlCode:string, data?:IEmbedWidgetData):Promise<IEmbedWidgetData&IBaseWidget>
 		get():Promise<IEmbedWidgetData&IBaseWidget[]>
 		update(ids:string|string[], data:IEmbedWidgetData):Promise<IEmbedWidgetData&IBaseWidget[]>
 	}
@@ -188,7 +189,7 @@ interface IStickerWidgetData {
 }
 
 interface IStickerStyleData {
-	backgroundColor?:string
+	stickerBackgroundColor?:string
 	fontSize?:number
 	textAlign?:string
 }
