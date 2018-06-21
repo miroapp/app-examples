@@ -2,37 +2,42 @@
 
 interface IBoardCommands {
 	widgets:IBoardWidgetsCommands
-	frames
+	frames:IBoardFramesCommands
+	comments:IBoardCommentsCommands
+	groups:IBoardGroupsCommands
 
-	getAllObjects():IBaseWidget[]
+	getAllObjects():Promise<IBaseWidget[]>
 	getById<T>(objectId:string):Promise<T|undefined>
-	deleteById(objectIds:string|string[]):void
-	transformDelta(objectIds:string|string[], deltaX:number|undefined, deltaY:number|undefined, deltaRotation:number|undefined):void
-	transform(transformations:{objectId:string, x:number|undefined, y:number|undefined, rotation:number|undefined}[]):void
-
+	deleteById(objectIds:string|string[]):Promise<boolean>
+	transformDelta(objectIds:string|string[], deltaX:number|undefined, deltaY:number|undefined, deltaRotation:number|undefined)
+	transform(transformations:{objectId:string, x:number|undefined, y:number|undefined, rotation:number|undefined}[])
 
 	// iframe extension points
-	openLeftSidebar(iframeURL:string):Promise<void>
-	openRightSidebar(iframeURL:string):Promise<void>
-	openLibrary(title:string, iframeURL:string):Promise<void>
-	openModal(iframeURL:string):Promise<void>
+	openLeftSidebar(iframeURL:string):void
+	openRightSidebar(iframeURL:string):void
+
+	// I am not sure about 'title' parameter
+	openLibrary(title:string, iframeURL:string):void
+	openModal(iframeURL:string, options?:{maxWidth?:number, maxHeight?:number}):void
+	closeCurrentModal():void
+	openConfirmModal(options:IConfirmModalOptions):Promise<boolean>
 
 	// get basic board info
 	getInfo():Promise<SDKBoardInfo>
 
-	setZoom(value:number)
-	getZoom():Promise<number>
+	setZoom(value:number):void
+	getZoom():number
 
 	// set HAND or CURSOR tool, depends on  EDIT_RIGHTS
-	selectDefaultTool():Promise<void>
+	selectDefaultTool():void
 
 	// get current canvas viewport
-	getViewport():Promise<IRect>
+	getViewport():IRect
 
 	// set canvas viewport
 	setViewport(viewport:IRect):Promise<IRect>
 	setViewportWithAnimation(viewport:IRect):Promise<IRect>
-	zoomInToWidget(widgetId:string, selectWidget?:boolean):void
+	zoomInToWidget(widgetId:string, selectWidget:boolean):void
 
 	// get selected widget id after user selects it
 	enterSelectWidgetMode():Promise<{widgetId:string}>
@@ -41,7 +46,7 @@ interface IBoardCommands {
 	selectWidgets(widgetId:string|string[]):void
 
 	// return current selected widgets
-	getSelection():Promise<{type:string, id:string}[]>
+	getSelection():Promise<IBaseWidget[]>
 
 	// drop images to board
 	// for iframe extension point only

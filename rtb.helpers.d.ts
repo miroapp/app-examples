@@ -109,10 +109,6 @@ interface IBounds {
 	height:number
 }
 
-////////////////////////////////////////////////////////////////////////
-// Widgets
-////////////////////////////////////////////////////////////////////////
-
 interface IBaseWidget {
 	id:string
 	type:string
@@ -125,66 +121,117 @@ interface IBaseWidget {
 	customData:any
 }
 
+interface IConfirmModalOptions {
+	caption:string
+	text:string
+	confirmButtonText:string
+	cancelButtonText:string
+}
+
 interface IBoardWidgetsCommands {
 	images:{
 		createByURL(url:string, data?:IImageWidgetData):Promise<IImageWidgetData&IBaseWidget|undefined>
 		get():Promise<IImageWidgetData&IBaseWidget[]>
-		update(id:string, data:IImageWidgetData):Promise<IImageWidgetData&IBaseWidget>
-		update(ids:string[], data:IImageWidgetData):Promise<IImageWidgetData&IBaseWidget[]>
+		update(ids:string, data:IImageWidgetData):Promise<IImageWidgetData&IBaseWidget|undefined>
+		update(ids:string[], data:IImageWidgetData):Promise<(IImageWidgetData&IBaseWidget|undefined)[]>
 	}
 	stickers:{
-		create(data?:IStickerWidgetData):Promise<IStickerWidgetData&IBaseWidget>
+		create(data?:IStickerWidgetData):Promise<IStickerWidgetData&IBaseWidget|undefined>
 		get():Promise<IStickerWidgetData&IBaseWidget[]>
-		update(ids:string|string[], data:IStickerWidgetData):Promise<IStickerWidgetData&IBaseWidget|undefined[]>
+		update(ids:string, data:IStickerWidgetData):Promise<IStickerWidgetData&IBaseWidget|undefined>
+		update(ids:string[], data:IStickerWidgetData):Promise<(IStickerWidgetData&IBaseWidget|undefined)[]>
 	}
 	shapes:{
-		create(data?:IShapeWidgetData):Promise<IShapeWidgetData&IBaseWidget>
+		create(data?:IShapeWidgetData):Promise<IShapeWidgetData&IBaseWidget|undefined>
 		get():Promise<IShapeWidgetData&IBaseWidget[]>
-		update(ids:string|string[], data:IShapeWidgetData):Promise<IShapeWidgetData&IBaseWidget[]>
+		update(ids:string, data:IShapeWidgetData):Promise<IShapeWidgetData&IBaseWidget|undefined>
+		update(ids:string[], data:IShapeWidgetData):Promise<(IShapeWidgetData&IBaseWidget|undefined)[]>
 	}
 	lines:{
-		create(data?:ILineWidgetData):Promise<ILineWidgetData&IBaseWidget>
+		create(data?:ILineWidgetData):Promise<ILineWidgetData&IBaseWidget|undefined>
 		get():Promise<ILineWidgetData&IBaseWidget[]>
-		update(ids:string|string[], data:ILineWidgetData):Promise<ILineWidgetData&IBaseWidget[]>
+		update(ids:string, data:ILineWidgetData):Promise<ILineWidgetData&IBaseWidget|undefined>
+		update(ids:string[], data:ILineWidgetData):Promise<(ILineWidgetData&IBaseWidget|undefined)[]>
 	}
 	webScreenshots:{
-		create(url:string, data?:IWebScreenshotWidgetData):Promise<IWebScreenshotWidgetData&IBaseWidget>
+		create(url:string, data?:IWebScreenshotWidgetData):Promise<IWebScreenshotWidgetData&IBaseWidget|undefined>
 		get():Promise<IWebScreenshotWidgetData&IBaseWidget[]>
-		update(ids:string|string[], data:IWebScreenshotWidgetData):Promise<IWebScreenshotWidgetData&IBaseWidget[]>
+		update(ids:string, data:IWebScreenshotWidgetData):Promise<IWebScreenshotWidgetData&IBaseWidget|undefined>
+		update(ids:string[], data:IWebScreenshotWidgetData):Promise<(IWebScreenshotWidgetData&IBaseWidget|undefined)[]>
 	}
 	embeds:{
-		create(htmlCode:string, data?:IEmbedWidgetData):Promise<IEmbedWidgetData&IBaseWidget>
+		create(htmlCode:string, data?:IEmbedWidgetData):Promise<IEmbedWidgetData&IBaseWidget|undefined>
 		get():Promise<IEmbedWidgetData&IBaseWidget[]>
-		update(ids:string|string[], data:IEmbedWidgetData):Promise<IEmbedWidgetData&IBaseWidget[]>
+		update(ids:string, data:IEmbedWidgetData):Promise<IEmbedWidgetData&IBaseWidget|undefined>
+		update(ids:string[], data:IEmbedWidgetData):Promise<(IEmbedWidgetData&IBaseWidget|undefined)[]>
 	}
 
 	getWidgets():Promise<IBaseWidget[]>
-	bringForward(widgetId:string|string[])
-	sendBackward(widgetId:string|string[])
+	bringForward(widgetId:string|string[]):Promise<void>
+	sendBackward(widgetId:string|string[]):Promise<void>
+}
+
+interface IBoardFramesCommands {
+	create(data:IFrameWidgetData):Promise<IFrameWidgetData&IBaseWidget>
+	get():Promise<IFrameWidgetData&IBaseWidget[]>
+	update(ids:string, data:IFrameWidgetData):Promise<IFrameWidgetData&IBaseWidget>
+	update(ids:string[], data:IFrameWidgetData):Promise<(IFrameWidgetData&IBaseWidget|undefined)[]>
+	getFrameChildren(frameId:string):Promise<IBaseWidget[]>
+	setFrameChildren(frameId:string, widgetIds:string[]):Promise<void>
+}
+
+interface IBoardCommentsCommands {
+	get():Promise<ICommentData&IBaseWidget[]>
+}
+
+interface IBoardGroupsCommands {
+	get():Promise<IGroupData[]>
+}
+
+interface IGroupData {
+	id:string
+	bounds:IBounds
+	childrenIds:string[]
 }
 
 ////////////////////////////////////////////////////////////////////////
-// Image
+// Widget data types
 ////////////////////////////////////////////////////////////////////////
+
+interface ITextWidgetData {
+	x?:number
+	y?:number
+	width?:number
+	height?:number
+	rotation?:number
+	text?:string
+	style?:ITextStyleData
+}
+
+interface ITextStyleData {
+	backgroundColor?:string|number
+	backgroundOpacity?:number
+	borderColor?:string|number
+	borderWidth?:number
+	borderStyle?:number
+	fontSize?:number
+	textColor?:string|number
+	textAlign?:string
+}
 
 interface IImageWidgetData {
 	x?:number
 	y?:number
+	rotation?:number
 	width?:number
-	caption?:string
+	title?:string
 }
-
-////////////////////////////////////////////////////////////////////////
-// Sticker
-////////////////////////////////////////////////////////////////////////
 
 interface IStickerWidgetData {
 	x?:number
 	y?:number
-	width?:number // default depends on stickerType
-	text?:string // default = ''
-	//todo not implemented - move to style
-	//stickerType?:number, // default = 0 // 'SQUARE', todo replace to sdk.enums.StickerType.SQUARE, move to style
+	width?:number
+	text?:string
 	style?:IStickerStyleData
 }
 
@@ -192,11 +239,8 @@ interface IStickerStyleData {
 	stickerBackgroundColor?:string
 	fontSize?:number
 	textAlign?:string
+	stickerType?:number
 }
-
-////////////////////////////////////////////////////////////////////////
-// Shape
-////////////////////////////////////////////////////////////////////////
 
 interface IShapeWidgetData {
 	x?:number
@@ -209,6 +253,7 @@ interface IShapeWidgetData {
 }
 
 interface IShapeStyleData {
+	shapeType?:number
 	backgroundColor?:string|number
 	backgroundOpacity?:number
 	borderColor?:string|number
@@ -220,16 +265,11 @@ interface IShapeStyleData {
 	textAlignVertical?:string
 }
 
-////////////////////////////////////////////////////////////////////////
-// Line
-////////////////////////////////////////////////////////////////////////
-
 interface ILineWidgetData {
 	startWidgetId?:string
 	endWidgetId?:string
 	startPosition?:IPoint
 	endPosition?:IPoint
-	readonly size?:ISize
 	style?:ILineStyleData
 }
 
@@ -240,40 +280,59 @@ interface ILineStyleData {
 	borderStyle?:string
 }
 
-////////////////////////////////////////////////////////////////////////
-// WebScreenshot
-////////////////////////////////////////////////////////////////////////
-
 interface IWebScreenshotWidgetData {
 	x?:number
 	y?:number
 	width?:number
 	rotation?:number
+	url?:string
 }
-
-////////////////////////////////////////////////////////////////////////
-// Frame
-////////////////////////////////////////////////////////////////////////
 
 interface IFrameWidgetData {
 	x?:number
 	y?:number
 	width?:number
 	height?:number
-	caption?:string
+	title?:string
+	frameIndex?:number
 	style?:IFrameStyleData
 }
 
 interface IFrameStyleData {
-	//todo sdk implement
+	backgroundColor?:string
 }
 
-////////////////////////////////////////////////////////////////////////
-// Embed
-////////////////////////////////////////////////////////////////////////
+interface ICurveWidgetData {
+	points?:IPoint[]
+	style?:ICurveStyleData
+}
+
+interface ICurveStyleData {
+	lineColor?:string
+	lineWidth?:number
+}
 
 interface IEmbedWidgetData {
 	x?:number
 	y?:number
 	width?:number
+	url?:string
+	innerHTML?:string
+}
+
+interface IPreviewWidgetData {
+	url?:string
+}
+
+interface ICommentData {
+	color?:number
+	resolved?:boolean
+}
+
+interface IDocumentWidgetData {
+	title?:string
+}
+
+interface IMockupWidgetData {
+	mockupType?:string
 }

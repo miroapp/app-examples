@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="https://site.ptdev.multivi.ru/app/static/rtb.uikit.css">
-    <script src="https://site.ptdev.multivi.ru/app/static/rtb.sdk.js"></script>
+    <!--<link rel="stylesheet" type="text/css" href="https://site.ptdev.multivi.ru/app/static/rtb.uikit.css">-->
+    <!--<script src="https://site.ptdev.multivi.ru/app/static/rtb.sdk.js"></script>-->
 
-    <!--<link rel="stylesheet" type="text/css" href="https://realtimeboard.com/app/static/rtb.uikit.css">-->
-    <!--<script src="https://realtimeboard.com/app/static/rtb.sdk.js"></script>-->
+    <link rel="stylesheet" type="text/css" href="https://realtimeboard.com/app/static/rtb.uikit.css">
+    <script src="https://realtimeboard.com/app/static/rtb.sdk.js"></script>
 
     <style>
         .rtb-sidebar-caption {
@@ -44,6 +44,7 @@
     <button onclick="testShapes()">Test shapes</button>
     <button onclick="testStickers()">Test stickers</button>
     <button onclick="testImages()">Test images</button>
+    <button onclick="testEvents()">Test events</button>
 </div>
 
 <script>
@@ -55,6 +56,8 @@
 		await testShapes()
 		await testStickers()
 		await testImages()
+		await testEvents()
+
 		rtb.showNotification('Test completed')
 	}
 
@@ -184,15 +187,59 @@
 		assertEq(image.width, imgWidth, 'image.create with no width')
 		assertEq(image.height, imgHeight, 'image.create with no width')
 
-		let newImageCaption = 'new caption'
-		let updatedImage = (await rtb.board.widgets.images.update(image.id, {width: 400, caption: newImageCaption}))
-		assertEq(updatedImage.caption, newImageCaption, 'image.update newImageCaption should work')
+		let newImageTitle = 'new title'
+		let updatedImage = (await rtb.board.widgets.images.update(image.id, {width: 400, title: newImageTitle}))
+		assertEq(updatedImage.title, newImageTitle, 'image.update newImageTitle should work')
 		assertEq(updatedImage.width, 400, 'image.update width should work')
 
 		image = await rtb.board.widgets.images.createByURL(imgURL, {width: 200})
 		assertEq(image.width, 200, 'image created with preset width')
 
 		console.log('Done: testImages')
+	}
+
+	async function testEvents() {
+		await testSelectionUpdatedEvent()
+		await testWidgetsCreatedEvent()
+		await testWidgetsUpdatedEvent()
+		await testWidgetsDeletedEvent()
+	}
+
+	async function testSelectionUpdatedEvent() {
+		let shape = await rtb.board.widgets.shapes.create()
+		await rtb.board.selectWidgets([])
+		let selection = await getDataFromEvent('SELECTION_UPDATED', () => {
+			rtb.board.selectWidgets(shape.id)
+		})
+		assertEq(selection.length, 1, 'selected only one widget')
+		assertEq(selection[0].id, shape.id, 'selected the target shape')
+
+		console.log('Done: SELECTION_UPDATED')
+	}
+
+	async function testWidgetsCreatedEvent() {
+		let createdWidgets = await getDataFromEvent('WIDGETS_CREATED', () => {
+			rtb.board.widgets.shapes.create()
+		})
+		assertEq(createdWidgets.length, 1, 'created one widget')
+
+		console.log('Done: WIDGETS_CREATED')
+	}
+
+	async function testWidgetsUpdatedEvent() {
+		let shape1 = await rtb.board.widgets.shapes.create()
+		let shape2 = await rtb.board.widgets.shapes.create({x: 50})
+		let updatedWidgets = await getDataFromEvent('WIDGETS_UPDATED', () => {
+			rtb.board.transformDelta([shape1.id, shape2.id], 20)
+		})
+		assertEq(updatedWidgets.length, 2, 'updated two widgets')
+
+		console.log('Done: WIDGETS_UPDATED')
+	}
+
+	async function testWidgetsDeletedEvent() {
+
+		console.log('Done: WIDGETS_DELETED')
 	}
 
 	////////////////////////////////////////////////////////////////////////////////////
@@ -224,6 +271,21 @@
 		} else {
 			console.assert(value !== expectedValue, `'${value}' === '${expectedValue}', ${message}`)
 		}
+	}
+
+	async function getDataFromEvent(eventType, action) {
+		return new Promise((resolve, reject) => {
+			let timeoutId = setTimeout(() => {
+				reject(`${eventType} out of timeout`)
+			}, 100)
+			let handler = (e) => {
+				clearTimeout(timeoutId)
+				rtb.removeListener(eventType, handler)
+				resolve(e.data)
+			}
+			rtb.addListener(eventType, handler)
+			action()
+		})
 	}
 
 	function isEquivalent(a, b) {
