@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="https://site.ptdev.multivi.ru/app/static/rtb.uikit.css">
+    <script src="https://site.ptdev.multivi.ru/app/static/rtb.sdk.js"></script>
+
+    <style>
+        .rtb-sidebar-caption {
+            font-size: 14px;
+            font-weight: bold;
+            color: rgba(0, 0, 0, 0.8);
+            padding: 24px 0 0 24px;
+            margin-bottom: 20px;
+        }
+
+        .container {
+            overflow-y: auto;
+            max-height: calc(100% - 60px);
+        }
+
+        .container > .items-container {
+            border-top: 1px solid #e7e7e7;
+        }
+
+        .item {
+            display: flex;
+            align-items: center;
+            height: 48px;
+            line-height: 48px;
+            cursor: pointer;
+            padding-left: 24px;
+        }
+
+        .items-container .item:not(.items-container__caption) {
+            padding-left: 48px;
+        }
+
+        .items-container .items-container .items-container__caption {
+            padding-left: 48px;
+        }
+
+        .items-container .items-container .item:not(.items-container__caption) {
+            padding-left: 72px;
+        }
+
+        .item img {
+            width: 16px;
+            margin-right: 8px;
+        }
+
+        .item:hover {
+            background-color: rgba(0, 0, 0, 0.04);
+        }
+
+        .item.item--highlighted {
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+
+        .item--highlighted > .items-container__caption {
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+
+    </style>
+</head>
+
+<body>
+<div class="rtb-sidebar-caption">Layers</div>
+<div class="container"></div>
+
+<template>
+    <div class="items-container items-container--frame">
+        <div class="item items-container__caption"><img src="img/frames-16.svg"><span></span></div>
+    </div>
+    <div class="items-container items-container--group">
+        <div class="item items-container__caption"><img src="img/group-16.svg"><span></span></div>
+    </div>
+    <div class="item item-widget"><img src="img/doc-16.svg"><span></span></div>
+</template>
+
+<script>
+	'use strict'
+
+	const ITEM_HIGHLIGHTED_CLASS = 'item--highlighted'
+
+	let framesData = []
+	let groupsData = []
+	let widgetsData = []
+	let framesByWidget = new Map()
+	let framesById = new Map()
+	let groupsByWidget = new Map()
+	let groupsById = new Map()
+	let widgetsById = new Map()
+
+	async function rebuild() {
+		framesByWidget.clear()
+		framesById.clear()
+		groupsByWidget.clear()
+		groupsById.clear()
+		widgetsById.clear()
+		framesData = await rtb.board.frames.get()
+		groupsData = await rtb.board.groups.get()
+		widgetsData = await rtb.board.widgets.get()
+		redraw()
+	}
+
+	let container = document.querySelector('.container')
+	let template = document.querySelector('template').content
+	let frameTemplate = template.querySelector('.items-container--frame')
+	let groupTemplate = template.querySelector('.items-container--group')
+	let widgetTemplate = template.querySelector('.item-widget')
+
+	function redraw() {
+		container.innerHTML = ''
+
+		framesData.forEach(frame => {
+			let el = createFrameElement(frame)
+			container.appendChild(el)
+		})
+
+		//создаем оставшиеся группы
+		groupsData.forEach(group => {
+			if (!groupsById.has(group.id)) {
+				let el = createGroupElement(group)
+				container.appendChild(el)
+			}
+		})
+
+		//создаем оставшиеся виджеты
+		widgetsData.forEach(widget => {
+			if (!widgetsById.has(widget.id)) {
+				let el = createWidgetElement(widget)
+				container.appendChild(el)
+			}
+		})
+	}
+
+	function createFrameElement(frame) {
+		let frameEl = frameTemplate.cloneNode(true)
+		frameEl.querySelector('span').innerText = frame.title
+		framesById.set(frame.id, frameEl)
+		attachZoomListener(frameEl, frame.id)
+
+		frame.childrenIds.forEach(widgetId => {
+			framesByWidget.set(widgetId, frameEl)
+			let w = widgetsData.find(widget => widget.id === widgetId)
+			if (w.groupId) {
+				let groupEl = getGroupEl(w.groupId)
+				frameEl.appendChild(groupEl)
+			} else {
+				let widgetEl = createWidgetElement(w)
+				frameEl.appendChild(widgetEl)
+			}
+		})
+
+		return frameEl
+	}
+
+	function getGroupEl(groupId) {
+		let el = groupsById.get(groupId)
+		if (!el) {
+			el = createGroupElement(groupsData.find(g => g.id === groupId))
+		}
+		return el
+	}
+
+	function createGroupElement(group) {
+		let groupEl = groupTemplate.cloneNode(true)
+		groupEl.querySelector('span').innerText = `Group ${group.id}`
+		attachZoomListener(groupEl, group.id)
+		groupsById.set(group.id, groupEl)
+
+		group.childrenIds.forEach(widgetId => {
+			groupsByWidget.set(widgetId, groupEl)
+			let w = widgetsData.find(widget => widget.id === widgetId)
+			let widgetEl = createWidgetElement(w)
+			groupEl.appendChild(widgetEl)
+		})
+
+		return groupEl
+	}
+
+	function createWidgetElement(widget) {
+		let widgetEl = widgetTemplate.cloneNode(true)
+		widgetEl.querySelector('span').innerText = capitalizeFirstLetter(widget.type)
+		attachZoomListener(widgetEl, widget.id)
+		widgetsById.set(widget.id, widgetEl)
+		return widgetEl
+	}
+
+	function capitalizeFirstLetter(string) {
+		string = string.toLowerCase()
+		return string.charAt(0).toUpperCase() + string.slice(1);
+	}
+
+	function attachZoomListener(element, objectId) {
+		element.addEventListener('click', (e) => {
+			console.log(objectId)
+			e.stopPropagation()
+			rtb.board.zoomToObject(objectId, true)
+		})
+	}
+
+	function highlightWidgets(ids) {
+		framesById.forEach((frameEl) => {
+			frameEl.classList.remove(ITEM_HIGHLIGHTED_CLASS)
+		})
+		widgetsById.forEach((widgetEl) => {
+			widgetEl.classList.remove(ITEM_HIGHLIGHTED_CLASS)
+		})
+		ids.forEach(id => {
+			let element = widgetsById.get(id) || framesById.get(id)
+			if (element) {
+				element.classList.add(ITEM_HIGHLIGHTED_CLASS)
+			}
+		})
+	}
+
+	function onSelectionUpdated(e) {
+		highlightWidgets(e.data.map(w => w.id))
+	}
+
+	rtb.onReady(() => {
+		rebuild()
+		let event = rtb.enums.event
+		rtb.addListener(event.WIDGETS_CREATED, rebuild)
+		rtb.addListener(event.WIDGETS_DELETED, rebuild)
+		rtb.addListener(event.SELECTION_UPDATED, onSelectionUpdated)
+	})
+</script>
+</body>
+</html>

@@ -37,7 +37,7 @@ interface IBoardCommands {
 	// set canvas viewport
 	setViewport(viewport:IRect):Promise<IRect>
 	setViewportWithAnimation(viewport:IRect):Promise<IRect>
-	zoomInToWidget(widgetId:string, selectWidget:boolean):void
+	zoomToObject(objectId:string, selectObject?:boolean):void
 
 	// get selected widget id after user selects it
 	enterSelectWidgetMode():Promise<{widgetId:string}>
@@ -108,13 +108,14 @@ interface RtbSDK {
 	//common
 	board:IBoardCommands
 
-	addListener(event:EventNames, listener:(e) => void)
-	removeListener(event:EventNames, listener:(e) => void)
+	addListener(event:string, listener:(e) => void)
+	removeListener(event:string, listener:(e) => void)
 
 	showNotification(text:string)
 	showErrorNotification(text:string)
 
 	helpers:SDKHelpers
+	enums:IEnums
 }
 
 declare const rtb:RtbSDK

@@ -1,24 +1,32 @@
-type EventNames = 'WIDGET_SELECTED'|'WIDGET_CREATED'
+interface SDKEventType {
+	SELECTION_UPDATED:string
+	WIDGETS_CREATED:string
+	WIDGETS_DELETED:string
+	WIDGETS_TRANSFORMATION_UPDATED:string
+}
 
-type CanvasObjectType =
-	//widgets
-	'TEXT'|
-	'STICKER'|
-	'IMAGE'|
-	'DOCUMENT'|
-	'MOCKUP'|
-	'SHAPE'|
-	'LINE'|
-	'VIDEO'|
-	'CURVE'|
-	'WEBSCREEN'|
+interface SDKShapeType {
+	RECTANGLE:number
+	CIRCLE:number
+	TRIANGLE:number
+	BUBBLE:number
+	ROUNDER:number
+	RHOMBUS:number
+	PARALL:number
+	STAR:number
+	ARROW_BIG:number
+}
 
-	// non-widgets
-	'GROUP'|
-	'COMMENT'|
-	'FRAME'|
-	'TAG'|
-	'JSON'
+interface SDKStickerType {
+	SQUARE:number
+	RECTANGLE:number
+}
+
+interface IEnums {
+	readonly event:SDKEventType
+	readonly shapeType:SDKShapeType
+	readonly stickerType:SDKStickerType
+}
 
 interface IRect {
 	x:number
@@ -166,7 +174,7 @@ interface IBoardWidgetsCommands {
 		update(ids:string[], data:IEmbedWidgetData):Promise<(IEmbedWidgetData&IBaseWidget|undefined)[]>
 	}
 
-	getWidgets():Promise<IBaseWidget[]>
+	get():Promise<IBaseWidget[]>
 	bringForward(widgetId:string|string[]):Promise<void>
 	sendBackward(widgetId:string|string[]):Promise<void>
 }

@@ -1,3 +1,26 @@
 [
-  "sdk-tests"
+  {
+    "pluginName": "plugin-boilerplate",
+    "pathToMainJs": "dist/main.js"
+  },
+  {
+    "pluginName": "tanks",
+    "pathToMainJs": "main.js"
+  },
+  {
+    "pluginName": "layers",
+    "pathToMainJs": "main.js"
+  },
+  {
+    "pluginName": "extra-notes",
+    "pathToMainJs": "main.js"
+  },
+  {
+    "pluginName": "cats-demo",
+    "pathToMainJs": "main.js"
+  },
+  {
+    "pluginName": "sdk-tests",
+    "pathToMainJs": "main.js"
+  }
 ]
