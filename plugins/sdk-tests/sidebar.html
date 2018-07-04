@@ -208,7 +208,7 @@
 	async function testSelectionUpdatedEvent() {
 		let shape = await rtb.board.widgets.shapes.create()
 		await rtb.board.selectWidgets([])
-		let selection = await getDataFromEvent('SELECTION_UPDATED', () => {
+		let selection = await getDataFromEvent(rtb.enums.event.SELECTION_UPDATED, () => {
 			rtb.board.selectWidgets(shape.id)
 		})
 		assertEq(selection.length, 1, 'selected only one widget')
@@ -218,7 +218,7 @@
 	}
 
 	async function testWidgetsCreatedEvent() {
-		let createdWidgets = await getDataFromEvent('WIDGETS_CREATED', () => {
+		let createdWidgets = await getDataFromEvent(rtb.enums.event.WIDGETS_DELETED, () => {
 			rtb.board.widgets.shapes.create()
 		})
 		assertEq(createdWidgets.length, 1, 'created one widget')
@@ -229,7 +229,7 @@
 	async function testWidgetsUpdatedEvent() {
 		let shape1 = await rtb.board.widgets.shapes.create()
 		let shape2 = await rtb.board.widgets.shapes.create({x: 50})
-		let updatedWidgets = await getDataFromEvent('WIDGETS_UPDATED', () => {
+		let updatedWidgets = await getDataFromEvent(rtb.enums.event.WIDGETS_TRANSFORMATION_UPDATED, () => {
 			rtb.board.transformDelta([shape1.id, shape2.id], 20)
 		})
 		assertEq(updatedWidgets.length, 2, 'updated two widgets')

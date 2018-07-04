@@ -90,7 +90,7 @@
 	hideElement(widgetInfo)
 
 	rtb.onReady(() => {
-		rtb.addListener('SELECTION_CHANGED', onSelectionChange)
+		rtb.addListener(rtb.enums.event.SELECTION_UPDATED, onSelectionChange)
 		rtb.board.getSelection().then((selectedWidgets) => {
 			updateSelection(selectedWidgets)
 		})
@@ -98,7 +98,7 @@
 
 	editor.addEventListener('change', saveEditorData)
 
-	function saveEditorData() {
+	async function saveEditorData() {
 		if (lastSelectedWidgetId) {
 			saveData(lastSelectedWidgetId, editor.value)
 			lastSelectedWidgetId = undefined
