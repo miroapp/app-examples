@@ -44,6 +44,7 @@
     <button onclick="testShapes()">Test shapes</button>
     <button onclick="testStickers()">Test stickers</button>
     <button onclick="testImages()">Test images</button>
+    <button onclick="testFrames()">Test frames</button>
     <button onclick="testEvents()">Test events</button>
 </div>
 
@@ -56,6 +57,7 @@
 		await testShapes()
 		await testStickers()
 		await testImages()
+        await testFrames()
 		await testEvents()
 
 		rtb.showNotification('Test completed')
@@ -197,6 +199,34 @@
 
 		console.log('Done: testImages')
 	}
+
+	async function testFrames() {
+		await clearBoard()
+
+        let frame = await rtb.board.frames.create({title: "test frame", x: 100, y: 100, width: 500, height: 500, style: { backgroundColor: "#808080" }})
+        let frames = await rtb.board.frames.get()
+		assertEq(frames[0], frame, 'frame.get() should work')
+		assertEq(frame.width, 500, 'frame.create width should work')
+		assertEq(frame.title, 'test frame', 'frame.create title should work')
+		assertEq(frame.style.backgroundColor, "#808080", 'frame.create backgroundColor should work')
+
+		let updatingFrameData = {width: 700, title: 'updated frame'}
+		let updatedFrame = await rtb.board.frames.update(frame.id, updatingFrameData)
+
+		assertEq(updatedFrame.width, 700, 'frame.update width should work')
+		assertEq(updatedFrame.title, updatingFrameData.title, 'frame.update title should work')
+
+		let shape = await rtb.board.widgets.shapes.create({width: 200, height: 300, text: 'hello', style: {textColor: '#F00', borderColor: 'transparent'}})
+        await rtb.board.frames.setFrameChildren(frame.id, [shape.id])
+        let children = await rtb.board.frames.getFrameChildren(frame.id)
+        assertEq(children.length, 1, 'frames.getChildren should work')
+
+		await rtb.board.frames.setFrameChildren(frame.id, [])
+		children = await rtb.board.frames.getFrameChildren(frame.id)
+		assertEq(children.length, 0, 'frames.getChildren should work')
+
+		console.log('Done: testFrames')
+    }
 
 	async function testEvents() {
 		await testSelectionUpdatedEvent()
