@@ -44,6 +44,7 @@
     <button onclick="testShapes()">Test shapes</button>
     <button onclick="testStickers()">Test stickers</button>
     <button onclick="testImages()">Test images</button>
+    <button onclick="testScreenshots()">Test screenshot</button>
     <button onclick="testFrames()">Test frames</button>
     <button onclick="testEvents()">Test events</button>
 </div>
@@ -198,6 +199,21 @@
 		assertEq(image.width, 200, 'image created with preset width')
 
 		console.log('Done: testImages')
+	}
+
+	async function testScreenshots() {
+		await clearBoard()
+
+		const url = 'https://google.com'
+
+		let widget = await rtb.board.widgets.webScreenshots.create(url)
+		let widgets = await rtb.board.widgets.webScreenshots.get()
+		assertEq(widgets.length, 1, 'webScreenshots.create should work')
+
+		let updatedWidget = await rtb.board.widgets.webScreenshots.update(widget.id, {width: 400})
+		assertEq(updatedWidget.width, 400, 'webScreenshots.update width should work')
+
+		console.log('Done: testWebScreenshot')
 	}
 
 	async function testFrames() {
