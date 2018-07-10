@@ -45,6 +45,7 @@
     <button onclick="testStickers()">Test stickers</button>
     <button onclick="testImages()">Test images</button>
     <button onclick="testScreenshots()">Test screenshot</button>
+    <button onclick="testEmbeds()">Test embeds</button>
     <button onclick="testFrames()">Test frames</button>
     <button onclick="testEvents()">Test events</button>
 </div>
@@ -214,6 +215,27 @@
 		assertEq(updatedWidget.width, 400, 'webScreenshots.update width should work')
 
 		console.log('Done: testWebScreenshot')
+	}
+
+	async function testEmbeds() {
+		await clearBoard()
+
+		const url = 'https://youtu.be/bg2nznWly60'
+        const code = '<iframe width="560" height="315" src="https://www.youtube.com/embed/bg2nznWly60" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>'
+
+		let widget = await rtb.board.widgets.embeds.create(url, {x: 200})
+		let widgets = await rtb.board.widgets.embeds.get()
+		assertEq(widgets.length, 1, 'embeds.create with url')
+        assertEq(widget.x, 200, 'embeds.create with x')
+
+		let codeWidget = await rtb.board.widgets.embeds.create(code, {x: 600, y: 600})
+		widgets = await rtb.board.widgets.embeds.get()
+		assertEq(widgets.length, 2, 'embeds.create with htmlCode')
+
+        let updatedWidget = await rtb.board.widgets.embeds.update(codeWidget.id, {width: 1200})
+        assertEq(updatedWidget.width, 1200, 'embeds.update width should work')
+
+		console.log('Done: testEmbeds')
 	}
 
 	async function testFrames() {
