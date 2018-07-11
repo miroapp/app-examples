@@ -181,6 +181,12 @@ declare module SDK {
 			update(ids:string, data:PartialDeep<IEmbedWidgetData>):Promise<WithBaseWidget<IEmbedWidgetData>|undefined>
 			update(ids:string[], data:PartialDeep<IEmbedWidgetData>):Promise<(WithBaseWidget<IEmbedWidgetData>|undefined)[]>
 		}
+		texts:{
+			create(data?:PartialDeep<ITextWidgetData>):Promise<WithBaseWidget<ITextWidgetData>|undefined>
+			get():Promise<WithBaseWidget<ITextWidgetData>[]>
+			update(ids:string, data:PartialDeep<ITextWidgetData>):Promise<WithBaseWidget<ITextWidgetData>|undefined>
+			update(ids:string[], data:PartialDeep<ITextWidgetData>):Promise<(WithBaseWidget<ITextWidgetData>|undefined)[]>
+		}
 
 		get():Promise<IBaseWidget[]>
 		bringForward(widgetId:string|string[]):Promise<void>

@@ -183,6 +183,24 @@ async function testEmbeds() {
 	console.log('Done: testEmbeds')
 }
 
+async function testTexts() {
+	await clearBoard()
+
+	let widget = await rtb.board.widgets.texts.create({text: 'Hello', style:{textColor: '#F00', borderColor: 'transparent'}})
+	let widgets = await rtb.board.widgets.texts.get()
+	assertEq(widgets.length, 1, 'texts.create')
+	assertEq(widget.text, 'Hello', 'texts.create text should work')
+	assertEq(widget.style.textColor, '#ff0000', 'texts.create textColor should work')
+	assertEq(widget.style.borderColor, 'transparent', 'texts.create borderColor should work')
+
+	let updatedWidget = await rtb.board.widgets.texts.update(widget.id, {text: 'Hello world', style: {backgroundColor:'#aeaeae', borderColor:'#808080'}})
+	assertEq(updatedWidget.text, 'Hello world', 'texts.create text should work')
+	assertEq(updatedWidget.style.backgroundColor, '#aeaeae', 'texts.create textColor should work')
+	assertEq(updatedWidget.style.borderColor, '#808080', 'texts.create borderColor should work')
+
+	console.log('Done: testTexts')
+}
+
 async function testFrames() {
 	await clearBoard()
 
