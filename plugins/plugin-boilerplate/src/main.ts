@@ -5,6 +5,7 @@ rtb.initialize({
 		exportMenu: {
 			title: 'Boilerplate export',
 			svgIcon: icon24,
+			positionPriority: 20,
 			onClick: () => {
 				// Remember that 'modal.html' resolves relative to main.js file. So modal.html have to be in the /dist/ folder.
 				rtb.board.openModal('modal.html')

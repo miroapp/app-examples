@@ -55,8 +55,8 @@ declare module SDK {
 	}
 
 	interface IPluginConfig {
-		hasStartHandler:boolean
-		hasStopHandler:boolean,
+		onStart?:() => void
+		onStop?:() => void
 		extensionPoints:{
 			upload?:{
 				title:string,
