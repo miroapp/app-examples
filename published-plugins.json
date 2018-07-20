@@ -1,26 +1,30 @@
 [
   {
     "pluginName": "plugin-boilerplate",
-    "pathToMainJs": "dist/main.js"
+    "pathToMainJs": "plugin-boilerplate/dist/main.js"
   },
   {
     "pluginName": "tanks",
-    "pathToMainJs": "main.js"
+    "pathToMainJs": "tanks/main.js"
   },
   {
     "pluginName": "layers",
-    "pathToMainJs": "main.js"
+    "pathToMainJs": "layers/main.js"
   },
   {
     "pluginName": "extra-notes",
-    "pathToMainJs": "main.js"
+    "pathToMainJs": "extra-notes/main.js"
   },
   {
     "pluginName": "cats-demo",
-    "pathToMainJs": "main.js"
+    "pathToMainJs": "cats-demo/main.js"
   },
   {
     "pluginName": "sdk-tests",
-    "pathToMainJs": "main.js"
+    "pathToMainJs": "sdk-tests/main.js"
+  },
+  {
+    "pluginName": "the-noun-project",
+    "pathToMainJs": "the-noun-project/main.js"
   }
 ]

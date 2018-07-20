@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<script src="https://site.ptdev.multivi.ru/app/static/rtb.sdk.js"></script>
+<link type="text/css" href="https://site.ptdev.multivi.ru/app/static/rtb.uikit.css">
+
+<!--<link type="text/css" href="https://realtimeboard.com/app/static/rtb.uikit.css">-->
+<!--<script src="https://realtimeboard.com/app/static/rtb.sdk.js"></script>-->
+<style>
+    html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+        font-size: 14px;
+    }
+
+    #container {
+        height: calc(100% - 75px);
+        overflow: auto;
+        padding: 0 20px 30px 20px;
+        box-sizing: border-box;
+    }
+
+    .image-item {
+        vertical-align: top;
+        display: inline-block;
+        width: 60px;
+        height: 60px;
+        padding: 5px;
+    }
+
+    .search-input {
+        padding: 10px;
+        margin: 20px;
+        border-radius: 4px;
+        border: 1px solid #CCC;
+        width: 280px;
+        box-sizing: border-box;
+    }
+
+</style>
+<body>
+<div class="header">
+    <input type="text" class="search-input" placeholder="Search">
+</div>
+<div id="container">
+</div>
+<script>
+
+	const ENTER_KEYCODE = 13
+
+	let container = document.querySelector('#container')
+	let searchInputElement = document.querySelector('.search-input')
+
+	searchInputElement.addEventListener('keydown', (e) => {
+		if (e.keyCode === ENTER_KEYCODE) {
+			search(searchInputElement.value)
+		}
+	})
+
+	function search(query) {
+		fetch(`https://realtimeboard.com/thenounproject/?query=${query}&limit=100`)
+			.then(response => {
+				if (response.status === 200) {
+					return response.json()
+				} else if (response.status === 404) {
+					showNotFoundMessage(query)
+					throw new Error('not found')
+				} else {
+					showErrorMessage()
+					throw new Error('error')
+				}
+			})
+			.then(data => {
+				let imagesSources = data.icons.map(icon => icon.preview_url)
+				showIcons(imagesSources)
+			})
+	}
+
+	function showIcons(imagesSources) {
+		container.innerHTML = imagesSources.map(src => `<img class="image-item" src="${src}" data-image-url="${src}">`).join('')
+	}
+
+	function bootstrap() {
+		search('icon')
+		rtb.helpers.initScrollableContainerWithDraggableImages(container, {draggableImageSelector: '.image-item'})
+	}
+
+	function showNotFoundMessage(query) {
+		container.innerHTML = `<h3>Icons for '${query}' not found</h3>`
+	}
+
+	function showErrorMessage() {
+		container.innerHTML = `<h3>Something went wrong</h3>`
+	}
+
+	rtb.onReady(bootstrap)
+</script>
+</body>
+</html>
