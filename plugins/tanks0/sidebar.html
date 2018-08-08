@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="https://site.ptdev.multivi.ru/app/static/rtb.uikit.css">
-    <script src="https://site.ptdev.multivi.ru/app/static/rtb.sdk.js"></script>
+    <!--<link rel="stylesheet" type="text/css" href="https://site.ptdev.multivi.ru/app/static/rtb.uikit.css">-->
+    <!--<script src="https://site.ptdev.multivi.ru/app/static/rtb.sdk.js"></script>-->
 
-    <!--<link rel="stylesheet" type="text/css" href="https://realtimeboard.com/app/static/rtb.uikit.css">-->
-    <!--<script src="https://realtimeboard.com/app/static/rtb.sdk.js"></script>-->
+    <link rel="stylesheet" type="text/css" href="https://realtimeboard.com/app/static/rtb.uikit.css">
+    <script src="https://realtimeboard.com/app/static/rtb.sdk.1.0.js"></script>
 
     <style>
         .rtb-sidebar-caption {
@@ -226,7 +226,7 @@
 				}
 
 				updateMoveAvailable = false
-				rtb.board.transform(tank.id, deltaX, deltaY, deltaRotation)
+				rtb.board.transformDelta(tank.id, deltaX, deltaY, deltaRotation)
 					.then(() => waitMilliseconds(150))
 					.then(() => {
 						updateMoveAvailable = true
@@ -394,13 +394,13 @@
 
 	// пули проверять со стенами и вражискими танками
 	async function getBulletIntersection(bullet) {
-		let widgets = await rtb.board.widgets.getWidgets()
+		let widgets = await rtb.board.widgets.get()
 		return widgets.find(block => isObjectsIntersect(bullet.bounds, block.bounds))
 	}
 
 	// танки проверять со стенами
 	async function willTankIntersectsWithWall(tankBounds) {
-		let widgets = await rtb.board.widgets.getWidgets()
+		let widgets = await rtb.board.widgets.get()
 		return widgets
 			.filter(w => w.type === 'SHAPE' && (w.text === 'D' || w.text === 'N'))
 			.some(block => isObjectsIntersect(tankBounds, block.bounds))

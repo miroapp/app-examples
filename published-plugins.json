@@ -5,7 +5,7 @@
   },
   {
     "pluginName": "tanks",
-    "pathToMainJs": "tanks/main.js"
+    "pathToMainJs": "tanks/dist/main.js"
   },
   {
     "pluginName": "layers",
