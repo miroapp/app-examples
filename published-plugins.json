@@ -26,5 +26,9 @@
   {
     "pluginName": "the-noun-project",
     "pathToMainJs": "the-noun-project/main.js"
+  },
+  {
+    "pluginName": "looking-glass",
+    "pathToMainJs": "looking-glass/main.js"
   }
 ]
