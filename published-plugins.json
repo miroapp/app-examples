@@ -30,5 +30,13 @@
   {
     "pluginName": "looking-glass",
     "pathToMainJs": "looking-glass/main.js"
+  },
+  {
+    "pluginName": "stickers-to-shapes",
+    "pathToMainJs": "stickers-to-shapes/main.js"
+  },
+  {
+    "pluginName": "board-cleaner",
+    "pathToMainJs": "board-cleaner/main.js"
   }
 ]
