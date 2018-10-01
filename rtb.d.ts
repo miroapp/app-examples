@@ -1,12 +1,11 @@
 declare module SDK {
 	interface RTB {
-		// available in sandbox only
+		// Available in main.js only
 		initialize(config:IPluginConfig)
 
-		// available in iframe`s extension point only
+		// Available in iframe`s extension point only (e.g.: sidebar or modal)
 		onReady(callback:() => any)
 
-		// available everywhere
 		board:IBoardCommands
 
 		addListener(event:string, listener:(e) => void)
@@ -62,62 +61,78 @@ declare module SDK {
 	interface IBoardCommands {
 		widgets:IBoardWidgetsCommands
 		frames:IBoardFramesCommands
-		comments:IBoardCommentsCommands
-		groups:IBoardGroupsCommands
 
+		// Get all kind of objects
 		getAllObjects():Promise<IBaseWidget[]>
+
+		// Get certain object by id
 		getById<T extends IBaseWidget|IGroupData>(objectId:string):Promise<T|undefined>
+
+		// Delete certain object or objects by id
 		deleteById(objectIds:string|string[]):Promise<boolean>
+
+		// Transform objects relative to its position
 		transformDelta(objectIds:string|string[], deltaX:number|undefined, deltaY:number|undefined, deltaRotation:number|undefined)
+
+		// Transform objects relative to board coordinates
 		transform(transformations:{objectId:string, x:number|undefined, y:number|undefined, rotation:number|undefined}[])
 
-		// iframe extension points
+		// Show custom web page in left side of interface
 		openLeftSidebar(iframeURL:string):void
+
+		// Show custom web page in right side of interface
 		openRightSidebar(iframeURL:string):void
 
-		// I am not sure about 'title' parameter
+		// Show custom web page in library (three dots button)
 		openLibrary(title:string, iframeURL:string):void
+
+		// Show custom web page in modal window
 		openModal(iframeURL:string, options?:{maxWidth?:number, maxHeight?:number}):void
+
+		// Close current modal
 		closeCurrentModal():void
+
+		// Open confirmation modal window with yes/no buttons
 		openConfirmModal(options:IConfirmModalOptions):Promise<boolean>
 
-		// get basic board info
+		// Get basic board info like title, description, creation date, owner etc.
 		getInfo():Promise<SDKBoardInfo>
 
+		// Set zoom of viewport
 		setZoom(value:number):void
+
+		// Get current zoom of viewport
 		getZoom():number
 
-		// set HAND or CURSOR tool, depends on  EDIT_RIGHTS
+		// Set HAND or CURSOR tool, it depends on current user board' role (viewer, commentor, editor)
 		selectDefaultTool():void
 
-		// get current canvas viewport
+		// Get current canvas viewport
 		getViewport():IRect
 
-		// set canvas viewport
+		// Set canvas viewport without animation
 		setViewport(viewport:IRect):Promise<IRect>
+
+		// Set canvas viewport with animation
 		setViewportWithAnimation(viewport:IRect):Promise<IRect>
+
+		// Set canvas viewport to object
 		zoomToObject(objectId:string, selectObject?:boolean):void
 
-		// get selected widget id after user selects it
+		// Get selected widget id after user selects it
 		enterSelectWidgetMode():Promise<{widgetId:string}>
 
-		// select target widgets
+		// Select widgets
 		selectWidgets(widgetId:string|string[]):void
 
-		// return current selected widgets
+		// Get current selected widgets
 		getSelection():Promise<IBaseWidget[]>
 	}
 
 	interface IPluginConfig {
-		canStart?:() => boolean // will be called before onStart if exists
 		onStart?:() => void
 		onStop?:() => void
 		extensionPoints:{
-			upload?:{
-				title:string
-				svgIcon:string
-				onClick:() => void
-			}
 			toolbar?:{
 				title:string
 				toolbarSvgIcon:string
@@ -136,15 +151,6 @@ declare module SDK {
 				svgIcon:string
 				onClick:() => void
 				positionPriority:number
-			}
-			widgetContextMenu?:{
-				widgetTypes:[string]
-				tooltip:string
-				onClick:(widgetId:string) => void
-			}
-			canvasContextMenu?:{
-				title:string
-				onClick:() => void
 			}
 		}
 	}
