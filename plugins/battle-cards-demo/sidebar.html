@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="https://realtimeboard.com/app/static/rtb.uikit.css">
+    <script src="https://realtimeboard.com/app/static/rtb.sdk.1.0.js"></script>
+
+    <style>
+        .rtb-sidebar-caption {
+            font-size: 14px;
+            font-weight: bold;
+            color: rgba(0, 0, 0, 0.8);
+            padding: 24px 0 0 24px;
+        }
+
+        .no-selected-widget {
+            font-size: 18px;
+            text-align: center;
+            margin-top: 60px;
+            color: #999;
+        }
+
+        .card-details {
+            padding: 20px 24px 0 24px;
+            height: 100%;
+        }
+
+        .card-name {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .card-section {
+            border-top: 2px solid #ccc;
+            margin: 20px -24px -16px -24px;
+            padding: 14px 24px;
+        }
+
+        .card-section__title {
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+<div class="rtb-sidebar-caption">Card details</div>
+<div class="no-selected-widget">
+    Please select a card
+</div>
+<div class="card-details">
+    <div class="card-name" id="card-name">Card name<span></span></div>
+    <div class="card-skill" id="analysis">Analysis: <span></span></div>
+    <div class="card-skill" id="awareness">Awareness: <span></span></div>
+    <div class="card-skill" id="knowledge">Knowledge: <span></span></div>
+    <div class="card-skill" id="skills">Skills: <span></span></div>
+    <div class="card-skill" id="attitudes">Attitudes: <span></span></div>
+    <div class="card-skill" id="implementation">Implementation: <span></span></div>
+    <div class="card-skill" id="measurement">Measurement: <span></span></div>
+
+    <div class="card-section">
+        <div class="card-section__title">
+            EDUCATORS
+        </div>
+        <div id="productionEffort">Production effort: <span></span></div>
+        <div id="productionTime">Production time: <span></span></div>
+    </div>
+    <div class="card-section">
+        <div class="card-section__title">
+            PROCESS
+        </div>
+        <div id="learningPower">Learning power: <span></span></div>
+    </div>
+    <div class="card-section">
+        <div class="card-section__title">
+            TRAINEE
+        </div>
+        <div id="engagement">Engagement: <span></span></div>
+        <div id="difficultyOfUse">Difficulty of use: <span></span></div>
+    </div>
+</div>
+<script>
+	let cardsDetails = document.querySelector('.card-details')
+	let placeholder = document.querySelector('.no-selected-widget')
+
+	function updateSelection(selectedWidgets) {
+		console.log(selectedWidgets)
+		let cardTextId = getCardTextId(selectedWidgets)
+		if (cardTextId) {
+			rtb.board.getById(cardTextId).then(widget => {
+				let cardName = widget.text
+				let cardData = cardsData[widget.text]
+
+				fillCardData(cardName, cardData)
+
+				showElement(cardsDetails)
+				hideElement(placeholder)
+			})
+		}
+	}
+
+	function fillCardData(cardName, cardData) {
+		document.querySelector('#card-name').innerText = cardName
+		for (let p in cardData) {
+			document.querySelector('#' + p + ' span').innerText = cardData[p]
+		}
+	}
+
+	function getCardTextId(selectedWidgets) {
+		if (selectedWidgets.length === 2) {
+			if (selectedWidgets[0].type === "IMAGE" && selectedWidgets[1].type === "TEXT") {
+				return selectedWidgets[1].id
+			} else if (selectedWidgets[1].type === "IMAGE" && selectedWidgets[0].type === "TEXT") {
+				return selectedWidgets[0].id
+			} else {
+				return false
+			}
+		} else {
+			return false
+		}
+	}
+
+	function showElement(el) {
+		el.style.display = 'block'
+	}
+
+	function hideElement(el) {
+		el.style.display = 'none'
+	}
+
+	hideElement(cardsDetails)
+
+	function onSelectionChange(e) {
+		let selectedWidgets = e.data
+		updateSelection(selectedWidgets)
+	}
+
+	rtb.onReady(() => {
+		rtb.addListener(rtb.enums.event.SELECTION_UPDATED, onSelectionChange)
+		rtb.board.getSelection().then(updateSelection)
+	})
+
+	//generation fake cards data
+	function getRandomCardData() {
+		return {
+			analysis: getRandomBool(),
+			awareness: getRandomBool(),
+			knowledge: getRandomBool(),
+			skills: getRandomBool(),
+			attitudes: getRandomBool(),
+			implementation: getRandomBool(),
+			measurement: getRandomBool(),
+			productionEffort: getRandomNumber(),
+			productionTime: getRandomNumber(),
+			learningPower: getRandomNumber(),
+			engagement: getRandomNumber(),
+			difficultyOfUse: getRandomNumber()
+		}
+	}
+
+	function getRandomBool() {
+		return Math.random() > 0.5 ? 'yes' : 'no'
+	}
+
+	function getRandomNumber() {
+		return Math.floor(Math.random() * 9)
+	}
+
+	let cardNames = [
+		'Shared workspace',
+		'Story',
+		'Survey',
+		'On-line workshop',
+		'Second screen',
+		'Open resources',
+		'Summary',
+		'Social network',
+		'Observation',
+		'Case study',
+		'Social media',
+		'Note taking',
+		'Community of practice',
+		'Webquest',
+		'Simulation',
+		'Coaching',
+		'Newsletter',
+		'Implementation task',
+		'Workbook',
+		'Check-list',
+		'Shadowing',
+		'Instant messenger',
+		'Wiki',
+		'Chat',
+		'Mystery shopping',
+		'Interview',
+		'Search engine',
+		'Webinar',
+		'Certification',
+		'Metaphor',
+		'Infographic',
+		'Sketching & doodling',
+		'Webconference',
+		'Mind-map',
+		'Social bookmarking',
+		'Hypermedia',
+		'Conference',
+		'Workshop',
+		'Multimedia',
+		'Seminar',
+		'Game',
+		'Mentoring',
+		'Board',
+		'Virtual world',
+		'Role play',
+		'Benchmarking',
+		'Microblog',
+		'Visual',
+		'Focus group',
+		'Movie',
+		'Blog',
+		'Return on investment',
+		'Video on demand',
+		'Facilitation',
+		'E-book',
+		'Reflection',
+		'Lunch & learn',
+		'Feedback',
+		'Videoconference',
+		'Big data',
+		'Research',
+		'Lecture',
+		'Virtual agent',
+		'Back channel',
+		'Repetition',
+		'Exhibit',
+		'Audiobook',
+		'Experimenting',
+		'Knowledge pill',
+		'Test',
+		'Book',
+		'Quiz',
+		'Kirkpatrick level 4',
+		'Explanation',
+		'Tour',
+		'Kirkpatrick level 3',
+		'Text message',
+		'Audioconference',
+		'E-mail',
+		'Presentation',
+		'Tagging',
+		'Kirkpatrick level 2',
+		'Assessment',
+		'E-learning course',
+		'Peer-to-peer learning',
+		'Kirkpatrick level 1',
+		'Threaded discussion',
+		'Augmented reality',
+		'Poll',
+		'Teach back',
+		'Digital storytelling',
+		'Apps-supported learning',
+		'Podcast',
+		'Job rotation',
+		'Discoverers\' map',
+		'Animation',
+		'Team assignement',
+		'Project-based learning',
+		'Job aid',
+		'tutoring',
+		'Article',
+		'Demonstration',
+		'Practice',
+		'Journalism 2.0',
+		'Discussion',
+		'360 degree assessment'
+	]
+
+	let cardsData = {}
+	cardNames.forEach(cardName => {
+		cardsData[cardName] = getRandomCardData()
+	})
+
+</script>
+</body>
+</html>
