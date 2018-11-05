@@ -3,7 +3,7 @@ let icon = '<circle cx="12" cy="12" r="9" fill="none" fill-rule="evenodd" stroke
 rtb.initialize({
   extensionPoints: {
     bottomBar: {
-      title: 'Board cleaner',
+      title: 'Comments Cleaner',
       svgIcon: icon,
       positionPriority: 1,
       onClick: async () => {
