@@ -30,12 +30,6 @@ declare module SDK {
 		readonly stickerType:SDK.StickerType
 	}
 
-	interface EventType {
-		SELECTION_UPDATED:string
-		WIDGETS_CREATED:string
-		WIDGETS_DELETED:string
-		WIDGETS_TRANSFORMATION_UPDATED:string
-	}
 
 	interface ShapeType {
 		RECTANGLE:number
@@ -58,423 +52,462 @@ declare module SDK {
 declare const rtb:SDK.RTB
 
 declare module SDK {
-	interface IBoardCommands {
-		widgets:IBoardWidgetsCommands
-		frames:IBoardFramesCommands
+	interface Root {
+		// Available in main.js only
+		initialize(config: IPluginConfig)
 
-		// Get all kind of objects
-		getAllObjects():Promise<IBaseWidget[]>
+		board: IBoardCommands
 
-		// Get certain object by id
-		getById<T extends IBaseWidget|IGroupData>(objectId:string):Promise<T|undefined>
+		addListener(event: EventType, listener: (e: Event) => void)
 
-		// Delete certain object or objects by id
-		deleteById(objectIds:string|string[]):Promise<boolean>
+		removeListener(event: EventType, listener: (e: Event) => void)
 
-		// Transform objects relative to its position
-		transformDelta(objectIds:string|string[], deltaX:number|undefined, deltaY:number|undefined, deltaRotation:number|undefined)
+		showNotification(text: string)
 
-		// Transform objects relative to board coordinates
-		transform(transformations:{objectId:string, x:number|undefined, y:number|undefined, rotation:number|undefined}[])
+		showErrorNotification(text: string)
+	}
 
-		// Show custom web page in left side of interface
-		openLeftSidebar(iframeURL:string):void
+	type EventType =
+		| 'BOARD_SELECTION_UPDATED'
+		| 'BOARD_WIDGETS_CREATED'
+		| 'BOARD_WIDGETS_DELETED'
+		| 'BOARD_WIDGETS_TRANSFORMATION_UPDATED'
 
-		// Show custom web page in right side of interface
-		openRightSidebar(iframeURL:string):void
-
-		// Show custom web page in library (three dots button)
-		openLibrary(title:string, iframeURL:string):void
-
-		// Show custom web page in modal window
-		openModal(iframeURL:string, options?:{maxWidth?:number, maxHeight?:number}):void
-
-		// Close current modal
-		closeCurrentModal():void
-
-		// Open confirmation modal window with yes/no buttons
-		openConfirmModal(options:IConfirmModalOptions):Promise<boolean>
-
-		// Get basic board info like title, description, creation date, owner etc.
-		getInfo():Promise<SDKBoardInfo>
-
-		// Set zoom of viewport
-		setZoom(value:number):void
-
-		// Get current zoom of viewport
-		getZoom():number
-
-		// Set HAND or CURSOR tool, it depends on current user board' role (viewer, commentor, editor)
-		selectDefaultTool():void
-
-		// Get current canvas viewport
-		getViewport():IRect
-
-		// Set canvas viewport without animation
-		setViewport(viewport:IRect):Promise<IRect>
-
-		// Set canvas viewport with animation
-		setViewportWithAnimation(viewport:IRect):Promise<IRect>
-
-		// Set canvas viewport to object
-		zoomToObject(objectId:string, selectObject?:boolean):void
-
-		// Get selected widget id after user selects it
-		enterSelectWidgetMode():Promise<{widgetId:string}>
-
-		// Select widgets
-		selectWidgets(widgetId:string|string[]):void
-
-		// Get current selected widgets
-		getSelection():Promise<IBaseWidget[]>
+	interface Event {
+		type: EventType
+		data: any
 	}
 
 	interface IPluginConfig {
-		onStart?:() => void
-		onStop?:() => void
-		extensionPoints:{
-			toolbar?:{
-				title:string
-				toolbarSvgIcon:string
-				librarySvgIcon:string
-				onClick:() => void
+		extensionPoints: {
+			toolbar?: {
+				title: string
+				toolbarSvgIcon: string
+				librarySvgIcon: string
+				onClick: () => void
 			}
-			bottomBar?:{
-				title:string
-				svgIcon:string
-				positionPriority:number
-				onClick:() => void
-				getNotification?:() => any // will be called by app every second if exists
+			bottomBar?: {
+				title: string
+				svgIcon: string
+				onClick: () => void
 			}
-			exportMenu?:{
-				title:string
-				svgIcon:string
-				onClick:() => void
-				positionPriority:number
+			exportMenu?: {
+				title: string
+				svgIcon: string
+				onClick: () => void
 			}
 		}
 	}
+
+	interface IBoardCommands {
+		info: IBoardInfoCommands
+
+		widgets: IBoardWidgetsCommands  //requires 'EDIT_CONTENT' permission
+		groups: IBoardGroupsCommands //requires 'EDIT_CONTENT' permission
+
+		ui: IBoardUICommands
+		viewport: IBoardViewportCommands
+		selection: IBoardSelectionCommands
+
+		getPermissions(): Promise<BoardPermission[]>
+
+		hasPermission(permission: BoardPermission): Promise<boolean>
+	}
+
+
+	interface IBoardInfoCommands {
+		get(): Promise<IBoardInfo>
+	}
+
+	interface IBoardUICommands {
+		// Promise will resolves when sidebar closes
+		// Promise returns data passed in closeLeftSidebar function
+		openLeftSidebar(iframeURL: string, options?: {width?: number}): Promise<any>
+
+		// Promise will resolves when sidebar closes
+		// Promise returns data passed in openRightSidebar function
+		openRightSidebar(iframeURL: string, options?: {width?: number}): Promise<any>
+
+		// Promise will resolves when library closes
+		// Promise returns data passed in closeLibrary function
+		openLibrary(iframeURL: string, options: {title: string}): Promise<any>
+
+		// Promise will resolves when modal closes
+		// Promise returns data passed in closeModal function
+		openModal(iframeURL: string, options?: {maxWidth?: number, maxHeight?: number, fullscreen?: boolean}): Promise<any>
+
+		// Throws error if modal opened not by this plugin
+		closeLeftSidebar(data: any)
+
+		// Throws error if sidebar opened not by this plugin
+		closeRightSidebar(data: any)
+
+		// Throws error if library opened not by this plugin
+		closeLibrary(data: any)
+
+		// Throws error if modal opened not by this plugin
+		closeModal(data: any)
+	}
+
+	interface IBoardViewportCommands {
+		getViewport(): Promise<IRect>
+
+		setViewport(viewport: IRect): Promise<IRect>
+
+		setViewportWithAnimation(viewport: IRect): Promise<IRect>
+
+		zoomToObject(objectId: string, selectObject?: boolean)
+
+		setZoom(value: number): Promise<number>
+
+		getZoom(): Promise<number>
+	}
+
+	interface IBoardSelectionCommands {
+		// Returns selected widgets
+		get(): Promise<IBaseWidget[]>
+
+		// Select target widgets
+		// Returns selected widgets
+		selectWidgets(widgetIds: string | string[]): Promise<IBaseWidget[]>
+
+		// Get selected widgets id after user selects it
+		// allowMultiSelection is false by default
+		enterSelectWidgetsMode(options: {allowMultiSelection?: boolean}): Promise<{selectedWidgets: IBaseWidget[]}>
+	}
+
+	type BoardPermission = 'EDIT_INFO' | 'EDIT_CONTENT' | 'EDIT_COMMENTS'
 
 	////////////////////////////////////////////////////////////////////////
 	// Widgets
 	////////////////////////////////////////////////////////////////////////
 
-	type WithBaseWidget<W> = W&IBaseWidget
-
-	interface IBaseWidget {
-		id:string
-		type:string
-		x:number
-		y:number
-		width:number
-		height:number
-		rotation:number
-		bounds:IBounds
-		groupId:string|undefined
-	}
-
 	interface IBoardWidgetsCommands {
-		images:{
-			createByURL(url:string, data?:PartialDeep<IImageWidgetData>):Promise<WithBaseWidget<IImageWidgetData>|undefined>
-			get():Promise<WithBaseWidget<IImageWidgetData>[]>
-			update(ids:string, data:PartialDeep<IImageWidgetData>):Promise<WithBaseWidget<IImageWidgetData>|undefined>
-			update(ids:string[], data:PartialDeep<IImageWidgetData>):Promise<(WithBaseWidget<IImageWidgetData>|undefined)[]>
-		}
-		stickers:{
-			create(data?:PartialDeep<IStickerWidgetData>):Promise<WithBaseWidget<IStickerWidgetData>|undefined>
-			get():Promise<WithBaseWidget<IStickerWidgetData>[]>
-			update(ids:string, data:PartialDeep<IStickerWidgetData>):Promise<WithBaseWidget<IStickerWidgetData>|undefined>
-			update(ids:string[], data:PartialDeep<IStickerWidgetData>):Promise<(WithBaseWidget<IStickerWidgetData>|undefined)[]>
-		}
-		shapes:{
-			create(data?:PartialDeep<IShapeWidgetData>):Promise<WithBaseWidget<IShapeWidgetData>|undefined>
-			get():Promise<WithBaseWidget<IShapeWidgetData>[]>
-			update(ids:string, data:PartialDeep<IShapeWidgetData>):Promise<WithBaseWidget<IShapeWidgetData>|undefined>
-			update(ids:string[], data:PartialDeep<IShapeWidgetData>):Promise<(WithBaseWidget<IShapeWidgetData>|undefined)[]>
-		}
-		lines:{
-			create(data?:PartialDeep<ILineWidgetData>):Promise<WithBaseWidget<ILineWidgetData>|undefined>
-			get():Promise<WithBaseWidget<ILineWidgetData>[]>
-			update(ids:string, data:PartialDeep<ILineWidgetData>):Promise<WithBaseWidget<ILineWidgetData>|undefined>
-			update(ids:string[], data:PartialDeep<ILineWidgetData>):Promise<(WithBaseWidget<ILineWidgetData>|undefined)[]>
-		}
-		webScreenshots:{
-			create(url:string, data?:PartialDeep<IWebScreenshotWidgetData>):Promise<WithBaseWidget<IWebScreenshotWidgetData>|undefined>
-			get():Promise<WithBaseWidget<IWebScreenshotWidgetData>[]>
-			update(ids:string, data:PartialDeep<IWebScreenshotWidgetData>):Promise<WithBaseWidget<IWebScreenshotWidgetData>|undefined>
-			update(ids:string[], data:PartialDeep<IWebScreenshotWidgetData>):Promise<(WithBaseWidget<IWebScreenshotWidgetData>|undefined)[]>
-		}
-		embeds:{
-			create(htmlOrUrl:string, data?:PartialDeep<IEmbedWidgetData>):Promise<WithBaseWidget<IEmbedWidgetData>|undefined>
-			get():Promise<WithBaseWidget<IEmbedWidgetData>[]>
-			update(ids:string, data:PartialDeep<IEmbedWidgetData>):Promise<WithBaseWidget<IEmbedWidgetData>|undefined>
-			update(ids:string[], data:PartialDeep<IEmbedWidgetData>):Promise<(WithBaseWidget<IEmbedWidgetData>|undefined)[]>
-		},
-		texts:{
-			create(data?:PartialDeep<ITextWidgetData>):Promise<WithBaseWidget<ITextWidgetData>|undefined>
-			get():Promise<WithBaseWidget<ITextWidgetData>[]>
-			update(ids:string, data:PartialDeep<ITextWidgetData>):Promise<WithBaseWidget<ITextWidgetData>|undefined>
-			update(ids:string[], data:PartialDeep<ITextWidgetData>):Promise<(WithBaseWidget<ITextWidgetData>|undefined)[]>
-		}
+		create(widgets: {type: string, [index: string]: any}[]): Promise<IBaseWidget[]> // 'type' is required
 
-		get():Promise<IBaseWidget[]>
-		bringForward(widgetId:string|string[]):Promise<void>
-		sendBackward(widgetId:string|string[]):Promise<void>
-	}
+		// filterBy uses https://lodash.com/docs/4.17.11#filter
+		get(filterBy?: Object): Promise<IBaseWidget[]>
 
-	interface IBoardFramesCommands {
-		create(data:PartialDeep<IFrameWidgetData>):Promise<WithBaseWidget<IFrameWidgetData>|undefined>
-		get():Promise<WithBaseWidget<IFrameWidgetData>[]>
-		update(ids:string, data:PartialDeep<IFrameWidgetData>):Promise<WithBaseWidget<IFrameWidgetData>|undefined>
-		update(ids:string[], data:PartialDeep<IFrameWidgetData>):Promise<(WithBaseWidget<IFrameWidgetData>|undefined)[]>
-		getFrameChildren(frameId:string):Promise<IBaseWidget[]>
-		setFrameChildren(frameId:string, widgetIds:string[]):Promise<void>
-	}
+		update(widgets: {id: string, [index: string]: any}[]): Promise<IBaseWidget[]> // 'id' is required
 
-	interface IBoardCommentsCommands {
-		get():Promise<WithBaseWidget<ICommentData>[]>
+		transformDelta(widgetIds: string | string[], deltaX: number | undefined, deltaY: number | undefined, deltaRotation: number | undefined): Promise<IBaseWidget[]>
+
+		deleteById(widgetIds: string | string[]): Promise<void>
 	}
 
 	interface IBoardGroupsCommands {
-		get():Promise<IGroupData[]>
+		get(): Promise<IGroupData[]>
 	}
 
 	interface IGroupData {
-		id:string
-		bounds:IBounds
-		childrenIds:string[]
+		id: string
+		bounds: IBounds
+		childrenIds: string[]
 	}
 
 	////////////////////////////////////////////////////////////////////////
 	// Widget data types
 	////////////////////////////////////////////////////////////////////////
 
-	interface ITextWidgetData {
-		x:number
-		y:number
-		width:number
-		height:number
-		rotation:number
-		text:string
-		style:{
-			backgroundColor:string|number
-			backgroundOpacity:number
-			borderColor:string|number
-			borderWidth:number
-			borderStyle:number
-			fontSize:number
-			textColor:string|number
-			textAlign:string
+	interface IBaseWidget {
+		readonly id: string
+		readonly type: string
+		readonly bounds: IBounds
+		readonly groupId?: string
+		readonly zIndex?: number // defined when type !== 'frame' (not implemented yet)
+		readonly createdUserId: string
+		readonly lastModifiedUserId: string
+	}
+
+	interface ITextWidgetData extends IBaseWidget {
+		type: 'TEXT'
+		x: number
+		y: number
+		width: number //what value if auto-size?
+		scale: number
+		rotation: number
+		text: string
+		style: {
+			backgroundColor: BackgroundColorStyle
+			backgroundOpacity: BackgroundOpacityStyle
+			borderColor: BorderColorStyle
+			borderWidth: BorderWidthStyle
+			borderStyle: BorderStyleStyle
+			borderOpacity: BorderOpacityStyle
+			fontSize: FontSizeStyle
+			fontFamily: FontFamilyStyle
+			textColor: TextColorStyle
+			textAlign: TextAlignStyle
 		}
 	}
 
-	interface IImageWidgetData {
-		x:number
-		y:number
-		rotation:number
-		width:number
-		title:string
+	interface IImageWidgetData extends IBaseWidget {
+		type: 'IMAGE'
+		x: number
+		y: number
+		rotation: number
+		width: number
+		scale: number
+		title: string
+		url?: string
 	}
 
-	interface IStickerWidgetData {
-		x:number
-		y:number
-		width:number
-		text:string
-		style:{
-			stickerBackgroundColor:string
-			fontSize:number
-			textAlign:string
-			stickerType:number
+	interface IStickerWidgetData extends IBaseWidget {
+		type: 'STICKER'
+		x: number
+		y: number
+		scale: number
+		text: string
+		style: {
+			stickerBackgroundColor: BackgroundColorStyle
+			fontSize: FontSizeStyle
+			textAlign: TextAlignStyle
+			textAlignVertical: TextAlignVerticalStyle
+			stickerType: StickerTypeStyle // Does not work. It calcs from width
+			fontFamily: FontFamilyStyle
 		}
 	}
 
-	interface IShapeWidgetData {
-		x:number
-		y:number
-		width:number
-		height:number
-		rotation:number
-		text:string
-		style:IShapeWidgetStyleData
-	}
-
-	interface IShapeWidgetStyleData {
-		shapeType:number
-		backgroundColor:string|number
-		backgroundOpacity:number
-		borderColor:string|number
-		borderWidth:number
-		borderStyle:number
-		fontSize:number
-		textColor:string|number
-		textAlign:string
-		textAlignVertical:string
-	}
-
-	interface ILineWidgetData {
-		startWidgetId:string
-		endWidgetId:string
-		startPosition:IPoint
-		endPosition:IPoint
-		style:{
-			type:string
-			borderColor:string
-			borderWidth:number
-			borderStyle:string
+	interface IShapeWidgetData extends IBaseWidget {
+		type: 'SHAPE'
+		x: number
+		y: number
+		width: number
+		height: number
+		rotation: number
+		text: string
+		style: {
+			shapeType: ShapeTypeStyle
+			backgroundColor: BackgroundColorStyle
+			backgroundOpacity: BackgroundOpacityStyle
+			borderColor: BorderColorStyle
+			borderWidth: BorderWidthStyle
+			borderStyle: BorderStyleStyle
+			borderOpacity: BorderOpacityStyle
+			fontSize: FontSizeStyle
+			fontFamily: FontFamilyStyle
+			textColor: TextColorStyle
+			textAlign: TextAlignStyle
+			textAlignVertical: TextAlignVerticalStyle
+			highlighting: HighlightingStyle,
+			italic: ItalicStyle,
+			strike: StrikeStyle,
+			underline: UnderlineStyle,
+			bold: BoldStyle
 		}
 	}
 
-	interface IWebScreenshotWidgetData {
-		x:number
-		y:number
-		width:number
-		rotation:number
-		url:string
-	}
-
-	interface IFrameWidgetData {
-		x:number
-		y:number
-		width:number
-		height:number
-		title:string
-		frameIndex:number
-		childrenIds:string[]
-		style:{
-			backgroundColor:string
+	interface ILineWidgetData extends IBaseWidget {
+		type: 'LINE'
+		startWidgetId: string | undefined
+		endWidgetId: string | undefined
+		startPosition: IPoint
+		endPosition: IPoint
+		style: {
+			lineColor: LineColorStyle
+			lineWidth: LineWidthStyle
+			lineStyle: LineStyleStyle
 		}
 	}
 
-	interface ICurveWidgetData {
-		points:IPoint[]
-		style:{
-			lineColor:string
-			lineWidth:number
+	interface IWebScreenshotWidgetData extends IBaseWidget {
+		type: 'WEBSCREEN'
+		x: number
+		y: number
+		scale: number
+		url: string
+	}
+
+	interface IFrameWidgetData extends IBaseWidget {
+		type: 'FRAME'
+		x: number
+		y: number
+		width: number
+		height: number
+		title: string
+		frameIndex: number
+		childrenIds: string[]
+		style: {
+			backgroundColor: BackgroundColorStyle
 		}
 	}
 
-	interface IEmbedWidgetData {
-		x:number
-		y:number
-		width:number
-		html:string
+	interface ICurveWidgetData extends IBaseWidget {
+		type: 'CURVE'
+		x: number
+		y: number
+		scale: number
+		rotation: number
+		points: IPoint[]
+		style: {
+			lineColor: LineColorStyle
+			lineWidth: LineWidthStyle
+		}
 	}
 
-	interface IPreviewWidgetData {
-		url:string
+	interface IEmbedWidgetData extends IBaseWidget {
+		type: 'EMBED'
+		x: number
+		y: number
+		scale: number
+		html: string
 	}
 
-	interface ICommentData {
-		color:number
-		resolved:boolean
+	interface IPreviewWidgetData extends IBaseWidget {
+		type: 'PREVIEW'
+		x: number
+		y: number
+		scale: number
+		url: string
 	}
 
-	interface IDocumentWidgetData {
-		title:string
+	interface ICardWidgetData extends IBaseWidget {
+		type: 'CARDWIDGET'
+		x: number
+		y: number
+		scale: number
+		height: number
+		rotation: number
 	}
 
-	interface IMockupWidgetData {
-		mockupType:string
+	interface IDocumentWidgetData extends IBaseWidget {
+		type: 'DOCUMENT'
+		x: number
+		y: number
+		rotation: number
+		scale: number
+		title: string
+	}
+
+	interface IMockupWidgetData extends IBaseWidget {
+		type: 'MOCKUP'
+		x: number
+		y: number
+		rotation: number
+		mockupType: string
+	}
+
+	interface ICommentData extends IBaseWidget {
+		type: 'COMMENT'
+		color: number
+		resolved: boolean
 	}
 
 	////////////////////////////////////////////////////////////////////////
 	// Helpers data
 	////////////////////////////////////////////////////////////////////////
 
-	interface SDKBoardInfo {
-		id:string
-		title:string
-		description:string
-		owner:SDKUserInfo
-		ownerName:string
-		picture:SDKPictureInfo
-		currentUserPermission:SDKBoardPermissionInfo
-		account:SDKAccountInfo
-		lastModifyingUser:SDKUserInfo
-		lastModifyingUserName:string
-		lastViewedByMeDate:string
-		modifiedByMeDate:string
-		createdAt:string
-		updatedAt:string
+	interface IBoardInfo {
+		id: string
+		title: string
+		description: string
+		owner: IUserInfo
+		picture: IPictureInfo
+		currentUserPermission: IBoardPermissionInfo
+		account: IAccountInfo
+		lastModifyingUser: IUserInfo
+		lastModifyingUserName: string
+		lastViewedByMeDate: string
+		modifiedByMeDate: string
+		createdAt: string
+		updatedAt: string
 	}
 
-	interface SDKUserInfo {
-		id:string
-		name:string
-		email:string
-		picture:SDKPictureInfo
+	interface IUserInfo {
+		id: string
+		name: string
+		email: string
+		picture: IPictureInfo
 	}
 
-	interface SDKAccountInfo {
-		id:string
-		role?:string
-		title:string
-		picture:any
-		type:string
+	interface IAccountInfo {
+		id: string
+		role?: string
+		title: string
+		picture: any
+		type: string
 	}
 
-	interface SDKPictureInfo {
-		big:string
-		medium:string
-		small:string
-		resourceId:string
-		size44:string
-		size180:string
-		size210:string
-		size420:string
-		image:string //original picture
+	interface IPictureInfo {
+		big: string
+		medium: string
+		small: string
+		resourceId: string
+		size44: string
+		size180: string
+		size210: string
+		size420: string
+		image: string //original picture
 	}
 
-	interface SDKBoardPermissionInfo {
-		id:string
-		role:string
-		permissions:string[]
+	interface IBoardPermissionInfo {
+		role: string
+		permissions: string[]
 	}
 
-	interface DraggableImageOptions {
-		isTouchEvent:boolean
-		preview:{
-			width?:number
-			height?:number
-			url:string
+	interface IDraggableImageOptions {
+		isTouchEvent: boolean
+		preview: {
+			width?: number
+			height?: number
+			url: string
 		}
-		image:DroppedImageOptions
+		image: IDroppedImageOptions
 	}
 
-	interface DroppedImageOptions {
-		width?:number
-		height?:number
-		url:string
+	interface IDroppedImageOptions {
+		width?: number
+		height?: number
+		url: string
 	}
 
-	interface IConfirmModalOptions {
-		caption:string
-		text:string
-		confirmButtonText:string
-		cancelButtonText:string
+	interface IRect {
+		x: number
+		y: number
+		width: number
+		height: number
 	}
+
+	interface IPoint {
+		x: number
+		y: number
+	}
+
+	interface IBounds {
+		x: number
+		y: number
+		top: number
+		left: number
+		bottom: number
+		right: number
+		width: number
+		height: number
+	}
+
+	/////////////////////////////////////////////
+	// Style types
+	/////////////////////////////////////////////
+
+	type ShapeTypeStyle = number
+	type StickerTypeStyle = number
+	type BackgroundColorStyle = string | number
+	type BackgroundOpacityStyle = number
+	type BorderColorStyle = string | number
+	type BorderWidthStyle = number
+	type BorderStyleStyle = number
+	type BorderOpacityStyle = number
+	type FontSizeStyle = number
+	type FontFamilyStyle = number
+	type TextColorStyle = string | number
+	type TextAlignStyle = 'l' | 'c' | 'r' //left | center | right
+	type TextAlignVerticalStyle = 't' | 'm' | 'b' //top | middle | bottom
+	type HighlightingStyle = string | number
+	type ItalicStyle = 0 | 1
+	type StrikeStyle = 0 | 1
+	type UnderlineStyle = 0 | 1
+	type BoldStyle = 0 | 1
+	type LineColorStyle = string | number
+	type LineWidthStyle = number
+	type LineStyleStyle = number
 }
 
-type PartialDeep<T> = { [P in keyof T]?:PartialDeep<T[P]> }
-
-interface IRect {
-	x:number
-	y:number
-	width:number
-	height:number
-}
-
-interface IPoint {
-	x:number
-	y:number
-}
-
-interface IBounds {
-	top:number
-	left:number
-	bottom:number
-	right:number
-	width:number
-	height:number
-}
