@@ -9,13 +9,13 @@ class Root extends React.Component {
 	}
 
 	async getBoardTitle() {
-		let boardInfo = await rtb.board.getInfo()
+		let boardInfo = await rtb.board.info.get()
 		this.setState({boardTitle: boardInfo.title})
 	}
 
 	async deleteAllContent() {
-		let allObjects = await rtb.board.getAllObjects()
-		await rtb.board.deleteById(allObjects.map(object => object.id))
+		let allObjects = await rtb.board.widgets.get()
+		await rtb.board.widgets.deleteById(allObjects.map(object => object.id))
 		await rtb.showNotification('Content has been deleted')
 	}
 

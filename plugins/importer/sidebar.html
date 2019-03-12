@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="https://realtimeboard.com/app/static/rtb.uikit.css">
-    <script src="https://realtimeboard.com/app/static/rtb.sdk.1.0.js"></script>
+    <script src="https://realtimeboard.com/app/static/rtb.sdk.1.1.js"></script>
 
     <style>
         .rtb-sidebar-caption {
@@ -75,7 +75,7 @@
       const chunk = chunks[index]
       if (chunk.trim()) {
         i++
-        rtb.board.widgets.stickers.create({text: chunk, x: i * 280})
+        rtb.board.widgets.create({type:'sticker', text: chunk, x: i * 280})
       }
     }
   }

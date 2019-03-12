@@ -77,23 +77,23 @@ declare module SDK {
 		openRightSidebar(iframeURL: string): Promise<any>
 
 		// Promise will resolves when library closes
-		openLibrary(iframeURL: string): Promise<any>
+		openLibrary(iframeURL: string, options: {title: string}): Promise<any>
 
 		// Promise will resolves when modal closes
 		// Promise returns data passed in closeModal function
 		openModal(iframeURL: string, options?: {maxWidth?: number, maxHeight?: number}): Promise<any>
 
 		// Throws error if modal opened not by this plugin
-		closeLeftSidebar(data: any)
+		closeLeftSidebar(data?: any)
 
 		// Throws error if sidebar opened not by this plugin
-		closeRightSidebar(data: any)
+		closeRightSidebar(data?: any)
 
 		// Throws error if library opened not by this plugin
-		closeLibrary(data: any)
+		closeLibrary(data?: any)
 
 		// Throws error if modal opened not by this plugin
-		closeModal(data: any)
+		closeModal(data?: any)
 	}
 
 	interface IBoardViewportCommands {
