@@ -1,60 +1,11 @@
-declare module SDK {
-	interface RTB {
-		// Available in main.js only
-		initialize(config:IPluginConfig)
-
-		// Available in iframe`s extension point only (e.g.: sidebar or modal)
-		onReady(callback:() => any)
-
-		board:IBoardCommands
-
-		addListener(event:string, listener:(e) => void)
-		removeListener(event:string, listener:(e) => void)
-
-		showNotification(text:string)
-		showErrorNotification(text:string)
-
-		helpers:SDK.Helpers
-		enums:SDK.IEnums
-	}
-
-	interface Helpers {
-		initScrollableContainerWithDraggableImages(container:Element, options:{
-			draggableImageSelector:string
-		}):HTMLElement
-	}
-
-	interface IEnums {
-		readonly event:SDK.EventType
-		readonly shapeType:SDK.ShapeType
-		readonly stickerType:SDK.StickerType
-	}
-
-
-	interface ShapeType {
-		RECTANGLE:number
-		CIRCLE:number
-		TRIANGLE:number
-		BUBBLE:number
-		ROUNDER:number
-		RHOMBUS:number
-		PARALL:number
-		STAR:number
-		ARROW_BIG:number
-	}
-
-	interface StickerType {
-		SQUARE:number
-		RECTANGLE:number
-	}
-}
-
-declare const rtb:SDK.RTB
+declare const rtb: SDK.Root
 
 declare module SDK {
 	interface Root {
-		// Available in main.js only
+		// Available in main iframe only
 		initialize(config: IPluginConfig)
+
+		onReady(callback: () => void)
 
 		board: IBoardCommands
 
@@ -68,10 +19,10 @@ declare module SDK {
 	}
 
 	type EventType =
-		| 'BOARD_SELECTION_UPDATED'
-		| 'BOARD_WIDGETS_CREATED'
-		| 'BOARD_WIDGETS_DELETED'
-		| 'BOARD_WIDGETS_TRANSFORMATION_UPDATED'
+		| 'SELECTION_UPDATED'
+		| 'WIDGETS_CREATED'
+		| 'WIDGETS_DELETED'
+		| 'WIDGETS_TRANSFORMATION_UPDATED'
 
 	interface Event {
 		type: EventType
@@ -102,8 +53,8 @@ declare module SDK {
 	interface IBoardCommands {
 		info: IBoardInfoCommands
 
-		widgets: IBoardWidgetsCommands  //requires 'EDIT_CONTENT' permission
-		groups: IBoardGroupsCommands //requires 'EDIT_CONTENT' permission
+		widgets: IBoardWidgetsCommands
+		groups: IBoardGroupsCommands
 
 		ui: IBoardUICommands
 		viewport: IBoardViewportCommands
@@ -114,27 +65,23 @@ declare module SDK {
 		hasPermission(permission: BoardPermission): Promise<boolean>
 	}
 
-
 	interface IBoardInfoCommands {
 		get(): Promise<IBoardInfo>
 	}
 
 	interface IBoardUICommands {
 		// Promise will resolves when sidebar closes
-		// Promise returns data passed in closeLeftSidebar function
-		openLeftSidebar(iframeURL: string, options?: {width?: number}): Promise<any>
+		openLeftSidebar(iframeURL: string): Promise<any>
 
 		// Promise will resolves when sidebar closes
-		// Promise returns data passed in openRightSidebar function
-		openRightSidebar(iframeURL: string, options?: {width?: number}): Promise<any>
+		openRightSidebar(iframeURL: string): Promise<any>
 
 		// Promise will resolves when library closes
-		// Promise returns data passed in closeLibrary function
-		openLibrary(iframeURL: string, options: {title: string}): Promise<any>
+		openLibrary(iframeURL: string): Promise<any>
 
 		// Promise will resolves when modal closes
 		// Promise returns data passed in closeModal function
-		openModal(iframeURL: string, options?: {maxWidth?: number, maxHeight?: number, fullscreen?: boolean}): Promise<any>
+		openModal(iframeURL: string, options?: {maxWidth?: number, maxHeight?: number}): Promise<any>
 
 		// Throws error if modal opened not by this plugin
 		closeLeftSidebar(data: any)
@@ -172,8 +119,7 @@ declare module SDK {
 		selectWidgets(widgetIds: string | string[]): Promise<IBaseWidget[]>
 
 		// Get selected widgets id after user selects it
-		// allowMultiSelection is false by default
-		enterSelectWidgetsMode(options: {allowMultiSelection?: boolean}): Promise<{selectedWidgets: IBaseWidget[]}>
+		enterSelectWidgetsMode(): Promise<{selectedWidgets: IBaseWidget[]}>
 	}
 
 	type BoardPermission = 'EDIT_INFO' | 'EDIT_CONTENT' | 'EDIT_COMMENTS'
@@ -183,15 +129,19 @@ declare module SDK {
 	////////////////////////////////////////////////////////////////////////
 
 	interface IBoardWidgetsCommands {
+		//requires 'EDIT_CONTENT' permission
 		create(widgets: {type: string, [index: string]: any}[]): Promise<IBaseWidget[]> // 'type' is required
 
 		// filterBy uses https://lodash.com/docs/4.17.11#filter
 		get(filterBy?: Object): Promise<IBaseWidget[]>
 
+		//requires 'EDIT_CONTENT' permission
 		update(widgets: {id: string, [index: string]: any}[]): Promise<IBaseWidget[]> // 'id' is required
 
+		//requires 'EDIT_CONTENT' permission
 		transformDelta(widgetIds: string | string[], deltaX: number | undefined, deltaY: number | undefined, deltaRotation: number | undefined): Promise<IBaseWidget[]>
 
+		//requires 'EDIT_CONTENT' permission
 		deleteById(widgetIds: string | string[]): Promise<void>
 	}
 
@@ -214,16 +164,13 @@ declare module SDK {
 		readonly type: string
 		readonly bounds: IBounds
 		readonly groupId?: string
-		readonly zIndex?: number // defined when type !== 'frame' (not implemented yet)
-		readonly createdUserId: string
-		readonly lastModifiedUserId: string
 	}
 
 	interface ITextWidgetData extends IBaseWidget {
 		type: 'TEXT'
 		x: number
 		y: number
-		width: number //what value if auto-size?
+		width: number
 		scale: number
 		rotation: number
 		text: string
@@ -263,7 +210,7 @@ declare module SDK {
 			fontSize: FontSizeStyle
 			textAlign: TextAlignStyle
 			textAlignVertical: TextAlignVerticalStyle
-			stickerType: StickerTypeStyle // Does not work. It calcs from width
+			stickerType: StickerTypeStyle
 			fontFamily: FontFamilyStyle
 		}
 	}

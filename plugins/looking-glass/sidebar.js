@@ -10,7 +10,7 @@ const widgetTextElement = document.getElementById('widget-text')
 
 async function getWidget() {
   // Get selected widgets
-  let widgets = await rtb.board.getSelection()
+  let widgets = await rtb.board.selection.get()
 
   // Get first widget from selected widgets
   let text = widgets[0].text
