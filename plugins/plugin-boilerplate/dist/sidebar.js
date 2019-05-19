@@ -115,14 +115,14 @@ class Root extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
     }
     getBoardTitle() {
         return __awaiter(this, void 0, void 0, function* () {
-            let boardInfo = yield rtb.board.getInfo();
+            let boardInfo = yield rtb.board.info.get();
             this.setState({ boardTitle: boardInfo.title });
         });
     }
     deleteAllContent() {
         return __awaiter(this, void 0, void 0, function* () {
-            let allObjects = yield rtb.board.getAllObjects();
-            yield rtb.board.deleteById(allObjects.map(object => object.id));
+            let allObjects = yield rtb.board.widgets.get();
+            yield rtb.board.widgets.deleteById(allObjects.map(object => object.id));
             yield rtb.showNotification('Content has been deleted');
         });
     }
@@ -2556,6 +2556,7 @@ var printWarning = function() {};
 if (true) {
   var ReactPropTypesSecret = __webpack_require__(15);
   var loggedTypeFailures = {};
+  var has = Function.call.bind(Object.prototype.hasOwnProperty);
 
   printWarning = function(text) {
     var message = 'Warning: ' + text;
@@ -2585,7 +2586,7 @@ if (true) {
 function checkPropTypes(typeSpecs, values, location, componentName, getStack) {
   if (true) {
     for (var typeSpecName in typeSpecs) {
-      if (typeSpecs.hasOwnProperty(typeSpecName)) {
+      if (has(typeSpecs, typeSpecName)) {
         var error;
         // Prop type validation may throw. In case they do, we don't want to
         // fail the render phase where it didn't fail before. So we log it.
@@ -2613,8 +2614,7 @@ function checkPropTypes(typeSpecs, values, location, componentName, getStack) {
             'You may have forgotten to pass an argument to the type checker ' +
             'creator (arrayOf, instanceOf, objectOf, oneOf, oneOfType, and ' +
             'shape all require an argument).'
-          )
-
+          );
         }
         if (error instanceof Error && !(error.message in loggedTypeFailures)) {
           // Only monitor this failure once because there tends to be a lot of the
@@ -2629,6 +2629,17 @@ function checkPropTypes(typeSpecs, values, location, componentName, getStack) {
         }
       }
     }
+  }
+}
+
+/**
+ * Resets warning cache when testing.
+ *
+ * @private
+ */
+checkPropTypes.resetWarningCache = function() {
+  if (true) {
+    loggedTypeFailures = {};
   }
 }
 

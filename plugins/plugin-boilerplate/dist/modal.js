@@ -118,7 +118,7 @@ if(false) {}
 __webpack_require__(2);
 let closeButton = document.querySelector('.close-button');
 closeButton.addEventListener('click', () => {
-    rtb.board.closeCurrentModal();
+    rtb.board.ui.closeModal();
 });
 
 
