@@ -1,17 +1,11 @@
-# How to start!
-See examples plugins:
-- /plugins/stickers-to-shapes
-- /plugins/extra-notes
-- /plugins/looking-glass
-- /plugins/board-cleaner
-- /plugins/cats-demo
+# Examples for Miro web-plugins
 
-There are descriptions of some of these examples (including GIFs) at
-https://developers.realtimeboard.com/docs/web-plugin-examples
 
-You can use `plugins/plugin-boilerplate` demo which already includes:
-- TypeScript
-- Webpack 
-- ReactJS
-- LESS
-- HelloWorld code
+In this repository, you can find [types for Miro SDK](https://github.com/miroapp/web-plugins/blob/master/miro.d.ts) and several simple examples. Descriptions and GIFs for those examples available [here](https://developers.miro.com/docs/web-plugin-examples).
+
+
+To learn mode read [what web-plugins is it](https://developers.miro.com/docs/sdk) and [how to build your web-plugin](https://developers.miro.com/docs/how-to-start). 
+
+
+If you like TypeScript, Webpack, and ReactJS, you can start with `plugins/plugin-boilerplate` example. It already includes these tools.
+
