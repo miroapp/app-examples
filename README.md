@@ -9,7 +9,7 @@ See examples plugins:
 There are descriptions of some of these examples (including GIFs) at
 https://developers.realtimeboard.com/docs/web-plugin-examples
 
-You can use _plugins/plugin-boilerplate_ demo which already includes:
+You can use `plugins/plugin-boilerplate` demo which already includes:
 - TypeScript
 - Webpack 
 - ReactJS

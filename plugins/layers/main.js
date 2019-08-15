@@ -3,14 +3,14 @@ let icon = '<g fill="none" fill-rule="evenodd" stroke="currentColor" stroke-widt
   + '        <path stroke-linecap="round" d="M21.642 12.18l-9.553 4.276a.2.2 0 0 1-.178 0L2.358 12.18M21.642 16.679l-9.553 4.276a.2.2 0 0 1-.178 0L2.358 16.68"/>\n'
   + '    </g>'
 
-rtb.onReady(() => {
-  rtb.initialize({
+miro.onReady(() => {
+  miro.initialize({
     extensionPoints: {
       bottomBar: {
         title: 'Layers',
         svgIcon: icon,
         onClick: function () {
-          rtb.board.ui.openLeftSidebar('sidebar.html')
+          miro.board.ui.openLeftSidebar('sidebar.html')
         }
       }
     }

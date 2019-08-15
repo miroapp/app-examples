@@ -13,7 +13,6 @@
   },
   "include": [
     "src/**/*",
-    "../../rtb.d.ts",
-    "../../rtb.helpers.d.ts"
+    "../../miro.d.ts"
   ]
 }

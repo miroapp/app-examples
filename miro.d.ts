@@ -1,13 +1,21 @@
-declare const rtb: SDK.Root
+declare const miro: SDK.Root
 
 declare module SDK {
 	interface Root {
-		// Available in main iframe only
-		initialize(config: IPluginConfig)
-
+		// Use SDK after callback was called
 		onReady(callback: () => void)
 
+		// Available only in main.js on a board page
+		initialize(config?: IPluginConfig)
+
+		// Available only when Web-plugin is run on a settings page
+		initializeSettings(config?: IPluginSettingsConfig)
+
+		// Available only when Web-plugin is run on a board page
 		board: IBoardCommands
+
+		// Account where Web-plugin has been installed
+		account: IAccountCommands
 
 		addListener(event: EventType, listener: (e: Event) => void)
 
@@ -16,54 +24,89 @@ declare module SDK {
 		showNotification(text: string)
 
 		showErrorNotification(text: string)
+
+		// Check is current user has authorized your Web-plugin to make API requests on their behalf
+		isAuthorized(): Promise<boolean>
+
+		// Get OAuth token for current user to make requests REST API
+		getToken(): Promise<string>
+
+		// Opens auth popup.
+		// To prevent the browser from blocking this popup, only call miro.authorize from a click handler on your domain.
+		// Method returns a token you can use to make requests REST API on behalf of the current user.
+		authorize(options: AuthorizationOptions): Promise<string>
 	}
 
 	type EventType =
-		| 'SELECTION_UPDATED'
-		| 'WIDGETS_CREATED'
-		| 'WIDGETS_DELETED'
-		| 'WIDGETS_TRANSFORMATION_UPDATED'
+		| 'BOARD_SELECTION_UPDATED'
+		| 'BOARD_WIDGETS_CREATED'
+		| 'BOARD_WIDGETS_DELETED'
+		| 'BOARD_WIDGETS_TRANSFORMATION_UPDATED'
 
 	interface Event {
 		type: EventType
 		data: any
 	}
 
+	interface AuthorizationOptions {
+		response_type: 'code' | 'token'
+		scope?: string
+		redirect_uri?: string
+		state?: string
+	}
+
+	interface IPluginSettingsConfig {
+		iframeHeight: number
+	}
+
 	interface IPluginConfig {
 		extensionPoints: {
-			toolbar?: {
-				title: string
-				toolbarSvgIcon: string
-				librarySvgIcon: string
-				onClick: () => void
-			}
-			bottomBar?: {
-				title: string
-				svgIcon: string
-				onClick: () => void
-			}
-			exportMenu?: {
-				title: string
-				svgIcon: string
-				onClick: () => void
-			}
+			toolbar?: ButtonExtensionPoint<ToolbarButton>
+			bottomBar?: ButtonExtensionPoint<BottomBarButton>
+			exportMenu?: ButtonExtensionPoint<ExportMenuButton>
 		}
+	}
+
+	type ButtonExtensionPoint<T> = T | (() => Promise<T[]>)
+
+	interface ToolbarButton {
+		title: string
+		toolbarSvgIcon: string
+		librarySvgIcon: string
+		onClick: () => void
+	}
+
+	interface BottomBarButton {
+		title: string
+		svgIcon: string
+		onClick: () => void
+	}
+
+	interface ExportMenuButton {
+		title: string
+		svgIcon: string
+		onClick: () => void
 	}
 
 	interface IBoardCommands {
 		info: IBoardInfoCommands
-
-		widgets: IBoardWidgetsCommands
-		groups: IBoardGroupsCommands
+		widgets: IBoardWidgetsCommands //requires 'EDIT_CONTENT' permission
 
 		ui: IBoardUICommands
 		viewport: IBoardViewportCommands
 		selection: IBoardSelectionCommands
 
-		getPermissions(): Promise<BoardPermission[]>
-
-		hasPermission(permission: BoardPermission): Promise<boolean>
+		__getBoardUrlWithParams(params: Object): string
+		__getParamsFromBoardUrl(): Object
 	}
+
+	interface IAccountCommands {
+		get(): Promise<IAccountInfo>
+		isCurrentUserAccountMember(): Promise<boolean>
+	}
+
+	type InputWidget = string | {id: string}
+	type InputWidgets = string | string[] | {id: string} | {id: string}[]
 
 	interface IBoardInfoCommands {
 		get(): Promise<IBoardInfo>
@@ -71,19 +114,22 @@ declare module SDK {
 
 	interface IBoardUICommands {
 		// Promise will resolves when sidebar closes
-		openLeftSidebar(iframeURL: string): Promise<any>
+		// Promise returns data passed in closeLeftSidebar function
+		openLeftSidebar(iframeURL: string, options?: {width?: number}): Promise<any>
 
 		// Promise will resolves when sidebar closes
-		openRightSidebar(iframeURL: string): Promise<any>
+		// Promise returns data passed in openRightSidebar function
+		openRightSidebar(iframeURL: string, options?: {width?: number}): Promise<any>
 
 		// Promise will resolves when library closes
+		// Promise returns data passed in closeLibrary function
 		openLibrary(iframeURL: string, options: {title: string}): Promise<any>
 
 		// Promise will resolves when modal closes
 		// Promise returns data passed in closeModal function
-		openModal(iframeURL: string, options?: {maxWidth?: number, maxHeight?: number}): Promise<any>
+		openModal(iframeURL: string, options?: {maxWidth?: number; maxHeight?: number; fullscreen?: boolean}): Promise<any>
 
-		// Throws error if modal opened not by this plugin
+		// Throws error if sidebar opened not by this plugin
 		closeLeftSidebar(data?: any)
 
 		// Throws error if sidebar opened not by this plugin
@@ -103,7 +149,7 @@ declare module SDK {
 
 		setViewportWithAnimation(viewport: IRect): Promise<IRect>
 
-		zoomToObject(objectId: string, selectObject?: boolean)
+		zoomToObject(objectId: InputWidget, selectObject?: boolean)
 
 		setZoom(value: number): Promise<number>
 
@@ -116,33 +162,37 @@ declare module SDK {
 
 		// Select target widgets
 		// Returns selected widgets
-		selectWidgets(widgetIds: string | string[]): Promise<IBaseWidget[]>
+		selectWidgets(widgetIds: SDK.InputWidgets): Promise<IBaseWidget[]>
 
 		// Get selected widgets id after user selects it
-		enterSelectWidgetsMode(): Promise<{selectedWidgets: IBaseWidget[]}>
+		// allowMultiSelection is false by default TODO: not implemented yet
+		enterSelectWidgetsMode(options: {allowMultiSelection?: boolean}): Promise<{selectedWidgets: IBaseWidget[]}>
 	}
 
-	type BoardPermission = 'EDIT_INFO' | 'EDIT_CONTENT' | 'EDIT_COMMENTS'
-
-	////////////////////////////////////////////////////////////////////////
-	// Widgets
-	////////////////////////////////////////////////////////////////////////
-
 	interface IBoardWidgetsCommands {
-		//requires 'EDIT_CONTENT' permission
-		create(widgets: {type: string, [index: string]: any}[]): Promise<IBaseWidget[]> // 'type' is required
+		create(widgets: {type: string; [index: string]: any}[]): Promise<IBaseWidget[]> // 'type' is required
 
 		// filterBy uses https://lodash.com/docs/4.17.11#filter
 		get(filterBy?: Object): Promise<IBaseWidget[]>
 
-		//requires 'EDIT_CONTENT' permission
-		update(widgets: {id: string, [index: string]: any}[]): Promise<IBaseWidget[]> // 'id' is required
+		update(widgets: {id: string; [index: string]: any}[]): Promise<IBaseWidget[]> // 'id' is required
 
-		//requires 'EDIT_CONTENT' permission
-		transformDelta(widgetIds: string | string[], deltaX: number | undefined, deltaY: number | undefined, deltaRotation: number | undefined): Promise<IBaseWidget[]>
+		transformDelta(
+			widgetIds: InputWidgets,
+			deltaX: number | undefined,
+			deltaY: number | undefined,
+			deltaRotation: number | undefined
+		): Promise<IBaseWidget[]>
 
-		//requires 'EDIT_CONTENT' permission
-		deleteById(widgetIds: string | string[]): Promise<void>
+		deleteById(widgetIds: InputWidgets): Promise<void>
+
+		bringForward(widgetId: InputWidgets): Promise<void>
+
+		sendBackward(widgetId: InputWidgets): Promise<void>
+	}
+
+	interface IBoardCommentsCommands {
+		get(): Promise<ICommentData[]>
 	}
 
 	interface IBoardGroupsCommands {
@@ -159,11 +209,26 @@ declare module SDK {
 	// Widget data types
 	////////////////////////////////////////////////////////////////////////
 
-	interface IBaseWidget {
+	type WidgetMetadata = {[x: string]: any}
+
+	type WidgetCapabilities = {editable: boolean}
+
+	interface IBaseWidgetNamespaces {
+		metadata: WidgetMetadata
+		capabilities?: WidgetCapabilities
+	}
+
+	type BaseWidgetNamespacesKeys = keyof IBaseWidgetNamespaces
+
+	interface IBaseWidget extends IBaseWidgetNamespaces {
 		readonly id: string
 		readonly type: string
 		readonly bounds: IBounds
 		readonly groupId?: string
+		readonly zIndex?: number // defined when type !== 'frame' (not implemented yet)
+		readonly createdUserId: string
+		readonly lastModifiedUserId: string
+		clientVisible: boolean
 	}
 
 	interface ITextWidgetData extends IBaseWidget {
@@ -174,6 +239,7 @@ declare module SDK {
 		scale: number
 		rotation: number
 		text: string
+		readonly plainText: string
 		style: {
 			backgroundColor: BackgroundColorStyle
 			backgroundOpacity: BackgroundOpacityStyle
@@ -210,7 +276,7 @@ declare module SDK {
 			fontSize: FontSizeStyle
 			textAlign: TextAlignStyle
 			textAlignVertical: TextAlignVerticalStyle
-			stickerType: StickerTypeStyle
+			stickerType: StickerTypeStyle // Does not work. It calcs from width
 			fontFamily: FontFamilyStyle
 		}
 	}
@@ -223,6 +289,7 @@ declare module SDK {
 		height: number
 		rotation: number
 		text: string
+		readonly plainText: string
 		style: {
 			shapeType: ShapeTypeStyle
 			backgroundColor: BackgroundColorStyle
@@ -236,10 +303,10 @@ declare module SDK {
 			textColor: TextColorStyle
 			textAlign: TextAlignStyle
 			textAlignVertical: TextAlignVerticalStyle
-			highlighting: HighlightingStyle,
-			italic: ItalicStyle,
-			strike: StrikeStyle,
-			underline: UnderlineStyle,
+			highlighting: HighlightingStyle
+			italic: ItalicStyle
+			strike: StrikeStyle
+			underline: UnderlineStyle
 			bold: BoldStyle
 		}
 	}
@@ -309,12 +376,36 @@ declare module SDK {
 	}
 
 	interface ICardWidgetData extends IBaseWidget {
-		type: 'CARDWIDGET'
+		type: 'CARD'
 		x: number
 		y: number
 		scale: number
+		width: number
 		height: number
-		rotation: number
+		title: string
+		description: string
+		dueDate: {
+			from: number
+			to: number
+		}
+		assignee: {
+			userId: string
+		}
+		card: {
+			customFields: {
+				value?: string
+				mainColor?: string
+				fontColor?: string
+				iconUrl?: string
+				roundedIcon?: boolean
+			}[]
+			logo: {
+				iconUrl: string
+			}
+		}
+		style: {
+			backgroundColor: BackgroundColorStyle
+		}
 	}
 
 	interface IDocumentWidgetData extends IBaseWidget {
@@ -340,20 +431,27 @@ declare module SDK {
 		resolved: boolean
 	}
 
+	interface IWidgetShortData {
+		id: string
+		type?: string
+		metadata?: any
+	}
+
 	////////////////////////////////////////////////////////////////////////
 	// Helpers data
 	////////////////////////////////////////////////////////////////////////
+
+	type BoardPermission = 'EDIT_INFO' | 'EDIT_CONTENT' | 'EDIT_COMMENTS'
+	type AccountPermission = 'MANAGE_APPS'
 
 	interface IBoardInfo {
 		id: string
 		title: string
 		description: string
-		owner: IUserInfo
+		owner?: IUserInfo
 		picture: IPictureInfo
-		currentUserPermission: IBoardPermissionInfo
-		account: IAccountInfo
+		currentUserPermissions: BoardPermission[]
 		lastModifyingUser: IUserInfo
-		lastModifyingUserName: string
 		lastViewedByMeDate: string
 		modifiedByMeDate: string
 		createdAt: string
@@ -369,21 +467,16 @@ declare module SDK {
 
 	interface IAccountInfo {
 		id: string
-		role?: string
 		title: string
-		picture: any
-		type: string
+		currentUserPermissions: AccountPermission[]
+		createdAt: string
+		picture: IPictureInfo
 	}
 
 	interface IPictureInfo {
 		big: string
 		medium: string
 		small: string
-		resourceId: string
-		size44: string
-		size180: string
-		size210: string
-		size420: string
 		image: string //original picture
 	}
 
@@ -434,7 +527,6 @@ declare module SDK {
 	/////////////////////////////////////////////
 	// Style types
 	/////////////////////////////////////////////
-
 	type ShapeTypeStyle = number
 	type StickerTypeStyle = number
 	type BackgroundColorStyle = string | number
@@ -457,4 +549,3 @@ declare module SDK {
 	type LineWidthStyle = number
 	type LineStyleStyle = number
 }
-

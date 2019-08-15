@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 29);
+/******/ 	return __webpack_require__(__webpack_require__.s = 28);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -112,13 +112,13 @@ if(false) {}
 
 /***/ }),
 
-/***/ 29:
+/***/ 28:
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(2);
 let closeButton = document.querySelector('.close-button');
 closeButton.addEventListener('click', () => {
-    rtb.board.ui.closeModal();
+    miro.board.ui.closeModal();
 });
 
 

@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="https://miro.com/app/static/rtb.uikit.css">
-    <script src="https://miro.com/app/static/rtb.sdk.1.1.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://miro.com/app/static/miro.uikit.css">
+    <script src="https://miro.com/app/static/sdk.1.1.js"></script>
 
     <style>
         .rtb-sidebar-caption {
@@ -86,9 +86,9 @@
 	hideElement(placeholder)
 	hideElement(widgetInfo)
 
-	rtb.onReady(() => {
-		rtb.addListener(rtb.enums.event.SELECTION_UPDATED, onSelectionChange)
-		rtb.board.selection.get().then((selectedWidgets) => {
+	miro.onReady(() => {
+		miro.addListener(miro.enums.event.SELECTION_UPDATED, onSelectionChange)
+		miro.board.selection.get().then((selectedWidgets) => {
 			updateSelection(selectedWidgets)
 		})
 	})

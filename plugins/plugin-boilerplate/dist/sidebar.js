@@ -115,15 +115,15 @@ class Root extends react__WEBPACK_IMPORTED_MODULE_0__["Component"] {
     }
     getBoardTitle() {
         return __awaiter(this, void 0, void 0, function* () {
-            let boardInfo = yield rtb.board.info.get();
+            let boardInfo = yield miro.board.info.get();
             this.setState({ boardTitle: boardInfo.title });
         });
     }
     deleteAllContent() {
         return __awaiter(this, void 0, void 0, function* () {
-            let allObjects = yield rtb.board.widgets.get();
-            yield rtb.board.widgets.deleteById(allObjects.map(object => object.id));
-            yield rtb.showNotification('Content has been deleted');
+            let allObjects = yield miro.board.widgets.get();
+            yield miro.board.widgets.deleteById(allObjects.map(object => object.id));
+            yield miro.showNotification('Content has been deleted');
         });
     }
     render() {

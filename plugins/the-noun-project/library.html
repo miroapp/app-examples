@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
 </head>
 
-<link type="text/css" href="https://miro.com/app/static/rtb.uikit.css">
-<script src="https://miro.com/app/static/rtb.sdk.1.1.js"></script>
+<link type="text/css" href="https://miro.com/app/static/miro.uikit.css">
+<script src="https://miro.com/app/static/sdk.1.1.js"></script>
 <script src="https://unpkg.com/whatwg-fetch"></script>
 <style>
     html, body {
@@ -208,7 +208,7 @@
 
 	function bootstrap() {
 		search()
-		rtb.helpers.initScrollableContainerWithDraggableImages(itemsContainer, {draggableImageSelector: '.image-item'})
+		miro.helpers.initScrollableContainerWithDraggableImages(itemsContainer, {draggableImageSelector: '.image-item'})
 	}
 
 	function showNotFoundMessage(query) {
@@ -278,7 +278,7 @@
 		return searchInputElement.value || 'icon'
 	}
 
-	rtb.onReady(bootstrap)
+	miro.onReady(bootstrap)
 </script>
 </body>
 </html>

@@ -7,7 +7,6 @@ module.exports = {
 	entry: {
 		main: './src/main.ts',
 		sidebar: './src/sidebar.tsx', // Example! It works with React.
-		library: './src/library.ts',
 		modal: './src/modal.ts'
 	},
 	module: {

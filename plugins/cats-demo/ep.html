@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
 </head>
 
-<link type="text/css" href="https://miro.com/app/static/rtb.uikit.css">
-<script src="https://miro.com/app/static/rtb.sdk.1.1.js"></script>
+<link type="text/css" href="https://miro.com/app/static/miro.uikit.css">
+<script src="https://miro.com/app/static/sdk.1.1.js"></script>
 <style>
     html, body {
         height: 100%;
@@ -52,10 +52,10 @@
 		let container = document.getElementById('container')
 		let imagesAsHTML = imagesSRC.map(src => `<img class="image-item" src="${src}" data-image-url="${src}">`).join('')
 		container.innerHTML = imagesAsHTML
-		rtb.helpers.initScrollableContainerWithDraggableImages(container, {draggableImageSelector: '.image-item'})
+		miro.helpers.initScrollableContainerWithDraggableImages(container, {draggableImageSelector: '.image-item'})
 	}
 
-	rtb.onReady(bootstrap)
+	miro.onReady(bootstrap)
 </script>
 </body>
 </html>

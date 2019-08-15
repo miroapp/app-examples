@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="https://miro.com/app/static/rtb.uikit.css">
-    <script type="text/javascript" src="https://miro.com/app/static/rtb.sdk.1.1.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://miro.com/app/static/miro.uikit.css">
+    <script type="text/javascript" src="https://miro.com/app/static/sdk.1.1.js"></script>
 
     <style>
         .rtb-sidebar-caption {
@@ -98,9 +98,9 @@
 		groupsByWidget.clear()
 		groupsById.clear()
 		widgetsById.clear()
-		framesData = await rtb.board.frames.get()
-		groupsData = await rtb.board.groups.get()
-		widgetsData = await rtb.board.widgets.get()
+		framesData = await miro.board.frames.get()
+		groupsData = await miro.board.groups.get()
+		widgetsData = await miro.board.widgets.get()
 		redraw()
 	}
 
@@ -197,7 +197,7 @@
 		element.addEventListener('click', (e) => {
 			console.log(objectId)
 			e.stopPropagation()
-			rtb.board.zoomToObject(objectId, true)
+			miro.board.zoomToObject(objectId, true)
 		})
 	}
 
@@ -220,12 +220,12 @@
 		highlightWidgets(e.data.map(w => w.id))
 	}
 
-	rtb.onReady(() => {
+	miro.onReady(() => {
 		rebuild()
-		let event = rtb.enums.event
-		rtb.addListener(event.WIDGETS_CREATED, rebuild)
-		rtb.addListener(event.WIDGETS_DELETED, rebuild)
-		rtb.addListener(event.SELECTION_UPDATED, onSelectionUpdated)
+		let event = miro.enums.event
+		miro.addListener(event.WIDGETS_CREATED, rebuild)
+		miro.addListener(event.WIDGETS_DELETED, rebuild)
+		miro.addListener(event.SELECTION_UPDATED, onSelectionUpdated)
 	})
 </script>
 </body>

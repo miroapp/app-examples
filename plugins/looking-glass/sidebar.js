@@ -1,6 +1,6 @@
-rtb.onReady(() => {
+miro.onReady(() => {
   // subscribe on user selected widgets
-  rtb.addListener(rtb.enums.event.SELECTION_UPDATED, getWidget)
+  miro.addListener(miro.enums.event.SELECTION_UPDATED, getWidget)
   getWidget()
 })
 
@@ -10,7 +10,7 @@ const widgetTextElement = document.getElementById('widget-text')
 
 async function getWidget() {
   // Get selected widgets
-  let widgets = await rtb.board.selection.get()
+  let widgets = await miro.board.selection.get()
 
   // Get first widget from selected widgets
   let text = widgets[0].text
