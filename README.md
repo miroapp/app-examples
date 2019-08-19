@@ -9,3 +9,5 @@ To learn mode read [what web-plugins is it](https://developers.miro.com/docs/sdk
 
 If you like TypeScript, Webpack, and ReactJS, you can start with `plugins/plugin-boilerplate` example. It already includes these tools.
 
+`plugins/board-cleaner` — see this example to learn how to authorize web-plugin for each user without server 
+

@@ -35,6 +35,8 @@ declare module SDK {
 		// To prevent the browser from blocking this popup, only call miro.authorize from a click handler on your domain.
 		// Method returns a token you can use to make requests REST API on behalf of the current user.
 		authorize(options: AuthorizationOptions): Promise<string>
+
+		getCurrentUser(): Promise<ICurrentUser>
 	}
 
 	type EventType =
@@ -181,7 +183,7 @@ declare module SDK {
 			widgetIds: InputWidgets,
 			deltaX: number | undefined,
 			deltaY: number | undefined,
-			deltaRotation: number | undefined
+			deltaRotation: number | undefined,
 		): Promise<IBaseWidget[]>
 
 		deleteById(widgetIds: InputWidgets): Promise<void>
@@ -522,6 +524,13 @@ declare module SDK {
 		right: number
 		width: number
 		height: number
+	}
+
+	interface ICurrentUser {
+		signedIn: boolean
+		scopes: string[]
+		currentBoardPermissions: BoardPermission[]
+		currentAccountPermissions: AccountPermission[]
 	}
 
 	/////////////////////////////////////////////

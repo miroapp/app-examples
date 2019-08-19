@@ -10,12 +10,16 @@
 	document.querySelector('button').addEventListener('click', function () {
 		const authorizeOptions = {
 			response_type: 'token',
-			redirect_uri: 'https://' + window.location.host + '/plugins/board-cleaner/auth-success.html'
+			redirect_uri: 'http://' + window.location.host + '/plugins/board-cleaner/auth-success.html'
 		}
 		miro.authorize(authorizeOptions)
 			.then(() => miro.getToken())
 			.then((token) => {
-				alert('Hooray!')
+				if (token) {
+					miro.board.ui.closeModal('success')
+				} else {
+					console.log('Something went wrong')
+				}
 			})
 	})
 </script>

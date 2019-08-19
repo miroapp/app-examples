@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-</head>
 <body>
 <h1>App installed</h1>
 <script>
-    if(window.parent) {
-		window.parent.miroAuthorized()
+	if(window.opener) {
+		// Close this window
+		window.opener.miroAuthorized()
     }
 </script>
 </body>

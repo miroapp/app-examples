@@ -9,13 +9,14 @@ miro.onReady(() => {
 				onClick: async () => {
 					const authorized = await miro.isAuthorized()
 					if (authorized) {
-						return {
-							title: 'Board cleaner',
-							svgIcon: icon,
-							onClick: () => {
-								clearAllContent()
-							}
-						}
+						clearAllContent()
+					} else {
+						miro.board.ui.openModal('not-authorized.html')
+							.then(res => {
+								if (res === 'success') {
+									clearAllContent()
+								}
+							})
 					}
 				}
 			}
