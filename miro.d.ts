@@ -35,8 +35,6 @@ declare module SDK {
 		// To prevent the browser from blocking this popup, only call miro.authorize from a click handler on your domain.
 		// Method returns a token you can use to make requests REST API on behalf of the current user.
 		authorize(options: AuthorizationOptions): Promise<string>
-
-		getCurrentUser(): Promise<ICurrentUser>
 	}
 
 	type EventType =
@@ -132,16 +130,16 @@ declare module SDK {
 		openModal(iframeURL: string, options?: {maxWidth?: number; maxHeight?: number; fullscreen?: boolean}): Promise<any>
 
 		// Throws error if sidebar opened not by this plugin
-		closeLeftSidebar(data?: any)
+		closeLeftSidebar(data: any)
 
 		// Throws error if sidebar opened not by this plugin
-		closeRightSidebar(data?: any)
+		closeRightSidebar(data: any)
 
 		// Throws error if library opened not by this plugin
-		closeLibrary(data?: any)
+		closeLibrary(data: any)
 
 		// Throws error if modal opened not by this plugin
-		closeModal(data?: any)
+		closeModal(data: any)
 	}
 
 	interface IBoardViewportCommands {
@@ -159,45 +157,82 @@ declare module SDK {
 	}
 
 	interface IBoardSelectionCommands {
-		// Returns selected widgets
+		/**
+		 * Returns selected widgets
+		 * Requires scope: BOARDS:READ
+		 */
 		get(): Promise<IBaseWidget[]>
 
-		// Select target widgets
-		// Returns selected widgets
+		/**
+		 * Select target widgets
+		 * Returns selected widgets
+		 * Requires scope: BOARDS:READ
+		 */
 		selectWidgets(widgetIds: SDK.InputWidgets): Promise<IBaseWidget[]>
 
-		// Get selected widgets id after user selects it
-		// allowMultiSelection is false by default TODO: not implemented yet
+		/**
+		 * Get selected widgets id after user selects it
+		 * @param allowMultiSelection is not implemented yet
+		 */
 		enterSelectWidgetsMode(options: {allowMultiSelection?: boolean}): Promise<{selectedWidgets: IBaseWidget[]}>
 	}
 
 	interface IBoardWidgetsCommands {
-		create(widgets: {type: string; [index: string]: any}[]): Promise<IBaseWidget[]> // 'type' is required
+		/**
+		 * 'type' is required
+		 * Requires scope: BOARDS:WRITE
+		 */
+		create(widgets: {type: string; [index: string]: any}[]): Promise<IBaseWidget[]>
 
-		// filterBy uses https://lodash.com/docs/4.17.11#filter
+		/**
+		 * filterBy uses https://lodash.com/docs/4.17.11#filter
+		 * Requires scope: BOARDS:READ
+		 */
 		get(filterBy?: Object): Promise<IBaseWidget[]>
 
-		update(widgets: {id: string; [index: string]: any}[]): Promise<IBaseWidget[]> // 'id' is required
+		/**
+		 * 'id' is required
+		 * Requires scope: BOARDS:WRITE
+		 */
+		update(widgets: {id: string; [index: string]: any}[]): Promise<IBaseWidget[]>
 
+		/**
+		 * Requires scope: BOARDS:WRITE
+		 */
 		transformDelta(
 			widgetIds: InputWidgets,
 			deltaX: number | undefined,
 			deltaY: number | undefined,
-			deltaRotation: number | undefined,
+			deltaRotation: number | undefined
 		): Promise<IBaseWidget[]>
 
+		/**
+		 * Requires scope: BOARDS:WRITE
+		 */
 		deleteById(widgetIds: InputWidgets): Promise<void>
 
+		/**
+		 * Requires scope: BOARDS:WRITE
+		 */
 		bringForward(widgetId: InputWidgets): Promise<void>
 
+		/**
+		 * Requires scope: BOARDS:WRITE
+		 */
 		sendBackward(widgetId: InputWidgets): Promise<void>
 	}
 
 	interface IBoardCommentsCommands {
+		/**
+		 * Requires scope: BOARDS:READ
+		 */
 		get(): Promise<ICommentData[]>
 	}
 
 	interface IBoardGroupsCommands {
+		/**
+		 * Requires scope: BOARDS:READ
+		 */
 		get(): Promise<IGroupData[]>
 	}
 
@@ -439,6 +474,13 @@ declare module SDK {
 		metadata?: any
 	}
 
+	interface ICurrentUser {
+		signedIn: boolean
+		scopes: string[]
+		currentBoardPermissions: BoardPermission[]
+		currentAccountPermissions: AccountPermission[]
+	}
+
 	////////////////////////////////////////////////////////////////////////
 	// Helpers data
 	////////////////////////////////////////////////////////////////////////
@@ -482,11 +524,6 @@ declare module SDK {
 		image: string //original picture
 	}
 
-	interface IBoardPermissionInfo {
-		role: string
-		permissions: string[]
-	}
-
 	interface IDraggableImageOptions {
 		isTouchEvent: boolean
 		preview: {
@@ -524,13 +561,6 @@ declare module SDK {
 		right: number
 		width: number
 		height: number
-	}
-
-	interface ICurrentUser {
-		signedIn: boolean
-		scopes: string[]
-		currentBoardPermissions: BoardPermission[]
-		currentAccountPermissions: AccountPermission[]
 	}
 
 	/////////////////////////////////////////////
