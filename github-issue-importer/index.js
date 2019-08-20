@@ -20,7 +20,7 @@ class GithubApiService {
         const response = await axios.get('https://api.github.com/issues?state=all', {
             headers: {
                 'Authorization': `token ${this._github.token}`,
-                'User-Agent': 'GreenAsh Issues Exporter'
+                'User-Agent': 'Miro Importer'
             }
         });
         return response.data
