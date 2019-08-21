@@ -1,6 +1,6 @@
-# GitHub issues importer app
+## GitHub issues importer app
 
-This example show how to import issues from GitHub to a board with custom fields through Miro API
+This example shows how to import issues from GitHub to a board with custom fields using Miro API
 
 ## Common setup
 
