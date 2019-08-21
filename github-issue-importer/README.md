@@ -39,11 +39,11 @@ Properties which should be configured:
 
 > **How to get frame id?**
 > 
-> Click on "Copy link" as shown on the screenshot below:
+> Click on "Copy link" as shown in the screenshot below:
 >
 > <img src="tip-copy-link-to-widget.png" alt="copy-link-to-widget-screenshot" />
 >
-> Copied link would have frame id within moveToWidget query param, 
+> The copied link would have frame id within `moveToWidget` query param, 
 > e.g. https://miro.com/app/board/<board-id>/?moveToWidget=**3074457346806294028**
 
 ## Run
