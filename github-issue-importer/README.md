@@ -20,10 +20,10 @@ All configuration data is stored within `config.js`.
 Properties which should be configured:
 - `github-token` - github token with read issues permissions, e.g. with `repo` scope;
 - `miro-token` - miro token with `boards:write` scope;
-- `board-id` - board for which `miro-token` user has access to;
-- `frame-id` - frame id which will held the created widgets;
+- `board-id` - board id for which `miro-token` user has access to;
+- `frame-id` - frame id which will hold the created widgets;
 
-```json
+```javascript
 {
     github: {
         token: 'github-token',
@@ -36,13 +36,13 @@ Properties which should be configured:
 }
 ```
 
-> **Tip: how to get frame id?**
+> **How to get frame id?**
 > 
 > Click on "Copy link" as shown on the screenshot below:
 >
 > <img src="tip-copy-link-to-widget.png" alt="copy-link-to-widget-screenshot" />
 >
-> Copied link would have frame id within moveToWidget query parameter, 
+> Copied link would have frame id within moveToWidget query param, 
 > e.g. https://miro.com/app/board/<board-id>/?moveToWidget=**3074457346806294028**
 
 ## Run
