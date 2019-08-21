@@ -1,4 +1,6 @@
-> This example show how to import issues from GitHub to a board with custom fields through Miro API
+# GitHub issues importer app
+
+This example show how to import issues from GitHub to a board with custom fields through Miro API
 
 ## Common setup
 
@@ -6,7 +8,7 @@ Clone the repo and install the dependencies
 
 ```bash
 git clone https://github.com/miroapp/app-examples.git
-cd github-issues-importer
+cd app-examples/github-issues-importer
 ```
 
 ```bash
@@ -15,14 +17,7 @@ npm install
 
 ## Configuration
 
-All configuration data is stored within `config.js`.
-
-Properties which should be configured:
-- `github-token` - github token with read issues permissions, e.g. with `repo` scope;
-- `miro-token` - miro token with `boards:write` scope;
-- `board-id` - board id for which `miro-token` user has access to;
-- `frame-id` - frame id which will hold the created widgets;
-
+All configuration properties are stored within `config.js`:
 ```javascript
 {
     github: {
@@ -36,6 +31,12 @@ Properties which should be configured:
 }
 ```
 
+Properties which should be configured:
+- `github-token` - GitHub token with reading issues permissions, e.g. with `repo` scope;
+- `miro-token` - miro token with `boards:write` scope;
+- `board-id` - board id for which `miro-token` user has access to;
+- `frame-id` - frame id which will hold the created widgets
+
 > **How to get frame id?**
 > 
 > Click on "Copy link" as shown on the screenshot below:
@@ -47,10 +48,10 @@ Properties which should be configured:
 
 ## Run
 
-To start importing data into the board, run the following
+To import data onto the board, run the following
 
 ```bash
-npm run start
+npm start
 ```
 
 <img src="run-app.gif" alt="run-app" />

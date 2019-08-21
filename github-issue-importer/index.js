@@ -1,15 +1,5 @@
 const axios = require('axios');
-
-const appConfig = {
-    github: {
-        token: 'github-token',
-    },
-    miro: {
-        token: 'miro-token',
-        boardId: 'board-id',
-        inboxFrameId: 'frame-id'
-    }
-};
+const appConfig = require('./config');
 
 class GithubApiService {
     constructor(githubProperties) {
@@ -91,5 +81,5 @@ githubService.readIssues().then(issues => issues.forEach(issue => {
     const cardData = ConversionService.convert2Card(issue)
     boardApiService.createWidget(cardData)
         .then(value => console.log(`card widget ${value.id} has been created from an issue ${issue.url}`))
-        .catch(reason => console.error(reason))
-}));
+        .catch(reason => console.error(`*** creating card widget error: ${reason.response.status} ${JSON.stringify(reason.response.data)}`))
+})).catch(reason => console.error(`*** reading GitHub issues error: ${reason.response.status} ${JSON.stringify(reason.response.data)}`));
