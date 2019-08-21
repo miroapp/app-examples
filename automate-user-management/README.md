@@ -2,6 +2,16 @@
 This example explains how to add and remove members from your team, based on data from external source. 
 
 For example, add new Miro user to a team when new mew user joins specific slack channel, and remove user from Miro team when user leaves slack channel.
+
+### Use case data flow
+
+Case 1: Invite new slack users to Miro team
+
+<img src="invite-user-to-team.png" alt="Invite new slack users" />
+ 
+Case 2: Remove from Miro team that left Slack channel
+
+<img src="delete-user-from-team.png" alt="Remove from Miro team" />
  
 ## Preparation
 
