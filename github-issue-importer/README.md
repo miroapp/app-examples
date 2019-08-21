@@ -10,7 +10,7 @@ Clone the repo and install the dependencies
 
 ```bash
 git clone https://github.com/miroapp/app-examples.git
-cd app-examples/github-issues-importer
+cd app-examples/github-issue-importer
 ```
 
 ```bash
