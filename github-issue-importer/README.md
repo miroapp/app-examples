@@ -2,6 +2,8 @@
 
 This example shows how to import issues from GitHub to a board with custom fields using Miro API
 
+<img src="run-app.gif" alt="run-app" />
+
 ## Common setup
 
 Clone the repo and install the dependencies
@@ -53,5 +55,3 @@ To import data onto the board, run the following
 ```bash
 npm start
 ```
-
-<img src="run-app.gif" alt="run-app" />
