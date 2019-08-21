@@ -36,7 +36,7 @@ All configuration properties are stored within `config.js`:
 Properties which should be configured:
 - `github-token` - GitHub token with reading issues permissions, e.g. with `repo` scope;
 - `miro-token` - miro token with `boards:write` scope;
-- `board-id` - board id for which `miro-token` user has access to;
+- `board-id` - board id for which `miro-token` has access to;
 - `frame-id` - frame id which will hold the created widgets
 
 > **How to get frame id?**
