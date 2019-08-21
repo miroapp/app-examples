@@ -28,22 +28,20 @@ ngrok http 8000
 
 - This [guide](https://api.slack.com/start/overview#creating) shows you how to create app.
 
-- Select scopes
+- Select scopes: `channels:read`, `groups:read`, `users:read`, `users:read.email`
 
-<img src="slack-select-scopes.png" alt="Slack OAuth Permissions Settings"/>
+- Verify Request URL
 
-- Enable Events 
+- Enable Events: `member_joined_channel`, `member_left_channel`
 
-<img src="slack-enable-events.png" alt="Slack Events Settings"/>
-
-- install the application and replace the received Sack OAuth token in the `index.js` file
+- Install the application and replace the received Sack OAuth token in the `index.js` file
 
 ###### Step 5. Create App in Miro
 - This [guide](https://developers.miro.com/docs/getting-started) shows you how to do it.
 
 - [Scopes](https://developers.miro.com/reference#scopes) used in this example: `team:read`, `team:write`
 
-- install the application and replace the received Miro OAuth token in the `index.js` file
+- Install the application and replace the received Miro OAuth token in the `index.js` file
 
 
 ###### Step 6. Restart Node server
