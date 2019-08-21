@@ -5,21 +5,21 @@ const app = express()
 app.use(bodyParser.json())
 
 const port = 8000
-const slackToken = 'slack-token'
-const miroToken = 'miro-token'
+const slackToken = 'PUT YOUR SLACK TOKEN HERE'
+const miroToken = 'PUT YOUR MIRO TOKEN HERE'
 
 app.listen(port, () => {
   console.log(`server is listening on ${port}`)
 })
 
 app.post('/', (req, response) => {
-  const event = req.body.event
   // https://api.slack.com/events/url_verification
-  if (event.type === 'url_verification') {
-    response.send(event.challenge)
+  const payload = req.body;
+  if (payload.type === 'url_verification') {
+    response.send(payload.challenge)
   } else {
     response.send()
-    handleEvent(event)
+    handleEvent(payload.event)
   }
 })
 

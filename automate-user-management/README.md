@@ -1,0 +1,49 @@
+## Intro
+This example explains how to add and remove members from your team, based on data from external source. 
+
+For example, add new Miro user to a team when new mew user joins specific slack channel, and remove user from Miro team when user leaves slack channel.
+ 
+## Preparation
+
+###### Step 1. Clone the repo and install the dependencies
+```bash 
+git clone https://github.com/miroapp/app-examples.git
+cd app-examples/automate-user-management
+npm install
+``` 
+
+###### Step 2. Start Node server locally 
+
+```bash
+npm run start
+```
+
+###### Step 3. Expose a local web server to the internet
+
+```bash
+ngrok http 8000
+```
+
+###### Step 4. Create App in Slack
+
+- This [guide](https://api.slack.com/start/overview#creating) shows you how to create app.
+
+- Select scopes
+
+<img src="slack-select-scopes.png" alt="Slack OAuth Permissions Settings"/>
+
+- Enable Events 
+
+<img src="slack-enable-events.png" alt="Slack Events Settings"/>
+
+- install the application and replace the received Sack OAuth token in the `index.js` file
+
+###### Step 5. Create App in Miro
+- This [guide](https://developers.miro.com/docs/getting-started) shows you how to do it.
+
+- [Scopes](https://developers.miro.com/reference#scopes) used in this example: `team:read`, `team:write`
+
+- install the application and replace the received Miro OAuth token in the `index.js` file
+
+
+###### Step 6. Restart Node server
