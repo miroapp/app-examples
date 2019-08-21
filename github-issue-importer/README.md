@@ -44,7 +44,7 @@ Properties which should be configured:
 > <img src="tip-copy-link-to-widget.png" alt="copy-link-to-widget-screenshot" />
 >
 > The copied link would have frame id within `moveToWidget` query param, 
-> e.g. https://miro.com/app/board/<&lt;board-id&gt;>/?moveToWidget=**3074457346806294028**
+> e.g. https://miro.com/app/board/<board-id>/?moveToWidget=**3074457346806294028**
 
 ## Run
 
