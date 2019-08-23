@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title></title>
+    <script type="text/javascript" src="https://miro.com/app/static/sdk.1.1.js"></script>
+    <script type="text/javascript" src="builder.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+<div class="scrollable-container">
+    <button id="addRow" class="add-row-button" onclick="addRowInput('')">Add Row</button>
+    <div id="rows"></div>
+    <button id="submit" class="build-button">Build template</button>
+</div>
+
+<script>
+  const rowsContainer = document.getElementById("rows");
+
+  addRowInput('FRONT-END')
+  addRowInput('BACK-END')
+  addRowInput('DESIGN')
+  addRowInput('MARKETING')
+
+  document.getElementById("submit")
+      .addEventListener("click", () => drawTemplate(getLabels()))
+
+  function addRowInput(value) {
+    const row = document.createElement('div')
+    row.classList.add('row')
+    rowsContainer.appendChild(row)
+
+    //create input
+    const input = document.createElement('input')
+    input.type = 'text'
+    input.classList.add('row-input')
+    input.value = value
+    row.appendChild(input)
+
+    //create delete button
+    const button = document.createElement('button')
+    button.textContent = 'Delete'
+    button.classList.add('delete-button')
+    button.addEventListener('click', () => {
+      row.remove()
+    })
+    row.appendChild(button)
+  }
+
+  function getLabels() {
+    return Array.from(rowsContainer.querySelectorAll('input')).map(el => el.value)
+  }
+
+</script>
+
+</body>
+</html>
