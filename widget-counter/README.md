@@ -14,7 +14,7 @@ Configure the application as follows:
 - enter uri for the `widget-counter` resource in `Web-plugin` configuration, for example: `https://<nickname>.github.io/app-examples/widget-counter/`;
 - choose `boards:read` scope.
 
-<img src="app-configuration.png" alt="app-configuration" />
+<img src="app-configuration.png" width="400px" alt="app-configuration" />
 
 ## Run
 
