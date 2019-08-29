@@ -13,6 +13,6 @@
   },
   "include": [
     "src/**/*",
-    "../../miro.d.ts"
+    "../miro.d.ts"
   ]
 }
