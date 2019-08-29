@@ -12,9 +12,7 @@ This example shows how to import issues from GitHub to a board with custom field
 
 ## Web-Plugins
 Descriptions and GIFs for those examples available [here](https://developers.miro.com/docs/web-plugin-examples).
-To learn mode read [what web-plugins is it](https://developers.miro.com/docs/sdk) and [how to build your web-plugin](https://developers.miro.com/docs/how-to-start). 
-
-If you like TypeScript, Webpack, and ReactJS, you can start with `plugins/plugin-boilerplate` example. It already includes these tools.
+To learn mode read [what web-plugins is it](https://developers.miro.com/docs/sdk) and [how to build your web-plugin](https://developers.miro.com/docs/how-to-start).
 
 #### [board-cleaner](board-cleaner)
 See this example to learn how to authorise web-plugin for each user without server.
