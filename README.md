@@ -6,8 +6,8 @@ In this repository, you can find [types for Miro SDK](miro.d.ts) and several si
 
 |                                                      | Description  |
 |------------------------------------------------------|--------------|
-| [automate-user-management](automate-user-management) | This example explains how to add and remove members from your team, based on data from an external source. |
-| [github-issue-importer](github-issue-importer)       | This example shows how to import issues from GitHub to a board with custom fields using Miro API. |
+| [automate-user-management](automate-user-management) | This example explains how to add and remove members<br /> from your team, based on data from an external source. |
+| [github-issue-importer](github-issue-importer)       | This example shows how to import issues from GitHub<br /> to a board with custom fields using Miro API. |
 
 ## Web-Plugins
 Descriptions and GIFs for those examples available [here](https://developers.miro.com/docs/web-plugin-examples).
@@ -15,16 +15,16 @@ To learn more read [what web-plugins is it](https://developers.miro.com/docs/sdk
 
 |                                          | Description  |
 |------------------------------------------|--------------|
-| [board-cleaner](board-cleaner)           | See this example to learn how to authorise web-plugin for each user without server. |
+| [board-cleaner](board-cleaner)           | See this example to learn how to authorise web-plugin<br /> for each user without server. |
 | [buttons](buttons)                       | This example shows how to restrict buttons visibility. |
 | [extra-notes](extra-notes)               | |
 | [importer](importer)                     | |
 | [layers](layers)                         | |
-| [looking-glass](looking-glass)           | You can see readable text of the widget in the sidebar without zooming in. |
-| [plugin-boilerplate](plugin-boilerplate) | If you like TypeScript, Webpack, and ReactJS, you can start with this example. It already includes these tools. |
-| [rtb-sticker-pack](rtb-sticker-pack)     | This example shows how to drag&drop external resources into the board |
-| [stickers-to-shapes](stickers-to-shapes) | You select several stickies, click plugin button in bottom bar and app replaces stickies with shapes |
-| [template-builder](template-builder)     | This example shows how to create and position on the board multiple widgets of different types and render create custom interfaces in the library. |
-| [the-noun-project](the-noun-project)     | Another icon library example: shows how to drag&drop external resources into the board. |
-| [widget-counter](widget-counter)         | You select several widgets, click plugin button in the bottom bar and app show number of widgets grouped by type in the sidebar. |
+| [looking-glass](looking-glass)           | You can see readable text of the widget in the sidebar<br /> without zooming in. |
+| [plugin-boilerplate](plugin-boilerplate) | If you like TypeScript, Webpack, and ReactJS, you can start<br /> with this example. It already includes these tools. |
+| [rtb-sticker-pack](rtb-sticker-pack)     | This example shows how to drag&drop external resources<br /> into the board |
+| [stickers-to-shapes](stickers-to-shapes) | You select several stickies, click plugin button in the bottom<br /> bar and app replaces stickies with shapes |
+| [template-builder](template-builder)     | This example shows how to create and position on the board<br /> multiple widgets of different types and render create custom<br /> interfaces in the library. |
+| [the-noun-project](the-noun-project)     | Another icon library example: shows how to drag&drop<br /> external resources into the board. |
+| [widget-counter](widget-counter)         | You select several widgets, click plugin button in the bottom bar<br /> and app show number of widgets grouped by type in the sidebar. |
 
