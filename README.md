@@ -1,28 +1,17 @@
-<style>
-.table td:nth-child(1) {
-	width: 250px;
-} 
-</style>
-
 # Miro Apps Examples
 
 In this repository, you can find [types for Miro SDK](miro.d.ts) and several simple examples.
 
 ## REST API
-<div class="table">
 
 |                                                      | Description  |
 |------------------------------------------------------|--------------|
 | [automate-user-management](automate-user-management) | This example explains how to add and remove members from your team, based on data from an external source. |
 | [github-issue-importer](github-issue-importer)       | This example shows how to import issues from GitHub to a board with custom fields using Miro API. |
 
-</div>
-
 ## Web-Plugins
 Descriptions and GIFs for those examples available [here](https://developers.miro.com/docs/web-plugin-examples).
 To learn more read [what web-plugins is it](https://developers.miro.com/docs/sdk) and [how to build your web-plugin](https://developers.miro.com/docs/how-to-start).
-
-<div class="table">
 
 |                                          | Description  |
 |------------------------------------------|--------------|
@@ -38,6 +27,4 @@ To learn more read [what web-plugins is it](https://developers.miro.com/docs/sdk
 | [template-builder](template-builder)     | This example shows how to create and position on the board multiple widgets of different types and render create custom interfaces in the library. |
 | [the-noun-project](the-noun-project)     | Another icon library example: shows how to drag&drop external resources into the board. |
 | [widget-counter](widget-counter)         | You select several widgets, click plugin button in the bottom bar and app show number of widgets grouped by type in the sidebar. |
-
-</div>
 
