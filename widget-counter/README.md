@@ -2,7 +2,7 @@
 
 This example shows how to count widgets on the board using Client SDK
 
-<img src="widget-counter-example.gif" alt="widget-counter-example" />
+<img src="images/widget-counter-example.gif" alt="widget-counter-example" />
 
 ## Configuration
 
@@ -14,8 +14,8 @@ Configure the application as follows:
 - enter uri for the `widget-counter` resource in `Web-plugin` section, e.g. if you use GitHub Pages uri will be as follow: `https://<nickname>.github.io/app-examples/widget-counter/`;
 - choose `boards:read` scope.
 
-<img src="app-configuration.png" width="400px" alt="app-configuration" />
+<img src="images/app-configuration.png" width="400px" alt="app-configuration" />
 
 ## Run
 
-Install the application using `Install app and get OAuth Token` and then open or create board within the team on which you install the app: you will see a new icon at the bottom bar, as shown on gif image at the top of this `readme`.
+Install the application using `Install app and get OAuth Token` and then open or create board within the team on which you install the app: you will see a new icon <img src="images/widget-counter-icon24.svg" width="24" height="24" style="display: inline;" /> at the bottom bar, as shown on gif image at the top of this `readme`.

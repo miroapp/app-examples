@@ -2,7 +2,7 @@
 
 This example shows how to import issues from GitHub to a board with custom fields using Miro API
 
-<img src="run-app.gif" alt="run-app" />
+<img src="images/run-app.gif" alt="run-app" />
 
 ## Common setup
 
@@ -43,7 +43,7 @@ Properties which should be configured:
 > 
 > Click on "Copy link" as shown in the screenshot below:
 >
-> <img src="tip-copy-link-to-widget.png" alt="copy-link-to-widget-screenshot" />
+> <img src="images/tip-copy-link-to-widget.png" alt="copy-link-to-widget-screenshot" />
 >
 > The copied link would have frame id within `moveToWidget` query param, 
 > e.g. `https://miro.com/app/board/<board-id>/?moveToWidget=3074457346806294028`
