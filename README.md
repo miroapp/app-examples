@@ -16,6 +16,8 @@ To learn more read [what web-plugins is it](https://developers.miro.com/docs/sdk
 
 |                                          | Description  |
 |------------------------------------------|--------------|
+| [prototyping](prototyping)               | With this plugin use can build interactive prototypes<br /> like in InVision or Overflow.<br /> Very comprehensive example for a lot of SDK capabilities. |
+| [drag-and-drop](drag-and-drop)           | Custom Icons Set with drag and drop on the canvas. |
 | [board-cleaner](board-cleaner)           | See this example to learn how to authorise web-plugin<br /> for each user without server. |
 | [buttons](buttons)                       | This example shows how to restrict buttons visibility. |
 | [extra-notes](extra-notes)               | |

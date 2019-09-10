@@ -3,13 +3,13 @@ declare const miro: SDK.Root
 declare module SDK {
 	interface Root {
 		// Use SDK after callback was called
-		onReady(callback: () => void)
+		onReady(callback: () => void): void
 
 		// Available only in main.js on a board page
-		initialize(config?: IPluginConfig)
+		initialize(config?: IPluginConfig): Promise<void>
 
 		// Available only when Web-plugin is run on a settings page
-		initializeSettings(config?: IPluginSettingsConfig)
+		initializeSettings(config?: IPluginSettingsConfig): Promise<void>
 
 		// Available only when Web-plugin is run on a board page
 		board: IBoardCommands
@@ -17,13 +17,22 @@ declare module SDK {
 		// Account where Web-plugin has been installed
 		account: IAccountCommands
 
-		addListener(event: EventType, listener: (e: Event) => void)
+		currentUser: ICurrentUserCommands
 
-		removeListener(event: EventType, listener: (e: Event) => void)
+		// Some events require scope: BOARDS:READ
+		// Available only when Web-plugin is run on a board page
+		addListener(event: EventType, listener: (e: Event) => void): void
 
-		showNotification(text: string)
+		// Available only when Web-plugin is run on a board page
+		removeListener(event: EventType, listener: (e: Event) => void): void
 
-		showErrorNotification(text: string)
+		// Broadcast some data to all other iframes.
+		// Other iframes can get this data from DATA_BROADCASTED event
+		broadcastData(data: any): void
+
+		showNotification(text: string): Promise<void>
+
+		showErrorNotification(text: string): void
 
 		// Check is current user has authorized your Web-plugin to make API requests on their behalf
 		isAuthorized(): Promise<boolean>
@@ -35,13 +44,23 @@ declare module SDK {
 		// To prevent the browser from blocking this popup, only call miro.authorize from a click handler on your domain.
 		// Method returns a token you can use to make requests REST API on behalf of the current user.
 		authorize(options: AuthorizationOptions): Promise<string>
+
+		// You can save some state shared between all iframes.
+		__setRuntimeState<T = any>(data: T): Promise<T>
+		__getRuntimeState<T = any>(): Promise<T>
 	}
 
 	type EventType =
-		| 'BOARD_SELECTION_UPDATED'
-		| 'BOARD_WIDGETS_CREATED'
-		| 'BOARD_WIDGETS_DELETED'
-		| 'BOARD_WIDGETS_TRANSFORMATION_UPDATED'
+		| 'SELECTION_UPDATED'
+		| 'WIDGETS_CREATED'
+		| 'WIDGETS_DELETED'
+		| 'WIDGETS_TRANSFORMATION_UPDATED'
+		| 'ESC_PRESSED' //Experimental event
+		| 'ALL_WIDGETS_LOADED' //Experimental event
+		| 'COMMENT_CREATED' //Experimental event
+		| 'CANVAS_CLICKED' //Experimental event
+		| 'DATA_BROADCASTED' //Experimental event
+		| 'RUNTIME_STATE_UPDATED' //Experimental event
 
 	interface Event {
 		type: EventType
@@ -60,14 +79,17 @@ declare module SDK {
 	}
 
 	interface IPluginConfig {
-		extensionPoints: {
-			toolbar?: ButtonExtensionPoint<ToolbarButton>
-			bottomBar?: ButtonExtensionPoint<BottomBarButton>
-			exportMenu?: ButtonExtensionPoint<ExportMenuButton>
-		}
+		extensionPoints: IPluginConfigExtensionPoints
 	}
 
-	type ButtonExtensionPoint<T> = T | (() => Promise<T[]>)
+	interface IPluginConfigExtensionPoints {
+		toolbar?: ButtonExtensionPoint<ToolbarButton>
+		bottomBar?: ButtonExtensionPoint<BottomBarButton>
+		exportMenu?: ButtonExtensionPoint<ExportMenuButton>
+		getWidgetMenuItems?: (widgets: IWidget[]) => Promise<IContextMenuItem[]>
+	}
+
+	type ButtonExtensionPoint<T> = T | (() => Promise<T | void>)
 
 	interface ToolbarButton {
 		title: string
@@ -88,6 +110,14 @@ declare module SDK {
 		onClick: () => void
 	}
 
+	interface IContextMenuItem {
+		tooltip: string
+		svgIcon: string
+		onClick?: (widgets: IWidget[]) => void
+	}
+
+	type MenuItemsGetter = (widgets: IWidget[]) => Promise<IContextMenuItem[]>
+
 	interface IBoardCommands {
 		info: IBoardInfoCommands
 		widgets: IBoardWidgetsCommands //requires 'EDIT_CONTENT' permission
@@ -96,13 +126,60 @@ declare module SDK {
 		viewport: IBoardViewportCommands
 		selection: IBoardSelectionCommands
 
-		__getBoardUrlWithParams(params: Object): string
-		__getParamsFromBoardUrl(): Object
+		__getBoardURLWithParams(params: any): Promise<string>
+		__getParamsFromURL(): Promise<any>
+		__enableLeftClickOnCanvas(): void
+		__disableLeftClickOnCanvas(): void
+	}
+
+	interface DraggableItemsContainerOptions {
+		dragDirection?: string // Values are 'horizontal' | 'vertical' // 'horizontal' is default
+
+		// css selector for draggable items
+		draggableItemSelector: string
+
+		// Optional. Draggable item was clicked
+		onClick?: (targetElement: any) => void
+
+		// Dragging started
+		getDraggableItemPreview: (
+			targetElement: any
+		) => {
+			width?: number // 100 is default
+			height?: number // 100 is default
+			url: string
+		}
+
+		// Draggable item was dropped
+		onDrop: (canvasX: number, canvasY: number) => void
+
+		// Optional. Draggable item was dropped not under canvas
+		onCancel?: () => void
 	}
 
 	interface IAccountCommands {
+		/**
+		 * Requires scope: TEAM:READ
+		 */
 		get(): Promise<IAccountInfo>
-		isCurrentUserAccountMember(): Promise<boolean>
+	}
+
+	interface ICurrentUserCommands {
+		getId(): Promise<string>
+		isSignedIn(): Promise<boolean>
+		getScopes(): Promise<string[]>
+		/**
+		 * Requires scope: IDENTITY:READ
+		 */
+		getCurrentBoardPermissions(): Promise<BoardPermission[]>
+		/**
+		 * Requires scope: IDENTITY:READ
+		 */
+		getCurrentAccountPermissions(): Promise<AccountPermission[]>
+		/**
+		 * Requires scope: IDENTITY:READ
+		 */
+		isMemberOfCurrentAccount(): Promise<boolean>
 	}
 
 	type InputWidget = string | {id: string}
@@ -127,33 +204,65 @@ declare module SDK {
 
 		// Promise will resolves when modal closes
 		// Promise returns data passed in closeModal function
-		openModal(iframeURL: string, options?: {maxWidth?: number; maxHeight?: number; fullscreen?: boolean}): Promise<any>
+		openModal(iframeURL: string, options?: {width?: number; height?: number} | {fullscreen: boolean}): Promise<any>
+
+		// Promise will resolves when bottomPanel closes
+		// Promise returns data passed in closeBottomPanel function
+		openBottomPanel(iframeURL: string, options?: {width?: number; height?: number}): Promise<any>
 
 		// Throws error if sidebar opened not by this plugin
-		closeLeftSidebar(data: any)
+		closeLeftSidebar(data?: any): void
 
 		// Throws error if sidebar opened not by this plugin
-		closeRightSidebar(data: any)
+		closeRightSidebar(data?: any): void
 
 		// Throws error if library opened not by this plugin
-		closeLibrary(data: any)
+		closeLibrary(data?: any): void
 
 		// Throws error if modal opened not by this plugin
-		closeModal(data: any)
+		closeModal(data?: any): void
+
+		closeBottomPanel(data?: any): void
+
+		// Resize the current iFrame inside sidebar or modal (currently supports bottom-panel only)
+		// You can pass HTMLElement, css selector or size
+		resizeTo(value: HTMLElement | string | {width?: number; height?: number}): void
+
+		// Add the ability to drag-and-drop objects from custom view to the canvas
+		initDraggableItemsContainer(container: HTMLElement, options: DraggableItemsContainerOptions): void
+
+		// Switch current tool to select mode
+		__selectDefaultTool(): void
+
+		__hideButtonsPanels(panels: 'all' | UIPanel | UIPanel[]): void
+
+		__showButtonsPanels(panels: 'all' | UIPanel | UIPanel[]): void
+
+		__limitToolbarMode(mode: 'editor' | 'commentor' | 'viewer'): void
+
+		__clearToolbarModeLimit(): void
 	}
+
+	type UIPanel = 'toolbar' | 'top' | 'bottomBar' | 'map'
 
 	interface IBoardViewportCommands {
 		getViewport(): Promise<IRect>
 
-		setViewport(viewport: IRect): Promise<IRect>
+		setViewport(viewport: IRect, padding?: IOffset): Promise<IRect>
 
 		setViewportWithAnimation(viewport: IRect): Promise<IRect>
 
-		zoomToObject(objectId: InputWidget, selectObject?: boolean)
+		zoomToObject(objectId: InputWidget, selectObject?: boolean): void
 
 		setZoom(value: number): Promise<number>
 
 		getZoom(): Promise<number>
+
+		// [Experimental feature] Add black mask over canvas
+		__mask(viewport: IRect, padding?: IOffset): void
+
+		// [Experimental feature] Remove mask
+		__unmask(): void
 	}
 
 	interface IBoardSelectionCommands {
@@ -161,20 +270,21 @@ declare module SDK {
 		 * Returns selected widgets
 		 * Requires scope: BOARDS:READ
 		 */
-		get(): Promise<IBaseWidget[]>
+		get(): Promise<IWidget[]>
 
 		/**
 		 * Select target widgets
 		 * Returns selected widgets
 		 * Requires scope: BOARDS:READ
 		 */
-		selectWidgets(widgetIds: SDK.InputWidgets): Promise<IBaseWidget[]>
+		selectWidgets(widgetIds: InputWidgets): Promise<IWidget[]>
 
 		/**
 		 * Get selected widgets id after user selects it
-		 * @param allowMultiSelection is not implemented yet
+		 * Currently user can select only one widget.
+		 * Warning! Use this command in main iframe only.
 		 */
-		enterSelectWidgetsMode(options: {allowMultiSelection?: boolean}): Promise<{selectedWidgets: IBaseWidget[]}>
+		enterSelectWidgetsMode(): Promise<{selectedWidgets: IWidget[]}>
 	}
 
 	interface IBoardWidgetsCommands {
@@ -182,19 +292,19 @@ declare module SDK {
 		 * 'type' is required
 		 * Requires scope: BOARDS:WRITE
 		 */
-		create(widgets: {type: string; [index: string]: any}[]): Promise<IBaseWidget[]>
+		create<T extends IWidget>(widgets: {type: string; [index: string]: any}[]): Promise<T[]>
 
 		/**
 		 * filterBy uses https://lodash.com/docs/4.17.11#filter
 		 * Requires scope: BOARDS:READ
 		 */
-		get(filterBy?: Object): Promise<IBaseWidget[]>
+		get<T extends IWidget>(filterBy?: Object): Promise<T[]>
 
 		/**
 		 * 'id' is required
 		 * Requires scope: BOARDS:WRITE
 		 */
-		update(widgets: {id: string; [index: string]: any}[]): Promise<IBaseWidget[]>
+		update<T extends IWidget>(widgets: {id: string; [index: string]: any}[]): Promise<T[]>
 
 		/**
 		 * Requires scope: BOARDS:WRITE
@@ -204,7 +314,7 @@ declare module SDK {
 			deltaX: number | undefined,
 			deltaY: number | undefined,
 			deltaRotation: number | undefined
-		): Promise<IBaseWidget[]>
+		): Promise<IWidget[]>
 
 		/**
 		 * Requires scope: BOARDS:WRITE
@@ -220,23 +330,34 @@ declare module SDK {
 		 * Requires scope: BOARDS:WRITE
 		 */
 		sendBackward(widgetId: InputWidgets): Promise<void>
+
+		/**
+		 * Requires scope: BOARDS:READ
+		 * [Experimental feature] Find all widgets intersected with passed area
+		 */
+		__getIntersectedObjects(pointOrRect: IPoint | IRect): Promise<IWidget[]>
+
+		/**
+		 * [Experimental feature] Do blink animation for target widget
+		 */
+		__blinkWidget(widgets: InputWidgets): Promise<void>
 	}
 
 	interface IBoardCommentsCommands {
 		/**
 		 * Requires scope: BOARDS:READ
 		 */
-		get(): Promise<ICommentData[]>
+		get(): Promise<IComment[]>
 	}
 
 	interface IBoardGroupsCommands {
 		/**
 		 * Requires scope: BOARDS:READ
 		 */
-		get(): Promise<IGroupData[]>
+		get(): Promise<IGroup[]>
 	}
 
-	interface IGroupData {
+	interface IGroup {
 		id: string
 		bounds: IBounds
 		childrenIds: string[]
@@ -250,14 +371,14 @@ declare module SDK {
 
 	type WidgetCapabilities = {editable: boolean}
 
-	interface IBaseWidgetNamespaces {
+	interface IWidgetNamespaces {
 		metadata: WidgetMetadata
 		capabilities?: WidgetCapabilities
 	}
 
-	type BaseWidgetNamespacesKeys = keyof IBaseWidgetNamespaces
+	type WidgetNamespacesKeys = keyof IWidgetNamespaces
 
-	interface IBaseWidget extends IBaseWidgetNamespaces {
+	interface IWidget extends IWidgetNamespaces {
 		readonly id: string
 		readonly type: string
 		readonly bounds: IBounds
@@ -268,7 +389,7 @@ declare module SDK {
 		clientVisible: boolean
 	}
 
-	interface ITextWidgetData extends IBaseWidget {
+	interface ITextWidget extends IWidget {
 		type: 'TEXT'
 		x: number
 		y: number
@@ -291,7 +412,7 @@ declare module SDK {
 		}
 	}
 
-	interface IImageWidgetData extends IBaseWidget {
+	interface IImageWidget extends IWidget {
 		type: 'IMAGE'
 		x: number
 		y: number
@@ -302,7 +423,7 @@ declare module SDK {
 		url?: string
 	}
 
-	interface IStickerWidgetData extends IBaseWidget {
+	interface IStickerWidget extends IWidget {
 		type: 'STICKER'
 		x: number
 		y: number
@@ -318,7 +439,7 @@ declare module SDK {
 		}
 	}
 
-	interface IShapeWidgetData extends IBaseWidget {
+	interface IShapeWidget extends IWidget {
 		type: 'SHAPE'
 		x: number
 		y: number
@@ -348,7 +469,7 @@ declare module SDK {
 		}
 	}
 
-	interface ILineWidgetData extends IBaseWidget {
+	interface ILineWidget extends IWidget {
 		type: 'LINE'
 		startWidgetId: string | undefined
 		endWidgetId: string | undefined
@@ -361,7 +482,7 @@ declare module SDK {
 		}
 	}
 
-	interface IWebScreenshotWidgetData extends IBaseWidget {
+	interface IWebScreenshotWidget extends IWidget {
 		type: 'WEBSCREEN'
 		x: number
 		y: number
@@ -369,7 +490,7 @@ declare module SDK {
 		url: string
 	}
 
-	interface IFrameWidgetData extends IBaseWidget {
+	interface IFrameWidget extends IWidget {
 		type: 'FRAME'
 		x: number
 		y: number
@@ -383,7 +504,7 @@ declare module SDK {
 		}
 	}
 
-	interface ICurveWidgetData extends IBaseWidget {
+	interface ICurveWidget extends IWidget {
 		type: 'CURVE'
 		x: number
 		y: number
@@ -396,7 +517,7 @@ declare module SDK {
 		}
 	}
 
-	interface IEmbedWidgetData extends IBaseWidget {
+	interface IEmbedWidget extends IWidget {
 		type: 'EMBED'
 		x: number
 		y: number
@@ -404,7 +525,7 @@ declare module SDK {
 		html: string
 	}
 
-	interface IPreviewWidgetData extends IBaseWidget {
+	interface IPreviewWidget extends IWidget {
 		type: 'PREVIEW'
 		x: number
 		y: number
@@ -412,7 +533,7 @@ declare module SDK {
 		url: string
 	}
 
-	interface ICardWidgetData extends IBaseWidget {
+	interface ICardWidget extends IWidget {
 		type: 'CARD'
 		x: number
 		y: number
@@ -445,7 +566,7 @@ declare module SDK {
 		}
 	}
 
-	interface IDocumentWidgetData extends IBaseWidget {
+	interface IDocumentWidget extends IWidget {
 		type: 'DOCUMENT'
 		x: number
 		y: number
@@ -454,7 +575,7 @@ declare module SDK {
 		title: string
 	}
 
-	interface IMockupWidgetData extends IBaseWidget {
+	interface IMockupWidget extends IWidget {
 		type: 'MOCKUP'
 		x: number
 		y: number
@@ -462,7 +583,7 @@ declare module SDK {
 		mockupType: string
 	}
 
-	interface ICommentData extends IBaseWidget {
+	interface IComment extends IWidget {
 		type: 'COMMENT'
 		color: number
 		resolved: boolean
@@ -472,13 +593,6 @@ declare module SDK {
 		id: string
 		type?: string
 		metadata?: any
-	}
-
-	interface ICurrentUser {
-		signedIn: boolean
-		scopes: string[]
-		currentBoardPermissions: BoardPermission[]
-		currentAccountPermissions: AccountPermission[]
 	}
 
 	////////////////////////////////////////////////////////////////////////
@@ -524,27 +638,18 @@ declare module SDK {
 		image: string //original picture
 	}
 
-	interface IDraggableImageOptions {
-		isTouchEvent: boolean
-		preview: {
-			width?: number
-			height?: number
-			url: string
-		}
-		image: IDroppedImageOptions
-	}
-
-	interface IDroppedImageOptions {
-		width?: number
-		height?: number
-		url: string
-	}
-
 	interface IRect {
 		x: number
 		y: number
 		width: number
 		height: number
+	}
+
+	interface IOffset {
+		top: number
+		left: number
+		bottom: number
+		right: number
 	}
 
 	interface IPoint {
