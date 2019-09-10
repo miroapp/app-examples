@@ -20,9 +20,8 @@ To learn more read [what web-plugins is it](https://developers.miro.com/docs/sdk
 | [drag-and-drop](drag-and-drop)           | Custom Icons Set with drag and drop on the canvas. |
 | [board-cleaner](board-cleaner)           | See this example to learn how to authorise web-plugin<br /> for each user without server. |
 | [buttons](buttons)                       | This example shows how to restrict buttons visibility. |
-| [extra-notes](extra-notes)               | |
-| [importer](importer)                     | |
-| [layers](layers)                         | |
+| [extra-notes](extra-notes)               | Save custom data for widgets in LocalStorage |
+| [importer](importer)                     | Convert text list to  stickers | 
 | [looking-glass](looking-glass)           | You can see readable text of the widget in the sidebar<br /> without zooming in. |
 | [plugin-boilerplate](plugin-boilerplate) | If you like TypeScript, Webpack, and ReactJS, you can start<br /> with this example. It already includes these tools. |
 | [rtb-sticker-pack](rtb-sticker-pack)     | This example shows how to drag&drop external resources<br /> into the board |
