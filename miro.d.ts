@@ -417,7 +417,6 @@ declare module SDK {
 		x: number
 		y: number
 		rotation: number
-		width: number
 		scale: number
 		title: string
 		url?: string
@@ -475,10 +474,14 @@ declare module SDK {
 		endWidgetId: string | undefined
 		startPosition: IPoint
 		endPosition: IPoint
+		captions: {text: string}[]
 		style: {
 			lineColor: LineColorStyle
 			lineWidth: LineWidthStyle
 			lineStyle: LineStyleStyle
+			lineType: LineTypeStyle
+			lineStartStyle: LineEndStyle
+			lineEndStyle: LineEndStyle
 		}
 	}
 
@@ -538,8 +541,7 @@ declare module SDK {
 		x: number
 		y: number
 		scale: number
-		width: number
-		height: number
+		rotation: number
 		title: string
 		description: string
 		dueDate: {
@@ -692,4 +694,6 @@ declare module SDK {
 	type LineColorStyle = string | number
 	type LineWidthStyle = number
 	type LineStyleStyle = number
+	type LineTypeStyle = number
+	type LineEndStyle = number
 }
