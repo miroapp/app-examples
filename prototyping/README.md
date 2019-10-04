@@ -2,6 +2,10 @@
 With this plugin users can build interactive prototypes like in InVision or Overflow.
 Very comprehensive example for a lot of SDK capabilities, including experimental features.
 
+Install and play Prototyping plugin for your user by this link:
+
+https://miro.com/oauth/authorize/?response_type=token&client_id=3074457346759443169&redirect_uri=/ 
+
 # How feature works
 
 <img src="proto.gif" />
