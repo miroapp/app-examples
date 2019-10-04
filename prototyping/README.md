@@ -2,8 +2,9 @@
 With this plugin use can build interactive prototypes like in InVision or Overflow.
 Very comprehensive example for a lot of SDK capabilities, including experimental features.
 
-# How it works
+# How feature works
 
+<img src="proto.gif" />
 
 # How to build
 - Run `npm install`
