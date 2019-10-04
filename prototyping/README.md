@@ -1,5 +1,5 @@
 # Prototyping plugin 
-With this plugin use can build interactive prototypes like in InVision or Overflow.
+With this plugin user can build interactive prototypes like in InVision or Overflow.
 Very comprehensive example for a lot of SDK capabilities, including experimental features.
 
 # How feature works
