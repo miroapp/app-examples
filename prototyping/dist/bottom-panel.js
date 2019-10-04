@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 1);
+/******/ 	return __webpack_require__(__webpack_require__.s = 2);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -91,16 +91,30 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var copy_to_clipboard__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "APP_ID", function() { return APP_ID; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EDIT_WIDTH", function() { return EDIT_WIDTH; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PLAY_WIDTH", function() { return PLAY_WIDTH; });
+var APP_ID = '3074457346759443169';
+var EDIT_WIDTH = 280;
+var PLAY_WIDTH = 320;
+
+
+/***/ }),
+/* 2 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var copy_to_clipboard__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(3);
 /* harmony import */ var copy_to_clipboard__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(copy_to_clipboard__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(4);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(5);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(13);
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(14);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var bottom_panel_controller__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(25);
+/* harmony import */ var bottom_panel_controller__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(26);
 /* harmony import */ var react_inlinesvg__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(27);
 /* harmony import */ var react_inlinesvg__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react_inlinesvg__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var config__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(26);
+/* harmony import */ var config__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(1);
 var __extends = (undefined && undefined.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -153,12 +167,12 @@ var __generator = (undefined && undefined.__generator) || function (thisArg, bod
 
 
 
-__webpack_require__(33);
-var SquareIcon = __webpack_require__(32);
+__webpack_require__(32);
+var SquareIcon = __webpack_require__(37);
 var PlayIcon = __webpack_require__(38);
 var LinkIcon = __webpack_require__(39);
 var ArrowIcon = __webpack_require__(40);
-var hotspotPreview = "data:image/svg+xml,%3Csvg width='152' height='66' xmlns='http://www.w3.org/2000/svg'%3E%3Cg%3E%3Crect stroke='null' x='0' y='0' fill-opacity='0.5' fill='%232d9bf0' height='140' width='140'/%3E%3C/g%3E%3C/svg%3E";
+var HOTSPOT_PREVIEW = "data:image/svg+xml,%3Csvg width='152' height='66' xmlns='http://www.w3.org/2000/svg'%3E%3Cg%3E%3Crect stroke='null' x='0' y='0' fill-opacity='0.5' fill='%232d9bf0' height='140' width='140'/%3E%3C/g%3E%3C/svg%3E";
 var Root = /** @class */ (function (_super) {
     __extends(Root, _super);
     function Root() {
@@ -168,11 +182,35 @@ var Root = /** @class */ (function (_super) {
             viewMode: 'loading',
             selectStartScreenMode: false,
             screens: [],
-            screenIndex: 1,
+            screenIndex: 0,
         };
         _this.createHotspot = function () {
             Object(bottom_panel_controller__WEBPACK_IMPORTED_MODULE_3__["createHotspot"])();
         };
+        _this.onCanvasClicked = function (e) { return __awaiter(_this, void 0, void 0, function () {
+            var widgets, hotspot, screenWidget, screenIndex;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, miro.board.widgets.__getIntersectedObjects(e.data)];
+                    case 1:
+                        widgets = _a.sent();
+                        hotspot = widgets.filter(bottom_panel_controller__WEBPACK_IMPORTED_MODULE_3__["isHotspotWidget"])[0];
+                        if (!hotspot) return [3 /*break*/, 3];
+                        return [4 /*yield*/, Object(bottom_panel_controller__WEBPACK_IMPORTED_MODULE_3__["goToWidgetFromHotspot"])(hotspot.id)];
+                    case 2:
+                        screenWidget = _a.sent();
+                        if (screenWidget) {
+                            screenIndex = this.findScreenIndex(this.state.screens, screenWidget);
+                            this.setState({ screenIndex: screenIndex });
+                        }
+                        return [3 /*break*/, 4];
+                    case 3:
+                        Object(bottom_panel_controller__WEBPACK_IMPORTED_MODULE_3__["blinkHotspots"])();
+                        _a.label = 4;
+                    case 4: return [2 /*return*/];
+                }
+            });
+        }); };
         _this.getLink = function () {
             miro.board.__getBoardURLWithParams({ runPrototyping: true })
                 .then(function (url) {
@@ -195,7 +233,7 @@ var Root = /** @class */ (function (_super) {
                             this.play();
                         }
                         else if (savedState.prototypingMode) {
-                            this.subscriptPrototypingModeEvents();
+                            this.subscribePrototypingModeEvents();
                             this.setState({ viewMode: 'play' });
                         }
                         else {
@@ -215,7 +253,7 @@ var Root = /** @class */ (function (_super) {
                 return {
                     width: 152,
                     height: 66,
-                    url: hotspotPreview,
+                    url: HOTSPOT_PREVIEW,
                 };
             },
             onDrop: function (canvasX, canvasY) {
@@ -226,27 +264,27 @@ var Root = /** @class */ (function (_super) {
     };
     Root.prototype.play = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var shapes, hasStartHotspot, success, screens, res;
+            var shapes, startHotspotWidget, screenWidget, screens, res;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, miro.board.widgets.get({ 'type': 'SHAPE' })];
                     case 1:
                         shapes = _a.sent();
-                        hasStartHotspot = !!Object(bottom_panel_controller__WEBPACK_IMPORTED_MODULE_3__["findStartHotspot"])(shapes);
-                        if (!hasStartHotspot) return [3 /*break*/, 6];
-                        return [4 /*yield*/, Object(bottom_panel_controller__WEBPACK_IMPORTED_MODULE_3__["enterPrototypingMode"])()];
+                        startHotspotWidget = Object(bottom_panel_controller__WEBPACK_IMPORTED_MODULE_3__["findStartHotspot"])(shapes);
+                        if (!startHotspotWidget) return [3 /*break*/, 6];
+                        return [4 /*yield*/, Object(bottom_panel_controller__WEBPACK_IMPORTED_MODULE_3__["enterPrototypingMode"])(startHotspotWidget)];
                     case 2:
-                        success = _a.sent();
-                        if (!success) return [3 /*break*/, 4];
+                        screenWidget = _a.sent();
+                        if (!screenWidget) return [3 /*break*/, 4];
                         miro.__setRuntimeState({ prototypingMode: true });
-                        this.subscriptPrototypingModeEvents();
+                        this.subscribePrototypingModeEvents();
                         return [4 /*yield*/, Object(bottom_panel_controller__WEBPACK_IMPORTED_MODULE_3__["findAllScreens"])()];
                     case 3:
                         screens = _a.sent();
                         this.setState({
                             viewMode: 'play',
                             screens: screens,
-                            screenIndex: 1,
+                            screenIndex: this.findScreenIndex(screens, screenWidget),
                         });
                         miro.board.ui.resizeTo({ width: config__WEBPACK_IMPORTED_MODULE_5__["PLAY_WIDTH"] });
                         return [3 /*break*/, 5];
@@ -268,10 +306,14 @@ var Root = /** @class */ (function (_super) {
             });
         });
     };
-    Root.prototype.subscriptPrototypingModeEvents = function () {
+    Root.prototype.subscribePrototypingModeEvents = function () {
         miro.addListener('ESC_PRESSED', this.onExitPrototypingMode);
-        miro.addListener('CANVAS_CLICKED', bottom_panel_controller__WEBPACK_IMPORTED_MODULE_3__["onCanvasClicked"]);
+        miro.addListener('CANVAS_CLICKED', this.onCanvasClicked);
         miro.addListener('COMMENT_CREATED', bottom_panel_controller__WEBPACK_IMPORTED_MODULE_3__["onCommentCreated"]);
+    };
+    Root.prototype.findScreenIndex = function (screens, screenWidget) {
+        var index = screens.findIndex(function (screen) { return screen.id === screenWidget.id; });
+        return index === -1 ? 0 : index;
     };
     Root.prototype.onExitPrototypingMode = function () {
         return __awaiter(this, void 0, void 0, function () {
@@ -287,17 +329,17 @@ var Root = /** @class */ (function (_super) {
         });
     };
     Root.prototype.onPrevScreen = function () {
-        if (this.state.screenIndex > 1) {
-            var index = this.state.screenIndex - 1;
-            this.setState({ screenIndex: index });
-            Object(bottom_panel_controller__WEBPACK_IMPORTED_MODULE_3__["gotoWidget"])(this.state.screens[index - 1]);
+        if (this.state.screenIndex > 0) {
+            var newIndex = this.state.screenIndex - 1;
+            this.setState({ screenIndex: newIndex });
+            Object(bottom_panel_controller__WEBPACK_IMPORTED_MODULE_3__["gotoWidget"])(this.state.screens[newIndex]);
         }
     };
     Root.prototype.onNextScreen = function () {
-        if (this.state.screenIndex < this.state.screens.length) {
-            var index = this.state.screenIndex + 1;
-            this.setState({ screenIndex: index });
-            Object(bottom_panel_controller__WEBPACK_IMPORTED_MODULE_3__["gotoWidget"])(this.state.screens[index - 1]);
+        if (this.state.screenIndex < this.state.screens.length - 1) {
+            var newIndex = this.state.screenIndex + 1;
+            this.setState({ screenIndex: newIndex });
+            Object(bottom_panel_controller__WEBPACK_IMPORTED_MODULE_3__["gotoWidget"])(this.state.screens[newIndex]);
         }
     };
     Root.prototype.render = function () {
@@ -311,8 +353,8 @@ var Root = /** @class */ (function (_super) {
             react__WEBPACK_IMPORTED_MODULE_1__["createElement"]("div", { className: "btn link-button", onClick: function () { return _this.getLink(); } },
                 react__WEBPACK_IMPORTED_MODULE_1__["createElement"](react_inlinesvg__WEBPACK_IMPORTED_MODULE_4___default.a, { className: "icon", src: LinkIcon }),
                 react__WEBPACK_IMPORTED_MODULE_1__["createElement"]("span", null, "Autoplay link"))));
-        var isFirstScreen = function () { return _this.state.screenIndex === 1; };
-        var isLastScreen = function () { return _this.state.screenIndex === _this.state.screens.length; };
+        var isFirstScreen = function () { return _this.state.screenIndex === 0; };
+        var isLastScreen = function () { return _this.state.screenIndex === _this.state.screens.length - 1; };
         var playMode = (react__WEBPACK_IMPORTED_MODULE_1__["createElement"]("div", { className: "edit-mode" },
             react__WEBPACK_IMPORTED_MODULE_1__["createElement"]("div", { className: "btn exit-button", onClick: function () { return _this.onExitPrototypingMode(); } },
                 react__WEBPACK_IMPORTED_MODULE_1__["createElement"]("span", null, "Exit")),
@@ -320,7 +362,7 @@ var Root = /** @class */ (function (_super) {
                 react__WEBPACK_IMPORTED_MODULE_1__["createElement"](react_inlinesvg__WEBPACK_IMPORTED_MODULE_4___default.a, { className: "icon", src: ArrowIcon })),
             react__WEBPACK_IMPORTED_MODULE_1__["createElement"]("div", { className: "screen-number" },
                 react__WEBPACK_IMPORTED_MODULE_1__["createElement"]("span", null,
-                    this.state.screenIndex,
+                    this.state.screenIndex + 1,
                     " of ",
                     this.state.screens.length)),
             react__WEBPACK_IMPORTED_MODULE_1__["createElement"]("div", { className: 'btn next-button ' + (isLastScreen() ? 'btn--disabled' : ''), onClick: function () { return _this.onNextScreen(); } },
@@ -353,13 +395,13 @@ miro.onReady(function () {
 
 
 /***/ }),
-/* 2 */
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var deselectCurrent = __webpack_require__(3);
+var deselectCurrent = __webpack_require__(4);
 
 var defaultMessage = "Copy to clipboard: #{key}, Enter";
 
@@ -454,7 +496,7 @@ module.exports = copy;
 
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, exports) {
 
 
@@ -499,19 +541,19 @@ module.exports = function () {
 
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 if (false) {} else {
-  module.exports = __webpack_require__(5);
+  module.exports = __webpack_require__(6);
 }
 
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -532,12 +574,12 @@ if (true) {
   (function() {
 'use strict';
 
-var _assign = __webpack_require__(6);
-var invariant = __webpack_require__(7);
-var emptyObject = __webpack_require__(8);
-var warning = __webpack_require__(9);
-var emptyFunction = __webpack_require__(10);
-var checkPropTypes = __webpack_require__(11);
+var _assign = __webpack_require__(7);
+var invariant = __webpack_require__(8);
+var emptyObject = __webpack_require__(9);
+var warning = __webpack_require__(10);
+var emptyFunction = __webpack_require__(11);
+var checkPropTypes = __webpack_require__(12);
 
 // TODO: this is special because it gets imported during build.
 
@@ -2004,7 +2046,7 @@ module.exports = react;
 
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2101,7 +2143,7 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2160,7 +2202,7 @@ function invariant(condition, format, a, b, c, d, e, f) {
 module.exports = invariant;
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2183,7 +2225,7 @@ if (true) {
 module.exports = emptyObject;
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2197,7 +2239,7 @@ module.exports = emptyObject;
 
 
 
-var emptyFunction = __webpack_require__(10);
+var emptyFunction = __webpack_require__(11);
 
 /**
  * Similar to invariant but only logs a warning if the condition is not met.
@@ -2251,7 +2293,7 @@ if (true) {
 module.exports = warning;
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2293,7 +2335,7 @@ emptyFunction.thatReturnsArgument = function (arg) {
 module.exports = emptyFunction;
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2309,7 +2351,7 @@ module.exports = emptyFunction;
 var printWarning = function() {};
 
 if (true) {
-  var ReactPropTypesSecret = __webpack_require__(12);
+  var ReactPropTypesSecret = __webpack_require__(13);
   var loggedTypeFailures = {};
   var has = Function.call.bind(Object.prototype.hasOwnProperty);
 
@@ -2402,7 +2444,7 @@ module.exports = checkPropTypes;
 
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2421,7 +2463,7 @@ module.exports = ReactPropTypesSecret;
 
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2456,12 +2498,12 @@ function checkDCE() {
 }
 
 if (false) {} else {
-  module.exports = __webpack_require__(14);
+  module.exports = __webpack_require__(15);
 }
 
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2482,19 +2524,19 @@ if (true) {
   (function() {
 'use strict';
 
-var invariant = __webpack_require__(7);
-var React = __webpack_require__(4);
-var warning = __webpack_require__(9);
-var ExecutionEnvironment = __webpack_require__(15);
-var _assign = __webpack_require__(6);
-var emptyFunction = __webpack_require__(10);
-var checkPropTypes = __webpack_require__(11);
-var getActiveElement = __webpack_require__(16);
-var shallowEqual = __webpack_require__(17);
-var containsNode = __webpack_require__(18);
-var emptyObject = __webpack_require__(8);
-var hyphenateStyleName = __webpack_require__(21);
-var camelizeStyleName = __webpack_require__(23);
+var invariant = __webpack_require__(8);
+var React = __webpack_require__(5);
+var warning = __webpack_require__(10);
+var ExecutionEnvironment = __webpack_require__(16);
+var _assign = __webpack_require__(7);
+var emptyFunction = __webpack_require__(11);
+var checkPropTypes = __webpack_require__(12);
+var getActiveElement = __webpack_require__(17);
+var shallowEqual = __webpack_require__(18);
+var containsNode = __webpack_require__(19);
+var emptyObject = __webpack_require__(9);
+var hyphenateStyleName = __webpack_require__(22);
+var camelizeStyleName = __webpack_require__(24);
 
 // Relying on the `invariant()` implementation lets us
 // have preserve the format and params in the www builds.
@@ -19898,7 +19940,7 @@ module.exports = reactDom;
 
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19937,7 +19979,7 @@ var ExecutionEnvironment = {
 module.exports = ExecutionEnvironment;
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19979,7 +20021,7 @@ function getActiveElement(doc) /*?DOMElement*/{
 module.exports = getActiveElement;
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20050,7 +20092,7 @@ function shallowEqual(objA, objB) {
 module.exports = shallowEqual;
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20065,7 +20107,7 @@ module.exports = shallowEqual;
  * 
  */
 
-var isTextNode = __webpack_require__(19);
+var isTextNode = __webpack_require__(20);
 
 /*eslint-disable no-bitwise */
 
@@ -20093,7 +20135,7 @@ function containsNode(outerNode, innerNode) {
 module.exports = containsNode;
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20108,7 +20150,7 @@ module.exports = containsNode;
  * @typechecks
  */
 
-var isNode = __webpack_require__(20);
+var isNode = __webpack_require__(21);
 
 /**
  * @param {*} object The object to check.
@@ -20121,7 +20163,7 @@ function isTextNode(object) {
 module.exports = isTextNode;
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20149,7 +20191,7 @@ function isNode(object) {
 module.exports = isNode;
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20164,7 +20206,7 @@ module.exports = isNode;
 
 
 
-var hyphenate = __webpack_require__(22);
+var hyphenate = __webpack_require__(23);
 
 var msPattern = /^ms-/;
 
@@ -20191,7 +20233,7 @@ function hyphenateStyleName(string) {
 module.exports = hyphenateStyleName;
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20227,7 +20269,7 @@ function hyphenate(string) {
 module.exports = hyphenate;
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20242,7 +20284,7 @@ module.exports = hyphenate;
 
 
 
-var camelize = __webpack_require__(24);
+var camelize = __webpack_require__(25);
 
 var msPattern = /^-ms-/;
 
@@ -20270,7 +20312,7 @@ function camelizeStyleName(string) {
 module.exports = camelizeStyleName;
 
 /***/ }),
-/* 24 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20305,7 +20347,7 @@ function camelize(string) {
 module.exports = camelize;
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -20313,13 +20355,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "findStartHotspot", function() { return findStartHotspot; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "enterPrototypingMode", function() { return enterPrototypingMode; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "exitPrototypingMode", function() { return exitPrototypingMode; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "goToWidgetFromHotspot", function() { return goToWidgetFromHotspot; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "gotoWidget", function() { return gotoWidget; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "onCanvasClicked", function() { return onCanvasClicked; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isHotspotWidget", function() { return isHotspotWidget; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "onCommentCreated", function() { return onCommentCreated; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "blinkHotspots", function() { return blinkHotspots; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createStartHotspot", function() { return createStartHotspot; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createHotspot", function() { return createHotspot; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "findAllScreens", function() { return findAllScreens; });
-/* harmony import */ var config__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(26);
+/* harmony import */ var config__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
 var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -20359,28 +20403,24 @@ var __generator = (undefined && undefined.__generator) || function (thisArg, bod
 function findStartHotspot(shapes) {
     return shapes.find(function (shape) { return shape.metadata[config__WEBPACK_IMPORTED_MODULE_0__["APP_ID"]] && shape.metadata[config__WEBPACK_IMPORTED_MODULE_0__["APP_ID"]].startHotspot; });
 }
-function enterPrototypingMode() {
-    return __awaiter(this, void 0, void 0, function () {
-        var shapes, hotspots, hotspotsIsValid, startHotspot;
+function enterPrototypingMode(startHotspotWidget) {
+    return __awaiter(this, void 0, Promise, function () {
+        var shapes, hotspots, hotspotsIsValid, screenWidget;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, miro.board.widgets.get({ 'type': 'SHAPE' })];
                 case 1:
                     shapes = _a.sent();
                     hotspots = shapes.filter(isHotspotWidget);
-                    return [4 /*yield*/, miro.board.widgets.bringForward(hotspots)];
-                case 2:
-                    _a.sent();
                     return [4 /*yield*/, checkAllHotspotsLinks(hotspots)];
-                case 3:
+                case 2:
                     hotspotsIsValid = _a.sent();
-                    if (!hotspotsIsValid) return [3 /*break*/, 11];
-                    startHotspot = findStartHotspot(shapes);
-                    if (!startHotspot) {
-                        miro.showErrorNotification('Please select start screen');
-                        return [2 /*return*/, false];
-                    }
-                    return [4 /*yield*/, goToWidgetFromHotspot(startHotspot.id)];
+                    if (!hotspotsIsValid) return [3 /*break*/, 12];
+                    return [4 /*yield*/, goToWidgetFromHotspot(startHotspotWidget.id)];
+                case 3:
+                    screenWidget = _a.sent();
+                    if (!screenWidget) return [3 /*break*/, 11];
+                    return [4 /*yield*/, miro.board.widgets.bringForward(hotspots)];
                 case 4:
                     _a.sent();
                     return [4 /*yield*/, miro.board.ui.__hideButtonsPanels(['top', 'bottomBar', 'map'])];
@@ -20401,8 +20441,9 @@ function enterPrototypingMode() {
                     return [4 /*yield*/, hideHotspots()];
                 case 10:
                     _a.sent();
-                    return [2 /*return*/, true];
-                case 11: return [2 /*return*/, false];
+                    _a.label = 11;
+                case 11: return [2 /*return*/, screenWidget];
+                case 12: return [2 /*return*/];
             }
         });
     });
@@ -20598,26 +20639,6 @@ function hideHotspots() {
         });
     });
 }
-function onCanvasClicked(e) {
-    return __awaiter(this, void 0, void 0, function () {
-        var widgets, hotspot;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, miro.board.widgets.__getIntersectedObjects(e.data)];
-                case 1:
-                    widgets = _a.sent();
-                    hotspot = widgets.filter(isHotspotWidget)[0];
-                    if (hotspot) {
-                        goToWidgetFromHotspot(hotspot.id);
-                    }
-                    else {
-                        blinkHotspots();
-                    }
-                    return [2 /*return*/];
-            }
-        });
-    });
-}
 function onCommentCreated() {
     miro.board.ui.__selectDefaultTool();
 }
@@ -20650,6 +20671,7 @@ function checkAllHotspotsLinks(hotspots) {
                 case 1:
                     lines = _a.sent();
                     hotspotsWithoutLinks = hotspots.slice();
+                    //пробегаться по хотспотам, а не линкам, чтобы убрать все проверки из goToWidgetFromHotspot
                     lines.forEach(function (line) {
                         //for startWidgetId
                         var linkedHotspot1 = hotspots.find(function (h) { return h.id === line.startWidgetId; });
@@ -20718,6 +20740,12 @@ function createStartHotspot() {
                                         type: 'LINE',
                                         startWidgetId: flagWidget.id,
                                         endWidgetId: screen.id,
+                                        style: {
+                                            lineStartStyle: 0,
+                                            lineEndStyle: 1,
+                                            lineStyle: 2,
+                                            lineType: 2,
+                                        },
                                     })];
                             case 2:
                                 _b.sent();
@@ -20803,7 +20831,7 @@ function getHotspots() {
 }
 function findAllScreens() {
     return __awaiter(this, void 0, Promise, function () {
-        var screensIds, allWidgets, hotsponts, lines;
+        var screensIds, allWidgets, hotspots, lines;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -20811,15 +20839,15 @@ function findAllScreens() {
                     return [4 /*yield*/, miro.board.widgets.get()];
                 case 1:
                     allWidgets = _a.sent();
-                    hotsponts = allWidgets.filter(isHotspotWidget);
+                    hotspots = allWidgets.filter(isHotspotWidget);
                     lines = allWidgets.filter(function (w) { return w.type === 'LINE'; });
                     lines.forEach(function (line) {
-                        if (hotsponts.find(function (h) { return h.id === line.startWidgetId; })) {
+                        if (hotspots.find(function (h) { return h.id === line.startWidgetId; })) {
                             if (line.endWidgetId && !screensIds.some(function (sId) { return sId === line.endWidgetId; })) {
                                 screensIds.push(line.endWidgetId);
                             }
                         }
-                        if (hotsponts.find(function (h) { return h.id === line.endWidgetId; })) {
+                        if (hotspots.find(function (h) { return h.id === line.endWidgetId; })) {
                             if (line.startWidgetId && !screensIds.some(function (sId) { return sId === line.startWidgetId; })) {
                                 screensIds.push(line.startWidgetId);
                             }
@@ -20832,20 +20860,6 @@ function findAllScreens() {
         });
     });
 }
-
-
-/***/ }),
-/* 26 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "APP_ID", function() { return APP_ID; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EDIT_WIDTH", function() { return EDIT_WIDTH; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PLAY_WIDTH", function() { return PLAY_WIDTH; });
-var APP_ID = '3074457346759443169';
-var EDIT_WIDTH = 280;
-var PLAY_WIDTH = 320;
 
 
 /***/ }),
@@ -20910,7 +20924,7 @@ var __spread = (this && this.__spread) || function () {
     return ar;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var React = __webpack_require__(4);
+var React = __webpack_require__(5);
 var react_from_dom_1 = __webpack_require__(28);
 var helpers_1 = __webpack_require__(30);
 exports.STATUS = {
@@ -21249,7 +21263,7 @@ var __spread = (this && this.__spread) || function () {
     return ar;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var React = __webpack_require__(4);
+var React = __webpack_require__(5);
 var helpers_1 = __webpack_require__(29);
 function parseAttributes(node, reactKey) {
     var attributes = {
@@ -21915,16 +21929,10 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
 /***/ }),
 /* 32 */
-/***/ (function(module, exports) {
-
-module.exports = "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><path fill=\"#96cdf7\" fill-rule=\"evenodd\" stroke=\"currentColor\" stroke-width=\"2\" d=\"M3 3h18v18H3z\"></path></svg>"
-
-/***/ }),
-/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(34);
+var content = __webpack_require__(33);
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -21938,17 +21946,17 @@ var options = {"hmr":true}
 options.transform = transform
 options.insertInto = undefined;
 
-var update = __webpack_require__(36)(content, options);
+var update = __webpack_require__(35)(content, options);
 
 if(content.locals) module.exports = content.locals;
 
 if(false) {}
 
 /***/ }),
-/* 34 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(35)(false);
+exports = module.exports = __webpack_require__(34)(false);
 // imports
 
 
@@ -21959,7 +21967,7 @@ exports.push([module.i, "html {\n  height: 100%;\n}\nbody {\n  height: 100%;\n  
 
 
 /***/ }),
-/* 35 */
+/* 34 */
 /***/ (function(module, exports) {
 
 /*
@@ -22041,7 +22049,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 36 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -22107,7 +22115,7 @@ var singleton = null;
 var	singletonCounter = 0;
 var	stylesInsertedAtTop = [];
 
-var	fixUrls = __webpack_require__(37);
+var	fixUrls = __webpack_require__(36);
 
 module.exports = function(list, options) {
 	if (typeof DEBUG !== "undefined" && DEBUG) {
@@ -22427,7 +22435,7 @@ function updateLink (link, options, obj) {
 
 
 /***/ }),
-/* 37 */
+/* 36 */
 /***/ (function(module, exports) {
 
 
@@ -22520,6 +22528,12 @@ module.exports = function (css) {
 	return fixedCss;
 };
 
+
+/***/ }),
+/* 37 */
+/***/ (function(module, exports) {
+
+module.exports = "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><path fill=\"#96cdf7\" fill-rule=\"evenodd\" stroke=\"currentColor\" stroke-width=\"2\" d=\"M3 3h18v18H3z\"></path></svg>"
 
 /***/ }),
 /* 38 */

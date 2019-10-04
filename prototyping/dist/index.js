@@ -84,14 +84,13 @@
 /******/ 	return __webpack_require__(__webpack_require__.s = 0);
 /******/ })
 /************************************************************************/
-/******/ ({
-
-/***/ 0:
+/******/ ([
+/* 0 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var config__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(26);
+/* harmony import */ var config__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
 var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -187,8 +186,7 @@ miro.onReady(function () { return __awaiter(_this, void 0, void 0, function () {
 
 
 /***/ }),
-
-/***/ 26:
+/* 1 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -196,11 +194,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "APP_ID", function() { return APP_ID; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EDIT_WIDTH", function() { return EDIT_WIDTH; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PLAY_WIDTH", function() { return PLAY_WIDTH; });
-var APP_ID = '3074457345621215481';
+var APP_ID = '3074457346759443169';
 var EDIT_WIDTH = 280;
 var PLAY_WIDTH = 320;
 
 
 /***/ })
-
-/******/ });
+/******/ ]);

@@ -2,13 +2,13 @@ import * as copy from 'copy-to-clipboard'
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import {
+	blinkHotspots,
 	createStartHotspot,
 	enterPrototypingMode,
 	exitPrototypingMode,
 	findAllScreens,
 	findStartHotspot,
-	gotoWidget,
-	onCanvasClicked,
+	gotoWidget, goToWidgetFromHotspot, isHotspotWidget,
 	onCommentCreated,
 } from 'bottom-panel-controller'
 import {createHotspot} from 'bottom-panel-controller'
@@ -20,17 +20,24 @@ const SquareIcon = require('images/square.svg')
 const PlayIcon = require('images/play.svg')
 const LinkIcon = require('images/link.svg')
 const ArrowIcon = require('images/arrow.svg')
-const hotspotPreview = `data:image/svg+xml,%3Csvg width='152' height='66' xmlns='http://www.w3.org/2000/svg'%3E%3Cg%3E%3Crect stroke='null' x='0' y='0' fill-opacity='0.5' fill='%232d9bf0' height='140' width='140'/%3E%3C/g%3E%3C/svg%3E`
+const HOTSPOT_PREVIEW = `data:image/svg+xml,%3Csvg width='152' height='66' xmlns='http://www.w3.org/2000/svg'%3E%3Cg%3E%3Crect stroke='null' x='0' y='0' fill-opacity='0.5' fill='%232d9bf0' height='140' width='140'/%3E%3C/g%3E%3C/svg%3E`
+
+type IState = {
+	viewMode: string
+	selectStartScreenMode: boolean
+	screens: SDK.IWidget[],
+	screenIndex: number,
+}
 
 class Root extends React.Component {
 
 	private containerRef: any = React.createRef()
 
-	state = {
+	state: IState = {
 		viewMode: 'loading', //edit, play, select-start-screen
 		selectStartScreenMode: false,
 		screens: [],
-		screenIndex: 1,
+		screenIndex: 0,
 	}
 
 	async componentWillMount() {
@@ -40,7 +47,7 @@ class Root extends React.Component {
 			miro.__setRuntimeState({enterPrototypingMode: false})
 			this.play()
 		} else if (savedState.prototypingMode) {
-			this.subscriptPrototypingModeEvents()
+			this.subscribePrototypingModeEvents()
 			this.setState({viewMode: 'play'})
 		} else {
 			this.setState({viewMode: 'edit'})
@@ -56,7 +63,7 @@ class Root extends React.Component {
 				return {
 					width: 152,
 					height: 66,
-					url: hotspotPreview,
+					url: HOTSPOT_PREVIEW,
 				}
 			},
 			onDrop: (canvasX: number, canvasY: number) => {
@@ -72,17 +79,17 @@ class Root extends React.Component {
 
 	private async play() {
 		const shapes = await miro.board.widgets.get({'type': 'SHAPE'})
-		const hasStartHotspot = !!findStartHotspot(shapes)
-		if (hasStartHotspot) {
-			const success = await enterPrototypingMode()
-			if (success) {
+		const startHotspotWidget = findStartHotspot(shapes)
+		if (startHotspotWidget) {
+			const screenWidget = await enterPrototypingMode(startHotspotWidget)
+			if (screenWidget) {
 				miro.__setRuntimeState({prototypingMode: true})
-				this.subscriptPrototypingModeEvents()
+				this.subscribePrototypingModeEvents()
 				const screens = await findAllScreens()
 				this.setState({
 					viewMode: 'play',
 					screens: screens,
-					screenIndex: 1,
+					screenIndex: this.findScreenIndex(screens, screenWidget),
 				})
 				miro.board.ui.resizeTo({width: PLAY_WIDTH})
 			} else {
@@ -97,10 +104,30 @@ class Root extends React.Component {
 		}
 	}
 
-	private subscriptPrototypingModeEvents() {
+	private subscribePrototypingModeEvents() {
 		miro.addListener('ESC_PRESSED', this.onExitPrototypingMode)
-		miro.addListener('CANVAS_CLICKED', onCanvasClicked)
+		miro.addListener('CANVAS_CLICKED', this.onCanvasClicked)
 		miro.addListener('COMMENT_CREATED', onCommentCreated)
+	}
+
+	private onCanvasClicked = async (e: any) => {
+		const widgets = await miro.board.widgets.__getIntersectedObjects(e.data)
+		const hotspot = widgets.filter(isHotspotWidget)[0]
+
+		if (hotspot) {
+			const screenWidget = await goToWidgetFromHotspot(hotspot.id)
+			if (screenWidget) {
+				const screenIndex = this.findScreenIndex(this.state.screens, screenWidget)
+				this.setState({screenIndex: screenIndex})
+			}
+		} else {
+			blinkHotspots()
+		}
+	}
+
+	private findScreenIndex(screens: SDK.IWidget[], screenWidget: SDK.IWidget): number {
+		const index = screens.findIndex(screen => screen.id === screenWidget.id)
+		return index === -1 ? 0 : index
 	}
 
 	private async onExitPrototypingMode() {
@@ -109,18 +136,18 @@ class Root extends React.Component {
 	}
 
 	private onPrevScreen() {
-		if (this.state.screenIndex > 1) {
-			const index = this.state.screenIndex - 1
-			this.setState({screenIndex: index})
-			gotoWidget(this.state.screens[index - 1])
+		if (this.state.screenIndex > 0) {
+			const newIndex = this.state.screenIndex - 1
+			this.setState({screenIndex: newIndex})
+			gotoWidget(this.state.screens[newIndex])
 		}
 	}
 
 	private onNextScreen() {
-		if (this.state.screenIndex < this.state.screens.length) {
-			const index = this.state.screenIndex + 1
-			this.setState({screenIndex: index})
-			gotoWidget(this.state.screens[index - 1])
+		if (this.state.screenIndex < this.state.screens.length - 1) {
+			const newIndex = this.state.screenIndex + 1
+			this.setState({screenIndex: newIndex})
+			gotoWidget(this.state.screens[newIndex])
 		}
 	}
 
@@ -149,8 +176,8 @@ class Root extends React.Component {
 			</div>
 		)
 
-		const isFirstScreen = () => this.state.screenIndex === 1
-		const isLastScreen = () => this.state.screenIndex === this.state.screens.length
+		const isFirstScreen = () => this.state.screenIndex === 0
+		const isLastScreen = () => this.state.screenIndex === this.state.screens.length - 1
 		const playMode = (
 			<div className="edit-mode">
 				<div className="btn exit-button" onClick={() => this.onExitPrototypingMode()}>
@@ -160,7 +187,7 @@ class Root extends React.Component {
 					<SVG className="icon" src={ArrowIcon}/>
 				</div>
 				<div className="screen-number">
-					<span>{this.state.screenIndex} of {this.state.screens.length}</span>
+					<span>{this.state.screenIndex + 1} of {this.state.screens.length}</span>
 				</div>
 				<div className={'btn next-button ' + (isLastScreen() ? 'btn--disabled' : '')} onClick={() => this.onNextScreen()}>
 					<SVG className="icon" src={ArrowIcon}/>

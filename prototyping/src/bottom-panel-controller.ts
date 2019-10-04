@@ -4,37 +4,29 @@ export function findStartHotspot(shapes: SDK.IWidget[]): SDK.IWidget | undefined
 	return shapes.find(shape => shape.metadata[APP_ID] && shape.metadata[APP_ID].startHotspot)
 }
 
-export async function enterPrototypingMode() {
+export async function enterPrototypingMode(startHotspotWidget: SDK.IWidget): Promise<SDK.IWidget | void> {
 	const shapes = await miro.board.widgets.get<SDK.IShapeWidget>({'type': 'SHAPE'})
 	const hotspots = shapes.filter(isHotspotWidget)
-	await miro.board.widgets.bringForward(hotspots)
 	const hotspotsIsValid = await checkAllHotspotsLinks(hotspots)
 
 	if (hotspotsIsValid) {
-		const startHotspot = findStartHotspot(shapes)
-		if (!startHotspot) {
-			miro.showErrorNotification('Please select start screen')
-			return false
+		const screenWidget = await goToWidgetFromHotspot(startHotspotWidget.id)
+		if (screenWidget) {
+			await miro.board.widgets.bringForward(hotspots)
+			await miro.board.ui.__hideButtonsPanels(['top', 'bottomBar', 'map'])
+			await miro.board.ui.__limitToolbarMode('commentor')
+			await miro.board.selection.selectWidgets([])
+			await miro.board.__disableLeftClickOnCanvas()
+			await hideAllLinks()
+			await hideHotspots()
 		}
-
-		await goToWidgetFromHotspot(startHotspot.id)
-
-		await miro.board.ui.__hideButtonsPanels(['top', 'bottomBar', 'map'])
-		await miro.board.ui.__limitToolbarMode('commentor')
-		await miro.board.selection.selectWidgets([])
-		await miro.board.__disableLeftClickOnCanvas()
-		await hideAllLinks()
-		await hideHotspots()
-		return true
-	} else {
-		return false
+		return screenWidget
 	}
 }
 
 export async function exitPrototypingMode() {
 	await miro.board.viewport.__unmask()
 	await miro.board.ui.__showButtonsPanels('all')
-
 	await miro.board.ui.__clearToolbarModeLimit()
 	await miro.board.__enableLeftClickOnCanvas()
 	await restoreAllLinks()
@@ -65,7 +57,7 @@ async function restoreAllLinks(): Promise<any> {
 	await miro.board.widgets.update(newLines)
 }
 
-async function goToWidgetFromHotspot(hotspotId: string): Promise<SDK.IWidget | void> {
+export async function goToWidgetFromHotspot(hotspotId: string): Promise<SDK.IWidget | void> {
 	const lines = await miro.board.widgets.get({'type': 'LINE', 'startWidgetId': hotspotId})
 	if (lines.length > 0) {
 		if (lines.length > 1) {
@@ -94,13 +86,13 @@ export async function gotoWidget(targetWidget: SDK.IWidget) {
 }
 
 async function zoomToWidget(w: SDK.IWidget) {
-	var v = {
+	const v = {
 		x: w.bounds.left,
 		y: w.bounds.top,
 		width: w.bounds.width,
 		height: w.bounds.height,
 	}
-	var padding = {
+	const padding = {
 		top: 60,
 		left: 80,
 		right: 80,
@@ -110,7 +102,7 @@ async function zoomToWidget(w: SDK.IWidget) {
 	await miro.board.viewport.setViewport(v, padding)
 }
 
-function isHotspotWidget(widget: SDK.IWidget) {
+export function isHotspotWidget(widget: SDK.IWidget) {
 	return widget.metadata[APP_ID] && widget.metadata[APP_ID].hotspot
 }
 
@@ -132,22 +124,11 @@ async function hideHotspots() {
 	miro.board.widgets.update(updatingHotspots)
 }
 
-export async function onCanvasClicked(e: any) {
-	const widgets = await miro.board.widgets.__getIntersectedObjects(e.data)
-	const hotspot = widgets.filter(isHotspotWidget)[0]
-
-	if (hotspot) {
-		goToWidgetFromHotspot(hotspot.id)
-	} else {
-		blinkHotspots()
-	}
-}
-
 export function onCommentCreated() {
 	miro.board.ui.__selectDefaultTool()
 }
 
-async function blinkHotspots() {
+export async function blinkHotspots() {
 	const hotspots = await getHotspots()
 	const hotspotstoShow = hotspots.map(h => ({id: h.id, clientVisible: true}))
 	miro.board.widgets.update(hotspotstoShow)
@@ -163,6 +144,7 @@ async function checkAllHotspotsLinks(hotspots: SDK.IShapeWidget[]) {
 	let hotspotsWithoutLinks = hotspots.slice()
 	let linkWithoutScreen
 
+	//пробегаться по хотспотам, а не линкам, чтобы убрать все проверки из goToWidgetFromHotspot
 	lines.forEach(line => {
 		//for startWidgetId
 		const linkedHotspot1 = hotspots.find(h => h.id === line.startWidgetId)
@@ -226,6 +208,12 @@ export async function createStartHotspot() {
 					type: 'LINE',
 					startWidgetId: flagWidget.id,
 					endWidgetId: screen.id,
+					style: {
+						lineStartStyle: 0,
+						lineEndStyle: 1,
+						lineStyle: 2,
+						lineType: 2,
+					},
 				} as any)
 
 				return flagWidget
@@ -291,17 +279,17 @@ async function getHotspots() {
 export async function findAllScreens(): Promise<SDK.IWidget[]> {
 	const screensIds: string[] = []
 	const allWidgets = await miro.board.widgets.get()
-	const hotsponts = allWidgets.filter(isHotspotWidget)
+	const hotspots = allWidgets.filter(isHotspotWidget)
 	const lines = allWidgets.filter(w => w.type === 'LINE') as SDK.ILineWidget[]
 
 	lines.forEach(line => {
-		if (hotsponts.find(h => h.id === line.startWidgetId)) {
+		if (hotspots.find(h => h.id === line.startWidgetId)) {
 			if (line.endWidgetId && !screensIds.some(sId => sId === line.endWidgetId)) {
 				screensIds.push(line.endWidgetId)
 			}
 		}
 
-		if (hotsponts.find(h => h.id === line.endWidgetId)) {
+		if (hotspots.find(h => h.id === line.endWidgetId)) {
 			if (line.startWidgetId && !screensIds.some(sId => sId === line.startWidgetId)) {
 				screensIds.push(line.startWidgetId)
 			}
