@@ -194,10 +194,6 @@ declare module SDK {
 		// Promise returns data passed in closeLeftSidebar function
 		openLeftSidebar(iframeURL: string, options?: {width?: number}): Promise<any>
 
-		// Promise will resolves when sidebar closes
-		// Promise returns data passed in openRightSidebar function
-		openRightSidebar(iframeURL: string, options?: {width?: number}): Promise<any>
-
 		// Promise will resolves when library closes
 		// Promise returns data passed in closeLibrary function
 		openLibrary(iframeURL: string, options: {title: string}): Promise<any>
@@ -212,9 +208,6 @@ declare module SDK {
 
 		// Throws error if sidebar opened not by this plugin
 		closeLeftSidebar(data?: any): void
-
-		// Throws error if sidebar opened not by this plugin
-		closeRightSidebar(data?: any): void
 
 		// Throws error if library opened not by this plugin
 		closeLibrary(data?: any): void
@@ -252,7 +245,7 @@ declare module SDK {
 
 		setViewportWithAnimation(viewport: IRect): Promise<IRect>
 
-		zoomToObject(objectId: InputWidget, selectObject?: boolean): void
+		zoomToObject(widgets: InputWidget): Promise<void>
 
 		setZoom(value: number): Promise<number>
 
@@ -280,6 +273,11 @@ declare module SDK {
 		selectWidgets(widgetIds: InputWidgets): Promise<IWidget[]>
 
 		/**
+		 * Unselect all widgets
+		 */
+		clear(): Promise<void>
+
+		/**
 		 * Get selected widgets id after user selects it
 		 * Currently user can select only one widget.
 		 * Warning! Use this command in main iframe only.
@@ -292,7 +290,7 @@ declare module SDK {
 		 * 'type' is required
 		 * Requires scope: BOARDS:WRITE
 		 */
-		create<T extends IWidget>(widgets: {type: string; [index: string]: any}[]): Promise<T[]>
+		create<T extends IWidget>(widgets: OneOrMany<{type: string; [index: string]: any}>): Promise<T[]>
 
 		/**
 		 * filterBy uses https://lodash.com/docs/4.17.11#filter
@@ -304,7 +302,7 @@ declare module SDK {
 		 * 'id' is required
 		 * Requires scope: BOARDS:WRITE
 		 */
-		update<T extends IWidget>(widgets: {id: string; [index: string]: any}[]): Promise<T[]>
+		update<T extends IWidget>(widgets: OneOrMany<{id: string; [index: string]: any}>): Promise<T[]>
 
 		/**
 		 * Requires scope: BOARDS:WRITE
@@ -367,6 +365,8 @@ declare module SDK {
 	// Widget data types
 	////////////////////////////////////////////////////////////////////////
 
+	type OneOrMany<T> = T | T[]
+
 	type WidgetMetadata = {[x: string]: any}
 
 	type WidgetCapabilities = {editable: boolean}
@@ -405,10 +405,14 @@ declare module SDK {
 			borderWidth: BorderWidthStyle
 			borderStyle: BorderStyleStyle
 			borderOpacity: BorderOpacityStyle
-			fontSize: FontSizeStyle
 			fontFamily: FontFamilyStyle
 			textColor: TextColorStyle
 			textAlign: TextAlignStyle
+			highlighting: HighlightingStyle
+			italic: ItalicStyle
+			strike: StrikeStyle
+			underline: UnderlineStyle
+			bold: BoldStyle
 		}
 	}
 
@@ -419,7 +423,7 @@ declare module SDK {
 		rotation: number
 		scale: number
 		title: string
-		url?: string
+		url: string
 	}
 
 	interface IStickerWidget extends IWidget {
@@ -433,7 +437,7 @@ declare module SDK {
 			fontSize: FontSizeStyle
 			textAlign: TextAlignStyle
 			textAlignVertical: TextAlignVerticalStyle
-			stickerType: StickerTypeStyle // Does not work. It calcs from width
+			stickerType: StickerTypeStyle
 			fontFamily: FontFamilyStyle
 		}
 	}
@@ -468,16 +472,18 @@ declare module SDK {
 		}
 	}
 
+	// Currently lines can be created between two widgets only
+	// 'startWidgetId' and 'endWidgetId' fields are required for creation
 	interface ILineWidget extends IWidget {
 		type: 'LINE'
 		startWidgetId: string | undefined
 		endWidgetId: string | undefined
-		startPosition: IPoint
-		endPosition: IPoint
-		captions: {text: string}[]
+		readonly startPosition: IPoint
+		readonly endPosition: IPoint
+		readonly captions: {text: string}[]
 		style: {
 			lineColor: LineColorStyle
-			lineWidth: LineWidthStyle
+			lineThickness: LineThicknessStyle
 			lineStyle: LineStyleStyle
 			lineType: LineTypeStyle
 			lineStartStyle: LineEndStyle
@@ -500,8 +506,8 @@ declare module SDK {
 		width: number
 		height: number
 		title: string
-		frameIndex: number
-		childrenIds: string[]
+		readonly frameIndex: number
+		readonly childrenIds: string[]
 		style: {
 			backgroundColor: BackgroundColorStyle
 		}
@@ -516,7 +522,7 @@ declare module SDK {
 		points: IPoint[]
 		style: {
 			lineColor: LineColorStyle
-			lineWidth: LineWidthStyle
+			lineWidth: LineThicknessStyle
 		}
 	}
 
@@ -692,7 +698,7 @@ declare module SDK {
 	type UnderlineStyle = 0 | 1
 	type BoldStyle = 0 | 1
 	type LineColorStyle = string | number
-	type LineWidthStyle = number
+	type LineThicknessStyle = number
 	type LineStyleStyle = number
 	type LineTypeStyle = number
 	type LineEndStyle = number
