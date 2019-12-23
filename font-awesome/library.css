@@ -1,0 +1,120 @@
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+.miro-fontawesome-input {
+  margin: 20px 20px 0;
+}
+
+.miro-fontawesome-types {
+  padding: 10px 20px;
+}
+
+.miro-fontawesome-type {
+  color: rgba(0, 0, 0, 0.4);
+  font-size: 14px;
+  display: inline-block;
+  margin-left: 10px;
+  box-sizing: border-box;
+  height: 25px;
+  cursor: pointer;
+}
+
+.miro-fontawesome-type:first-child {
+  margin-left: 0;
+}
+
+.miro-fontawesome-type--selected {
+  border-bottom: solid 2px #4262ff;
+  color: #050038;
+  cursor: default;
+}
+
+.miro-fontawesome-results-wrapper {
+  flex: 1 1 0;
+  height: 100%;
+}
+
+.miro-fontawesome-results {
+  box-sizing: border-box;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  padding: 0 10px;
+}
+
+.miro-fontawesome-results__icon {
+  width: 20px;
+  height: 20px;
+  padding: 10px 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  color: #333;
+  margin-left: 1px;
+  cursor: crosshair;
+}
+
+.miro-fontawesome-results__icon:nth-child(7n + 1) {
+  margin-left: 0;
+}
+
+.miro-fontawesome-results__icon svg {
+  max-width: 100%;
+  max-height: 100%;
+  height: 100%;
+}
+
+.miro-fontawesome-results__empty-note {
+  padding: 10px 20px;
+}
+
+.miro-fontawesome-results__loader {
+  animation: rotate 2s linear infinite;
+  height: 50px;
+  transform-origin: center center;
+  width: 50px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+
+.miro-fontawesome-results__loader circle {
+  stroke-dasharray: 1, 200;
+  stroke-dashoffset: 0;
+  animation: dash 1.5s ease-in-out infinite;
+  stroke-linecap: round;
+  stroke: #4262ff;
+}
+
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes dash {
+  0% {
+    stroke-dasharray: 1, 200;
+    stroke-dashoffset: 0;
+  }
+
+  50% {
+    stroke-dasharray: 89, 200;
+    stroke-dashoffset: -35px;
+  }
+
+  100% {
+    stroke-dasharray: 89, 200;
+    stroke-dashoffset: -124px;
+  }
+}
+
+.hidden {
+  display: none;
+}
