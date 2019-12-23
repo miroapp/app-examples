@@ -42,8 +42,8 @@ miro.onReady(() => {
     viewportScale = scale;
   });
 
-  // Get board's scale when user starts to interact with the app.
-  // We track zoom in such a hacky way because of the synchronous
+  // Update board's scale when user starts to interact with the app.
+  // We track zooming in such a hacky way because of the synchronous
   // nature of getDraggableItemPreview and the lack of zoom events.
   document.body.addEventListener("mouseenter", async () => {
     viewportScale = await miro.board.viewport.getZoom();
@@ -58,7 +58,7 @@ miro.onReady(() => {
       );
       const [iconWidth, iconHeight] = icon.icon;
       const encodedIcon = svgToDataUrl(container.innerHTML);
-      const previewHeight = iconHeight * viewportScale * WIDGET_SCALE * 1.01;
+      const previewHeight = iconHeight * viewportScale * WIDGET_SCALE;
       return {
         url: encodedIcon,
         height: previewHeight,
