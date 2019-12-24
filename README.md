@@ -8,7 +8,7 @@ In this repository, you can find [types for Miro SDK](miro.d.ts) and several si
 |------------------------------------------------------|--------------|
 | [automate-user-management](automate-user-management) | This example explains how to add and remove members<br /> from your team, based on data from an external source. |
 | [github-issue-importer](github-issue-importer)       | This example shows how to import issues from GitHub<br /> to a board with custom fields using Miro API. |
-| [sample-app](sample=app)       | |
+| [sample-app](sample-app)       | |
 
 ## Web-Plugins
 Descriptions and GIFs for those examples available [here](https://developers.miro.com/docs/web-plugin-examples).
