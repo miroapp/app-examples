@@ -1,4 +1,4 @@
-# Sample rtb app
+# Sample Miro app
 Handy playground for playing with Miro Board API and Web-plugins.
 
 
