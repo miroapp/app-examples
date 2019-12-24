@@ -1,5 +1,5 @@
 # Sample rtb app
-Handy playground for playing with Miro Board API and Webhooks.
+Handy playground for playing with Miro Board API and Web-plugins.
 
 
 ### How to use
