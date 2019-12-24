@@ -54,7 +54,12 @@ body {
   position: relative;
   color: #333;
   margin-left: 1px;
-  cursor: crosshair;
+  cursor: pointer; /* IE doesn't support cursor: grab */
+  cursor: grab;
+}
+
+.miro-fontawesome-results__icon:active {
+  cursor: grabbing;
 }
 
 .miro-fontawesome-results__icon:nth-child(7n + 1) {
