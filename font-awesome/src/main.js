@@ -57,7 +57,14 @@ miro.onReady(() => {
         icon => icon.iconName === draggedIcon
       );
       const [iconWidth, iconHeight] = icon.icon;
-      const encodedIcon = svgToDataUrl(container.innerHTML);
+      const iconSvg = container.children[0].cloneNode(true);
+
+      // Increase width and height to make sure the icon preview
+      // will fill the preview <img> element even at max. viewport zoom
+      iconSvg.setAttribute("width", iconWidth * 4);
+      iconSvg.setAttribute("height", iconHeight * 4);
+
+      const encodedIcon = svgToDataUrl(iconSvg.outerHTML);
       const previewHeight = iconHeight * viewportScale * WIDGET_SCALE;
       return {
         url: encodedIcon,
@@ -115,7 +122,7 @@ function search() {
       const container = document.createElement("div");
       container.className = "miro-fontawesome-results__icon";
       container.innerHTML = svg;
-      container.children[0].attributes.class.value = "";
+      container.children[0].setAttribute("class", "");
       container.setAttribute("data-icon", icon.iconName);
       container.title = icon.iconName;
 
