@@ -132,3 +132,7 @@ body {
 .hidden {
   display: none;
 }
+
+.simplebar-scrollbar::before {
+  top: 0 !important;
+}
