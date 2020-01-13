@@ -42,6 +42,7 @@ body {
   flex-wrap: wrap;
   align-content: flex-start;
   padding: 0 10px 10px;
+  margin-top: -10px;
 }
 
 .miro-fontawesome-results:empty {
@@ -81,7 +82,7 @@ body {
 }
 
 .miro-fontawesome-results__empty-note {
-  padding: 10px 20px;
+  padding: 5px 20px;
 }
 
 .miro-fontawesome-results__loader {
