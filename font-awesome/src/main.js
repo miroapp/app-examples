@@ -114,17 +114,30 @@ miro.onReady(() => {
 });
 
 function search() {
-  const query = input.value.toLowerCase();
+  const query = input.value
+    .toLowerCase()
+    .trim()
+    .replace(/\s+/g, " ")
+    .split(" ");
   const icons = ICONS[selectedType]
-    .filter(({ iconName }) => iconName.toLowerCase().includes(query))
+    .filter(({ iconName }) =>
+      query.every(word => iconName.toLowerCase().includes(word))
+    )
     .map(icon => {
+      const { iconName } = icon;
       const svg = toSvg(icon);
       const container = document.createElement("div");
       container.className = "miro-fontawesome-results__icon";
       container.innerHTML = svg;
       container.children[0].setAttribute("class", "");
-      container.setAttribute("data-icon", icon.iconName);
-      container.title = icon.iconName;
+      container.setAttribute("data-icon", iconName);
+      container.title = iconName;
+
+      const title = document.createElement("span");
+      title.className = "miro-fontawesome-results__icon-name";
+      title.innerText = iconName;
+
+      container.appendChild(title);
 
       return container;
     });
@@ -158,15 +171,11 @@ function getIconUrl(type, name) {
 }
 
 async function createIconWidget(type, name, { x, y }) {
-  const widgets = await miro.board.widgets.create({
+  await miro.board.widgets.create({
     type: "image",
     x,
     y,
-    url: getIconUrl(type, name)
-  });
-  const scaledWidgets = widgets.map(widget => ({
-    id: widget.id,
+    url: getIconUrl(type, name),
     scale: WIDGET_SCALE
-  }));
-  await miro.board.widgets.update(scaledWidgets);
+  });
 }
