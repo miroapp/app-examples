@@ -167,7 +167,11 @@ function toSvg(icon) {
 }
 
 function getIconUrl(type, name) {
-  return `${location.origin}/svgs/${type}/${name}.svg`;
+  const root = location.pathname
+    .split("/")
+    .slice(0, -1)
+    .join("/");
+  return `${location.origin}/${root}svgs/${type}/${name}.svg`;
 }
 
 async function createIconWidget(type, name, { x, y }) {
