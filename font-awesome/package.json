@@ -11,12 +11,18 @@
   },
   "author": "Nikita Lobachev <nikita@miro.com>",
   "license": "ISC",
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run build && git add main.js"
+    }
+  },
   "devDependencies": {
     "@babel/core": "^7.7.7",
     "@babel/plugin-transform-runtime": "^7.7.6",
     "@babel/preset-env": "^7.7.7",
     "babel-loader": "^8.0.6",
     "css-loader": "^3.4.0",
+    "husky": "^4.0.10",
     "rollup": "^1.27.13",
     "rollup-plugin-babel": "^4.3.3",
     "rollup-plugin-commonjs": "^10.1.0",
