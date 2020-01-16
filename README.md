@@ -29,4 +29,4 @@ To learn more read [what web-plugins is it](https://developers.miro.com/docs/sdk
 | [template-builder](template-builder)     | This example shows how to create and position on the board<br /> multiple widgets of different types and render create custom<br /> interfaces in the library. |
 | [the-noun-project](the-noun-project)     | Another icon library example: shows how to drag&drop<br /> external resources into the board. |
 | [widget-counter](widget-counter)         | You select several widgets, click plugin button in the bottom bar<br /> and app show number of widgets grouped by type in the sidebar. |
-
+| [font-awesome](font-awesome)             | Font Awesome icon library. |
