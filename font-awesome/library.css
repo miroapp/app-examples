@@ -8,26 +8,45 @@ body {
 }
 
 .miro-fontawesome-types {
-  padding: 10px 20px;
+  padding: 0 20px;
+  position: relative;
+}
+
+.miro-fontawesome-types::before {
+  content: "";
+  display: block;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background-color: #e1e0e7;
 }
 
 .miro-fontawesome-type {
-  color: rgba(0, 0, 0, 0.4);
-  font-size: 14px;
+  color: #827f9b;
+  font-size: 16px;
+  line-height: 22px;
   display: inline-block;
-  margin-left: 15px;
+  margin-right: 40px;
   box-sizing: border-box;
-  height: 25px;
+  padding: 20px 0 14px 0;
   cursor: pointer;
+  position: relative;
 }
 
 .miro-fontawesome-type:first-child {
   margin-left: 0;
 }
 
+.miro-fontawesome-type:hover,
 .miro-fontawesome-type--selected {
-  border-bottom: solid 2px #4262ff;
   color: #050038;
+}
+
+.miro-fontawesome-type--selected {
+  padding-bottom: 12px;
+  border-bottom: solid 2px #4262ff;
   cursor: default;
 }
 
@@ -41,8 +60,7 @@ body {
   display: flex;
   flex-wrap: wrap;
   align-content: flex-start;
-  padding: 0 15px 10px;
-  margin-top: -10px;
+  padding: 0 15px 20px;
 }
 
 .miro-fontawesome-results:empty {
