@@ -170,8 +170,9 @@ function getIconUrl(type, name) {
   const root = location.pathname
     .split("/")
     .slice(0, -1)
-    .join("/");
-  return `${location.origin}/${root}svgs/${type}/${name}.svg`;
+    .join("/")
+    .replace(/\/+$/, "");
+  return `${location.origin}/${root}/svgs/${type}/${name}.svg`;
 }
 
 async function createIconWidget(type, name, { x, y }) {
