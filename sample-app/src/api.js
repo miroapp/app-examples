@@ -42,7 +42,7 @@ const boards = {
 
 function addAuth(auth, options) {
 	options.headers = {
-		Authorization: `Bearer ${auth.user.accessToken}`
+		Authorization: `Bearer ${auth.access_token}`
 	}
 	return options
 }
