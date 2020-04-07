@@ -19,6 +19,8 @@ declare module SDK {
 
 		currentUser: ICurrentUserCommands
 
+		enums: IEnums
+
 		// Some events require scope: BOARDS:READ
 		// Available only when Web-plugin is run on a board page
 		addListener(event: EventType, listener: (e: Event) => void): void
@@ -45,6 +47,10 @@ declare module SDK {
 		// Method returns a token you can use to make requests REST API on behalf of the current user.
 		authorize(options: AuthorizationOptions): Promise<string>
 
+		// Returns clientId that you can find in app settings.
+		// clientId needs to use widgets' metadata
+		getClientId(): string
+
 		// You can save some state shared between all iframes.
 		__setRuntimeState<T = any>(data: T): Promise<T>
 		__getRuntimeState<T = any>(): Promise<T>
@@ -61,9 +67,11 @@ declare module SDK {
 		| 'CANVAS_CLICKED' //Experimental event
 		| 'DATA_BROADCASTED' //Experimental event
 		| 'RUNTIME_STATE_UPDATED' //Experimental event
+		| 'METADATA_CHANGED' //Experimental event
+		| 'ONLINE_USERS_CHANGED' //Experimental event
 
 	interface Event {
-		type: EventType
+		type: string | EventType
 		data: any
 	}
 
@@ -86,7 +94,10 @@ declare module SDK {
 		toolbar?: ButtonExtensionPoint<ToolbarButton>
 		bottomBar?: ButtonExtensionPoint<BottomBarButton>
 		exportMenu?: ButtonExtensionPoint<ExportMenuButton>
-		getWidgetMenuItems?: (widgets: IWidget[]) => Promise<IContextMenuItem[]>
+
+		// Promise should be resolve within 400ms otherwise, buttons will not be shown in widget menu
+		// One plugin can add up to 3 buttons in widget` menu
+		getWidgetMenuItems?: (widgets: IWidget[], editMode: boolean) => Promise<IWidgetMenuItem | IWidgetMenuItem[]>
 	}
 
 	type ButtonExtensionPoint<T> = T | (() => Promise<T | void>)
@@ -110,21 +121,22 @@ declare module SDK {
 		onClick: () => void
 	}
 
-	interface IContextMenuItem {
+	interface IWidgetMenuItem {
 		tooltip: string
 		svgIcon: string
-		onClick?: (widgets: IWidget[]) => void
+		onClick: () => void
 	}
-
-	type MenuItemsGetter = (widgets: IWidget[]) => Promise<IContextMenuItem[]>
 
 	interface IBoardCommands {
 		info: IBoardInfoCommands
-		widgets: IBoardWidgetsCommands //requires 'EDIT_CONTENT' permission
+		widgets: IBoardWidgetsCommands
+		tags: IBoardTagsCommands
 
 		ui: IBoardUICommands
 		viewport: IBoardViewportCommands
 		selection: IBoardSelectionCommands
+
+		utils: IBoardUtils
 
 		__getBoardURLWithParams(params: any): Promise<string>
 		__getParamsFromURL(): Promise<any>
@@ -138,20 +150,20 @@ declare module SDK {
 		// css selector for draggable items
 		draggableItemSelector: string
 
-		// Optional. Draggable item was clicked
-		onClick?: (targetElement: any) => void
-
 		// Dragging started
 		getDraggableItemPreview: (
-			targetElement: any
+			targetElement: HTMLElement
 		) => {
 			width?: number // 100 is default
 			height?: number // 100 is default
-			url: string
+			url: string // Supported schemas: 'https://', 'data:image/svg+xml', 'data:image/png;base64'
 		}
 
+		// Optional. Draggable item was clicked
+		onClick?: (targetElement: HTMLElement) => void
+
 		// Draggable item was dropped
-		onDrop: (canvasX: number, canvasY: number) => void
+		onDrop: (canvasX: number, canvasY: number, targetElement: HTMLElement) => void
 
 		// Optional. Draggable item was dropped not under canvas
 		onCancel?: () => void
@@ -168,14 +180,17 @@ declare module SDK {
 		getId(): Promise<string>
 		isSignedIn(): Promise<boolean>
 		getScopes(): Promise<string[]>
+
 		/**
 		 * Requires scope: IDENTITY:READ
 		 */
 		getCurrentBoardPermissions(): Promise<BoardPermission[]>
+
 		/**
 		 * Requires scope: IDENTITY:READ
 		 */
 		getCurrentAccountPermissions(): Promise<AccountPermission[]>
+
 		/**
 		 * Requires scope: IDENTITY:READ
 		 */
@@ -191,19 +206,17 @@ declare module SDK {
 
 	interface IBoardUICommands {
 		// Promise will resolves when sidebar closes
-		// Promise returns data passed in closeLeftSidebar function
 		openLeftSidebar(iframeURL: string, options?: {width?: number}): Promise<any>
 
 		// Promise will resolves when library closes
-		// Promise returns data passed in closeLibrary function
 		openLibrary(iframeURL: string, options: {title: string}): Promise<any>
 
 		// Promise will resolves when modal closes
-		// Promise returns data passed in closeModal function
 		openModal(iframeURL: string, options?: {width?: number; height?: number} | {fullscreen: boolean}): Promise<any>
 
 		// Promise will resolves when bottomPanel closes
-		// Promise returns data passed in closeBottomPanel function
+		// options.width: default is 120px, min is 80px, max is 320px
+		// options.height: default is 48px, min is 48px, max is 200px
 		openBottomPanel(iframeURL: string, options?: {width?: number; height?: number}): Promise<any>
 
 		// Throws error if sidebar opened not by this plugin
@@ -238,18 +251,26 @@ declare module SDK {
 
 	type UIPanel = 'toolbar' | 'top' | 'bottomBar' | 'map'
 
+	interface IBoardUtils {
+		/** Calculate widgets union boundaries */
+		unionWidgetBounds(widgets: {bounds: IBounds}[]): IBounds
+	}
+
+	interface IViewportOptions {
+		/**  Get gap size between result and target viewport. Zero padding by default  */
+		padding?: IOffset
+		animationTimeInMS?: number // No animation by default
+	}
+
 	interface IBoardViewportCommands {
-		getViewport(): Promise<IRect>
+		get(): Promise<IRect>
+		set(viewport: IRect, options?: IViewportOptions): Promise<IRect>
 
-		setViewport(viewport: IRect, padding?: IOffset): Promise<IRect>
+		getScale(): Promise<number>
 
-		setViewportWithAnimation(viewport: IRect): Promise<IRect>
-
-		zoomToObject(widgets: InputWidget): Promise<void>
-
-		setZoom(value: number): Promise<number>
-
-		getZoom(): Promise<number>
+		/** Get size of default UI panels on viewport sides.
+		 *  Return value: {left: 60, top: 60, right: 0, bottom: 60} */
+		getBoardUIPadding(): IOffset
 
 		// [Experimental feature] Add black mask over canvas
 		__mask(viewport: IRect, padding?: IOffset): void
@@ -289,6 +310,7 @@ declare module SDK {
 		/**
 		 * 'type' is required
 		 * Requires scope: BOARDS:WRITE
+		 * Requires BoardPermission.EDIT_CONTENT for current user
 		 */
 		create<T extends IWidget>(widgets: OneOrMany<{type: string; [index: string]: any}>): Promise<T[]>
 
@@ -301,33 +323,43 @@ declare module SDK {
 		/**
 		 * 'id' is required
 		 * Requires scope: BOARDS:WRITE
+		 * Requires BoardPermission.EDIT_CONTENT for current user
 		 */
 		update<T extends IWidget>(widgets: OneOrMany<{id: string; [index: string]: any}>): Promise<T[]>
 
 		/**
 		 * Requires scope: BOARDS:WRITE
+		 * Requires BoardPermission.EDIT_CONTENT for current user
 		 */
 		transformDelta(
 			widgetIds: InputWidgets,
-			deltaX: number | undefined,
-			deltaY: number | undefined,
-			deltaRotation: number | undefined
+			deltaX?: number,
+			deltaY?: number,
+			deltaRotation?: number
 		): Promise<IWidget[]>
 
 		/**
 		 * Requires scope: BOARDS:WRITE
+		 * Requires BoardPermission.EDIT_CONTENT for current user
 		 */
 		deleteById(widgetIds: InputWidgets): Promise<void>
 
 		/**
 		 * Requires scope: BOARDS:WRITE
+		 * Requires BoardPermission.EDIT_CONTENT for current user
 		 */
 		bringForward(widgetId: InputWidgets): Promise<void>
 
 		/**
 		 * Requires scope: BOARDS:WRITE
+		 * Requires BoardPermission.EDIT_CONTENT for current user
 		 */
 		sendBackward(widgetId: InputWidgets): Promise<void>
+
+		/**
+		 * Checks whether all widgets on the board has loaded
+		 */
+		areAllWidgetsLoaded(): Promise<boolean>
 
 		/**
 		 * Requires scope: BOARDS:READ
@@ -339,6 +371,41 @@ declare module SDK {
 		 * [Experimental feature] Do blink animation for target widget
 		 */
 		__blinkWidget(widgets: InputWidgets): Promise<void>
+	}
+
+	type InputTags = string | string[] | {id: string} | {id: string}[]
+	type CreateTagRequest = {title: string; color: number | string; widgetIds?: InputWidgets}
+	type UpdateTagRequest = {id: string; title?: string; color?: number | string; widgetIds?: InputWidgets}
+
+	// API for tags is experimental.
+	// It will become stable in June 2020.
+	// During the experimental period API for tags could change.
+	interface IBoardTagsCommands {
+		/**
+		 * 'title' is required
+		 * Requires scope: BOARDS:READ
+		 */
+		get(filterBy?: Object): Promise<ITag[]>
+
+		/**
+		 * Requires scope: BOARDS:WRITE
+		 * Requires BoardPermission.EDIT_CONTENT for current user
+		 */
+		create(tags: OneOrMany<CreateTagRequest>): Promise<ITag[]>
+
+		/**
+		 * 'id' is required
+		 * Requires scope: BOARDS:WRITE
+		 * Requires BoardPermission.EDIT_CONTENT for current user
+		 */
+		update(tags: OneOrMany<UpdateTagRequest>): Promise<ITag[]>
+
+		/**
+		 * 'title' is required
+		 * Requires scope: BOARDS:WRITE
+		 * Requires BoardPermission.EDIT_CONTENT for current user
+		 */
+		delete(tags: InputTags): Promise<void>
 	}
 
 	interface IBoardCommentsCommands {
@@ -361,6 +428,13 @@ declare module SDK {
 		childrenIds: string[]
 	}
 
+	interface ITag {
+		id: string
+		title: string
+		color: string | number
+		widgetIds: string[]
+	}
+
 	////////////////////////////////////////////////////////////////////////
 	// Widget data types
 	////////////////////////////////////////////////////////////////////////
@@ -373,7 +447,8 @@ declare module SDK {
 
 	interface IWidgetNamespaces {
 		metadata: WidgetMetadata
-		capabilities?: WidgetCapabilities
+		capabilities: WidgetCapabilities
+		clientVisible: boolean
 	}
 
 	type WidgetNamespacesKeys = keyof IWidgetNamespaces
@@ -383,10 +458,8 @@ declare module SDK {
 		readonly type: string
 		readonly bounds: IBounds
 		readonly groupId?: string
-		readonly zIndex?: number // defined when type !== 'frame' (not implemented yet)
 		readonly createdUserId: string
 		readonly lastModifiedUserId: string
-		clientVisible: boolean
 	}
 
 	interface ITextWidget extends IWidget {
@@ -397,17 +470,16 @@ declare module SDK {
 		scale: number
 		rotation: number
 		text: string
-		readonly plainText: string
 		style: {
 			backgroundColor: BackgroundColorStyle
 			backgroundOpacity: BackgroundOpacityStyle
 			borderColor: BorderColorStyle
 			borderWidth: BorderWidthStyle
-			borderStyle: BorderStyleStyle
+			borderStyle: BorderStyle
 			borderOpacity: BorderOpacityStyle
-			fontFamily: FontFamilyStyle
+			fontFamily: FontFamily
 			textColor: TextColorStyle
-			textAlign: TextAlignStyle
+			textAlign: TextAlign
 			highlighting: HighlightingStyle
 			italic: ItalicStyle
 			strike: StrikeStyle
@@ -431,15 +503,22 @@ declare module SDK {
 		x: number
 		y: number
 		scale: number
+
+		/** Text with HTML characters */
 		text: string
+
+		/** Clear text without HTML characters */
+		plainText: string
 		style: {
 			stickerBackgroundColor: BackgroundColorStyle
 			fontSize: FontSizeStyle
-			textAlign: TextAlignStyle
-			textAlignVertical: TextAlignVerticalStyle
-			stickerType: StickerTypeStyle
-			fontFamily: FontFamilyStyle
+			textAlign: TextAlign
+			textAlignVertical: TextAlignVertical
+			stickerType: StickerType
+			fontFamily: FontFamily
 		}
+
+		readonly tags: ITag[]
 	}
 
 	interface IShapeWidget extends IWidget {
@@ -449,21 +528,25 @@ declare module SDK {
 		width: number
 		height: number
 		rotation: number
+
+		/** Text with HTML characters */
 		text: string
-		readonly plainText: string
+
+		/** Clear text without HTML characters */
+		plainText: string
 		style: {
-			shapeType: ShapeTypeStyle
+			shapeType: ShapeType
 			backgroundColor: BackgroundColorStyle
 			backgroundOpacity: BackgroundOpacityStyle
 			borderColor: BorderColorStyle
 			borderWidth: BorderWidthStyle
-			borderStyle: BorderStyleStyle
+			borderStyle: BorderStyle
 			borderOpacity: BorderOpacityStyle
 			fontSize: FontSizeStyle
-			fontFamily: FontFamilyStyle
+			fontFamily: FontFamily
 			textColor: TextColorStyle
-			textAlign: TextAlignStyle
-			textAlignVertical: TextAlignVerticalStyle
+			textAlign: TextAlign
+			textAlignVertical: TextAlignVertical
 			highlighting: HighlightingStyle
 			italic: ItalicStyle
 			strike: StrikeStyle
@@ -484,10 +567,10 @@ declare module SDK {
 		style: {
 			lineColor: LineColorStyle
 			lineThickness: LineThicknessStyle
-			lineStyle: LineStyleStyle
-			lineType: LineTypeStyle
-			lineStartStyle: LineEndStyle
-			lineEndStyle: LineEndStyle
+			lineStyle: LineStyle
+			lineType: LineType
+			lineStartStyle: LineArrowheadStyle
+			lineEndStyle: LineArrowheadStyle
 		}
 	}
 
@@ -496,7 +579,7 @@ declare module SDK {
 		x: number
 		y: number
 		scale: number
-		url: string
+		readonly url: string
 	}
 
 	interface IFrameWidget extends IWidget {
@@ -539,7 +622,7 @@ declare module SDK {
 		x: number
 		y: number
 		scale: number
-		url: string
+		readonly url: string
 	}
 
 	interface ICardWidget extends IWidget {
@@ -550,28 +633,27 @@ declare module SDK {
 		rotation: number
 		title: string
 		description: string
-		dueDate: {
-			from: number
-			to: number
-		}
-		assignee: {
+		date?: string // date in "YYYY-MM-DD" format
+		assignee?: {
 			userId: string
 		}
 		card: {
-			customFields: {
+			customFields?: {
 				value?: string
 				mainColor?: string
 				fontColor?: string
 				iconUrl?: string
 				roundedIcon?: boolean
 			}[]
-			logo: {
+			logo?: {
 				iconUrl: string
 			}
 		}
 		style: {
 			backgroundColor: BackgroundColorStyle
 		}
+
+		readonly tags: ITag[]
 	}
 
 	interface IDocumentWidget extends IWidget {
@@ -588,7 +670,7 @@ declare module SDK {
 		x: number
 		y: number
 		rotation: number
-		mockupType: string
+		readonly mockupType: string
 	}
 
 	interface IComment extends IWidget {
@@ -679,19 +761,13 @@ declare module SDK {
 	/////////////////////////////////////////////
 	// Style types
 	/////////////////////////////////////////////
-	type ShapeTypeStyle = number
-	type StickerTypeStyle = number
 	type BackgroundColorStyle = string | number
 	type BackgroundOpacityStyle = number
 	type BorderColorStyle = string | number
 	type BorderWidthStyle = number
-	type BorderStyleStyle = number
 	type BorderOpacityStyle = number
 	type FontSizeStyle = number
-	type FontFamilyStyle = number
 	type TextColorStyle = string | number
-	type TextAlignStyle = 'l' | 'c' | 'r' //left | center | right
-	type TextAlignVerticalStyle = 't' | 'm' | 'b' //top | middle | bottom
 	type HighlightingStyle = string | number
 	type ItalicStyle = 0 | 1
 	type StrikeStyle = 0 | 1
@@ -699,7 +775,121 @@ declare module SDK {
 	type BoldStyle = 0 | 1
 	type LineColorStyle = string | number
 	type LineThicknessStyle = number
-	type LineStyleStyle = number
-	type LineTypeStyle = number
-	type LineEndStyle = number
+
+	enum ShapeType {
+		RECTANGLE = 3,
+		CIRCLE = 4,
+		TRIANGLE = 5,
+		BUBBLE = 6,
+		ROUNDER = 7,
+		RHOMBUS = 8,
+		PARALL = 10,
+		STAR = 11,
+		ARROW_RIGHT = 12,
+		ARROW_LEFT = 13,
+		TEXT_RECT = 14,
+		PILL = 15,
+		PENTAGON = 16,
+		HEXAGON = 17,
+		OCTAGON = 18,
+		TRAPEZE = 19,
+		PREDEFINED_PROCESS = 20,
+		ARROW_LEFT_RIGHT = 21,
+		CLOUD = 22,
+		BRACE_LEFT = 23,
+		BRACE_RIGHT = 24,
+		CROSS = 25,
+		BARREL = 26,
+	}
+
+	enum StickerType {
+		SQUARE = 0,
+		RECTANGLE = 1,
+	}
+
+	enum BorderStyle {
+		DOTTED = 0,
+		DASHED = 1,
+		NORMAL = 2,
+	}
+
+	enum FontFamily {
+		ARIAL = 0,
+		CURSIVE = 1,
+		ABRIL_FATFACE = 2,
+		BANGERS,
+		EB_GARAMOND,
+		GEORGIA,
+		GRADUATE,
+		GRAVITAS_ONE,
+		FREDOKA_ONE,
+		NIXIE_ONE,
+		OPEN_SANS,
+		PERMANENT_MARKER,
+		PT_SANS,
+		PT_SANS_NARROW,
+		PT_SERIF,
+		RAMMETTO_ONE,
+		ROBOTO,
+		ROBOTO_CONDENSED,
+		ROBOTO_SLAB,
+		CAVEAT,
+		TIMES_NEW_ROMAN,
+		TITAN_ONE,
+		LEMON_TUESDAY,
+		ROBOTO_MONO,
+		NOTO_SANS,
+		PLEX_SANS,
+		PLEX_SERIF,
+		PLEX_MONO,
+	}
+
+	enum TextAlign {
+		LEFT = 'l',
+		CENTER = 'c',
+		RIGHT = 'r',
+	}
+
+	enum TextAlignVertical {
+		TOP = 't',
+		MIDDLE = 'm',
+		BOTTOM = 'b',
+	}
+
+	enum LineStyle {
+		DASHED = 1,
+		NORMAL = 2,
+		STRONG = 3,
+		DOTTED = 4,
+	}
+
+	enum LineType {
+		LINE = 1,
+		ARROW = 2,
+		ARROW_SKETCH = 9,
+	}
+
+	enum LineArrowheadStyle {
+		NONE = 0,
+		ARC_ARROW = 1,
+		RHOMBUS = 2,
+		FILLED_RHOMBUS = 3,
+		CIRCLE = 4,
+		FILLED_CIRCLE = 5,
+		ARROW = 6,
+		OPEN_ARROW = 7,
+		FILLED_ARROW = 8,
+	}
+
+	interface IEnums {
+		shapeType: typeof ShapeType
+		stickerType: typeof StickerType
+		borderStyle: typeof BorderStyle
+		fontFamily: typeof FontFamily
+		textAlign: typeof TextAlign
+		textAlignVertical: typeof TextAlignVertical
+		lineStyle: typeof LineStyle
+		lineType: typeof LineType
+		lineArrowheadStyle: typeof LineArrowheadStyle
+	}
 }
