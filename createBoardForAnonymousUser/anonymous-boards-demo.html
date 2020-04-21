@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Demo</title>
+    <script src="https://miro.com/app/static/boardsPicker.1.0.js"></script>
+
+    <style>
+        .miro-embedded-board {
+            width: 100%;
+            height: 100%;
+        }
+
+        #container {
+            position: absolute;
+            left: 10px;
+            top: 10px;
+            width: 854px;
+            height: 480px;
+            border: thin solid gray;
+        }
+
+        #button {
+            position: absolute;
+            cursor: pointer;
+            left: 874px;
+            top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div id="page-container">
+    <input id="button" type="submit" value="Create Board" onclick="onClick()"/>
+    <div id="container"></div>
+</div>
+
+
+<script>
+	function onClick() {
+		miroBoardsPicker.open({
+			clientId: 'clientId', // TODO 1) Put your 'clientId' value here.
+			action: 'access-link',
+			allowCreateAnonymousBoards: true,
+			getToken: () => getTokenFromServer(),
+			success: (data) => {
+				console.log('on success', data)
+				document.querySelector('#container').innerHTML = data.embedHtml
+			},
+			error: (e) => {
+				console.log('on error', e)
+			},
+			cancel: () => {
+				console.log('on cancel')
+			}
+		})
+	}
+
+	function getTokenFromServer() {
+		return Promise.resolve('token') // TODO 2) Get JWT token from your server. See https://jwt.io/ for more info about JWT tokens.
+	}
+
+	// TODO: REMOVE
+	// function generatePartnerToken(clientId, secret) {
+	// 	const payload = {
+	// 		iss: clientId,
+	// 	}
+    //
+	// 	const header = {alg: "HS256", typ: "JWT"};
+	// 	var stringifiedHeader = CryptoJS.enc.Utf8.parse(JSON.stringify(header));
+	// 	var encodedHeader = base64url(stringifiedHeader);
+	// 	var stringifiedData = CryptoJS.enc.Utf8.parse(JSON.stringify(payload));
+	// 	var encodedData = base64url(stringifiedData);
+	// 	var signature = encodedHeader + "." + encodedData;
+	// 	signature = CryptoJS.HmacSHA256(signature, secret);
+	// 	signature = base64url(signature);
+    //
+	// 	return `${encodedHeader}.${encodedData}.${signature}`
+	// }
+    //
+	// function base64url(source) {
+	// 	// Encode in classical base64
+	// 	encodedSource = CryptoJS.enc.Base64.stringify(source);
+    //
+	// 	// Remove padding equal characters
+	// 	encodedSource = encodedSource.replace(/=+$/, '');
+	// 	// Replace characters according to base64url specifications
+	// 	encodedSource = encodedSource.replace(/\+/g, '-');
+	// 	encodedSource = encodedSource.replace(/\//g, '_');
+    //
+	// 	return encodedSource;
+	// }
+
+
+</script>
+</body>
+</html>
