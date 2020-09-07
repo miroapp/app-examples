@@ -1,85 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="https://miro.com/app/static/miro.uikit.css">
-    <script src="https://miro.com/app/static/sdk.1.1.js"></script>
+	<head>
+		<meta charset="UTF-8" />
+		<link rel="stylesheet" type="text/css" href="https://miro.com/app/static/styles.1.0.css" />
+		<script src="https://miro.com/app/static/sdk.1.1.js"></script>
 
-    <style>
-        .rtb-sidebar-caption {
-            font-size: 14px;
-            font-weight: bold;
-            color: rgba(0, 0, 0, 0.8);
-            padding: 24px 0 0 24px;
-        }
+		<style>
+			.rtb-sidebar-caption {
+				font-size: 14px;
+				font-weight: bold;
+				color: rgba(0, 0, 0, 0.8);
+				padding: 24px 0 0 24px;
+			}
 
-        .no-selected-widget {
-            font-size: 18px;
-            text-align: center;
-            margin-top: 60px;
-            color: #999;
-        }
+			.no-selected-widget {
+				font-size: 18px;
+				text-align: center;
+				margin-top: 60px;
+				color: #999;
+			}
 
-        .widget-info {
-            padding: 20px 24px 0 24px;
-            height: 100%;
-        }
+			.widget-info {
+				padding: 20px 24px 0 24px;
+				height: 100%;
+			}
 
-        .editor {
-            width: 310px;
-            height: calc(100% - 240px);
-            border: 1px solid #ccc;
-            padding: 10px;
-            box-sizing: border-box;
-            font-family: Arial;
-            font-size: 14px;
-            margin: 0 -10px;
-            resize: none;
-        }
-    </style>
-</head>
+			.editor {
+				width: 310px;
+				height: calc(100% - 240px);
+				border: 1px solid #ccc;
+				padding: 10px;
+				box-sizing: border-box;
+				font-family: Arial;
+				font-size: 14px;
+				margin: 0 -10px;
+				resize: none;
+			}
+		</style>
+	</head>
 
-<body>
-<div class="rtb-sidebar-caption">Import widgets</div>
-<div class="widget-info">
-    <textarea placeholder="Paste text here" id="editor" class="editor"></textarea><br><br>
-    <label>
-        Use RegExp <input type="checkbox" id="use-regexp" checked="checked"/>
-    </label><br><br>
-    <label>
-        Split string <input type="text" id="split-string" value="\n">
-    </label><br><br>
-    <label>
-        Create widget type
-        <select>
-            <option value="sticker" selected>Sticker</option>
-            <option value="text">Text</option>
-        </select>
-    </label><br><br>
-    <button onclick="onCreateClick()">Create widgets from text</button>
-</div>
-<script>
-  const editorTextarea = document.querySelector('#editor')
-  const useRegexpCheckbox = document.querySelector('#use-regexp')
-  const splitStringInput = document.querySelector('#split-string')
+	<body>
+		<div class="rtb-sidebar-caption">Import widgets</div>
+		<div class="widget-info">
+			<textarea placeholder="Paste text here" id="editor" class="editor"></textarea><br /><br />
+			<label> Use RegExp <input type="checkbox" id="use-regexp" checked="checked" /> </label><br /><br />
+			<label> Split string <input type="text" id="split-string" value="\n" /> </label><br /><br />
+			<label>
+				Create widget type
+				<select>
+					<option value="sticker" selected>Sticker</option>
+					<option value="text">Text</option>
+				</select> </label
+			><br /><br />
+			<button onclick="onCreateClick()">Create widgets from text</button>
+		</div>
+		<script>
+			const editorTextarea = document.querySelector('#editor')
+			const useRegexpCheckbox = document.querySelector('#use-regexp')
+			const splitStringInput = document.querySelector('#split-string')
 
-  async function onCreateClick() {
-    const text = editorTextarea.value
-    const useRegexp = useRegexpCheckbox.checked
-    const splitValue = splitStringInput.value
-    const splitter = useRegexp ? new RegExp(splitValue) : splitValue
-    const chunks = text.split(splitter)
-    let i = 0
+			async function onCreateClick() {
+				const text = editorTextarea.value
+				const useRegexp = useRegexpCheckbox.checked
+				const splitValue = splitStringInput.value
+				const splitter = useRegexp ? new RegExp(splitValue) : splitValue
+				const chunks = text.split(splitter)
+				let i = 0
 
-    for (let index = 0; index < chunks.length; index++) {
-      const chunk = chunks[index]
-      if (chunk.trim()) {
-        i++
-        miro.board.widgets.create({type:'sticker', text: chunk, x: i * 280})
-      }
-    }
-  }
-
-</script>
-</body>
+				for (let index = 0; index < chunks.length; index++) {
+					const chunk = chunks[index]
+					if (chunk.trim()) {
+						i++
+						miro.board.widgets.create({type: 'sticker', text: chunk, x: i * 280})
+					}
+				}
+			}
+		</script>
+	</body>
 </html>

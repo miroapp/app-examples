@@ -1,44 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="https://miro.com/app/static/miro.uikit.css">
-    <script src="https://miro.com/app/static/sdk.1.1.js"></script>
+	<head>
+		<meta charset="UTF-8" />
+		<link rel="stylesheet" type="text/css" href="https://miro.com/app/static/styles.1.0.css" />
+		<script src="https://miro.com/app/static/sdk.1.1.js"></script>
 
-    <style>
-        .rtb-sidebar-caption {
-            font-size: 14px;
-            font-weight: bold;
-            color: rgba(0, 0, 0, 0.8);
-            padding: 24px 0 0 24px;
-        }
+		<style>
+			.rtb-sidebar-caption {
+				font-size: 14px;
+				font-weight: bold;
+				color: rgba(0, 0, 0, 0.8);
+				padding: 24px 0 0 24px;
+			}
 
-        textarea {
-            display: block;
-            height: calc(100% - 110px);
-            margin: 20px 0 0 20px;
-            background-color: white;
-            border-radius: 4px;
-            border: 0;
-            width: calc(100% - 40px);
-            text-align: left;
-            font-size: 22px;
-        }
+			textarea {
+				display: block;
+				height: calc(100% - 110px);
+				margin: 20px 0 0 20px;
+				background-color: white;
+				border-radius: 4px;
+				border: 0;
+				width: calc(100% - 40px);
+				text-align: left;
+				font-size: 22px;
+			}
 
-        .tip {
-            color: #CCCCCC;
-            margin: 20px 0 0 26px;
-        }
-    </style>
-</head>
+			.tip {
+				color: #cccccc;
+				margin: 20px 0 0 26px;
+			}
+		</style>
+	</head>
 
-<body>
-<div class="rtb-sidebar-caption">Looking Glass</div>
-<div class="tip" id="tip">
-    Select widget to see its text
-</div>
-<textarea id="widget-text" readonly></textarea>
+	<body>
+		<div class="rtb-sidebar-caption">Looking Glass</div>
+		<div class="tip" id="tip">Select widget to see its text</div>
+		<textarea id="widget-text" readonly></textarea>
 
-<script src="sidebar.js"></script>
-</body>
+		<script src="sidebar.js"></script>
+	</body>
 </html>
