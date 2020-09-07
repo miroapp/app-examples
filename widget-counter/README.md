@@ -11,6 +11,7 @@ You need to serve `widget-counter` folder on the server through https, one of th
 Next step is to create an application in miro, you can use this [guid](https://developers.miro.com/docs/getting-started) it will help you.
 
 Configure the application as follows:
+
 - enter uri for the `widget-counter` resource in `Web-plugin` section, e.g. if you use GitHub Pages uri will be as follow: `https://<nickname>.github.io/app-examples/widget-counter/`;
 - choose `boards:read` scope.
 

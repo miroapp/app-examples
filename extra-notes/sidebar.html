@@ -86,7 +86,7 @@
 
 			miro.onReady(() => {
 				miro.addListener(miro.enums.event.SELECTION_UPDATED, onSelectionChange)
-				miro.board.selection.get().then(selectedWidgets => {
+				miro.board.selection.get().then((selectedWidgets) => {
 					updateSelection(selectedWidgets)
 				})
 			})

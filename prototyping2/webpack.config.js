@@ -6,7 +6,7 @@ module.exports = {
 	// Tip! Just delete not using files, but main.ts is required
 	entry: {
 		index: './src/index.ts',
-		'bottom-panel': './src/bottom-panel.tsx'
+		'bottom-panel': './src/bottom-panel.tsx',
 	},
 	module: {
 		rules: [
@@ -15,37 +15,38 @@ module.exports = {
 				use: {
 					loader: 'ts-loader',
 					options: {
-						transpileOnly: true
-					}
+						transpileOnly: true,
+					},
 				},
-				exclude: /node_modules/
+				exclude: /node_modules/,
 			},
 			{
 				test: /\.less$/,
-				use: [{
-					loader: "style-loader"
-				}, {
-					loader: "css-loader"
-				}, {
-					loader: "less-loader"
-				}],
-				exclude: /node_modules/
+				use: [
+					{
+						loader: 'style-loader',
+					},
+					{
+						loader: 'css-loader',
+					},
+					{
+						loader: 'less-loader',
+					},
+				],
+				exclude: /node_modules/,
 			},
 			{
 				test: /\.svg$/,
-				loader: 'svg-inline-loader'
-			}
-		]
+				loader: 'svg-inline-loader',
+			},
+		],
 	},
 	resolve: {
-		modules: [
-			path.resolve('./src'),
-			path.resolve('./node_modules')
-		],
-		extensions: ['.tsx', '.ts', '.js', '.less', '.css']
+		modules: [path.resolve('./src'), path.resolve('./node_modules')],
+		extensions: ['.tsx', '.ts', '.js', '.less', '.css'],
 	},
 	output: {
 		filename: '[name].js',
-		path: path.resolve(__dirname, 'dist')
-	}
+		path: path.resolve(__dirname, 'dist'),
+	},
 }

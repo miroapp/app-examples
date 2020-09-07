@@ -22,7 +22,7 @@ app.use(bodyParser.urlencoded({extended: true}))
 app.get('/', (req, res) => {
 	res.render('index', {
 		baseUrl: config.BASE_URL,
-		oauthUrl: `https://miro.com/oauth/authorize?response_type=code&client_id=${config.CLIENT_ID}&redirect_uri=${config.BASE_URL}/oauth`
+		oauthUrl: `https://miro.com/oauth/authorize?response_type=code&client_id=${config.CLIENT_ID}&redirect_uri=${config.BASE_URL}/oauth`,
 	})
 })
 
@@ -38,11 +38,12 @@ app.get('/oauth', async (req, res) => {
 app.get('/boards-list/', async (req, res) => {
 	const auth = db.getAuthorizations()[0]
 	if (auth) {
-		api.boards.getAll(auth)
-			.then(data => {
+		api.boards
+			.getAll(auth)
+			.then((data) => {
 				res.send(JSON.stringify(data))
 			})
-			.catch(error => {
+			.catch((error) => {
 				res.send(error)
 			})
 	} else {

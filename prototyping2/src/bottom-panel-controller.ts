@@ -1,11 +1,11 @@
 import {APP_ID} from 'config'
 
 export function findStartHotspot(shapes: SDK.IWidget[]): SDK.IWidget | undefined {
-	return shapes.find(shape => shape.metadata[APP_ID] && shape.metadata[APP_ID].startHotspot)
+	return shapes.find((shape) => shape.metadata[APP_ID] && shape.metadata[APP_ID].startHotspot)
 }
 
 export async function enterPrototypingMode(startHotspotWidget: SDK.IWidget): Promise<SDK.IWidget | void> {
-	const shapes = await miro.board.widgets.get<SDK.IShapeWidget>({'type': 'SHAPE'})
+	const shapes = await miro.board.widgets.get<SDK.IShapeWidget>({type: 'SHAPE'})
 	const hotspots = shapes.filter(isHotspotWidget)
 	const hotspotsIsValid = await checkAllHotspotsLinks(hotspots)
 
@@ -45,40 +45,38 @@ export async function exitPrototypingMode() {
 }
 
 async function hideAllLinks() {
-	const lines = await miro.board.widgets.get({'type': 'LINE'})
-	const newLines = lines
-		.map(({id}) => ({
-			id,
-			clientVisible: false,
-		}))
+	const lines = await miro.board.widgets.get({type: 'LINE'})
+	const newLines = lines.map(({id}) => ({
+		id,
+		clientVisible: false,
+	}))
 
 	await miro.board.widgets.update(newLines)
 }
 
 async function restoreAllLinks(): Promise<any> {
-	const lines = await miro.board.widgets.get({'type': 'LINE'})
-	const newLines = lines
-		.map(({id}) => ({
-			id,
-			clientVisible: true,
-		}))
+	const lines = await miro.board.widgets.get({type: 'LINE'})
+	const newLines = lines.map(({id}) => ({
+		id,
+		clientVisible: true,
+	}))
 
 	await miro.board.widgets.update(newLines)
 }
 
 export async function goToWidgetFromHotspot(hotspotId: string): Promise<SDK.IWidget | void> {
-	const lines = await miro.board.widgets.get({'type': 'LINE', 'startWidgetId': hotspotId})
+	const lines = await miro.board.widgets.get({type: 'LINE', startWidgetId: hotspotId})
 	if (lines.length > 0) {
 		if (lines.length > 1) {
 			miro.showErrorNotification('Too match links')
 		} else {
-			const line = (lines[0] as SDK.ILineWidget)
+			const line = lines[0] as SDK.ILineWidget
 			if (!line.endWidgetId) {
 				miro.showErrorNotification('Can not find the end of connection')
 			} else {
-				const sourceWidget = (await miro.board.widgets.get({'id': line.startWidgetId}))[0]
+				const sourceWidget = (await miro.board.widgets.get({id: line.startWidgetId}))[0]
 				if (isHotspotWidget(sourceWidget)) {
-					const targetWidget = (await miro.board.widgets.get({'id': line.endWidgetId}))[0]
+					const targetWidget = (await miro.board.widgets.get({id: line.endWidgetId}))[0]
 					return gotoWidget(targetWidget)
 				}
 			}
@@ -117,7 +115,7 @@ export function isHotspotWidget(widget: SDK.IWidget) {
 
 async function showHotspots() {
 	const hotspots = await getHotspots()
-	const updatingHotspots = hotspots.map(h => ({
+	const updatingHotspots = hotspots.map((h) => ({
 		id: h.id,
 		clientVisible: true,
 	}))
@@ -126,7 +124,7 @@ async function showHotspots() {
 
 async function hideHotspots() {
 	const hotspots = await getHotspots()
-	const updatingHotspots = hotspots.map(h => ({
+	const updatingHotspots = hotspots.map((h) => ({
 		id: h.id,
 		clientVisible: false,
 	}))
@@ -139,11 +137,11 @@ export function onCommentCreated() {
 
 export async function blinkHotspots() {
 	const hotspots = await getHotspots()
-	const hotspotstoShow = hotspots.map(h => ({id: h.id, clientVisible: true}))
+	const hotspotstoShow = hotspots.map((h) => ({id: h.id, clientVisible: true}))
 	miro.board.widgets.update(hotspotstoShow)
 	miro.board.widgets.__blinkWidget(hotspotstoShow)
 	setTimeout(() => {
-		const hotspotsToHide = hotspots.map(h => ({id: h.id, clientVisible: false}))
+		const hotspotsToHide = hotspots.map((h) => ({id: h.id, clientVisible: false}))
 		miro.board.widgets.update(hotspotsToHide)
 	}, 500)
 }
@@ -154,17 +152,17 @@ async function checkAllHotspotsLinks(hotspots: SDK.IShapeWidget[]) {
 	let linkWithoutScreen
 
 	//пробегаться по хотспотам, а не линкам, чтобы убрать все проверки из goToWidgetFromHotspot
-	lines.forEach(line => {
+	lines.forEach((line) => {
 		//for startWidgetId
-		const linkedHotspot1 = hotspots.find(h => h.id === line.startWidgetId)
+		const linkedHotspot1 = hotspots.find((h) => h.id === line.startWidgetId)
 		if (linkedHotspot1) {
-			hotspotsWithoutLinks = hotspotsWithoutLinks.filter(h => h.id !== linkedHotspot1.id)
+			hotspotsWithoutLinks = hotspotsWithoutLinks.filter((h) => h.id !== linkedHotspot1.id)
 		}
 
 		//for endWidgetId
-		const linkedHotspot2 = hotspots.find(h => h.id === line.endWidgetId)
+		const linkedHotspot2 = hotspots.find((h) => h.id === line.endWidgetId)
 		if (linkedHotspot2) {
-			hotspotsWithoutLinks = hotspotsWithoutLinks.filter(h => h.id === linkedHotspot2.id)
+			hotspotsWithoutLinks = hotspotsWithoutLinks.filter((h) => h.id === linkedHotspot2.id)
 		}
 
 		if ((linkedHotspot1 || linkedHotspot2) && (!line.startWidgetId || !line.endWidgetId)) {
@@ -188,11 +186,11 @@ async function checkAllHotspotsLinks(hotspots: SDK.IShapeWidget[]) {
 }
 
 export async function createStartHotspot() {
-	return miro.board.selection.enterSelectWidgetsMode()
-		.then(async (res) => {
-			if (res.selectedWidgets.length) {
-				const screen = res.selectedWidgets[0]
-				const flagWidget = (await miro.board.widgets.create<SDK.IShapeWidget>({
+	return miro.board.selection.enterSelectWidgetsMode().then(async (res) => {
+		if (res.selectedWidgets.length) {
+			const screen = res.selectedWidgets[0]
+			const flagWidget = (
+				await miro.board.widgets.create<SDK.IShapeWidget>({
 					type: 'SHAPE',
 					y: screen.bounds.y,
 					x: screen.bounds.left - 50 - screen.bounds.height * 0.2,
@@ -205,41 +203,42 @@ export async function createStartHotspot() {
 						borderStyle: 2,
 						borderWidth: 0,
 					},
-					'metadata': {
+					metadata: {
 						[APP_ID]: {
 							hotspot: true,
 							startHotspot: true,
 						},
 					},
-				} as any))[0]
-
-				await miro.board.widgets.create({
-					type: 'LINE',
-					startWidgetId: flagWidget.id,
-					endWidgetId: screen.id,
-					style: {
-						lineStartStyle: 0,
-						lineEndStyle: 1,
-						lineStyle: 2,
-						lineType: 2,
-					},
 				} as any)
+			)[0]
 
-				return flagWidget
-			} else {
-				return undefined
-			}
-		})
+			await miro.board.widgets.create({
+				type: 'LINE',
+				startWidgetId: flagWidget.id,
+				endWidgetId: screen.id,
+				style: {
+					lineStartStyle: 0,
+					lineEndStyle: 1,
+					lineStyle: 2,
+					lineType: 2,
+				},
+			} as any)
+
+			return flagWidget
+		} else {
+			return undefined
+		}
+	})
 }
 
-export async function createHotspot(pos?: {x: number, y: number}) {
+export async function createHotspot(pos?: {x: number; y: number}) {
 	const width = 152
 	const height = 66
 	if (!pos) {
 		const viewport = await miro.board.viewport.getViewport()
 		pos = {
-			x: (viewport.x + viewport.width / 2 - width / 2),
-			y: (viewport.y + viewport.height / 2 - height / 2),
+			x: viewport.x + viewport.width / 2 - width / 2,
+			y: viewport.y + viewport.height / 2 - height / 2,
 		}
 	}
 
@@ -289,23 +288,21 @@ export async function findAllScreens(): Promise<SDK.IWidget[]> {
 	const screensIds: string[] = []
 	const allWidgets = await miro.board.widgets.get()
 	const hotspots = allWidgets.filter(isHotspotWidget)
-	const lines = allWidgets.filter(w => w.type === 'LINE') as SDK.ILineWidget[]
+	const lines = allWidgets.filter((w) => w.type === 'LINE') as SDK.ILineWidget[]
 
-	lines.forEach(line => {
-		if (hotspots.find(h => h.id === line.startWidgetId)) {
-			if (line.endWidgetId && !screensIds.some(sId => sId === line.endWidgetId)) {
+	lines.forEach((line) => {
+		if (hotspots.find((h) => h.id === line.startWidgetId)) {
+			if (line.endWidgetId && !screensIds.some((sId) => sId === line.endWidgetId)) {
 				screensIds.push(line.endWidgetId)
 			}
 		}
 
-		if (hotspots.find(h => h.id === line.endWidgetId)) {
-			if (line.startWidgetId && !screensIds.some(sId => sId === line.startWidgetId)) {
+		if (hotspots.find((h) => h.id === line.endWidgetId)) {
+			if (line.startWidgetId && !screensIds.some((sId) => sId === line.startWidgetId)) {
 				screensIds.push(line.startWidgetId)
 			}
 		}
 	})
 
-	return allWidgets
-		.filter(w => screensIds.some(sId => sId === w.id))
-		.sort((a, b) => a.bounds.x - b.bounds.x)
+	return allWidgets.filter((w) => screensIds.some((sId) => sId === w.id)).sort((a, b) => a.bounds.x - b.bounds.x)
 }

@@ -6,10 +6,10 @@ const events = {
 	'board.comment.create': (event, res) => {
 		console.log('App got board.comment.create event', res)
 		res.status(200).send()
-	}
+	},
 }
 
-module.exports.processEvent = function(event, res) {
+module.exports.processEvent = function (event, res) {
 	const eventProcessor = events[event.type]
 	if (eventProcessor) {
 		eventProcessor(event, res)

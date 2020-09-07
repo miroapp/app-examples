@@ -3,9 +3,8 @@ import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 
 class Root extends React.Component {
-
 	state = {
-		boardTitle: ''
+		boardTitle: '',
 	}
 
 	async getBoardTitle() {
@@ -15,7 +14,7 @@ class Root extends React.Component {
 
 	async deleteAllContent() {
 		let allObjects = await miro.board.widgets.get()
-		await miro.board.widgets.deleteById(allObjects.map(object => object.id))
+		await miro.board.widgets.deleteById(allObjects.map((object) => object.id))
 		await miro.showNotification('Content has been deleted')
 	}
 
@@ -23,17 +22,14 @@ class Root extends React.Component {
 		return (
 			<div className="container">
 				<button onClick={() => this.getBoardTitle()}>Get board title</button>
-				<br/>
+				<br />
 				<div>Board title is: {this.state.boardTitle}</div>
-				<br/>
-				<br/>
+				<br />
+				<br />
 				<button onClick={() => this.deleteAllContent()}>Delete all content</button>
 			</div>
 		)
 	}
 }
 
-ReactDOM.render(
-	<Root/>,
-	document.getElementById('react-app')
-)
+ReactDOM.render(<Root />, document.getElementById('react-app'))

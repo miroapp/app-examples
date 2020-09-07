@@ -8,7 +8,9 @@ import {
 	exitPrototypingMode,
 	findAllScreens,
 	findStartHotspot,
-	gotoWidget, goToWidgetFromHotspot, isHotspotWidget,
+	gotoWidget,
+	goToWidgetFromHotspot,
+	isHotspotWidget,
 	onCommentCreated,
 } from 'bottom-panel-controller'
 import {createHotspot} from 'bottom-panel-controller'
@@ -25,12 +27,11 @@ const HOTSPOT_PREVIEW = `data:image/svg+xml,%3Csvg width='152' height='66' xmlns
 type IState = {
 	viewMode: string
 	selectStartScreenMode: boolean
-	screens: SDK.IWidget[],
-	screenIndex: number,
+	screens: SDK.IWidget[]
+	screenIndex: number
 }
 
 class Root extends React.Component {
-
 	private containerRef: any = React.createRef()
 
 	state: IState = {
@@ -78,7 +79,7 @@ class Root extends React.Component {
 	}
 
 	private async play() {
-		const shapes = await miro.board.widgets.get({'type': 'SHAPE'})
+		const shapes = await miro.board.widgets.get({type: 'SHAPE'})
 		const startHotspotWidget = findStartHotspot(shapes)
 		if (startHotspotWidget) {
 			const screenWidget = await enterPrototypingMode(startHotspotWidget)
@@ -126,7 +127,7 @@ class Root extends React.Component {
 	}
 
 	private findScreenIndex(screens: SDK.IWidget[], screenWidget: SDK.IWidget): number {
-		const index = screens.findIndex(screen => screen.id === screenWidget.id)
+		const index = screens.findIndex((screen) => screen.id === screenWidget.id)
 		return index === -1 ? 0 : index
 	}
 
@@ -152,25 +153,24 @@ class Root extends React.Component {
 	}
 
 	private getLink = () => {
-		miro.board.__getBoardURLWithParams({runPrototyping: true})
-			.then((url) => {
-				copy(url)
-				miro.showNotification('Link copied')
-			})
+		miro.board.__getBoardURLWithParams({runPrototyping: true}).then((url) => {
+			copy(url)
+			miro.showNotification('Link copied')
+		})
 	}
 
 	render() {
 		const editMode = (
 			<div className="edit-mode">
 				<div className="btn play-button" onClick={() => this.play()}>
-					<SVG className="icon" src={PlayIcon}/>
+					<SVG className="icon" src={PlayIcon} />
 				</div>
 				<div className="btn hotspot-button" onClick={() => this.createHotspot()}>
-					<SVG className="icon" src={SquareIcon}/>
+					<SVG className="icon" src={SquareIcon} />
 					<span>Hotspot</span>
 				</div>
 				<div className="btn link-button" onClick={() => this.getLink()}>
-					<SVG className="icon" src={LinkIcon}/>
+					<SVG className="icon" src={LinkIcon} />
 					<span>Autoplay link</span>
 				</div>
 			</div>
@@ -183,25 +183,31 @@ class Root extends React.Component {
 				<div className="btn exit-button" onClick={() => this.onExitPrototypingMode()}>
 					<span>Exit</span>
 				</div>
-				<div className={'btn prev-button ' + (isFirstScreen() ? 'btn--disabled' : '')} onClick={() => this.onPrevScreen()}>
-					<SVG className="icon" src={ArrowIcon}/>
+				<div
+					className={'btn prev-button ' + (isFirstScreen() ? 'btn--disabled' : '')}
+					onClick={() => this.onPrevScreen()}
+				>
+					<SVG className="icon" src={ArrowIcon} />
 				</div>
 				<div className="screen-number">
-					<span>{this.state.screenIndex + 1} of {this.state.screens.length}</span>
+					<span>
+						{this.state.screenIndex + 1} of {this.state.screens.length}
+					</span>
 				</div>
-				<div className={'btn next-button ' + (isLastScreen() ? 'btn--disabled' : '')} onClick={() => this.onNextScreen()}>
-					<SVG className="icon" src={ArrowIcon}/>
+				<div
+					className={'btn next-button ' + (isLastScreen() ? 'btn--disabled' : '')}
+					onClick={() => this.onNextScreen()}
+				>
+					<SVG className="icon" src={ArrowIcon} />
 				</div>
 				<div className="btn link-button" onClick={() => this.getLink()}>
-					<SVG className="icon" src={LinkIcon}/>
+					<SVG className="icon" src={LinkIcon} />
 					<span>Autoplay link</span>
 				</div>
 			</div>
 		)
 
-		const selectStartScreenMode = (
-			<div className="select-start-screen">Please select start screen</div>
-		)
+		const selectStartScreenMode = <div className="select-start-screen">Please select start screen</div>
 
 		const getView = () => {
 			if (this.state.viewMode === 'edit') {
@@ -220,8 +226,5 @@ class Root extends React.Component {
 }
 
 miro.onReady(() => {
-	ReactDOM.render(
-		<Root/>,
-		document.getElementById('react-app'),
-	)
+	ReactDOM.render(<Root />, document.getElementById('react-app'))
 })

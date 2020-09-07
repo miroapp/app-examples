@@ -1,24 +1,24 @@
-const webpack = require("webpack");
+const webpack = require('webpack')
 
 module.exports = {
-  mode: "development",
+	mode: 'development',
 
-  entry: "./src/main.js",
-  output: {
-    path: __dirname,
-    filename: "main.js"
-  },
-  target: "web",
+	entry: './src/main.js',
+	output: {
+		path: __dirname,
+		filename: 'main.js',
+	},
+	target: 'web',
 
-  plugins: [new webpack.ProgressPlugin()],
+	plugins: [new webpack.ProgressPlugin()],
 
-  module: {
-    rules: [
-      {
-        test: /.(js|jsx)$/,
-        include: [],
-        use: "babel-loader"
-      }
-    ]
-  }
-};
+	module: {
+		rules: [
+			{
+				test: /.(js|jsx)$/,
+				include: [],
+				use: 'babel-loader',
+			},
+		],
+	},
+}
