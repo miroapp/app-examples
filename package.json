@@ -1,0 +1,40 @@
+{
+  "name": "app-examples",
+  "private": true,
+  "repository": "git@github.com:miroapp/app-examples.git",
+  "license": "MIT",
+  "scripts": {},
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "4.0.1",
+    "@typescript-eslint/parser": "4.0.1",
+    "eslint": "7.8.1",
+    "eslint-config-prettier": "6.11.0",
+    "eslint-plugin-import": "2.22.0",
+    "eslint-plugin-prettier": "3.1.4",
+    "eslint-plugin-react": "7.20.6",
+    "eslint-plugin-react-hooks": "4.1.0",
+    "husky": "4.2.5",
+    "lerna": "3.22.1",
+    "lint-staged": "10.3.0",
+    "prettier": "2.1.1",
+    "typescript": "4.0.2"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{html,svg,json,md,ts,js,tsx}": [
+      "prettier --write"
+    ],
+    "*.{ts,js,tsx}": [
+      "eslint"
+    ]
+  },
+  "browserslist": [
+    ">0.25%",
+    "not op_mini all",
+    "not ie <= 11"
+  ]
+}
