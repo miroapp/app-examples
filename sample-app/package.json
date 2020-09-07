@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "./node_modules/nodemon/bin/nodemon.js ./src/app.js -e js,html",
-    "ngrok": "./node_modules/ngrok/bin/ngrok http 3000"
+    "start": "nodemon.js src/app.js -e js,html",
+    "ngrok": "ngrok http 3000"
   },
   "dependencies": {
     "body-parser": "^1.18.3",
