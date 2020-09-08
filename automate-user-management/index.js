@@ -1,12 +1,15 @@
+require('dotenv-safe').config()
+
 const express = require('express')
 const bodyParser = require('body-parser')
 const fetch = require('node-fetch')
 const app = express()
+
 app.use(bodyParser.json())
 
 const port = 8000
-const slackToken = 'PUT YOUR SLACK TOKEN HERE'
-const miroToken = 'PUT YOUR MIRO TOKEN HERE'
+const slackToken = process.env.SLACK_TOKEN
+const miroToken = process.env.MIRO_TOKEN
 
 app.listen(port, () => {
 	console.log(`server is listening on ${port}`)
