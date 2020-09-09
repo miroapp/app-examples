@@ -19,27 +19,28 @@ npm install
 
 ## Configuration
 
-All configuration properties are stored within `config.js`:
+```bash
+cp .env.example .env
+```
+
+Add `GITHUB_TOKEN` & `MIRO_TOKEN` to `.env` file
+
+- `github-token` - GitHub token with reading issues permissions, e.g. with `repo` scope.
+- `miro-token` - miro token with `boards:write` scope.
+
+All configuration properties are stored within `appConfig` object:
 
 ```javascript
-{
-    github: {
-        token: 'github-token',
-    },
-    miro: {
-        token: 'miro-token',
-        boardId: 'board-id',
-        inboxFrameId: 'frame-id'
-    }
+const appConfig = {
+	boardId: '',
+	inboxFrameId: '',
 }
 ```
 
 Properties which should be configured:
 
-- `github-token` - GitHub token with reading issues permissions, e.g. with `repo` scope;
-- `miro-token` - miro token with `boards:write` scope;
-- `board-id` - board id for which `miro-token` has access to;
-- `frame-id` - frame id which will hold the created widgets
+- `board-id` - board id for which `miro-token` has access to.
+- `frame-id` - frame id which will hold the created widgets.
 
 > **How to get frame id?**
 >

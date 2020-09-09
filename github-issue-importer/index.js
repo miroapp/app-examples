@@ -1,15 +1,23 @@
+require('dotenv-safe').config()
+
 const axios = require('axios')
-const appConfig = require('./config')
+
+//////////////////////////////////
+// FILL IN THE IDS HERE
+//////////////////////////////////
+const appConfig = {
+	boardId: '',
+	inboxFrameId: '',
+}
+//////////////////////////////////
+// FILL IN THE IDS HERE
+//////////////////////////////////
 
 class GithubApiService {
-	constructor(githubProperties) {
-		this._github = githubProperties
-	}
-
 	async readIssues() {
 		const response = await axios.get('https://api.github.com/issues?state=all', {
 			headers: {
-				Authorization: `token ${this._github.token}`,
+				Authorization: `token ${process.env.GITHUB_TOKEN}`,
 				'User-Agent': 'Miro Importer',
 			},
 		})
@@ -28,7 +36,7 @@ class MiroBoardApiService {
 		}
 		const response = await axios.post(`https://api.miro.com/v1/boards/${this._miro.boardId}/widgets`, widgetData, {
 			headers: {
-				Authorization: `Bearer ${this._miro.token}`,
+				Authorization: `Bearer ${process.env.MIRO_TOKEN}`,
 			},
 		})
 		return response.data
@@ -74,8 +82,8 @@ class ConversionService {
 	}
 }
 
-const githubService = new GithubApiService(appConfig.github)
-const boardApiService = new MiroBoardApiService(appConfig.miro)
+const githubService = new GithubApiService()
+const boardApiService = new MiroBoardApiService(appConfig)
 
 githubService
 	.readIssues()
