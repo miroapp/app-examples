@@ -9,7 +9,7 @@ const isProduction = process.env.NODE_ENV === 'production'
 export default {
 	input: 'src/main.js',
 	output: {
-		file: 'main.js',
+		file: 'dist/main.js',
 		format: 'iife',
 	},
 	plugins: [
