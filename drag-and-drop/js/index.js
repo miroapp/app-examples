@@ -11,7 +11,7 @@ function run() {
 					miro.board.ui.openLibrary('content.html', {title: 'Dropper'})
 				},
 			},
-			getWidgetMenuItems: (widgets) => {
+			getWidgetMenuItems: () => {
 				return Promise.resolve({
 					tooltip: 'Hi',
 					svgIcon: icon24,
