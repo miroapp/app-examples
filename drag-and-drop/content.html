@@ -1,65 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<title>Drag and drop</title>
-		<style>
-			html,
-			body {
-				height: 100%;
-				margin: 0;
-				padding: 0;
-			}
+  <head>
+    <title>Drag and drop</title>
+    <style>
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
 
-			#container {
-				height: 100%;
-				overflow-y: auto;
-				overflow-x: hidden;
-				display: flex;
-				flex-wrap: wrap;
-				flex-direction: row;
-				align-items: center;
-				padding-top: 32px;
-				box-sizing: border-box;
-			}
+      #container {
+        height: 100%;
+        overflow-y: auto;
+        overflow-x: hidden;
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row;
+        align-items: center;
+        padding-top: 32px;
+        box-sizing: border-box;
+      }
 
-			.row {
-				display: flex;
-				flex-direction: row;
-				padding-left: 32px;
-				margin-bottom: 32px;
-			}
+      .row {
+        display: flex;
+        flex-direction: row;
+        padding-left: 32px;
+        margin-bottom: 32px;
+      }
 
-			.draggable-item {
-				margin-left: 32px;
-				margin-bottom: 32px;
-				width: 112px;
-				height: 112px;
-				display: flex;
-				justify-content: center;
-				align-items: center;
-				color: #fff;
-				font-size: 18px;
-				font-family: sans-serif;
-			}
+      .draggable-item {
+        margin-left: 32px;
+        margin-bottom: 32px;
+        width: 112px;
+        height: 112px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #fff;
+        font-size: 18px;
+        font-family: sans-serif;
+      }
 
-			.draggable-item.red {
-				background-color: #f24726;
-			}
+      .draggable-item.red {
+        background-color: #f24726;
+      }
 
-			.draggable-item.green {
-				background-color: #0ca788;
-			}
+      .draggable-item.green {
+        background-color: #0ca788;
+      }
 
-			.image-box img {
-				max-width: 112px;
-				max-height: 112px;
-				cursor: pointer;
-			}
-		</style>
-	</head>
-	<body>
-		<div id="container"></div>
-		<script src="https://miro.com/app/static/sdk.1.1.js"></script>
-		<script src="src/content.js"></script>
-	</body>
+      .image-box img {
+        max-width: 112px;
+        max-height: 112px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container"></div>
+    <script src="https://miro.com/app/static/sdk.1.1.js"></script>
+    <script src="src/content.js"></script>
+  </body>
 </html>

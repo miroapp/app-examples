@@ -1,54 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<link rel="stylesheet" href="https://miro.com/app/static/styles.1.0.css" />
-		<style>
-			html,
-			body {
-				height: 100%;
-				margin: 0;
-				padding: 0;
-			}
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="https://miro.com/app/static/styles.1.0.css" />
+    <style>
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
 
-			#container {
-				height: 100%;
-				overflow-y: auto;
-				overflow-x: hidden;
-				display: flex;
-				flex-wrap: wrap;
-				flex-direction: row;
-				align-items: center;
-				padding-top: 32px;
-				box-sizing: border-box;
-			}
+      #container {
+        height: 100%;
+        overflow-y: auto;
+        overflow-x: hidden;
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row;
+        align-items: center;
+        padding-top: 32px;
+        box-sizing: border-box;
+      }
 
-			.images-row {
-				display: flex;
-				flex-direction: row;
-				padding-left: 32px;
-				margin-bottom: 32px;
-			}
+      .images-row {
+        display: flex;
+        flex-direction: row;
+        padding-left: 32px;
+        margin-bottom: 32px;
+      }
 
-			.image-item-box {
-				margin-right: 32px;
-				width: 112px;
-				height: 112px;
-				display: flex;
-				justify-content: center;
-				align-items: center;
-			}
+      .image-item-box {
+        margin-right: 32px;
+        width: 112px;
+        height: 112px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
 
-			.image-item-box img {
-				max-width: 112px;
-				max-height: 112px;
-				cursor: pointer;
-			}
-		</style>
-	</head>
-	<body>
-		<div id="container"></div>
-		<script src="https://miro.com/app/static/sdk.1.1.js"></script>
-		<script src="src/library.js"></script>
-	</body>
+      .image-item-box img {
+        max-width: 112px;
+        max-height: 112px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container"></div>
+    <script src="https://miro.com/app/static/sdk.1.1.js"></script>
+    <script src="src/library.js"></script>
+  </body>
 </html>

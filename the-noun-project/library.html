@@ -1,46 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<link rel="stylesheet" href="https://miro.com/app/static/styles.1.0.css" />
-		<link rel="stylesheet" href="src/style.css" />
-	</head>
-	<body>
-		<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="display: none">
-			<symbol viewBox="0 0 24 24" id="search-icon">
-				<path
-					fill="currentColor"
-					fill-rule="nonzero"
-					d="M16.32 14.906l4.387 4.387a1 1 0 0 1-1.414 1.414l-4.387-4.387a8 8 0 1 1 1.414-1.414zM10 16a6 6 0 1 0 0-12 6 6 0 0 0 0 12z"
-				/>
-			</symbol>
-		</svg>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="https://miro.com/app/static/styles.1.0.css" />
+    <link rel="stylesheet" href="src/style.css" />
+  </head>
+  <body>
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="display: none">
+      <symbol viewBox="0 0 24 24" id="search-icon">
+        <path
+          fill="currentColor"
+          fill-rule="nonzero"
+          d="M16.32 14.906l4.387 4.387a1 1 0 0 1-1.414 1.414l-4.387-4.387a8 8 0 1 1 1.414-1.414zM10 16a6 6 0 1 0 0-12 6 6 0 0 0 0 12z"
+        />
+      </symbol>
+    </svg>
 
-		<div class="search_box">
-			<input type="text" class="search-input" placeholder="Search" />
-			<svg class="search-button">
-				<use xlink:href="#search-icon"></use>
-			</svg>
-		</div>
+    <div class="search_box">
+      <input type="text" class="search-input" placeholder="Search" />
+      <svg class="search-button">
+        <use xlink:href="#search-icon"></use>
+      </svg>
+    </div>
 
-		<div class="scrollable-container">
-			<div class="items_container"></div>
-			<div class="rtb-material-spinner">
-				<svg class="rtb-material-spinner-circular" viewBox="25 25 50 50" style="width: 50px">
-					<circle
-						class="rtb-material-spinner-path"
-						cx="50"
-						cy="50"
-						r="20"
-						fill="none"
-						stroke-width="2"
-						stroke-miterlimit="10"
-					></circle>
-				</svg>
-			</div>
-		</div>
+    <div class="scrollable-container">
+      <div class="items_container"></div>
+      <div class="rtb-material-spinner">
+        <svg class="rtb-material-spinner-circular" viewBox="25 25 50 50" style="width: 50px">
+          <circle
+            class="rtb-material-spinner-path"
+            cx="50"
+            cy="50"
+            r="20"
+            fill="none"
+            stroke-width="2"
+            stroke-miterlimit="10"
+          ></circle>
+        </svg>
+      </div>
+    </div>
 
-		<script src="https://miro.com/app/static/sdk.1.1.js"></script>
-		<script src="src/index.js"></script>
-	</body>
+    <script src="https://miro.com/app/static/sdk.1.1.js"></script>
+    <script src="src/index.js"></script>
+  </body>
 </html>

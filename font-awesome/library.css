@@ -1,165 +1,165 @@
 body {
-	display: flex;
-	flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .miro-fontawesome-input {
-	margin: 20px 20px 0;
+  margin: 20px 20px 0;
 }
 
 .miro-fontawesome-types {
-	padding: 0 20px;
-	position: relative;
+  padding: 0 20px;
+  position: relative;
 }
 
 .miro-fontawesome-types::before {
-	content: '';
-	display: block;
-	position: absolute;
-	bottom: 0;
-	left: 0;
-	right: 0;
-	height: 1px;
-	background-color: #e1e0e7;
+  content: '';
+  display: block;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background-color: #e1e0e7;
 }
 
 .miro-fontawesome-type {
-	color: #827f9b;
-	font-size: 16px;
-	line-height: 22px;
-	display: inline-block;
-	margin-right: 40px;
-	box-sizing: border-box;
-	padding: 20px 0 14px 0;
-	cursor: pointer;
-	position: relative;
+  color: #827f9b;
+  font-size: 16px;
+  line-height: 22px;
+  display: inline-block;
+  margin-right: 40px;
+  box-sizing: border-box;
+  padding: 20px 0 14px 0;
+  cursor: pointer;
+  position: relative;
 }
 
 .miro-fontawesome-type:first-child {
-	margin-left: 0;
+  margin-left: 0;
 }
 
 .miro-fontawesome-type:hover,
 .miro-fontawesome-type--selected {
-	color: #050038;
+  color: #050038;
 }
 
 .miro-fontawesome-type--selected {
-	padding-bottom: 12px;
-	border-bottom: solid 2px #4262ff;
-	cursor: default;
+  padding-bottom: 12px;
+  border-bottom: solid 2px #4262ff;
+  cursor: default;
 }
 
 .miro-fontawesome-results-wrapper {
-	flex: 1 0;
-	height: 0;
+  flex: 1 0;
+  height: 0;
 }
 
 .miro-fontawesome-results {
-	box-sizing: border-box;
-	display: flex;
-	flex-wrap: wrap;
-	align-content: flex-start;
-	padding: 0 15px 20px;
+  box-sizing: border-box;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  padding: 0 15px 20px;
 }
 
 .miro-fontawesome-results:empty {
-	display: none;
+  display: none;
 }
 
 .miro-fontawesome-results__icon {
-	padding: calc(100% / 4); /* 4 is the number of icons per row */
-	padding-right: 0;
-	padding-bottom: 0;
-	box-sizing: border-box;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	position: relative;
-	color: #050038;
-	cursor: pointer; /* IE doesn't support cursor: grab */
-	cursor: grab;
+  padding: calc(100% / 4); /* 4 is the number of icons per row */
+  padding-right: 0;
+  padding-bottom: 0;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  color: #050038;
+  cursor: pointer; /* IE doesn't support cursor: grab */
+  cursor: grab;
 }
 
 .miro-fontawesome-results__icon:active {
-	cursor: grabbing;
+  cursor: grabbing;
 }
 
 .miro-fontawesome-results__icon svg {
-	position: absolute;
-	padding: 20px 26px 32px;
-	top: 0;
-	bottom: 0;
-	left: 0;
-	right: 0;
-	margin: auto;
-	box-sizing: border-box;
-	max-width: 100%;
-	max-height: 100%;
-	height: 100%;
+  position: absolute;
+  padding: 20px 26px 32px;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  box-sizing: border-box;
+  max-width: 100%;
+  max-height: 100%;
+  height: 100%;
 }
 
 .miro-fontawesome-results__icon-name {
-	position: absolute;
-	left: 5px;
-	right: 5px;
-	bottom: 11px;
-	text-align: center;
-	font-size: 12px;
-	text-overflow: ellipsis;
-	overflow: hidden;
-	white-space: nowrap;
-	color: #827f9b;
+  position: absolute;
+  left: 5px;
+  right: 5px;
+  bottom: 11px;
+  text-align: center;
+  font-size: 12px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  color: #827f9b;
 }
 
 .miro-fontawesome-results__empty-note {
-	padding: 20px;
+  padding: 20px;
 }
 
 .miro-fontawesome-results__loader {
-	animation: rotate 2s linear infinite;
-	height: 50px;
-	transform-origin: center center;
-	width: 50px;
-	position: absolute;
-	top: 0;
-	bottom: 0;
-	left: 0;
-	right: 0;
-	margin: auto;
+  animation: rotate 2s linear infinite;
+  height: 50px;
+  transform-origin: center center;
+  width: 50px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
 }
 
 .miro-fontawesome-results__loader circle {
-	stroke-dasharray: 1, 200;
-	stroke-dashoffset: 0;
-	animation: dash 1.5s ease-in-out infinite;
-	stroke-linecap: round;
-	stroke: #4262ff;
+  stroke-dasharray: 1, 200;
+  stroke-dashoffset: 0;
+  animation: dash 1.5s ease-in-out infinite;
+  stroke-linecap: round;
+  stroke: #4262ff;
 }
 
 @keyframes rotate {
-	100% {
-		transform: rotate(360deg);
-	}
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 @keyframes dash {
-	0% {
-		stroke-dasharray: 1, 200;
-		stroke-dashoffset: 0;
-	}
+  0% {
+    stroke-dasharray: 1, 200;
+    stroke-dashoffset: 0;
+  }
 
-	50% {
-		stroke-dasharray: 89, 200;
-		stroke-dashoffset: -35px;
-	}
+  50% {
+    stroke-dasharray: 89, 200;
+    stroke-dashoffset: -35px;
+  }
 
-	100% {
-		stroke-dasharray: 89, 200;
-		stroke-dashoffset: -124px;
-	}
+  100% {
+    stroke-dasharray: 89, 200;
+    stroke-dashoffset: -124px;
+  }
 }
 
 .hidden {
-	display: none;
+  display: none;
 }

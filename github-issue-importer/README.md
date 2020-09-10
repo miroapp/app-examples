@@ -32,8 +32,8 @@ All configuration properties are stored within `appConfig` object:
 
 ```javascript
 const appConfig = {
-	boardId: '',
-	inboxFrameId: '',
+  boardId: '',
+  inboxFrameId: '',
 }
 ```
 

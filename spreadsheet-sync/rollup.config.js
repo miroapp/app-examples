@@ -6,18 +6,18 @@ import {terser} from 'rollup-plugin-terser'
 const isProduction = process.env.NODE_ENV === 'production'
 
 export default {
-	input: 'src/main.js',
-	output: {
-		file: 'dist/main.js',
-		format: 'iife',
-	},
-	plugins: [
-		resolve({preferBuiltins: true, mainFields: ['browser']}),
-		commonjs(),
-		babel({
-			runtimeHelpers: true,
-			exclude: 'node_modules/**',
-		}),
-		isProduction && terser(),
-	],
+  input: 'src/main.js',
+  output: {
+    file: 'dist/main.js',
+    format: 'iife',
+  },
+  plugins: [
+    resolve({preferBuiltins: true, mainFields: ['browser']}),
+    commonjs(),
+    babel({
+      runtimeHelpers: true,
+      exclude: 'node_modules/**',
+    }),
+    isProduction && terser(),
+  ],
 }

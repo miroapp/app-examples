@@ -1,82 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<link rel="stylesheet" href="https://miro.com/app/static/styles.1.0.css" />
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="https://miro.com/app/static/styles.1.0.css" />
 
-		<style>
-			.rtb-sidebar-caption {
-				font-size: 14px;
-				font-weight: bold;
-				color: rgba(0, 0, 0, 0.8);
-				padding: 24px 0 0 24px;
-				margin-bottom: 20px;
-			}
+    <style>
+      .rtb-sidebar-caption {
+        font-size: 14px;
+        font-weight: bold;
+        color: rgba(0, 0, 0, 0.8);
+        padding: 24px 0 0 24px;
+        margin-bottom: 20px;
+      }
 
-			.container {
-				overflow-y: auto;
-				max-height: calc(100% - 60px);
-			}
+      .container {
+        overflow-y: auto;
+        max-height: calc(100% - 60px);
+      }
 
-			.container > .items-container {
-				border-top: 1px solid #e7e7e7;
-			}
+      .container > .items-container {
+        border-top: 1px solid #e7e7e7;
+      }
 
-			.item {
-				display: flex;
-				align-items: center;
-				height: 48px;
-				line-height: 48px;
-				cursor: pointer;
-				padding-left: 24px;
-			}
+      .item {
+        display: flex;
+        align-items: center;
+        height: 48px;
+        line-height: 48px;
+        cursor: pointer;
+        padding-left: 24px;
+      }
 
-			.items-container .item:not(.items-container__caption) {
-				padding-left: 48px;
-			}
+      .items-container .item:not(.items-container__caption) {
+        padding-left: 48px;
+      }
 
-			.items-container .items-container .items-container__caption {
-				padding-left: 48px;
-			}
+      .items-container .items-container .items-container__caption {
+        padding-left: 48px;
+      }
 
-			.items-container .items-container .item:not(.items-container__caption) {
-				padding-left: 72px;
-			}
+      .items-container .items-container .item:not(.items-container__caption) {
+        padding-left: 72px;
+      }
 
-			.item img {
-				width: 16px;
-				margin-right: 8px;
-			}
+      .item img {
+        width: 16px;
+        margin-right: 8px;
+      }
 
-			.item:hover {
-				background-color: rgba(0, 0, 0, 0.04);
-			}
+      .item:hover {
+        background-color: rgba(0, 0, 0, 0.04);
+      }
 
-			.item.item--highlighted {
-				background-color: rgba(0, 0, 0, 0.1);
-			}
+      .item.item--highlighted {
+        background-color: rgba(0, 0, 0, 0.1);
+      }
 
-			.item--highlighted > .items-container__caption {
-				background-color: rgba(0, 0, 0, 0.1);
-			}
-		</style>
-	</head>
+      .item--highlighted > .items-container__caption {
+        background-color: rgba(0, 0, 0, 0.1);
+      }
+    </style>
+  </head>
 
-	<body>
-		<div class="rtb-sidebar-caption">Layers</div>
-		<div class="container"></div>
+  <body>
+    <div class="rtb-sidebar-caption">Layers</div>
+    <div class="container"></div>
 
-		<template>
-			<div class="items-container items-container--frame">
-				<div class="item items-container__caption"><img src="img/frames-16.svg" /><span></span></div>
-			</div>
-			<div class="items-container items-container--group">
-				<div class="item items-container__caption"><img src="img/group-16.svg" /><span></span></div>
-			</div>
-			<div class="item item-widget"><img src="img/doc-16.svg" /><span></span></div>
-		</template>
+    <template>
+      <div class="items-container items-container--frame">
+        <div class="item items-container__caption"><img src="img/frames-16.svg" /><span></span></div>
+      </div>
+      <div class="items-container items-container--group">
+        <div class="item items-container__caption"><img src="img/group-16.svg" /><span></span></div>
+      </div>
+      <div class="item item-widget"><img src="img/doc-16.svg" /><span></span></div>
+    </template>
 
-		<script src="https://miro.com/app/static/sdk.1.1.js"></script>
-		<script src="sidebar.js"></script>
-	</body>
+    <script src="https://miro.com/app/static/sdk.1.1.js"></script>
+    <script src="sidebar.js"></script>
+  </body>
 </html>

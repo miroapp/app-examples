@@ -1,36 +1,36 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<link
-			rel="stylesheet"
-			href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-			integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-			crossorigin="anonymous"
-		/>
-		<style>
-			.container {
-				margin-top: 40px;
-			}
-		</style>
-	</head>
+  <head>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+      integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+      crossorigin="anonymous"
+    />
+    <style>
+      .container {
+        margin-top: 40px;
+      }
+    </style>
+  </head>
 
-	<body>
-		<div class="container">
-			<h1>Welcome to demo app</h1>
-			<h4 style="margin-bottom: 30px">Play and learn Miro platform</h4>
-			<p><a href="http://developers.miro.com" target="_blank">See documentation</a><br /></p>
-			<h5>Configure app first</h5>
-			<p>
-				OAuth redirect uri: <span class="badge badge-light">{{baseUrl}}/oauth</span><br />
-				Web-plugin iframe uri: <span class="badge badge-light">{{baseUrl}}/static/web-plugin/</span>
-			</p>
-			<h5>Explore</h5>
-			<p>
-				<a href="{{oauthUrl}}" target="_blank">Install the app</a> after configuration will be completed.<br />
-				<a href="/boards-list/" target="_blank">Get boards list</a> via REST API.<br />
-				<a href="https://miro.com/app/dashboard" target="_blank">Open board</a> to check out how web-plugin works (the
-				app has to use any 'client:-----' scope).<br />
-			</p>
-		</div>
-	</body>
+  <body>
+    <div class="container">
+      <h1>Welcome to demo app</h1>
+      <h4 style="margin-bottom: 30px">Play and learn Miro platform</h4>
+      <p><a href="http://developers.miro.com" target="_blank">See documentation</a><br /></p>
+      <h5>Configure app first</h5>
+      <p>
+        OAuth redirect uri: <span class="badge badge-light">{{baseUrl}}/oauth</span><br />
+        Web-plugin iframe uri: <span class="badge badge-light">{{baseUrl}}/static/web-plugin/</span>
+      </p>
+      <h5>Explore</h5>
+      <p>
+        <a href="{{oauthUrl}}" target="_blank">Install the app</a> after configuration will be completed.<br />
+        <a href="/boards-list/" target="_blank">Get boards list</a> via REST API.<br />
+        <a href="https://miro.com/app/dashboard" target="_blank">Open board</a> to check out how web-plugin works (the
+        app has to use any 'client:-----' scope).<br />
+      </p>
+    </div>
+  </body>
 </html>

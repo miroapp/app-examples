@@ -20,38 +20,38 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}))
 
 app.get('/', (req, res) => {
-	res.render('index', {
-		baseUrl: process.env.BASE_URL,
-		oauthUrl: `https://miro.com/oauth/authorize?response_type=code&client_id=${process.env.CLIENT_ID}&redirect_uri=${process.env.BASE_URL}/oauth`,
-	})
+  res.render('index', {
+    baseUrl: process.env.BASE_URL,
+    oauthUrl: `https://miro.com/oauth/authorize?response_type=code&client_id=${process.env.CLIENT_ID}&redirect_uri=${process.env.BASE_URL}/oauth`,
+  })
 })
 
 app.get('/oauth', async (req, res) => {
-	const response = await api.oauth.getToken(req.query.code, req.query.client_id)
-	console.log('/oauth/ response = ', response)
-	if (response) {
-		db.addAuthorization(response)
-	}
-	res.send('App has been installed, open <br>response: ' + JSON.stringify(response))
+  const response = await api.oauth.getToken(req.query.code, req.query.client_id)
+  console.log('/oauth/ response = ', response)
+  if (response) {
+    db.addAuthorization(response)
+  }
+  res.send('App has been installed, open <br>response: ' + JSON.stringify(response))
 })
 
 app.get('/boards-list/', async (req, res) => {
-	const auth = db.getAuthorizations()[0]
-	if (auth) {
-		api.boards
-			.getAll(auth)
-			.then((data) => {
-				res.send(JSON.stringify(data))
-			})
-			.catch((error) => {
-				res.send(error)
-			})
-	} else {
-		res.send('You are not authorized yet')
-	}
+  const auth = db.getAuthorizations()[0]
+  if (auth) {
+    api.boards
+      .getAll(auth)
+      .then((data) => {
+        res.send(JSON.stringify(data))
+      })
+      .catch((error) => {
+        res.send(error)
+      })
+  } else {
+    res.send('You are not authorized yet')
+  }
 })
 
 app.listen(port, () => {
-	console.log(`App listening on port ${port}`)
-	db.init()
+  console.log(`App listening on port ${port}`)
+  db.init()
 })
