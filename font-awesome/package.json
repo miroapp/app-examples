@@ -1,6 +1,7 @@
 {
   "name": "mirofontawesome",
   "version": "1.0.0",
+  "private": true,
   "description": "Font Awesome icons for Miro",
   "scripts": {
     "get-svgs": "rm -rf svgs && cp -R node_modules/@fortawesome/fontawesome-free/svgs svgs",

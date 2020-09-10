@@ -1,15 +1,12 @@
 {
   "name": "protoyping2",
   "version": "1.0.0",
-  "description": "",
   "private": true,
   "scripts": {
     "build": "NODE_ENV=production webpack",
     "watch": "webpack -w"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "@types/react": "16.9.49",
     "@types/react-dom": "16.9.8",

@@ -1,6 +1,7 @@
 {
   "name": "spreadsheet-sync-example",
   "version": "1.0.0",
+  "private": true,
   "description": "An example of syncing shapes on a Miro board with Google Sheets",
   "scripts": {
     "start": "rollup -c -w",
