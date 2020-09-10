@@ -3,7 +3,10 @@
   "private": true,
   "repository": "git@github.com:miroapp/app-examples.git",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "ci:prettier" : "prettier -l ./",
+    "ci:lint": "eslint --quiet ./"
+  },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "4.0.1",
     "@typescript-eslint/parser": "4.0.1",
