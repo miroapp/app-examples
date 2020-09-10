@@ -24,7 +24,7 @@ export async function enterPrototypingMode(startHotspotWidget: SDK.IWidget): Pro
 	}
 }
 
-export async function exitPrototypingMode() {
+export async function exitPrototypingMode(): Promise<void> {
 	await miro.board.viewport.__unmask()
 	await miro.board.ui.__showButtonsPanels('all')
 	await miro.board.ui.__clearToolbarModeLimit()
@@ -45,7 +45,7 @@ async function hideAllLinks() {
 	await miro.board.widgets.update(newLines)
 }
 
-async function restoreAllLinks(): Promise<any> {
+async function restoreAllLinks(): Promise<void> {
 	const lines = await miro.board.widgets.get({type: 'LINE'})
 	const newLines = lines.map(({id}) => ({
 		id,
@@ -77,7 +77,7 @@ export async function goToWidgetFromHotspot(hotspotId: string): Promise<SDK.IWid
 	}
 }
 
-export async function gotoWidget(targetWidget: SDK.IWidget) {
+export async function gotoWidget(targetWidget: SDK.IWidget): Promise<SDK.IWidget> {
 	await miro.board.selection.selectWidgets([])
 	zoomToWidget(targetWidget)
 	return targetWidget
@@ -100,7 +100,7 @@ async function zoomToWidget(w: SDK.IWidget) {
 	await miro.board.viewport.setViewport(v, padding)
 }
 
-export function isHotspotWidget(widget: SDK.IWidget) {
+export function isHotspotWidget(widget: SDK.IWidget): Promise<boolean> {
 	return widget.metadata[APP_ID] && widget.metadata[APP_ID].hotspot
 }
 
@@ -122,11 +122,11 @@ async function hideHotspots() {
 	miro.board.widgets.update(updatingHotspots)
 }
 
-export function onCommentCreated() {
+export function onCommentCreated(): void {
 	miro.board.ui.__selectDefaultTool()
 }
 
-export async function blinkHotspots() {
+export async function blinkHotspots(): Promise<void> {
 	const hotspots = await getHotspots()
 	const hotspotstoShow = hotspots.map((h) => ({id: h.id, clientVisible: true}))
 	miro.board.widgets.update(hotspotstoShow)
@@ -142,7 +142,7 @@ async function checkAllHotspotsLinks(hotspots: SDK.IShapeWidget[]) {
 	let hotspotsWithoutLinks = hotspots.slice()
 	let linkWithoutScreen
 
-	//пробегаться по хотспотам, а не линкам, чтобы убрать все проверки из goToWidgetFromHotspot
+	// go through hotspots, not links, to remove all checks from goToWidgetFromHotspot
 	lines.forEach((line) => {
 		//for startWidgetId
 		const linkedHotspot1 = hotspots.find((h) => h.id === line.startWidgetId)
@@ -176,7 +176,7 @@ async function checkAllHotspotsLinks(hotspots: SDK.IShapeWidget[]) {
 	return Promise.resolve(true)
 }
 
-export async function createStartHotspot() {
+export async function createStartHotspot(): Promise<Recrod<string, unknown> | void> {
 	return miro.board.selection.enterSelectWidgetsMode().then(async (res) => {
 		if (res.selectedWidgets.length) {
 			const screen = res.selectedWidgets[0]
@@ -222,11 +222,12 @@ export async function createStartHotspot() {
 	})
 }
 
-export async function createHotspot(pos?: {x: number; y: number}) {
+export async function createHotspot(pos?: {x: number; y: number}): Promise<void> {
 	const width = 152
 	const height = 66
 	if (!pos) {
 		const viewport = await miro.board.viewport.getViewport()
+
 		pos = {
 			x: viewport.x + viewport.width / 2 - width / 2,
 			y: viewport.y + viewport.height / 2 - height / 2,

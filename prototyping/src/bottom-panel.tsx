@@ -17,7 +17,7 @@ import {createHotspot} from 'bottom-panel-controller'
 import SVG from 'react-inlinesvg'
 import {PLAY_WIDTH} from 'config'
 
-require('./styles.less')
+require('./styles.css')
 const SquareIcon = require('images/square.svg')
 const PlayIcon = require('images/play.svg')
 const LinkIcon = require('images/link.svg')
@@ -41,6 +41,7 @@ class Root extends React.Component {
 		screenIndex: 0,
 	}
 
+	// eslint-disable-next-line
 	async componentWillMount() {
 		const savedState = await miro.__getRuntimeState()
 

@@ -1,6 +1,3 @@
-// In example styles shared between modal, library and sidebar extension points.
-// But you can you can use unique style for each extension point — just create new less file and import it in target extension point.
-
 html {
 	height: 100%;
 }

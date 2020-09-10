@@ -17,7 +17,7 @@ _This plugin was created for demo purpose, it does not ready for production usag
 
 - Run `npm install`
 - Run `npm run build` or `npm run watch` to compile app
-- Run _http-server_ in `dist` folder: `http-server -p 8081`
-- Run _ngrok_ for https: `ngrok http 8081`
+- Run serve the app `npx serve -p 8081`
+- Run `ngrok` using `npx ngrok http 8081`
 - Replace APP*ID in config file to your \_App ID*. You can get _App Id_ in app settings.
 - Get https url from _ngrok_ and paste it in `iframe url` in your app settings.
