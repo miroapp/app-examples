@@ -1,3 +1,5 @@
+require('dotenv-safe').config()
+
 const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
@@ -5,8 +7,6 @@ const mustacheExpress = require('mustache-express')
 
 const api = require('./api')
 const db = require('./db')
-const events = require('./events')
-const config = require('./config')
 
 const app = express()
 const port = 3000
@@ -21,8 +21,8 @@ app.use(bodyParser.urlencoded({extended: true}))
 
 app.get('/', (req, res) => {
 	res.render('index', {
-		baseUrl: config.BASE_URL,
-		oauthUrl: `https://miro.com/oauth/authorize?response_type=code&client_id=${config.CLIENT_ID}&redirect_uri=${config.BASE_URL}/oauth`,
+		baseUrl: process.env.BASE_URL,
+		oauthUrl: `https://miro.com/oauth/authorize?response_type=code&client_id=${process.env.CLIENT_ID}&redirect_uri=${process.env.BASE_URL}/oauth`,
 	})
 })
 
@@ -54,14 +54,4 @@ app.get('/boards-list/', async (req, res) => {
 app.listen(port, () => {
 	console.log(`App listening on port ${port}`)
 	db.init()
-})
-
-// Webhooks are coming soon
-app.post('/events', (req, res) => {
-	const verificationToken = req.get('X-RTB-Verification-Token')
-	if (verificationToken === config.WEBHOOKS_VERIFICATION_TOKEN) {
-		events.processEvent(req.body, res)
-	} else {
-		res.status(400).send('Incorrect verification token')
-	}
 })

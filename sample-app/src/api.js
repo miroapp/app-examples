@@ -1,9 +1,10 @@
+require('dotenv-safe').config()
+
 const rp = require('request-promise')
-const config = require('./config')
 
 const oAuth = {
 	getToken(code, clientId) {
-		const uri = `${config.API_BASE}/oauth/token?grant_type=authorization_code&client_id=${clientId}&client_secret=${config.CLIENT_SECRET}&code=${code}&redirect_uri=${config.BASE_URL}/oauth`
+		const uri = `${process.env.API_BASE}/oauth/token?grant_type=authorization_code&client_id=${clientId}&client_secret=${process.env.CLIENT_SECRET}&code=${code}&redirect_uri=${process.env.BASE_URL}/oauth`
 		const options = {method: 'POST', uri: uri}
 		return rp(options)
 			.then((res) => JSON.parse(res))
@@ -16,7 +17,7 @@ const oAuth = {
 
 const boards = {
 	getAll(auth) {
-		const options = addAuth(auth, {method: 'GET', uri: `${config.API_BASE}/accounts/${auth.account_id}/boards`})
+		const options = addAuth(auth, {method: 'GET', uri: `${process.env.API_BASE}/accounts/${auth.account_id}/boards`})
 		return rp(options)
 			.then((res) => JSON.parse(res))
 			.catch((error) => {
@@ -26,7 +27,7 @@ const boards = {
 	},
 
 	getById(auth, boardId) {
-		const options = addAuth(auth, {method: 'POST', uri: `${config.API_BASE}/boards/${boardId}`})
+		const options = addAuth(auth, {method: 'POST', uri: `${process.env.API_BASE}/boards/${boardId}`})
 		return rp(options)
 			.then((res) => JSON.parse(res))
 			.catch((error) => {
@@ -34,8 +35,6 @@ const boards = {
 				throw error
 			})
 	},
-
-	updateById(auth, boardId, options) {},
 }
 
 function addAuth(auth, options) {

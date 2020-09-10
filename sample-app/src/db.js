@@ -1,10 +1,11 @@
+require('dotenv-safe').config()
+
 const fs = require('fs')
-const config = require('./config')
 
 let dbInstance = []
 
 function initDB() {
-	fs.readFile(config.DB_FILE_NAME, function (err, buf) {
+	fs.readFile(process.env.DB_FILE_NAME, function (err, buf) {
 		try {
 			dbInstance = JSON.parse(buf.toString())
 			console.log(`DB has ${dbInstance.length} authorizations`)
@@ -16,7 +17,7 @@ function initDB() {
 }
 
 function saveDBToFile() {
-	fs.writeFile(config.DB_FILE_NAME, JSON.stringify(dbInstance, null, '\t'), function (err) {
+	fs.writeFile(process.env.DB_FILE_NAME, JSON.stringify(dbInstance, null, '\t'), function (err) {
 		if (err) {
 			console.log(err)
 		} else {
