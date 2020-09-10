@@ -1,6 +1,9 @@
 require('./styles.less')
 
-let closeButton = document.querySelector('.close-button')!
-closeButton.addEventListener('click', () => {
-	miro.board.ui.closeModal()
-})
+const closeButton = document.querySelector('.close-button')
+
+if (closeButton) {
+	closeButton.addEventListener('click', () => {
+		miro.board.ui.closeModal()
+	})
+}

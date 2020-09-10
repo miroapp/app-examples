@@ -1,9 +1,8 @@
 const path = require('path')
 
 module.exports = {
-	mode: 'none', // Tip! compile in 'production' mode before publish
+	mode: process.env.NODE_ENV,
 
-	// Tip! Just delete not using files, but main.ts is required
 	entry: {
 		main: './src/main.ts',
 		sidebar: './src/sidebar.tsx', // Example! It works with React.
@@ -17,7 +16,7 @@ module.exports = {
 				exclude: /node_modules/,
 			},
 			{
-				test: /\.less$/,
+				test: /\.css$/,
 				use: [
 					{
 						loader: 'style-loader',
@@ -25,16 +24,13 @@ module.exports = {
 					{
 						loader: 'css-loader',
 					},
-					{
-						loader: 'less-loader',
-					},
 				],
 				exclude: /node_modules/,
 			},
 		],
 	},
 	resolve: {
-		extensions: ['.tsx', '.ts', '.js', '.less', '.css'],
+		extensions: ['.tsx', '.ts', '.js', '.css'],
 	},
 	output: {
 		filename: '[name].js',
