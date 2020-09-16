@@ -1,0 +1,26 @@
+{
+  "npmClient": "npm",
+  "version": "independent",
+  "packages": [
+    "automate-user-management",
+    "buttons",
+    "drag-and-drop",
+    "extra-notes",
+    "font-awesome",
+    "github-issue-importer",
+    "implicit-flow-example",
+    "importer",
+    "layers",
+    "looking-glass",
+    "plugin-boilerplate",
+    "prototyping",
+    "prototyping2",
+    "rtb-sticker-pack",
+    "sample-app",
+    "spreadsheet-sync",
+    "stickers-to-shapes",
+    "template-builder",
+    "the-noun-project",
+    "widget-counter"
+  ]
+}

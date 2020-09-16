@@ -1,4 +1,5 @@
 ## Intro
+
 This is a sample of plugin with drag-and-drop content to the canvas:
 
 <img src="drag-and-drop.gif" alt="drag-and-drop" />
@@ -6,6 +7,6 @@ This is a sample of plugin with drag-and-drop content to the canvas:
 ## How to use
 
 - Clone the repo
-- Run _http-server_ in root rep folder: `http-server -p 8081`
-- Run _ngrok_ for https: `ngrok http 8081`
-- Get https url from _ngrok_ and paste it in `iframe url` in your app settings.    
+- Run `npx serve -p 8081` in a terminal window
+- Run `npx ngrok http 8081` in another terminal window to run ngrok
+- Get https url from _ngrok_ and paste it in `iframe url` in your app settings.

@@ -1,0 +1,7 @@
+{
+  "name": "drag-and-drop",
+  "version": "0.0.1",
+  "description": "This is a sample of plugin with drag-and-drop content to the canvas",
+  "license": "MIT",
+  "private": true
+}

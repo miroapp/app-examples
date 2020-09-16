@@ -1,19 +1,17 @@
 {
   "name": "github-issues-importer",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "private": true,
   "scripts": {
-    "start": "node ./index.js"
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/miroapp/app-examples.git"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
-    "axios": "^0.19.0"
+    "axios": "0.19.0",
+    "dotenv-safe": "8.2.0"
   }
 }

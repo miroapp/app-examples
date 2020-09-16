@@ -3,22 +3,23 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon.js src/app.js -e js,html",
+    "start": "nodemon src/app.js -e js,html",
     "ngrok": "ngrok http 3000"
   },
   "dependencies": {
-    "body-parser": "^1.18.3",
-    "cookie-parser": "~1.4.3",
-    "cors": "^2.8.5",
-    "debug": "~2.6.9",
-    "express": "~4.16.0",
-    "http-errors": "~1.6.2",
-    "mustache-express": "^1.2.8",
-    "nodemon": "^1.18.9",
-    "request": "^2.88.0",
-    "request-promise": "^4.2.2"
+    "body-parser": "1.18.3",
+    "cookie-parser": "1.4.3",
+    "cors": "2.8.5",
+    "debug": "4.1.1",
+    "dotenv-safe": "8.2.0",
+    "express": "4.17.1",
+    "http-errors": "1.8.0",
+    "mustache-express": "1.2.8",
+    "nodemon": "2.0.4",
+    "request": "2.88.0",
+    "request-promise": "4.2.2"
   },
   "devDependencies": {
-    "ngrok": "^3.1.0"
+    "ngrok": "3.3.0"
   }
 }

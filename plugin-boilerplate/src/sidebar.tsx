@@ -1,39 +1,32 @@
-require('./styles.less')
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 
-class Root extends React.Component {
+import './styles.less'
 
-	state = {
-		boardTitle: ''
-	}
+function Root() {
+  const [state, setState] = React.useState({boardTitle: ''})
 
-	async getBoardTitle() {
-		let boardInfo = await miro.board.info.get()
-		this.setState({boardTitle: boardInfo.title})
-	}
+  async function getBoardTitle() {
+    const boardInfo = await miro.board.info.get()
+    setState({boardTitle: boardInfo.title})
+  }
 
-	async deleteAllContent() {
-		let allObjects = await miro.board.widgets.get()
-		await miro.board.widgets.deleteById(allObjects.map(object => object.id))
-		await miro.showNotification('Content has been deleted')
-	}
+  async function deleteAllContent() {
+    const allObjects = await miro.board.widgets.get()
+    await miro.board.widgets.deleteById(allObjects.map((object) => object.id))
+    await miro.showNotification('Content has been deleted')
+  }
 
-	render() {
-		return (
-			<div className="container">
-				<button onClick={() => this.getBoardTitle()}>Get board title</button>
-				<br/>
-				<div>Board title is: {this.state.boardTitle}</div>
-				<br/>
-				<br/>
-				<button onClick={() => this.deleteAllContent()}>Delete all content</button>
-			</div>
-		)
-	}
+  return (
+    <div className="container">
+      <button onClick={() => getBoardTitle()}>Get board title</button>
+      <br />
+      <div>Board title is: {state.boardTitle}</div>
+      <br />
+      <br />
+      <button onClick={() => deleteAllContent()}>Delete all content</button>
+    </div>
+  )
 }
 
-ReactDOM.render(
-	<Root/>,
-	document.getElementById('react-app')
-)
+ReactDOM.render(<Root />, document.getElementById('react-app'))

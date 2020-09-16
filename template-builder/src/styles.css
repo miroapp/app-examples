@@ -1,0 +1,82 @@
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.scrollable-container {
+  height: 100%;
+  overflow-y: auto;
+  padding-top: 30px;
+  padding-left: 23px;
+  padding-bottom: 20px;
+  box-sizing: border-box;
+}
+
+.scrollable-content {
+  height: 2000px;
+  background-color: #2a79ff;
+}
+
+.add-row-button {
+  display: block;
+  background: none;
+  border: 1px solid #4262ff;
+  color: #4262ff;
+  height: 30px;
+  box-sizing: border-box;
+  border-radius: 4px;
+  text-align: center;
+  font-size: 14px;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.build-button {
+  display: block;
+  background-color: #4262ff;
+  border: none;
+  color: #fff;
+  height: 50px;
+  box-sizing: border-box;
+  border-radius: 4px;
+  text-align: center;
+  font-size: 22px;
+  cursor: pointer;
+  width: 274px;
+}
+
+.row-input {
+  display: inline-block;
+  vertical-align: top;
+  width: 215px;
+  height: 30px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 4px 4px 4px 6px;
+  box-sizing: border-box;
+}
+
+.delete-button {
+  display: inline-block;
+  vertical-align: top;
+  height: 30px;
+  background: none;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  border-radius: 4px;
+  margin-left: 8px;
+  cursor: pointer;
+}
+
+.row-input:hover,
+.row-input:active,
+.delete-button:hover,
+.delete-button:active {
+  border: 1px solid #666;
+}
+
+.row {
+  margin-bottom: 20px;
+}

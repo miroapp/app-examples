@@ -1,32 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <script type="text/javascript" src="https://miro.com/app/static/sdk.1.1.js"></script>
     <script type="text/javascript">
-		const icon = '<circle cx="12" cy="12" r="9" fill="none" fill-rule="evenodd" stroke="currentColor" stroke-width="2"></circle>'
+      const icon =
+        '<circle cx="12" cy="12" r="9" fill="none" fill-rule="evenodd" stroke="currentColor" stroke-width="2"></circle>'
 
-		miro.onReady(() => {
-			miro.initialize({
-				extensionPoints: {
-					bottomBar: async () => {
-						const currentUser = await miro.getCurrentUser()
-						const signedIn = currentUser.signedIn
-						if (signedIn) {
-							return {
-								title: 'signed in example',
-								svgIcon: icon,
-								onClick: sayHi
-							}
-						}
-					}
-				}
-			})
-		})
+      miro.onReady(() => {
+        miro.initialize({
+          extensionPoints: {
+            bottomBar: async () => {
+              const currentUser = await miro.getCurrentUser()
+              const signedIn = currentUser.signedIn
+              if (signedIn) {
+                return {
+                  title: 'signed in example',
+                  svgIcon: icon,
+                  onClick: sayHi,
+                }
+              }
+            },
+          },
+        })
+      })
 
-		function sayHi() {
-			alert('Hi!')
-		}
-
+      function sayHi() {
+        alert('Hi!')
+      }
     </script>
-</head>
+  </head>
 </html>

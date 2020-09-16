@@ -17,15 +17,12 @@ async function getWidget() {
 
   // Check that widget has text field
   if (typeof text === 'string') {
-
     // hide tip and show text in sidebar
     tipElement.style.opacity = '0'
     widgetTextElement.value = text
   } else {
-
     // show tip and clear text in sidebar
     tipElement.style.opacity = '1'
     widgetTextElement.value = ''
   }
 }
-

@@ -1,119 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="https://miro.com/app/static/miro.uikit.css">
-    <script src="https://miro.com/app/static/sdk.1.1.js"></script>
-
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="https://miro.com/app/static/styles.1.0.css" />
     <style>
-        .rtb-sidebar-caption {
-            font-size: 14px;
-            font-weight: bold;
-            color: rgba(0, 0, 0, 0.8);
-            padding: 24px 0 0 24px;
-        }
+      .rtb-sidebar-caption {
+        font-size: 14px;
+        font-weight: bold;
+        color: rgba(0, 0, 0, 0.8);
+        padding: 24px 0 0 24px;
+      }
 
-        .no-selected-widget {
-            font-size: 18px;
-            text-align: center;
-            margin-top: 60px;
-            color: #999;
-        }
+      .no-selected-widget {
+        font-size: 18px;
+        text-align: center;
+        margin-top: 60px;
+        color: #999;
+      }
 
-        .widget-info {
-            padding: 20px 24px 0 24px;
-            height: 100%;
-        }
+      .widget-info {
+        padding: 20px 24px 0 24px;
+        height: 100%;
+      }
 
-        .editor {
-            width: 310px;
-            height: calc(100% - 120px);
-            border: 1px solid #ccc;
-            padding: 10px;
-            box-sizing: border-box;
-            font-family: Arial;
-            font-size: 14px;
-            margin: 0 -10px;
-            resize: none;
-        }
+      .editor {
+        width: 310px;
+        height: calc(100% - 120px);
+        border: 1px solid #ccc;
+        padding: 10px;
+        box-sizing: border-box;
+        font-family: Arial;
+        font-size: 14px;
+        margin: 0 -10px;
+        resize: none;
+      }
     </style>
-</head>
+  </head>
 
-<body>
-<div class="rtb-sidebar-caption">Extra notes</div>
-<div class="no-selected-widget">
-    Please select one widget <br>to add notes ✏️
-</div>
-<div class="widget-info">
-    <p id="widget-name"></p>
-    <textarea placeholder="Add some notes here. Saves locally" id="editor" class="editor">text word</textarea>
-</div>
-<script>
-	let lastSelectedWidgetId
-	let widgetName = document.querySelector('#widget-name')
-	let widgetInfo = document.querySelector('.widget-info')
-	let editor = document.querySelector('#editor')
-	let placeholder = document.querySelector('.no-selected-widget')
-
-	function onSelectionChange(e) {
-		let selectedWidgets = e.data
-		updateSelection(selectedWidgets)
-	}
-
-	function updateSelection(selectedWidgets) {
-		let selectedWidget = selectedWidgets[0]
-		if (selectedWidgets.length === 1) {
-			showElement(widgetInfo)
-			hideElement(placeholder)
-			saveEditorData()
-			lastSelectedWidgetId = selectedWidget.id
-			widgetName.innerText = selectedWidget.type
-			editor.value = getData(lastSelectedWidgetId)
-		} else {
-			showElement(placeholder)
-			hideElement(widgetInfo)
-		}
-	}
-
-	function showElement(el) {
-		el.style.display = 'block'
-	}
-
-	function hideElement(el) {
-		el.style.display = 'none'
-	}
-
-	hideElement(placeholder)
-	hideElement(widgetInfo)
-
-	miro.onReady(() => {
-		miro.addListener(miro.enums.event.SELECTION_UPDATED, onSelectionChange)
-		miro.board.selection.get().then((selectedWidgets) => {
-			updateSelection(selectedWidgets)
-		})
-	})
-
-	editor.addEventListener('change', saveEditorData)
-
-	async function saveEditorData() {
-		if (lastSelectedWidgetId) {
-			saveData(lastSelectedWidgetId, editor.value)
-			lastSelectedWidgetId = undefined
-		}
-	}
-
-	const LS_KEY = 'rtb-plugin-widget-info'
-
-	function saveData(widgetId, text) {
-		let data = JSON.parse(localStorage.getItem(LS_KEY)) || {}
-		data[widgetId] = text
-		localStorage.setItem(LS_KEY, JSON.stringify(data))
-	}
-
-	function getData(widgetId) {
-		let data = JSON.parse(localStorage.getItem(LS_KEY)) || {}
-		return data[widgetId] || ''
-	}
-</script>
-</body>
+  <body>
+    <div class="rtb-sidebar-caption">Extra notes</div>
+    <div class="no-selected-widget">Please select one widget <br />to add notes ✏️</div>
+    <div class="widget-info">
+      <p id="widget-name"></p>
+      <textarea placeholder="Add some notes here. Saves locally" id="editor" class="editor">text word</textarea>
+    </div>
+    <script src="https://miro.com/app/static/sdk.1.1.js"></script>
+    <script src="js/sidebar.js"></script>
+  </body>
 </html>
