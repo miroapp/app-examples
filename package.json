@@ -4,10 +4,11 @@
   "repository": "git@github.com:miroapp/app-examples.git",
   "license": "MIT",
   "scripts": {
-    "ci:prettier" : "prettier -l ./",
+    "ci:prettier": "prettier -l ./",
     "ci:lint": "eslint --quiet ./"
   },
   "devDependencies": {
+    "@mirohq/prettier-config": "1.0.0",
     "@typescript-eslint/eslint-plugin": "4.0.1",
     "@typescript-eslint/parser": "4.0.1",
     "eslint": "7.8.1",
