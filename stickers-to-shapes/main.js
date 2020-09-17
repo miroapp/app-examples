@@ -25,7 +25,7 @@ miro.onReady(() => {
               y: sticker.y,
               width: sticker.bounds.width,
               height: sticker.bounds.height,
-            }))
+            })),
           )
 
           // Show success message

@@ -95,11 +95,11 @@ githubService
         .then((value) => console.log(`card widget ${value.id} has been created from an issue ${issue.url}`))
         .catch((reason) =>
           console.error(
-            `*** creating card widget error: ${reason.response.status} ${JSON.stringify(reason.response.data)}`
-          )
+            `*** creating card widget error: ${reason.response.status} ${JSON.stringify(reason.response.data)}`,
+          ),
         )
-    })
+    }),
   )
   .catch((reason) =>
-    console.error(`*** reading GitHub issues error: ${reason.response.status} ${JSON.stringify(reason.response.data)}`)
+    console.error(`*** reading GitHub issues error: ${reason.response.status} ${JSON.stringify(reason.response.data)}`),
   )

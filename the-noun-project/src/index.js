@@ -113,7 +113,7 @@ function loadMoreImages() {
         imagesSources = imagesSources.concat(
           data.icons.map(function (icon) {
             return icon.preview_url
-          })
+          }),
         )
         showIcons(imagesSources)
       } else {

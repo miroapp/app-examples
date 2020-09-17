@@ -81,7 +81,7 @@ function findConnectionByEmail(email, account) {
   }
   return fetch(
     `https://api.miro.com/v1/accounts/${account.id}/user-connections?fields=user{name,email}&limit=100`,
-    options
+    options,
   )
     .then((res) => res.json())
     .then((json) => json.data.find((el) => el.user.email === email))
