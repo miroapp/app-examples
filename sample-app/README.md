@@ -16,6 +16,8 @@ Handy playground for playing with Miro Board API and Web-plugins.
 7. Configure web-plugin — set iframe url in App settings
 8. Explore it
 
+Note: remove comments and ' from the .env file before trying to run this sample or it will add them into the Oath call and it will display "application not found" page
+
 ### How it works
 
 `app.js` is the entry point
