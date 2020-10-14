@@ -17,10 +17,10 @@ export async function enterPrototypingMode(startHotspotWidget: SDK.IWidget): Pro
       if (canEdit) {
         await miro.board.widgets.bringForward(hotspots)
       }
-      await miro.board.ui.__hideButtonsPanels(['top', 'bottomBar', 'map'])
-      await miro.board.ui.__limitToolbarMode('commentor')
+      miro.board.ui.__hideButtonsPanels(['top', 'bottomBar', 'map'])
+      miro.board.ui.__limitToolbarMode('commentor')
       await miro.board.selection.selectWidgets([])
-      await miro.board.__disableLeftClickOnCanvas()
+      miro.board.__disableLeftClickOnCanvas()
       if (canEdit) {
         await hideAllLinks()
         await hideHotspots()
@@ -33,15 +33,15 @@ export async function enterPrototypingMode(startHotspotWidget: SDK.IWidget): Pro
 export async function exitPrototypingMode() {
   const permissions = await miro.currentUser.getCurrentBoardPermissions()
   const canEdit = permissions.indexOf('EDIT_CONTENT') !== -1
-  await miro.board.viewport.__unmask()
-  await miro.board.ui.__showButtonsPanels('all')
-  await miro.board.ui.__clearToolbarModeLimit()
-  await miro.board.__enableLeftClickOnCanvas()
+  miro.board.viewport.__unmask()
+  miro.board.ui.__showButtonsPanels('all')
+  miro.board.ui.__clearToolbarModeLimit()
+  miro.board.__enableLeftClickOnCanvas()
   if (canEdit) {
     await restoreAllLinks()
     await showHotspots()
   }
-  await miro.board.ui.closeBottomPanel() // This command should be last
+  miro.board.ui.closeBottomPanel() // This command should be last
 }
 
 async function hideAllLinks() {
