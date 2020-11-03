@@ -1,7 +1,7 @@
-import {APP_ID} from 'config'
+import {CLIENT_ID} from 'config'
 
 export function findStartHotspot(shapes: SDK.IWidget[]): SDK.IWidget | undefined {
-  return shapes.find((shape) => shape.metadata[APP_ID] && shape.metadata[APP_ID].startHotspot)
+  return shapes.find((shape) => shape.metadata[CLIENT_ID] && shape.metadata[CLIENT_ID].startHotspot)
 }
 
 export async function enterPrototypingMode(startHotspotWidget: SDK.IWidget): Promise<SDK.IWidget | void> {
@@ -110,7 +110,7 @@ async function zoomToWidget(w: SDK.IWidget) {
 }
 
 export function isHotspotWidget(widget: SDK.IWidget) {
-  return widget.metadata[APP_ID] && widget.metadata[APP_ID].hotspot
+  return widget.metadata[CLIENT_ID] && widget.metadata[CLIENT_ID].hotspot
 }
 
 async function showHotspots() {
@@ -204,7 +204,7 @@ export async function createStartHotspot() {
             borderWidth: 0,
           },
           metadata: {
-            [APP_ID]: {
+            [CLIENT_ID]: {
               hotspot: true,
               startHotspot: true,
             },
@@ -244,7 +244,7 @@ export async function createHotspot(pos?: {x: number; y: number}) {
 
   await miro.board.widgets.create({
     metadata: {
-      [APP_ID]: {
+      [CLIENT_ID]: {
         hotspot: true,
       },
     },
