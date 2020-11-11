@@ -61,37 +61,6 @@
 		return Promise.resolve('token') // TODO 2) Get JWT token from your server. See https://jwt.io/ for more info about JWT tokens.
 	}
 
-	// TODO: REMOVE
-	// function generatePartnerToken(clientId, secret) {
-	// 	const payload = {
-	// 		iss: clientId,
-	// 	}
-    //
-	// 	const header = {alg: "HS256", typ: "JWT"};
-	// 	var stringifiedHeader = CryptoJS.enc.Utf8.parse(JSON.stringify(header));
-	// 	var encodedHeader = base64url(stringifiedHeader);
-	// 	var stringifiedData = CryptoJS.enc.Utf8.parse(JSON.stringify(payload));
-	// 	var encodedData = base64url(stringifiedData);
-	// 	var signature = encodedHeader + "." + encodedData;
-	// 	signature = CryptoJS.HmacSHA256(signature, secret);
-	// 	signature = base64url(signature);
-    //
-	// 	return `${encodedHeader}.${encodedData}.${signature}`
-	// }
-    //
-	// function base64url(source) {
-	// 	// Encode in classical base64
-	// 	encodedSource = CryptoJS.enc.Base64.stringify(source);
-    //
-	// 	// Remove padding equal characters
-	// 	encodedSource = encodedSource.replace(/=+$/, '');
-	// 	// Replace characters according to base64url specifications
-	// 	encodedSource = encodedSource.replace(/\+/g, '-');
-	// 	encodedSource = encodedSource.replace(/\//g, '_');
-    //
-	// 	return encodedSource;
-	// }
-
 
 </script>
 </body>
