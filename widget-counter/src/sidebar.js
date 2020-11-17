@@ -1,7 +1,7 @@
 function showStatistics(selection) {
   clear()
   const statByType = calcByType(selection)
-  getContainer().appendChild(createStatTable('by Type', 'Looks like the selection is empty.', statByType))
+  getContainer().appendChild(createStatTable('by Type', 'GG Looks like the selection is empty.', statByType))
 }
 
 function clear() {
