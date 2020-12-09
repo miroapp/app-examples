@@ -28,11 +28,11 @@ app.get('/', (req, res) => {
 
 app.get('/oauth', async (req, res) => {
   const response = await api.oauth.getToken(req.query.code, req.query.client_id)
-  console.log('/oauth/ response = ', response)
   if (response) {
     db.addAuthorization(response)
   }
-  res.send('App has been installed, open <br>response: ' + JSON.stringify(response))
+  res.send(`App has been
+  installed<br>response:<br><pre>${JSON.stringify(response, null, 2)}</pre>`)
 })
 
 app.get('/boards-list/', async (req, res) => {
@@ -41,7 +41,7 @@ app.get('/boards-list/', async (req, res) => {
     api.boards
       .getAll(auth)
       .then((data) => {
-        res.send(JSON.stringify(data))
+        res.json(data)
       })
       .catch((error) => {
         res.send(error)

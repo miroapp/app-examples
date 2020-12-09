@@ -17,7 +17,7 @@ const oAuth = {
 
 const boards = {
   getAll(auth) {
-    const options = addAuth(auth, {method: 'GET', uri: `${process.env.API_BASE}/accounts/${auth.account_id}/boards`})
+    const options = addAuth(auth, {method: 'GET', uri: `${process.env.API_BASE}/teams/${auth.account_id}/boards`})
     return rp(options)
       .then((res) => JSON.parse(res))
       .catch((error) => {

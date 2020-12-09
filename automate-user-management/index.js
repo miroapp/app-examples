@@ -72,7 +72,7 @@ function inviteUser(email, account) {
     },
     body: JSON.stringify({emails: [email]}),
   }
-  return fetch(`https://api.miro.com/v1/accounts/${account.id}/invite`, options).then((res) => res.json())
+  return fetch(`https://api.miro.com/v1/teams/${account.id}/invite`, options).then((res) => res.json())
 }
 
 function findConnectionByEmail(email, account) {
@@ -80,7 +80,7 @@ function findConnectionByEmail(email, account) {
     headers: {Authorization: `Bearer ${miroToken}`},
   }
   return fetch(
-    `https://api.miro.com/v1/accounts/${account.id}/user-connections?fields=user{name,email}&limit=100`,
+    `https://api.miro.com/v1/teams/${account.id}/user-connections?fields=user{name,email}&limit=100`,
     options,
   )
     .then((res) => res.json())
