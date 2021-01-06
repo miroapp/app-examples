@@ -1,4 +1,4 @@
-require('./styles.less')
+require('./styles.css')
 
 const closeButton = document.querySelector('.close-button')
 
