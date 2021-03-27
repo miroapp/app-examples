@@ -3,12 +3,24 @@ Boilerplate project already includes:
 - TypeScript
 - Webpack
 - ReactJS
-- HelloWorld code
 
 ## How to use:
 
-1. Run `npm install` to install dependencies
-2. Run `npm run build` or `npm run watch` to compile app
-3. In first terminal run `npx serve -p 8081` in root rep folder
-4. In second terminal run _ngrok_ for https: `npx ngrok http 8081`
-5. Get https-url from _ngrok_ and paste it in `iframe url` in your app settings
+- Run `npm install` or `yarn` to install dependencies
+- Run `npm start` or `yarn start` to start developing, you should have a URL that looks like this
+
+> you can change the subdomain inside [`webpack.config.js`](./webpack.config.js)
+
+```
+https://miro-plugin-boilerplate.loca.lt
+```
+
+> If the page shows 404 make sure to refresh again, this means that webpack didn't finish compilation yet.
+
+- Paste the URL in `iframe url` in your app settings
+- open a board & you should see your app in the main toolbar when you click the
+  three dots.
+
+## How to build the app:
+
+Run `npm run build` or `yarn run build`
