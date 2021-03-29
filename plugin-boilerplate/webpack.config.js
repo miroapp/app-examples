@@ -103,9 +103,10 @@ module.exports = {
     ],
   },
   plugins: [
-    new LocalTunnelPlugin({
-      subdomain: tunnelSubdomain,
-    }),
+    isDevelopment &&
+      new LocalTunnelPlugin({
+        subdomain: tunnelSubdomain,
+      }),
     ...Object.keys(entries).map((entry) => {
       const sharedHtmlSettings = {
         chunks: [entry],
@@ -116,5 +117,5 @@ module.exports = {
 
       return new HtmlWebpackPlugin({...sharedHtmlSettings, ...(entry === 'index' ? {} : {filename: `${entry}.html`})})
     }),
-  ],
+  ].filter(Boolean),
 }
