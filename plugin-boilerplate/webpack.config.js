@@ -20,38 +20,34 @@ class LocalTunnelPlugin {
 
   tunnelCreated = false
 
-  defaultOptions = {
-    subdomain: tunnelSubdomain,
-  }
-
   constructor(options = {}) {
-    this.options = {
-      ...this.defaultOptions,
-      ...options,
-    }
+    this.options = options
   }
 
-  apply = (compiler) => {
-    if (!compiler.options.devServer) return
+  apply = async (compiler) => {
+    if (!compiler.options.devServer || this.tunnelCreated) return
 
     const logger = compiler.getInfrastructureLogger(this.PLUGIN_NAME)
 
-    compiler.hooks.assetEmitted.tap(this.PLUGIN_NAME, async () => {
-      if (!this.tunnelCreated) {
-        this.tunnelCreated = true
-        try {
-          const tunnel = await localtunnel({
-            ...this.options,
-            port: compiler.options.devServer.port,
-          })
-
-          logger.info(`tunnel created: ${tunnel.url}`)
-        } catch (e) {
-          this.tunnelCreated = false
-          logger.error('can not create tunnel', e)
-        }
+    try {
+      this.tunnelCreated = true
+      const options = {
+        port: compiler.options.devServer.port,
+        ...this.options,
       }
-    })
+
+      const tunnel = await localtunnel(options)
+
+      if (tunnel.clientId !== this.options.subdomain) {
+        logger.error(`tunnel https://${tunnelSubdomain}.loca.it is not available`)
+        logger.info(`tunnel created: ${tunnel.url}`)
+      } else {
+        logger.info(`tunnel created: ${tunnel.url}`)
+      }
+    } catch (e) {
+      this.tunnelCreated = false
+      logger.error('can not create tunnel', e)
+    }
   }
 }
 
@@ -107,7 +103,9 @@ module.exports = {
     ],
   },
   plugins: [
-    new LocalTunnelPlugin(),
+    new LocalTunnelPlugin({
+      subdomain: tunnelSubdomain,
+    }),
     ...Object.keys(entries).map((entry) => {
       const sharedHtmlSettings = {
         chunks: [entry],
