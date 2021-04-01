@@ -4,7 +4,6 @@ const localtunnel = require('localtunnel')
 
 const isProduction = process.env.NODE_ENV === 'production'
 const isDevelopment = !isProduction
-const tunnelSubdomain = 'miro-plugin-boilerplate'
 
 const entries = {
   index: './src/index.ts',
@@ -38,11 +37,15 @@ class LocalTunnelPlugin {
 
       const tunnel = await localtunnel(options)
 
-      if (tunnel.clientId !== this.options.subdomain) {
-        logger.error(`tunnel https://${tunnelSubdomain}.loca.it is not available`)
+      if (tunnel.clientId !== options.subdomain) {
+        logger.error(`tunnel https://${options.subdomain}.loca.it is not available`)
+        logger.info(`-----------------------------------------------------------`)
         logger.info(`tunnel created: ${tunnel.url}`)
+        logger.info(`-----------------------------------------------------------`)
       } else {
+        logger.info(`-----------------------------------------------------------`)
         logger.info(`tunnel created: ${tunnel.url}`)
+        logger.info(`-----------------------------------------------------------`)
       }
     } catch (e) {
       this.tunnelCreated = false
@@ -63,7 +66,6 @@ module.exports = {
     headers: {
       'Bypass-Tunnel-Reminder': true,
     },
-    public: `${tunnelSubdomain}.loca.lt`,
   },
   entry: entries,
   output: {
@@ -105,7 +107,7 @@ module.exports = {
   plugins: [
     isDevelopment &&
       new LocalTunnelPlugin({
-        subdomain: tunnelSubdomain,
+        subdomain: 'miro-plugin-boilerplate',
       }),
     ...Object.keys(entries).map((entry) => {
       const sharedHtmlSettings = {
