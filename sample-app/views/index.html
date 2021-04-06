@@ -19,17 +19,17 @@
       <h1>Welcome to demo app</h1>
       <h4 style="margin-bottom: 30px">Play and learn Miro platform</h4>
       <p><a href="http://developers.miro.com" target="_blank">See documentation</a><br /></p>
-      <h5>Configure app first</h5>
+      <h5>1. Configure your app</h5>
       <p>
-        OAuth redirect uri: <span class="badge badge-light">{{baseUrl}}/oauth</span><br />
-        Web-plugin iframe uri: <span class="badge badge-light">{{baseUrl}}/static/web-plugin/</span>
+        <a href="https://miro.com/app/settings/user-profile/apps">OAuth Redirect URL</a>: <span class="badge badge-light">{{baseUrl}}/oauth</span><br />
+        <a href="https://miro.com/app/settings/user-profile/apps">Web-plugin iframe uri</a>: <span class="badge badge-light">{{baseUrl}}/static/web-plugin/</span>
       </p>
-      <h5>Explore</h5>
+      <h5>2. Explore & have fun!</h5>
       <p>
         <a href="{{oauthUrl}}" target="_blank">Install the app</a> after configuration will be completed.<br />
         <a href="/boards-list/" target="_blank">Get boards list</a> via REST API.<br />
         <a href="https://miro.com/app/dashboard" target="_blank">Open board</a> to check out how web-plugin works (the
-        app has to use any 'client:-----' scope).<br />
+        app has to enable OAuth scopes: 'boards:read' and 'boards:write').<br />
       </p>
     </div>
   </body>
