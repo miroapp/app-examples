@@ -16,9 +16,9 @@ Handy playground for playing with Miro Board API and Web-plugins.
 6. Run `npm run start`
 7. Open app landing (url from ngrok, like `https://XXXXXXXXXXXX.ngrok.io`)
 8. Configure app (you can copy/paste from the Welcome page):
-   1.  Web-plugin: save `https://XXXXXXXXXXXX.ngrok.io/static/web-plugin/`
-   2.  Redirect URLs: add `https://XXXXXXXXXX.ngrok.io/oauth`
-9.  Explore & have fun!
+   1. Web-plugin: save `https://XXXXXXXXXXXX.ngrok.io/static/web-plugin/`
+   2. Redirect URLs: add `https://XXXXXXXXXX.ngrok.io/oauth`
+9. Explore & have fun!
 
 ### How it works
 
