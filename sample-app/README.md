@@ -7,14 +7,18 @@ Handy playground for playing with Miro Board API and Web-plugins.
 1. Run `npm install`
 2. Run `cp .env.example .env`
 3. Run `npm run ngrok` in another terminal
-4. Edit `.env` file:
-   - Set BASE_URL from ngrok
-   - Set CLIENT_ID from the App settings
-   - Set CLIENT_SECRET from the App settings
-5. Run `npm run start`
-6. Open app landing (url from ngrok, like https://--------.ngrok.io)
-7. Configure web-plugin — set iframe url in App settings
-8. Explore it
+4. Copy the `https` url:
+   ![](.github/ngrok.png)
+5. Edit `.env` file:
+   - Set BASE_URL from ngrok `https://XXXXXXXXXXXX.ngrok.io`
+   - Set CLIENT_ID from the [App settings](https://miro.com/app/settings/user-profile/apps)
+   - Set CLIENT_SECRET from the [App settings](https://miro.com/app/settings/user-profile/apps)
+6. Run `npm run start`
+7. Open app landing (url from ngrok, like `https://XXXXXXXXXXXX.ngrok.io`)
+8. Configure app (you can copy/paste from the Welcome page):
+   1.  Web-plugin: save `https://XXXXXXXXXXXX.ngrok.io/static/web-plugin/`
+   2.  Redirect URLs: add `https://XXXXXXXXXX.ngrok.io/oauth`
+9.  Explore & have fun!
 
 ### How it works
 

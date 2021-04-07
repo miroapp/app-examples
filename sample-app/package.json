@@ -20,6 +20,6 @@
     "request-promise": "4.2.2"
   },
   "devDependencies": {
-    "ngrok": "3.3.0"
+    "ngrok": "^3.3.0"
   }
 }
