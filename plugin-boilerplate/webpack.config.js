@@ -2,6 +2,10 @@ const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const localtunnel = require('localtunnel')
 
+/* ----------------- CHANGE THIS -------------------------*/
+const subdomain = require('os').userInfo().username
+/* ----------------- CHANGE THIS -------------------------*/
+
 const isProduction = process.env.NODE_ENV === 'production'
 const isDevelopment = !isProduction
 
@@ -63,9 +67,6 @@ module.exports = {
     compress: true,
     contentBase: path.join(__dirname, 'dist'),
     port: 9000,
-    headers: {
-      'Bypass-Tunnel-Reminder': true,
-    },
   },
   entry: entries,
   output: {
@@ -107,7 +108,7 @@ module.exports = {
   plugins: [
     isDevelopment &&
       new LocalTunnelPlugin({
-        subdomain: 'miro-plugin-boilerplate',
+        subdomain,
       }),
     ...Object.keys(entries).map((entry) => {
       const sharedHtmlSettings = {
