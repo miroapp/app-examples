@@ -4,24 +4,25 @@
   "repository": "git@github.com:miroapp/app-examples.git",
   "license": "MIT",
   "scripts": {
+    "bootstrap": "lerna bootstrap",
     "ci:prettier": "prettier -l ./",
     "ci:lint": "eslint --quiet ./"
   },
   "devDependencies": {
     "@mirohq/prettier-config": "1.0.0",
-    "@typescript-eslint/eslint-plugin": "4.0.1",
-    "@typescript-eslint/parser": "4.0.1",
-    "eslint": "7.8.1",
-    "eslint-config-prettier": "6.11.0",
-    "eslint-plugin-import": "2.22.0",
-    "eslint-plugin-prettier": "3.1.4",
-    "eslint-plugin-react": "7.20.6",
-    "eslint-plugin-react-hooks": "4.1.0",
+    "@typescript-eslint/eslint-plugin": "4.24.0",
+    "@typescript-eslint/parser": "4.24.0",
+    "eslint": "7.26.0",
+    "eslint-config-prettier": "8.3.0",
+    "eslint-plugin-import": "2.23.2",
+    "eslint-plugin-prettier": "3.4.0",
+    "eslint-plugin-react": "7.23.2",
+    "eslint-plugin-react-hooks": "4.2.0",
     "husky": "4.2.5",
-    "lerna": "3.22.1",
-    "lint-staged": "10.3.0",
-    "prettier": "2.1.1",
-    "typescript": "4.0.2"
+    "lerna": "4.0.0",
+    "lint-staged": "11.0.0",
+    "prettier": "2.3.0",
+    "typescript": "4.2.4"
   },
   "husky": {
     "hooks": {
