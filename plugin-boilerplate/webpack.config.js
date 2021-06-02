@@ -2,7 +2,9 @@ const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const localtunnel = require('localtunnel')
 
-const subdomain = `${require('os').userInfo().username}-${require('os').hostname()}`.replace(/(\s|\.)+/g, '-')
+const subdomain = `${require('os').userInfo().username}-${require('os').hostname()}`
+  .replace(/(\s|\.)+/g, '-')
+  .toLowerCase()
 
 const isProduction = process.env.NODE_ENV === 'production'
 const isDevelopment = !isProduction

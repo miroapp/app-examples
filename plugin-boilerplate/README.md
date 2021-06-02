@@ -12,7 +12,9 @@ Boilerplate project already includes:
 - (Optional) change the `subdomain` inside [`webpack.config.js`](./webpack.config.js) (default is your computer `username` + computer `hostname`)
 
 ```js
-const subdomain = `${require('os').userInfo().username}-${require('os').hostname()}`.replace(/(\s|\.)+/g, '-')
+const subdomain = `${require('os').userInfo().username}-${require('os').hostname()}`
+  .replace(/(\s|\.)+/g, '-')
+  .toLowerCase()
 ```
 
 > First time you open the URL you will see a page from [localtunnel](https://loca.lt/) asking you to click continue.
