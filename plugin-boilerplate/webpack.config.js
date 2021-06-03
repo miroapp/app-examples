@@ -25,12 +25,22 @@ class LocalTunnelPlugin {
 
   constructor(options = {}) {
     this.options = options
+    this.border = '-'.repeat(
+      process.stdout.columns - (this.PLUGIN_NAME.length + 9), // <i> [LocalTunnel]
+    )
+  }
+
+  generateLog = (logger) => (url) => {
+    logger.info(this.border)
+    logger.info(`tunnel created: ${url}`)
+    logger.info(this.border)
   }
 
   apply = async (compiler) => {
     if (!compiler.options.devServer || this.tunnelCreated) return
 
     const logger = compiler.getInfrastructureLogger(this.PLUGIN_NAME)
+    const createLog = this.generateLog(logger)
 
     try {
       this.tunnelCreated = true
@@ -43,13 +53,9 @@ class LocalTunnelPlugin {
 
       if (tunnel.clientId !== options.subdomain) {
         logger.error(`tunnel https://${options.subdomain}.loca.it is not available`)
-        logger.info(`-----------------------------------------------------------`)
-        logger.info(`tunnel created: ${tunnel.url}`)
-        logger.info(`-----------------------------------------------------------`)
+        createLog(tunnel.url)
       } else {
-        logger.info(`-----------------------------------------------------------`)
-        logger.info(`tunnel created: ${tunnel.url}`)
-        logger.info(`-----------------------------------------------------------`)
+        createLog(tunnel.url)
       }
     } catch (e) {
       this.tunnelCreated = false
