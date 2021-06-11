@@ -69,6 +69,7 @@ module.exports = {
   bail: isProduction,
   target: isDevelopment ? 'web' : 'browserslist',
   devServer: {
+    noInfo: true,
     disableHostCheck: true,
     compress: true,
     contentBase: path.join(__dirname, 'dist'),

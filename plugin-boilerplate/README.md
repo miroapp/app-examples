@@ -11,11 +11,11 @@ Boilerplate project already includes:
 
 - (Optional) change the `subdomain` inside [`webpack.config.js`](./webpack.config.js) (default is your computer `username` + computer `hostname`)
 
+<!-- prettier-ignore-start-->
 ```js
-const subdomain = `${require('os').userInfo().username}-${require('os').hostname()}`
-  .replace(/(\s|\.)+/g, '-')
-  .toLowerCase()
+const subdomain = `${require('os').userInfo().username}-${require('os').hostname()}`.replace(/(\s|\.)+/g, '-').toLowerCase()
 ```
+<!-- prettier-ignore-end-->
 
 > First time you open the URL you will see a page from [localtunnel](https://loca.lt/) asking you to click continue.
 > This check will happen every 7 days per domain. Feel free to remove localtunnel if you want. But you have to serve your app over https, that's a requirement.
