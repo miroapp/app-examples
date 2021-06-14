@@ -1,0 +1,17 @@
+{
+  "name": "gitlab-issues-importer",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/miroapp/app-examples.git"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "axios": "0.21.1",
+    "dotenv-safe": "8.2.0"
+  }
+}
