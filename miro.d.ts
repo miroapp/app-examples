@@ -214,16 +214,21 @@ declare namespace SDK {
     getIdToken(): Promise<string>
 
     /**
-     * Opens a popup to follow the authorization process for your App.
+     * **Deprecated**
+     * This method is deprecated. Use [`requestAuthorization()`](#section-request-authorization) instead. [See the migration guide.](https://developers.miro.com/docs/miroauthorize)
      *
-     * *Note: It is possible the browser will block the authorization popup, make sure to call this method upon
-     * an user click interaction in your domain.
-     *
-     * @param options Options for the authorization process. See [[AuthorizationOptions]]
-     * @returns A promise resolving into an oAuth token.
-     *
+     * @deprecated
      */
     authorize(options: AuthorizationOptions): Promise<string>
+
+    /**
+     * Opens a modal to follow the authorization process for your App.
+     *
+     * @param options Options for the authorization process. See [[AuthorizationOptions]]
+     * @returns A promise fulfilled if the app has been authorized.
+     *
+     */
+    requestAuthorization(options?: AuthorizationOptions): Promise<void>
 
     /**
      * Returns the clientId from the web plugin.
@@ -307,21 +312,11 @@ declare namespace SDK {
   }
 
   /**
-   * Authorization options for the authorization flow.
-   * See [[authorize]]
+   * Authorization options for the [authorization flow](https://developers.miro.com/docs/webplugin_authorization).
+   * See [[requestAuthorization]]
    * @category Account and User
    */
   interface AuthorizationOptions {
-    /**
-     * The kind of response expected from the authorization.
-     *
-     * This must be `code` to request an auth token
-     */
-    response_type: 'code'
-    /**
-     * Requested scopes.
-     */
-    scope?: string
     /**
      * The url the user will be redirected after the authorization.
      * This url must be registered in your app "Redirect URLs" list.
@@ -648,9 +643,7 @@ declare namespace SDK {
     /**
      * A callback executed when the user starts dragging.
      */
-    getDraggableItemPreview: (
-      targetElement: HTMLElement,
-    ) => {
+    getDraggableItemPreview: (targetElement: HTMLElement) => {
       /**
        * defaults to 100
        */
@@ -1451,9 +1444,21 @@ declare namespace SDK {
     style: {
       backgroundColor: BackgroundColorStyle
       backgroundOpacity: BackgroundOpacityStyle
+      /**
+       * @deprecated
+       */
       borderColor: BorderColorStyle
+      /**
+       * @deprecated
+       */
       borderWidth: BorderWidthStyle
+      /**
+       * @deprecated
+       */
       borderStyle: BorderStyle
+      /**
+       * @deprecated
+       */
       borderOpacity: BorderOpacityStyle
       fontFamily: FontFamily
       textColor: TextColorStyle
@@ -1464,7 +1469,7 @@ declare namespace SDK {
       underline: UnderlineStyle
       bold: BoldStyle
       /**
-       * The default padding value will be changed to "0" in November 2020
+       * @deprecated
        */
       padding: PaddingStyle
     }
@@ -1893,7 +1898,7 @@ declare namespace SDK {
   /**
    * @category Styling
    */
-  type PaddingStyle = number
+  type PaddingStyle = 0 | 8
   /**
    * @category Styling
    */
