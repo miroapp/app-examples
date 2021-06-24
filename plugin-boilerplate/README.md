@@ -9,11 +9,13 @@ Boilerplate project already includes:
 - Run `npm install` or `yarn` to install dependencies
 - Run `npm start` or `yarn start` to start developing, you should have a URL that looks like this
 
-- (Optional) change the `subdomain` inside [`webpack.config.js`](./webpack.config.js) (default is your computer `username` + computer `hostname`)
+- (Optional) change the `subdomain` inside [`webpack.config.js`](./webpack.config.js) (default is app name + your computer `username`)
 
 <!-- prettier-ignore-start-->
 ```js
-const subdomain = `${require('os').userInfo().username}-${require('os').hostname()}`.replace(/(\s|\.)+/g, '-').toLowerCase()
+const pkg = require('./package.json')
+
+const subdomain = `${require('os').userInfo().username}-${pkg.name}`.replace(/(\s|\.)+/g, '-').toLowerCase()
 ```
 <!-- prettier-ignore-end-->
 
