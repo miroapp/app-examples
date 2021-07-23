@@ -12,6 +12,12 @@ In this repository, you can find [types for Miro SDK](miro.d.ts) and several si
 
 ## Web-Plugins
 
+The fastest way to bootstrap a new app is by using [`create-miro-app`](https://www.npmjs.com/package/create-miro-app)
+
+```
+npx create-miro-app@latest
+```
+
 Descriptions and GIFs for those examples available [here](https://developers.miro.com/docs/web-plugin-examples). To
 learn more read [what web-plugins is it](https://developers.miro.com/docs/sdk) and
 [how to build your web-plugin](https://developers.miro.com/docs/how-to-start).
@@ -24,7 +30,6 @@ learn more read [what web-plugins is it](https://developers.miro.com/docs/sdk) a
 | [extra-notes](extra-notes)               | Save custom data for widgets in LocalStorage                                                                                                                   |
 | [importer](importer)                     | Convert text list to stickers                                                                                                                                  |
 | [looking-glass](looking-glass)           | You can see readable text of the widget in the sidebar<br /> without zooming in.                                                                               |
-| [plugin-boilerplate](plugin-boilerplate) | If you like TypeScript, Webpack, and ReactJS, you can start<br /> with this example. It already includes these tools.                                          |
 | [rtb-sticker-pack](rtb-sticker-pack)     | This example shows how to drag&drop external resources<br /> into the board                                                                                    |
 | [stickers-to-shapes](stickers-to-shapes) | You select several stickies, click plugin button in the bottom<br /> bar and app replaces stickies with shapes                                                 |
 | [template-builder](template-builder)     | This example shows how to create and position on the board<br /> multiple widgets of different types and render create custom<br /> interfaces in the library. |
