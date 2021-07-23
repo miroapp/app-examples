@@ -5,7 +5,6 @@
   "license": "MIT",
   "scripts": {
     "bootstrap": "lerna bootstrap",
-    "ci:prettier": "prettier -l ./",
     "ci:lint": "eslint --quiet ./"
   },
   "devDependencies": {
