@@ -1065,6 +1065,11 @@ declare namespace SDK {
     getScale(): Promise<number>
 
     /**
+     * Zooms to a specific Widget on the board
+     */
+    zoomToObject(widget: InputWidget): Promise<void>
+
+    /**
      * Adds a black mask over the canvas.
      * @experimental
      */
