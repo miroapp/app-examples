@@ -24,7 +24,6 @@ learn more read [what web-plugins is it](https://developers.miro.com/docs/sdk) a
 
 |                                          | Description                                                                                                                                                    |
 | ---------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [prototyping](prototyping)               | With this plugin use can build interactive prototypes<br /> like in InVision or Overflow.<br /> Very comprehensive example for a lot of SDK capabilities.      |
 | [drag-and-drop](drag-and-drop)           | Custom Icons Set with drag and drop on the canvas.                                                                                                             |
 | [buttons](buttons)                       | This example shows how to restrict buttons visibility.                                                                                                         |
 | [extra-notes](extra-notes)               | Save custom data for widgets in LocalStorage                                                                                                                   |
