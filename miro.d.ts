@@ -191,14 +191,6 @@ declare namespace SDK {
     isAuthorized(): Promise<boolean>
 
     /**
-     * **Deprecated**
-     * This method is deprecated. Use [`getIdToken()`](#gettoken) instead. [See the migration guide.](https://developers.miro.com/docs/gettoken-migration-guide)
-     *
-     * @deprecated
-     */
-    getToken(): Promise<string>
-
-    /**
      * The `getIdToken()` method returns a [JSON Web Token (JWT)](http://tools.ietf.org/html/draft-ietf-oauth-json-web-token-11), an encoded form of JSON data, signed by the application secret. You can use JWTs to authenticate requests from your Miro web-plugin to your backend services. You can use an existing [JWT library to decode](https://jwt.io/) the token and establish the communication between your Miro web-plugin and your backend services.
      * If you are migrating from `getToken()` to `getIdToken()`, [see the migration guide.](https://developers.miro.com/docs/gettoken-migration-guide)
      *
@@ -212,14 +204,6 @@ declare namespace SDK {
      * ```
      */
     getIdToken(): Promise<string>
-
-    /**
-     * **Deprecated**
-     * This method is deprecated. Use [`requestAuthorization()`](#section-request-authorization) instead. [See the migration guide.](https://developers.miro.com/docs/miroauthorize)
-     *
-     * @deprecated
-     */
-    authorize(options: AuthorizationOptions): Promise<string>
 
     /**
      * Opens a modal to follow the authorization process for your App.
