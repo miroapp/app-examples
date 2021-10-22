@@ -5,28 +5,24 @@
   "license": "MIT",
   "scripts": {
     "bootstrap": "lerna bootstrap",
-    "ci:lint": "eslint --quiet ./"
+    "ci:lint": "eslint --quiet ./",
+    "prepare": "husky install"
   },
   "devDependencies": {
     "@mirohq/prettier-config": "1.0.0",
-    "@typescript-eslint/eslint-plugin": "4.24.0",
-    "@typescript-eslint/parser": "4.24.0",
+    "@typescript-eslint/eslint-plugin": "5.1.0",
+    "@typescript-eslint/parser": "5.1.0",
     "eslint": "7.26.0",
     "eslint-config-prettier": "8.3.0",
-    "eslint-plugin-import": "2.23.2",
-    "eslint-plugin-prettier": "3.4.0",
-    "eslint-plugin-react": "7.23.2",
+    "eslint-plugin-import": "2.25.2",
+    "eslint-plugin-prettier": "4.0.0",
+    "eslint-plugin-react": "7.26.1",
     "eslint-plugin-react-hooks": "4.2.0",
-    "husky": "4.2.5",
+    "husky": "^7.0.0",
     "lerna": "4.0.0",
-    "lint-staged": "11.0.0",
-    "prettier": "2.3.0",
-    "typescript": "4.2.4"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
+    "lint-staged": "11.2.3",
+    "prettier": "2.4.1",
+    "typescript": "4.4.4"
   },
   "lint-staged": {
     "*.{html,json,md,ts,js,tsx}": [
