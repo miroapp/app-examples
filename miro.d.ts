@@ -771,7 +771,6 @@ declare namespace SDK {
      *
      * @param iframeURL the url that will be open in the iframe. If a relative url is used, it will be relative
      * to the defined web plugin url.
-     * @param options Options for the sidebar. Current only `width` is available.
      * @returns A promise that will be resolved once the left sidebar is closed.
      *
      * **Example**
@@ -800,7 +799,7 @@ declare namespace SDK {
      * });
      * ```
      */
-    openLeftSidebar(iframeURL: string, options?: {width?: number}): Promise<any>
+    openLeftSidebar(iframeURL: string): Promise<any>
 
     /**
      * Opens the library extension point and loads an iframe with the `iframeURL`.
@@ -1551,7 +1550,7 @@ declare namespace SDK {
   /**
 	 * Defines a widget of type `LINE`.
 	 *
-	 * Currently line widgets can only be created between two widget.
+	 * Currently line widgets can only be created between two widgets.
 	// The `startWidgetId` and `endWidgetId` fields are required to create a line widget.
 	 * @category Widgets Manipulation
 	 */
