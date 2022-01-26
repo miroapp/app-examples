@@ -12,12 +12,12 @@ The fastest way to bootstrap a new app is by using [`create-miro-app`](https://w
 npx create-miro-app@beta
 ```
 
-|                                                   | Description                                                                                                                                        |
-| ------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [drag-and-drop](examples/drag-and-drop)           | This example show you how to drag and drop images from your app onto the board.                                                                    |
-| [stickers-to-shapes](examples/stickers-to-shapes) | This example allows you to select several stickies, click the plugin button in the bottom bar, and replace any selected stickies with shapes.      |
-| [template-builder](examples/template-builder)     | This example shows how to create and position on the board multiple widgets of different types and render create custom interfaces in the library. |
-| [calendar](examples/calendar)                     | This example shows you how to add a calendar made with shapes and text for a given month and year.                                                 |
+|                                                         | Description                                                                                                                                        |
+| ------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [drag-and-drop](examples/drag-and-drop)                 | This example show you how to drag and drop images from your app onto the board.                                                                    |
+| [stickynotes-to-shapes](examples/stickynotes-to-shapes) | This example allows you to select several stickies, click the plugin button in the bottom bar, and replace any selected stickies with shapes.      |
+| [template-builder](examples/template-builder)           | This example shows how to create and position on the board multiple widgets of different types and render create custom interfaces in the library. |
+| [calendar](examples/calendar)                           | This example shows you how to add a calendar made with shapes and text for a given month and year.                                                 |
 
 <p>&nbsp;</p>
 
