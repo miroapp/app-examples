@@ -3,9 +3,17 @@
   "private": true,
   "repository": "git@github.com:miroapp/v2-app-examples.git",
   "license": "MIT",
-  "workspaces": [
-    "examples/*"
-  ],
+  "workspaces": {
+    "packages": [
+      "examples/*"
+    ],
+    "nohoist": [
+      "**/@types",
+      "**/@types/**",
+      "**/@mirohq",
+      "**/@mirohq/**"
+    ]
+  },
   "scripts": {
     "build": "yarn turbo run build",
     "prepare": "husky install",
