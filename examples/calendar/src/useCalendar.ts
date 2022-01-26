@@ -6,8 +6,6 @@ const getStartingDayOfMonth = (month: number, year: number) => {
   return new Date(year + "-" + month + "-01").getDay();
 };
 
-
-
 export const useCalendar = (month: number, year: number) => {
   const numberOfDays = getDaysInMonth(month, year);
   const startingDay = getStartingDayOfMonth(month, year);
