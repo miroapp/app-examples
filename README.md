@@ -18,3 +18,7 @@ npx create-miro-app@beta
 | [stickers-to-shapes](examples/stickers-to-shapes) | You can select several stickies, click the plugin button in the bottom bar, and the app replaces stickies with shapes.                             |
 | [template-builder](examples/template-builder)     | This example shows how to create and position on the board multiple widgets of different types and render create custom interfaces in the library. |
 | [calendar](examples/calendar)                     | This example shows you how to add a calendar made with shapes and text for a given month and year.                                                 |
+
+<p>&nbsp;</p>
+
+Interested in learning more? Feel free to join our [Developer Community](https://bit.ly/miro-developer-community) to chat with other Miro Developers!
