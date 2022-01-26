@@ -36,7 +36,6 @@ http://localhost:3000
 
 This sample app shows how you can create a template programmatically using the Miro Web SDK.
 It demonstrates how to work with shape and text items on the board.
-It's based on [this v1 sample app](https://developers.miro.com/docs/web-plugin-examples#template-builder).
 
 This app uses [Vite](https://vitejs.dev/).
 If you want to modify the `vite.config.js` configuration, see the [Vite documentation](https://vitejs.dev/guide/).

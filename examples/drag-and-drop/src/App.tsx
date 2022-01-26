@@ -26,7 +26,7 @@ function App() {
 
   useEffect(() => {
     fetch(
-      "https://miro.com/thenounproject/?query=" +
+      "https://secret-ocean-49799.herokuapp.com/https://miro.com/thenounproject/?query=" +
         searchTerm +
         "&limit=50&offset=0",
       {
