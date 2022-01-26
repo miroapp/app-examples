@@ -1,0 +1,56 @@
+{
+  "name": "app-examples",
+  "private": true,
+  "repository": "git@github.com:miroapp/v2-app-examples.git",
+  "license": "MIT",
+  "workspaces": [
+    "examples/*"
+  ],
+  "scripts": {
+    "build": "yarn turbo run build",
+    "prepare": "husky install",
+    "lint": "eslint ./",
+    "format:check": "prettier --check ./"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,md,markdown,yaml,yml,html,css}": [
+      "prettier --write"
+    ],
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix"
+    ]
+  },
+  "prettier": {},
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.9.0",
+    "@typescript-eslint/parser": "^5.9.0",
+    "eslint": "^8.6.0",
+    "eslint-plugin-import": "^2.25.4",
+    "husky": "^7.0.0",
+    "lint-staged": "^12.1.5",
+    "prettier": "^2.5.1",
+    "turbo": "^1.0.24"
+  },
+  "turbo": {
+    "baseBranch": "origin/main",
+    "pipeline": {
+      "build": {
+        "dependsOn": [
+          "^build"
+        ]
+      },
+      "test": {
+        "dependsOn": [
+          "^build"
+        ],
+        "outputs": []
+      },
+      "lint": {
+        "outputs": []
+      },
+      "dev": {
+        "cache": false
+      }
+    }
+  }
+}
