@@ -15,11 +15,7 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "typeRoots": [
-        "./node_modules/@types",
-        "./node_modules/@mirohq"
-    ]
+    "typeRoots": ["./node_modules/@types", "./node_modules/@mirohq"]
   },
   "include": ["./src", "node_modules"]
-  
 }
