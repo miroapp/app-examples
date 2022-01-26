@@ -87,6 +87,10 @@ document
   .getElementById("submit")
   .addEventListener("click", () => drawTemplate(getLabels()));
 
+document
+  .getElementById("addRow")
+  .addEventListener("click", () => addRowInput(""))
+
 function addRowInput(value) {
   const row = document.createElement("div");
   row.classList.add("row");
