@@ -10,8 +10,10 @@ async function init() {
   });
 
   await board.ui.on("drop", async ({ x, y, target }) => {
-    const image = await board.createImage({ x, y, url: target.src });
-    await board.viewport.zoomTo(image);
+    if (target instanceof HTMLImageElement) {
+      const image = await board.createImage({ x, y, url: target.src });
+      await board.viewport.zoomTo(image);
+    }
   });
 }
 
