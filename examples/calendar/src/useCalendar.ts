@@ -10,12 +10,12 @@ export const useCalendar = (month: number, year: number) => {
   const numberOfDays = getDaysInMonth(month, year);
   const startingDay = getStartingDayOfMonth(month, year);
 
-  let startingIndex: number = startingDay
+  let startingIndex: number = startingDay;
 
-  if(startingDay !== 0) {
-    startingIndex = startingDay - 1
+  if (startingDay !== 0) {
+    startingIndex = startingDay - 1;
   }
-  
+
   let currentWeek = 0;
   let currentWeekIndex = 0;
   const dayArray = Array.from(

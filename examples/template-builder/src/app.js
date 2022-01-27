@@ -89,7 +89,7 @@ document
 
 document
   .getElementById("addRow")
-  .addEventListener("click", () => addRowInput(""))
+  .addEventListener("click", () => addRowInput(""));
 
 function addRowInput(value) {
   const row = document.createElement("div");
