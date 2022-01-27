@@ -1,5 +1,7 @@
 # Miro Apps Examples
 
+Welcome to Miro App Examples! In this repository you can find examples of apps built on top of Miro's Platform 1.0. If you're looking for version 2.0, make sure you head to [this repository](https://github.com/miroapp/app-examples/tree/beta) instead.
+
 In this repository, you can find [types for Miro SDK](miro.d.ts) and several simple examples.
 
 ## REST API
