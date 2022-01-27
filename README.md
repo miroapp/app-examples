@@ -31,4 +31,4 @@ npx create-miro-app@beta
 
 <p>&nbsp;</p>
 
-Interested in learning more? Feel free to join our [Developer Community](https://bit.ly/miro-developer-community) to chat with other Miro Developers!
+Interested in learning more? Feel free to join our [Developer Community](https://bit.ly/miro-developers) to chat with other Miro Developers!
