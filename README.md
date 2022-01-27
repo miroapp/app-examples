@@ -4,7 +4,7 @@
 
 <img alt="Miro" src="https://github.com/miroapp/app-examples/raw/beta/assets/Banner.png" />
 
-Welcome to Miro App Examples! In this repository you can find examples of apps built on top of Miro's Platform 2.0. Make sure you visit our [documentation](https://beta.developers.miro.com) to learn more.
+Welcome to Miro App Examples! In this repository you can find examples of apps built on top of Miro's Platform 2.0. Make sure you visit our [documentation](https://beta.developers.miro.com) or read our [official blog post](https://miro.com/blog/developer-platform-beta) to learn more.
 
 ## Web SDK
 
