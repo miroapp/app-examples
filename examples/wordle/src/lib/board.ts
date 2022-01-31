@@ -8,7 +8,7 @@ const numberOfChances = 5;
 const numberOfLetters = 5;
 
 // export let stickyIds: string[][];
-// export let stickyIds: Array<Array<string>>
+// TODO: Replace this by a cleaner version
 export const stickyIds = [
   ["string", "string", "string", "string", "string"],
   ["string", "string", "string", "string", "string"],
@@ -17,6 +17,7 @@ export const stickyIds = [
   ["string", "string", "string", "string", "string"],
 ];
 let sticky;
+// Add black sticky notes 5*5
 export const createWordle = async () => {
   // Generate Wordle
   for (let i = 0; i < numberOfLetters; i++) {
@@ -28,18 +29,22 @@ export const createWordle = async () => {
         x: center + i * spaceBetweenStickies,
         y: center + j * spaceBetweenStickies,
       });
+      // Store each sticky note id for future updates
       stickyIds[i][j] = sticky.id;
     }
   }
 };
 
+// Helper to change the color and the text of a sticky note by its id
 export const setStickyColorAndText = async (
   id: string,
   newColor: string,
   newText: string
 ) => {
+  // Retrieve the sticky note by its id
   const sticky = await board.getById(id);
   sticky.content = newText;
   sticky.style.fillColor = newColor;
+  // Sync the changes
   await sticky.sync();
 };

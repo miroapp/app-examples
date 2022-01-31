@@ -10,50 +10,54 @@ function App() {
   let randomWord: string;
   const textElement = document.getElementById("info-text");
 
+  // When user clicks on "start a new game"
   const handleNewGame = () => {
     textElement!.textContent = "";
     randomWord = getRandomWord();
-    alert(randomWord);
     // Create new Wordle
+    // Used for test to display the word
+    alert(randomWord);
     createWordle();
     tries = 0;
   };
 
+  // When user clicks on "Check"
   const handleCheckWord = () => {
+    // Get the input value of the user
     inputElement = document.getElementById("wordGuess") as HTMLInputElement;
     guess = inputElement.value.toUpperCase();
     textElement!.textContent = "";
-    alert(randomWord);
 
     // Check if word is in word list
     if (!isWordInWordList(guess)) {
-      // Let the user know that the word doesn't exist
+      // If not, let the user know that the word doesn't exist
       textElement!.textContent = "Word doesn't exist";
     }
-    // Check if it is a winning word
+    // Check if it the user's guess is the right word
     else if (isRightWord(randomWord, guess)) {
-      // Change colors of the line of sticky
+      // Change the color of the line of sticky to green and add the corresponding letters to them
       for (let i = 0; i < guess.length; i++) {
         setStickyColorAndText(stickyIds[i][tries], "green", guess[i]);
       }
       textElement!.textContent = "You won!";
     } else {
-      // Check the statuses of the letter and update stickies
+      // Check the statuses of each letter and update stickies
       guess.split("").forEach((letter, i) => {
-        // if the letter is not in the word, the sticky is gray
+        // if the letter is not in the word, the sticky note is gray
         if (!randomWord.includes(letter)) {
           setStickyColorAndText(stickyIds[i][tries], "black", guess[i]);
         }
-        // if the letter is right,change sticky color to green
+        // if the letter is right, the sticky note is green
         else if (letter === randomWord[i]) {
           setStickyColorAndText(stickyIds[i][tries], "green", guess[i]);
         }
-        // if the letter is in the word, but not right, the status is present
+        // if the letter is in the word, but not at the right place, the color is yellow
         else {
           setStickyColorAndText(stickyIds[i][tries], "yellow", guess[i]);
         }
       });
 
+      // The user has 5 tries
       if (tries == 4) {
         textElement!.textContent = "You lost!";
         tries = 0;

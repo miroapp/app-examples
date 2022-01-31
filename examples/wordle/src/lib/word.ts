@@ -9,7 +9,7 @@ export const isWordInWordList = (word: string) => {
 };
 
 export const getRandomWord = () => {
-  return WORDS[Math.floor(Math.random() * WORDS.length) + 1].toUpperCase();
+  return WORDS[Math.floor(Math.random() * WORDS.length)].toUpperCase();
 };
 
 export const isRightWord = (word: string, guess: string) => {
