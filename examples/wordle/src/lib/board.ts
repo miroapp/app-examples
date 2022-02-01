@@ -31,7 +31,6 @@ export const createWordle = async () => {
       stickyIds[i][j] = sticky.id;
     }
   }
-
 };
 
 // Helper to change the color and the text of a sticky note by its id

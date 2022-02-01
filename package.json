@@ -18,7 +18,8 @@
     "build": "yarn turbo run build",
     "prepare": "husky install",
     "lint": "eslint ./",
-    "format:check": "prettier --check ./"
+    "format:check": "prettier --check ./",
+    "format": "yarn prettier -w ./examples"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx,md,markdown,yaml,yml,html,css}": [

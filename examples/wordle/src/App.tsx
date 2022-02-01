@@ -1,34 +1,34 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { stickyIds, createWordle, setStickyColorAndText } from "./lib/board";
 import { isWordInWordList, getRandomWord, isRightWord } from "./lib/word";
 
 function App() {
-  const [label, setLabel] = useState("")
-  const [guess, setGuess] = useState("")
-  const [randomWord, setRandomWord] = useState("")
-  const [tries, setTries] = useState(0)
+  const [label, setLabel] = useState("");
+  const [guess, setGuess] = useState("");
+  const [randomWord, setRandomWord] = useState("");
+  const [tries, setTries] = useState(0);
 
   // Handle input change
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setGuess(e.target.value.toUpperCase())
-  }
+    setGuess(e.target.value.toUpperCase());
+  };
 
   // When user clicks on "start a new game"
   const handleNewGame = () => {
-    setLabel("")
-    setRandomWord(getRandomWord())
+    setLabel("");
+    setRandomWord(getRandomWord());
     // Create new Wordle
     createWordle();
-    setTries(0)
+    setTries(0);
   };
 
   // When user clicks on "Check"
   const handleCheckWord = () => {
-    setLabel("")
+    setLabel("");
     // Check if word is in word list
     if (!isWordInWordList(guess)) {
       // If not, let the user know that the word doesn't exist
-      setLabel("Word doesn't exist")
+      setLabel("Word doesn't exist");
     }
     // Check if it the user's guess is the right word
     else if (isRightWord(randomWord, guess)) {
@@ -36,7 +36,7 @@ function App() {
       for (let i = 0; i < guess.length; i++) {
         setStickyColorAndText(stickyIds[i][tries], "green", guess[i]);
       }
-      setLabel("You won!")
+      setLabel("You won!");
     } else {
       // Check the statuses of each letter and update stickies
       guess.split("").forEach((letter, i) => {
@@ -56,8 +56,8 @@ function App() {
 
       // The user has 5 tries
       if (tries == 4) {
-        setLabel("You lost!")
-        setTries(0)
+        setLabel("You lost!");
+        setTries(0);
       }
       setTries(tries + 1);
     }
@@ -67,7 +67,11 @@ function App() {
     <div className="grid" style={{ height: "auto", width: "100%" }}>
       <div className="cs1 ce12"></div>
       <div className="cs1 ce12">
-        {label !== "" && <span className="label label-warning" id="info-text">{label}</span>}
+        {label !== "" && (
+          <span className="label label-warning" id="info-text">
+            {label}
+          </span>
+        )}
         <div className="form-group">
           <input
             className="input"
