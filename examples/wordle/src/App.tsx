@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, StrictMode } from "react";
+import ReactDOM from "react-dom";
 import { stickyIds, createWordle, setStickyColorAndText } from "./lib/board";
 import { isWordInWordList, getRandomWord, isRightWord } from "./lib/word";
 
@@ -95,4 +96,10 @@ function App() {
     </div>
   );
 }
-export default App;
+
+ReactDOM.render(
+  <StrictMode>
+    <App />
+  </StrictMode>,
+  document.getElementById("root")
+);
