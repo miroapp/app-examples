@@ -5,8 +5,6 @@ const center = 0;
 const numberOfChances = 5;
 const numberOfLetters = 5;
 
-// export let stickyIds: string[][];
-// TODO: Replace this by a cleaner version
 export const stickyIds = [
   ["string", "string", "string", "string", "string"],
   ["string", "string", "string", "string", "string"],
@@ -33,6 +31,7 @@ export const createWordle = async () => {
       stickyIds[i][j] = sticky.id;
     }
   }
+
 };
 
 // Helper to change the color and the text of a sticky note by its id
