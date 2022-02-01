@@ -74,7 +74,7 @@ function App() {
         <div className="form-group">
           <input
             className="input"
-            maxLength="5"
+            maxLength={5}
             id="wordGuess"
             type="text"
             placeholder="Enter your word"
