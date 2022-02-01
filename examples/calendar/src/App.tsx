@@ -158,4 +158,3 @@ ReactDOM.render(
 
 // Initialize board
 init();
-

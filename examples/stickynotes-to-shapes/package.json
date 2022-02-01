@@ -7,7 +7,7 @@
     "serve": "vite preview"
   },
   "devDependencies": {
-    "@mirohq/websdk-types": "^0.0.2",
+    "@mirohq/websdk-types": "latest",
     "vite": "2.5.0"
   }
 }

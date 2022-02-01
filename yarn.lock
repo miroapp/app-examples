@@ -265,10 +265,10 @@
   resolved "https://registry.yarnpkg.com/@humanwhocodes/object-schema/-/object-schema-1.2.1.tgz#b520529ec21d8e5945a1851dfd1c32e94e39ff45"
   integrity sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==
 
-"@mirohq/websdk-types@^0.0.2":
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/@mirohq/websdk-types/-/websdk-types-0.0.2.tgz#a602228de5d003d0d7262ab60d1078c98b4d38e0"
-  integrity sha512-szKvrq1W9A4AZaER0CvUQUMLwKlaONhQgM5JIO7zbXfz99y5wPc9MX8jKbPSth1hoSpNOh1dKt3hqX3tnl/Omg==
+"@mirohq/websdk-types@latest":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@mirohq/websdk-types/-/websdk-types-1.0.0.tgz#31f9afe387f3e59d1e55c985b5c1d501188246a7"
+  integrity sha512-XIR26RqocsVaFCmkH7N2tSjl2t10rzsdYbUOGJd+ADvb8m6FO7uAvbsuNWEZwJzQX2k6lOksliYL6zRloQXjFA==
   dependencies:
     typescript "4.4.4"
 
