@@ -68,7 +68,7 @@ function App() {
     <div className="grid" style={{ height: "auto", width: "100%" }}>
       <div className="cs1 ce12"></div>
       <div className="cs1 ce12">
-        <span className="label label-warning" id="info-text">{label}</span>
+        {label !== "" && <span className="label label-warning" id="info-text">{label}</span>}
         <div className="form-group">
           <input
             className="input"
