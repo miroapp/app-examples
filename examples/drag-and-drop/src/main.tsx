@@ -1,7 +1,3 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import App from "./App";
-
 const { board } = window.miro;
 
 async function init() {
@@ -17,13 +13,3 @@ async function init() {
   });
 }
 
-// Render App
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById("root")
-);
-
-// Initialize board
-init();

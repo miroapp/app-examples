@@ -1,4 +1,5 @@
 import * as React from "react";
+import ReactDOM from "react-dom";
 import { useCalendar } from "./useCalendar";
 
 function App() {
@@ -147,4 +148,14 @@ function App() {
   );
 }
 
-export default App;
+// Render App
+ReactDOM.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
+  document.getElementById("root")
+);
+
+// Initialize board
+init();
+

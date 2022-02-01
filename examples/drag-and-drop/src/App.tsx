@@ -1,3 +1,6 @@
+import React from "react";
+import ReactDOM from "react-dom";
+
 function App() {
   const images = [
     "https://static-website.miro.com/static/images/page/mr-features-1/tour-m-projects.svg",
@@ -22,4 +25,13 @@ function App() {
   );
 }
 
-export default App;
+// Render App
+ReactDOM.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
+  document.getElementById("root")
+);
+
+// Initialize board
+init();
