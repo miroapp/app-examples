@@ -1,5 +1,3 @@
-import { StickyNote } from "@mirohq/websdk-types";
-
 const { board } = window.miro;
 
 const spaceBetweenStickies = 120;
@@ -16,7 +14,9 @@ export const stickyIds = [
   ["string", "string", "string", "string", "string"],
   ["string", "string", "string", "string", "string"],
 ];
+
 let sticky;
+
 // Add black sticky notes 5*5
 export const createWordle = async () => {
   // Generate Wordle
