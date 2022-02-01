@@ -2,7 +2,7 @@ import * as React from "react";
 import { stickyIds, createWordle, setStickyColorAndText } from "./lib/board";
 import { isWordInWordList, getRandomWord, isRightWord } from "./lib/word";
 function App() {
-  const { board } = window.miro;
+  
 
   let inputElement;
   let guess: string;
