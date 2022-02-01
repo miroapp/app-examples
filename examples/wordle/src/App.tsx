@@ -25,7 +25,6 @@ function App() {
   // When user clicks on "Check"
   const handleCheckWord = () => {
     setLabel("")
-
     // Check if word is in word list
     if (!isWordInWordList(guess)) {
       // If not, let the user know that the word doesn't exist
@@ -77,6 +76,7 @@ function App() {
             type="text"
             placeholder="Enter your word"
             onChange={handleInputChange}
+            autoComplete="off"
           />
         </div>
       </div>
