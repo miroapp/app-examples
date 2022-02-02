@@ -5,3 +5,6 @@ async function init() {
     await board.ui.openPanel({ url: "app.html" });
   });
 }
+
+// Initialize board
+init();
