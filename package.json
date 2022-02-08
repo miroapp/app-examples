@@ -18,10 +18,13 @@
     "build": "yarn turbo run build",
     "prepare": "husky install",
     "lint": "eslint ./",
-    "format:check": "prettier --check ./",
-    "format": "yarn prettier -w ./examples"
+    "preformat": "command -v black >/dev/null || (echo 'You need to install black fromatter, run brew install black' && exit 1)",
+    "format": "yarn prettier -w ./ && black ./examples"
   },
   "lint-staged": {
+    "*.py": [
+      "black"
+    ],
     "*.{js,jsx,ts,tsx,md,markdown,yaml,yml,html,css}": [
       "prettier --write"
     ],

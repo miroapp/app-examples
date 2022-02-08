@@ -27,4 +27,9 @@ jobs:
         run: yarn run lint
 
       - name: Check format
-        run: yarn run format:check
+        run: yarn prettier --check ./examples
+
+      - name: Check python code
+        uses: psf/black@stable
+        with:
+          src: "./examples"
