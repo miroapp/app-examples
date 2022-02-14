@@ -16,7 +16,7 @@ http://localhost:3000
 
 **CAVEAT: the drag and drop functionality will not work when the app is served on localhost.**
 
-**If you would like to use app to its full functionality you will need to deploy the app to a publically accessible location.**
+**If you would like to use app to its full functionality you will need to deploy the app to a publicly accessible location.**
 
 ## How to start with Glitch:
 
@@ -52,4 +52,4 @@ inside `dist/` which you can host on static hosting service.
 
 ### About the app
 
-This sample app shows how you can create dynamic blob svgs on the fly and drag and drop the svgs into a Miro board.
+This sample app shows how you can create dynamic blob svgs on the fly and drag and drop them into a Miro board.
