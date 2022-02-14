@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "licence": "MIT",
   "scripts": {
-    "dev": "npx supervisor server.js",
+    "dev": "supervisor server.js",
     "start": "node server"
   },
   "dependencies": {
