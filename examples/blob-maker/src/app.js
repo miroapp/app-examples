@@ -1,7 +1,7 @@
 const { board } = window.miro;
 
-let edges = 5;
-let colour = "2196F3";
+let edges = 3;
+let colour = "3A57FF";
 let opacity = 100;
 let seed = 1234;
 
@@ -9,11 +9,11 @@ let seed = 1234;
 async function init() {
   const svgBlob = document.getElementById("svg-blob");
 
-  const blobSeed = await fetch("/create-blob?edges=5").then((response) =>
+  const blobSeed = await fetch("/create-blob?edges=3").then((response) =>
     response.text()
   );
 
-  svgBlob.src = `/blob?seed=${blobSeed}`;
+  svgBlob.src = `/blob?seed=${blobSeed}&colour=3A57FF`;
 
   await board.ui.on("drop", async ({ x, y, target }) => {
     try {
@@ -24,9 +24,8 @@ async function init() {
       });
     } catch (error) {
       console.log(error);
-      console.log(
-        `Drag and drop svgs do not work served from localhost 127.0.0.1, \
-          please deploy app.`
+      window.alert(
+        "Drag and drop does not work served from localhost. Please deploy app."
       );
     }
   });
