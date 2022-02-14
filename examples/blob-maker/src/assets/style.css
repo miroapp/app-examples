@@ -1,5 +1,3 @@
-@import "mirotone/dist/styles.css";
-
 *,
 *:before,
 *:after {
@@ -36,4 +34,9 @@ img {
 
 .button {
   text-decoration: none;
+  user-select: none;
+}
+
+.button-container {
+  margin-top: 35px;
 }
