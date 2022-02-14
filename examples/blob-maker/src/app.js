@@ -7,15 +7,11 @@ let seed = 1234;
 
 /** Initialises UI with first SVG blob, adds controls and listeners */
 async function init() {
-  console.log("initialising module");
-
   const svgBlob = document.getElementById("svg-blob");
 
   const blobSeed = await fetch("/create-blob?edges=5").then((response) =>
     response.text()
   );
-
-  console.log(blobSeed);
 
   svgBlob.src = `/blob?seed=${blobSeed}`;
 
