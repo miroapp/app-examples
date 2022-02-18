@@ -1,0 +1,7 @@
+{
+  "include": ["src"],
+  "compilerOptions": {
+    "typeRoots": ["./node_modules/@types", "./node_modules/@mirohq"]
+  },
+  "exclude": ["node_modules"]
+}
