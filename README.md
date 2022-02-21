@@ -22,7 +22,7 @@ npx create-miro-app@beta
 | [calendar](examples/calendar)                           | This example shows you how to add a calendar made with shapes and text for a given month and year.                                                 |
 | [wordle](examples/wordle)                               | This example shows you how to create a wordle-like game using Miro's Web SDK.                                                                      |
 | [blob-maker](examples/blob-maker)                       | This example shows you how to create a drag and drop blobmaker using Miro's Web SDK.                                                               |
-| [youtube-room](examples/youtube-room)                   | This example shows you how to sync Youtube players between different user's UIs using socket IO.                                                   |
+| [youtube-room](examples/youtube-room)                   | This example shows you how to sync a Youtube player across multiple users through Socket.IO.                                                       |
 
 <p>&nbsp;</p>
 
