@@ -21,7 +21,8 @@ npx create-miro-app@beta
 | [template-builder](examples/template-builder)           | This example shows how to create and position on the board multiple widgets of different types and render create custom interfaces in the library. |
 | [calendar](examples/calendar)                           | This example shows you how to add a calendar made with shapes and text for a given month and year.                                                 |
 | [wordle](examples/wordle)                               | This example shows you how to create a wordle-like game using Miro's Web SDK.                                                                      |
-| [blob-maker](examples/blob-maker)                       | This examples shows you how to create a drag and drop blobmaker using Miro's Web SDK.                                                              |
+| [blob-maker](examples/blob-maker)                       | This example shows you how to create a drag and drop blobmaker using Miro's Web SDK.                                                               |
+| [youtube-room](examples/youtube-room)                   | This example shows you how to sync a Youtube player across multiple users through Socket.IO.                                                       |
 
 <p>&nbsp;</p>
 

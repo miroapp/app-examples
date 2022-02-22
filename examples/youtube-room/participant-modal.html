@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="https://unpkg.com/mirotone/dist/styles.css" />
+    <link rel="stylesheet" href="/src/assets/style.css" />
+    <style>
+      #frame {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    </style>
+    <script src="https://miro.com/app/static/sdk/v2/miro.js"></script>
+  </head>
+  <body>
+    <div class="grid">
+      <div class="cs1 ce12">
+        <div id="frame">
+          <!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
+          <div id="player"></div>
+        </div>
+      </div>
+      <div class="cs1 ce12">
+        <div id="controls">
+          <button id="unmute" class="button button-primary">Unmute</button>
+        </div>
+      </div>
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="src/participant-modal.js"></script>
+  </body>
+</html>

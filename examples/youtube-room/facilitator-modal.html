@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="https://unpkg.com/mirotone/dist/styles.css" />
+    <link rel="stylesheet" href="/src/assets/style.css" />
+    <script src="https://miro.com/app/static/sdk/v2/miro.js"></script>
+    <style>
+      #frame {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="grid">
+      <div class="cs1 ce8">
+        <form id="form" action="">
+          <input
+            id="link-input"
+            autocomplete="off"
+            class="input"
+            type="text"
+            placeholder="YouTube URL"
+          />
+        </form>
+      </div>
+      <div class="cs9 ce12">
+        <button id="submit" class="button button-secondary">
+          Choose Video
+        </button>
+      </div>
+      <div class="cs1 ce12">
+        <div id="frame">
+          <div id="player"></div>
+        </div>
+      </div>
+      <div class="cs1 ce12">
+        <button id="push-video" class="button button-primary">
+          Open video for participants
+        </button>
+      </div>
+      <div class="cs1 ce12">
+        <div id="watching-now">
+          <p class="p-large" id="viewers"></p>
+        </div>
+      </div>
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/src/facilitator-modal.js"></script>
+  </body>
+</html>
