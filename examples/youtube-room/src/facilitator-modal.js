@@ -48,7 +48,7 @@ function onYouTubePlayer() {
   console.log("Youtube Iframe Ready");
   player = new YT.Player("player", {
     height: "390",
-    width: "640",
+    width: "100%",
     videoId: "_HTZFf8bkNI",
     align: "middle",
     playerVars: {
