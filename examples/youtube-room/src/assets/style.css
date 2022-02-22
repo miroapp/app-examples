@@ -37,3 +37,7 @@ img {
 .button {
   text-decoration: none;
 }
+
+.grid {
+  height: 100%;
+}
