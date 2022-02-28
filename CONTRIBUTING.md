@@ -12,10 +12,17 @@ Within Miro's Github, you'll find many different projects you can contribute to.
 
 If you're new on contributing to open source projects, visit the links below to get started.
 
+#### Workflows
+
 - [Finding ways to contribute to open source on GitHub](https://docs.github.com/en/get-started/exploring-projects-on-github/finding-ways-to-contribute-to-open-source-on-github)
-- [Set up Git](https://docs.github.com/en/get-started/quickstart/set-up-git)
 - [GitHub flow](https://docs.github.com/en/get-started/quickstart/github-flow)
 - [Collaborating with pull requests](https://docs.github.com/en/github/collaborating-with-pull-requests)
+
+#### Tooling
+
+- [Set up Git](https://docs.github.com/en/get-started/quickstart/set-up-git)
+- [Install NodeJS](https://nodejs.org/en/download/)
+- [Install Black](https://black.readthedocs.io/en/stable/)
 
 ### Issues
 
@@ -36,6 +43,19 @@ We recommend adding as many relevant links, minimal reproductions of the issue, 
 If you're interested in solving an issue in a repository, start by scanning through it's exisiting issues to find one that you're interested in working on. If you find an issue to work on, you are welcome to open a PR with a fix.
 
 ### Make Changes
+
+Most of the changes you will make in this repository will be added to the [examples](/examples/) folder. Here you'll different app examples located under their own directories. To add a new example, start by adding a new folder with all the necessary files to run your app.
+
+> Don't forget to add a descriptive README file so others will know what to expect when looking at your example.
+>
+> Some important things to mention in your README might include:
+>
+> - Getting started
+> - Folder strucutre
+> - About the app
+> - How to get in contact with you for support
+
+**Before making changes, read the [tooling](#tooling) to make sure you have the right tools installed.**
 
 #### Make changes locally
 
