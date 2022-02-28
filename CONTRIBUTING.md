@@ -55,7 +55,7 @@ Most of the changes you will make in this repository will be added to the [examp
 > - About the app
 > - How to get in contact with you for support
 
-**Before making changes, read the [tooling](#tooling) to make sure you have the right tools installed.**
+**Before making changes, read the [tooling](#tooling) section to make sure you have the right tools installed.**
 
 #### Make changes locally
 
