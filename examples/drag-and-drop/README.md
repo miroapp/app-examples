@@ -34,7 +34,7 @@ http://localhost:3000
 
 ### About the app
 
-This sample app shows how you can generate a calendar consisting of Frames and Text. Built in React off of the [`create-miro-app`](https://www.npmjs.com/package/create-miro-app) React/Typescript starter.
+This sample app shows how you can drag and drop images onto a Miro board. Built in React off of the [`create-miro-app`](https://www.npmjs.com/package/create-miro-app) React/Typescript starter.
 
 This app uses [Vite](https://vitejs.dev/).
 If you want to modify the `vite.config.js` configuration, see the [Vite documentation](https://vitejs.dev/guide/).
