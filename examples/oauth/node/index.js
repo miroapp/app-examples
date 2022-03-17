@@ -5,8 +5,6 @@
 // For the full guide on Miro's OAuth 2.0 flow, please see the documentation here:
 // https://beta.developers.miro.com/docs/getting-started-with-oauth 
 
-// ---> #0: 
-// ---> Require dependencies: 'dotenv', 'axios', 'express'
 
 // Require sensitive environment variables (Client ID, Client Secret, Miro Board ID)
 require('dotenv/config');
@@ -31,62 +29,58 @@ app.get('/', (req, res) => {
         // ---> Required parameters include `grant_type`, `client_id`, `client_secret`, `code`, and `redirect_uri`.
         // ---> See full details in Miro documentation here: https://beta.developers.miro.com/docs/getting-started-with-oauth#step-3
 
-        var url = 'https://api.miro.com/v1/oauth/token?grant_type=authorization_code&client_id=' + process.env.clientID + '&client_secret=' + process.env.clientSecret + '&code=' + req.query.code + '&redirect_uri=' + process.env.redirectURL
+        let url = `https://api.miro.com/v1/oauth/token?grant_type=authorization_code&client_id=${process.env.clientID}&client_secret=${process.env.clientSecret}&code=${req.query.code}&redirect_uri=${process.env.redirectURL}`
     
-        axios.post(url, {}).then(function(response) {
+        axios.post(url).then(function(response) {
+            
+            // Console log accesss_token and reference_token:
             console.log(`access_token: ${response.data.access_token}`)
             console.log(`refresh_token: ${response.data.refresh_token}`)
 
             // Set global variable for access_token value
             const access_token = response.data.access_token;
-
+            
             // Specify Miro API request URL
-            var requestUrl = `https://api.miro.com/v2/boards/${process.env.boardId}`
+            let requestUrl = `https://api.miro.com/v2/boards/${process.env.boardId}`
             
             // #4:
             // ---> If `access_token` was successfully retrieved, send an API request to any Miro endpoint that contains the same permissions as your OAuth 2.0 app, with `access_token` as value for Bearer Token. 
             // ---> (See permissions under user profile > apps: https://miro.com/app/settings/user-profile/apps)
-
             if (access_token) {
                 // API request options
-                var config = {
+                let config = {
                     method: 'get',
                     url: requestUrl,
                     headers: { 
                       'Authorization': `Bearer ${access_token}`
                     }
                   }
-                  axios(config)
-                  .then(function (response) {
-                    console.log(JSON.stringify(response.data))
-                    
-                    // Create local variable for API response
-                    var miroResponse = JSON.stringify(response.data)
-
-                    // Display response in browser
-                        var JSONResponse = `<pre><code>${miroResponse}</code></pre>`
-                        res.send(`
-                            <div class="container">
-                                <h1>Hello, World!</h1>
-                                <h3>Miro API Response:</h3>
-                                ${JSONResponse}
-                            </div>
-                        `)
-                  })
-                  .catch(function (error) {
-                    console.log(error)
-                  })
+                  async function callMiro(){
+                    try {
+                        await axios(config);
+                        console.log(JSON.stringify(response.data));
+                        let miroResponse = JSON.stringify(response.data);
+                        // Display response in browser
+                            let JSONResponse = `<pre><code>${miroResponse}</code></pre>`
+                            res.send(`
+                                <div class="container">
+                                    <h1>Hello, World!</h1>
+                                    <h3>Miro API Response:</h3>
+                                    ${JSONResponse}
+                                </div>
+                            `)
+                    } catch (err) {console.log(`ERROR: ${err}`)}
+                  }
+                  callMiro();
                 }  
           }).catch(function(error) {
             console.log(error)
-        })
+        });           
         return
     }
-
     // ---> #2: 
     // ---> If no authorization code is present, redirect to Miro OAuth to authorize retrieve new `code`.
     res.redirect('https://miro.com/oauth/authorize?response_type=code&client_id=' + process.env.clientID + '&redirect_uri=' + process.env.redirectURL)
 })
-
 // Run express server on Localhost 3000
 app.listen(3000, () => console.log(`Listenting on Localhost 3000`))
