@@ -30,7 +30,8 @@ npx create-miro-app@beta
 
 |                                       | Description                                                                              |
 | ------------------------------------- | ---------------------------------------------------------------------------------------- |
-| [python_oauth](examples/python_oauth) | This sample demonstrates how to implement the Oauth 2.0 authorization code flow in Miro. |
+| [python_oauth](examples/oauth/python) | This python sample demonstrates how to implement the Oauth 2.0 authorization code flow in Miro. |
+| [node_oauth](examples/oauth/node) | This NodeJS sample demonstrates how to implement the Oauth 2.0 authorization code flow in Miro and make an API request to a Miro endpoint. |
 
 <p>&nbsp;</p>
 

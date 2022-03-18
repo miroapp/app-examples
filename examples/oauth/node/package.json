@@ -1,0 +1,17 @@
+{
+    "name": "miro-oauth-sample",
+    "version": "1.0.0",
+    "description": "Sample app to demonstrate OAuth 2.0 flow.",
+    "main": "index.js",
+    "scripts": {
+        "start": "nodemon index.js"
+    },
+    "dependencies": {
+        "dotenv": "^16.0.0",
+        "express": "^4.17.3",
+        "axios": "^0.26.1"
+    },
+    "devDependencies": {
+        "nodemon": "^2.0.15"
+    }
+}
