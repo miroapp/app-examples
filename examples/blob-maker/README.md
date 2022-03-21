@@ -1,6 +1,14 @@
-# Blob Maker App
+# Blob maker app
 
-## How to start locally (Drag and drop functionality will not work locally see below):
+**&nbsp;ℹ&nbsp;Note**:
+
+- Drag and drop functionality doesn't work if you serve the app on localhost. \
+  To make drag and drop available, deploy the app to a publicly accessible location.
+- We recommend a Chromium-based web browser for local development with HTTP. \
+  Safari enforces HTTPS; therefore, it doesn't allow localhost through HTTP.
+- For more information about implementing [drag and drop](https://beta.developers.miro.com/docs/add-drag-and-drop-to-your-app), visit our [developer documentation](https://beta.developers.miro.com).
+
+## How to start locally
 
 - Run `yarn` or `npm install` to install dependencies
 - Run `yarn start` or `npm start` to start developing, you should have a URL
@@ -14,11 +22,7 @@ http://localhost:3000
 - open a board & you should see your app in the main toolbar when you click the
   three dots.
 
-**CAVEAT: the drag and drop functionality will not work when the app is served on localhost.**
-
-**If you would like to use app to its full functionality you will need to deploy the app to a publicly accessible location.**
-
-## How to start with Glitch:
+## How to start with Glitch
 
 [Glitch Documentation](https://help.glitch.com/kb/article/20-importing-code-from-github/)
 
@@ -29,10 +33,10 @@ http://localhost:3000
 - After the app starts up, it will have a unique url that will serve the app over https. Click "Preview" in the bottom bar and then "Preview in a new window".
 - You should see "Great, your app is running locally", copy the url.
 - Paste the URL in `App URL` in your app settings
-- Open a board & you should see your app in the main toolbar when you click the
+- Open a board; you should see your app in the main toolbar when you click the
   three dots.
 
-## How to build the app:
+## How to build the app
 
 Run `yarn run build` or `npm run build` and this will generate a static output
 inside `dist/` which you can host on static hosting service.
@@ -52,4 +56,4 @@ inside `dist/` which you can host on static hosting service.
 
 ### About the app
 
-This sample app shows how you can create dynamic blob svgs on the fly and drag and drop them into a Miro board.
+This sample app shows how you can create dynamic blob SVGs on the fly, and drag and drop them onto a Miro board.
