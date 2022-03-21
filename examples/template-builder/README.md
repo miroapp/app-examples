@@ -1,5 +1,11 @@
 # Template builder sample app
 
+**&nbsp;ℹ&nbsp;Note**:
+
+- We recommend a Chromium-based web browser for local development with HTTP. \
+  Safari enforces HTTPS; therefore, it doesn't allow localhost through HTTP.
+- For more information, visit our [developer documentation](https://beta.developers.miro.com).
+
 ## How to start
 
 - Run `yarn` or `npm install` to install the app dependencies.

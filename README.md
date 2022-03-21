@@ -4,14 +4,20 @@
 
 <img alt="Miro" src="https://github.com/miroapp/app-examples/raw/beta/assets/Banner.png" />
 
-Welcome to Miro App Examples! In this repository you can find examples of apps built on top of Miro's Platform 2.0. Make sure you visit our [documentation](https://beta.developers.miro.com) or read our [official blog post](https://miro.com/blog/developer-platform-beta) to learn more.
+Welcome to Miro App Examples! In this repository you can find examples of apps built on top of Miro's Developer Platform 2.0.<br />
+Make sure you visit our [developer documentation](https://beta.developers.miro.com) or read our [official blog post](https://miro.com/blog/developer-platform-beta) to learn more.
 
 ## Web SDK
 
-The fastest way to bootstrap a new app is by using [`create-miro-app`](https://www.npmjs.com/package/create-miro-app)
+The fastest way to bootstrap a new app is by using [`create-miro-app`](https://www.npmjs.com/package/create-miro-app).<br />
+To get started, run the following command:
 
-```
+```shell
 npx create-miro-app@beta
+
+// or
+
+yarn create miro-app@beta
 ```
 
 |                                                         | Description                                                                                                                                        |
@@ -28,10 +34,10 @@ npx create-miro-app@beta
 
 ## REST API
 
-|                                       | Description                                                                              |
-| ------------------------------------- | ---------------------------------------------------------------------------------------- |
-| [python_oauth](examples/oauth/python) | This python sample demonstrates how to implement the Oauth 2.0 authorization code flow in Miro. |
-| [node_oauth](examples/oauth/node) | This NodeJS sample demonstrates how to implement the Oauth 2.0 authorization code flow in Miro and make an API request to a Miro endpoint. |
+|                                       | Description                                                                                                                                |
+| ------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| [python_oauth](examples/oauth/python) | This python sample demonstrates how to implement the Oauth 2.0 authorization code flow in Miro.                                            |
+| [node_oauth](examples/oauth/node)     | This NodeJS sample demonstrates how to implement the Oauth 2.0 authorization code flow in Miro and make an API request to a Miro endpoint. |
 
 <p>&nbsp;</p>
 

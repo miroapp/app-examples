@@ -1,6 +1,12 @@
-# Miro Drag and Drop App
+# Miro drag and drop app
 
-## How to start:
+**&nbsp;ℹ&nbsp;Note**:
+
+- We recommend a Chromium-based web browser for local development with HTTP. \
+  Safari enforces HTTPS; therefore, it doesn't allow localhost through HTTP.
+- For more information about implementing [drag and drop](https://beta.developers.miro.com/docs/add-drag-and-drop-to-your-app), visit our [developer documentation](https://beta.developers.miro.com).
+
+## How to start
 
 - Run `yarn` or `npm install` to install dependencies.
 - Run `yarn start` or `npm start` to start developing. \
@@ -14,7 +20,7 @@ http://localhost:3000
 - Open a board and click the three dots (...) or the chevron (>>) on the left
   toolbar. You should see the Miro calendar app.
 
-## How to build the app:
+## How to build the app
 
 - Run `yarn run build` or `npm run build`. \
   This generates a static output inside `dist/`, which you can host on a static hosting service.
