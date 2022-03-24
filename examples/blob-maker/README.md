@@ -2,8 +2,8 @@
 
 **&nbsp;ℹ&nbsp;Note**:
 
-- Drag and drop functionality doesn't work if you serve the app on localhost. \
-  To make drag and drop available, deploy the app to a publicly accessible location.
+- To make drag and drop available in this example, deploy the app to a publicly accessible location. \
+  In this example, drag and drop functionality doesn't work if you serve the app on localhost.
 - We recommend a Chromium-based web browser for local development with HTTP. \
   Safari enforces HTTPS; therefore, it doesn't allow localhost through HTTP.
 - For more information about implementing [drag and drop](https://beta.developers.miro.com/docs/add-drag-and-drop-to-your-app), visit our [developer documentation](https://beta.developers.miro.com).
