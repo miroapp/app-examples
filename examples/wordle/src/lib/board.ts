@@ -1,6 +1,6 @@
 const { board } = window.miro;
 
-const spaceBetweenStickies = 120;
+const spaceBetweenStickies = 210;
 const center = 0;
 const numberOfChances = 5;
 const numberOfLetters = 5;
