@@ -37,7 +37,7 @@ app.get('/', (req, res) => {
                 
                 // Console log accesss_token and reference_token:
                 console.log(`access_token: ${oauthResponse.data.access_token}`)
-                console.log(`access_token: ${oauthResponse.data.refresh_token}`)
+                console.log(`refresh_token: ${oauthResponse.data.refresh_token}`)
 
                 // Set global variable for access_token value
                 const access_token = oauthResponse.data.access_token;
