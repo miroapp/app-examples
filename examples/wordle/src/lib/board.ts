@@ -2,10 +2,11 @@ const { board } = window.miro;
 
 const spaceBetweenStickies = 210;
 const center = 0;
-const numberOfChances = 5;
+export const numberOfChances = 6;
 const numberOfLetters = 5;
 
 export const stickyIds = [
+  ["string", "string", "string", "string", "string"],
   ["string", "string", "string", "string", "string"],
   ["string", "string", "string", "string", "string"],
   ["string", "string", "string", "string", "string"],
@@ -15,7 +16,7 @@ export const stickyIds = [
 
 let sticky;
 
-// Add black sticky notes 5*5
+// Add black sticky notes
 export const createWordle = async () => {
   // Generate Wordle
   for (let i = 0; i < numberOfLetters; i++) {

@@ -1,6 +1,11 @@
 import { useState, StrictMode } from "react";
 import ReactDOM from "react-dom";
-import { stickyIds, createWordle, setStickyColorAndText } from "./lib/board";
+import {
+  stickyIds,
+  createWordle,
+  setStickyColorAndText,
+  numberOfChances,
+} from "./lib/board";
 import { isWordInWordList, getRandomWord, isRightWord } from "./lib/word";
 
 function App() {
@@ -8,6 +13,11 @@ function App() {
   const [guess, setGuess] = useState("");
   const [randomWord, setRandomWord] = useState("");
   const [tries, setTries] = useState(0);
+  interface Solution {
+    color: string;
+    letter: string;
+  }
+  const solution = new Array<Solution>(randomWord.length);
 
   // Handle input change
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -17,7 +27,8 @@ function App() {
   // When user clicks on "start a new game"
   const handleNewGame = () => {
     setLabel("");
-    setRandomWord(getRandomWord());
+    // setRandomWord(getRandomWord());
+    setRandomWord("ENJOY");
     // Create new Wordle
     createWordle();
     setTries(0);
@@ -39,25 +50,58 @@ function App() {
       }
       setLabel("You won!");
     } else {
-      // Check the statuses of each letter and update stickies
+      // Mark all the right letters in the word with green label
       guess.split("").forEach((letter, i) => {
-        // if the letter is not in the word, the sticky note is black
+        if (letter === randomWord[i]) {
+          solution[i] = { color: "green", letter: letter };
+        }
+      });
+      // Mark all the wrong letters in the word with black label
+      guess.split("").forEach((letter, i) => {
+        if (solution[i]) return;
+
         if (!randomWord.includes(letter)) {
-          setStickyColorAndText(stickyIds[i][tries], "black", guess[i]);
+          solution[i] = { color: "black", letter: letter };
         }
-        // if the letter is right, the sticky note is green
-        else if (letter === randomWord[i]) {
-          setStickyColorAndText(stickyIds[i][tries], "green", guess[i]);
-        }
-        // if the letter is in the word, but not at the right place, the color is yellow
-        else {
-          setStickyColorAndText(stickyIds[i][tries], "yellow", guess[i]);
+      });
+      guess.split("").forEach((letter, i) => {
+        if (solution[i]) return;
+
+        if (
+          randomWord
+            .split("")
+            .findIndex((x, index) => x === letter && !solution[index]) > -1
+        ) {
+          alert("a " + letter);
+          solution[i] = { color: "yellow", letter: letter };
+        } else {
+          alert("b " + letter);
+          solution[i] = { color: "black", letter: letter };
         }
       });
 
-      // The user has 5 tries
-      if (tries == 4) {
-        setLabel("You lost!");
+      solution.forEach((sol, i) => {
+        setStickyColorAndText(stickyIds[i][tries], sol.color, sol.letter);
+      });
+      // // Check the statuses of each letter and update stickies
+      // guess.split("").forEach((letter, i) => {
+      //   // if the letter is not in the word, the sticky note is black
+      //   if (!randomWord.includes(letter)) {
+      //     setStickyColorAndText(stickyIds[i][tries], "black", guess[i]);
+      //   }
+      //   // if the letter is right, the sticky note is green
+      //   else if (letter === randomWord[i]) {
+      //     setStickyColorAndText(stickyIds[i][tries], "green", guess[i]);
+      //   }
+      //   // if the letter is in the word, but not at the right place, the color is yellow
+      //   else {
+      //     setStickyColorAndText(stickyIds[i][tries], "yellow", guess[i]);
+      //   }
+      // });
+
+      // The user has 6 tries
+      if (tries == numberOfChances - 1) {
+        setLabel('You lost! the word was "' + randomWord + '"');
         setTries(0);
       }
       setTries(tries + 1);
