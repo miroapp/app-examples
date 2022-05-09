@@ -22,6 +22,9 @@ app.get('/', (req, res) => {
     // ---> #1: 
     // ---> If an authorization `code` has not already been retrieved from the redirect URL after Miro authorization screen, proceed to #2 (Redirect to Miro authorization URL). Else, proceed to #3 (Requesting access_token/refresh_token pair, using `code`).
 
+    let access_token;
+    let refresh_token;
+
     if (req.query.code) {
 
         // #3: 
@@ -39,8 +42,9 @@ app.get('/', (req, res) => {
                 console.log(`access_token: ${oauthResponse.data.access_token}`)
                 console.log(`refresh_token: ${oauthResponse.data.refresh_token}`)
 
-                // Set global variable for access_token value
-                const access_token = oauthResponse.data.access_token;
+                // Set global variable for access_token and refresh_token values
+                access_token = oauthResponse.data.access_token;
+                refresh_token = oauthResponse.data.refresh_token;
                 
                 // Specify Miro API request URL
                 let requestUrl = `https://api.miro.com/v2/boards/${process.env.boardId}`
@@ -74,14 +78,30 @@ app.get('/', (req, res) => {
                         } catch (err) {console.log(`ERROR: ${err}`)}
                     }
                     callMiro();
+
+                    //Function to refresh access_token and refresh_token pair
+                    async function refreshToken(){
+                        try {
+                            // Declare request URL for refresh_token flow
+                            let refreshUrl = `https://api.miro.com/v1/oauth/token?grant_type=refresh_token&client_id=${process.env.clientID}&client_secret=${process.env.clientSecret}&refresh_token=${refresh_token}`
+
+                            // Make request to Miro OAuth endpoint with grant_type = refresh_token
+                            let oauthRefreshResponse = await axios.post(refreshUrl);
+
+                            console.log(`New access_token: ${oauthRefreshResponse.data.access_token}`);
+                            console.log(`New refresh_token: ${oauthRefreshResponse.data.refresh_token}`);
+                        } catch (err) {console.log(`ERROR: ${err}`)}
+                    }
+                    refreshToken();
                     }  
             } catch (err) {console.log(`ERROR: ${err}`)}
-        }
+        }        
         return grabToken();
     }
     // ---> #2: 
     // ---> If no authorization code is present, redirect to Miro OAuth to authorize retrieve new `code`.
     res.redirect('https://miro.com/oauth/authorize?response_type=code&client_id=' + process.env.clientID + '&redirect_uri=' + process.env.redirectURL)
+
 })
 // Run express server on Localhost 3000
 app.listen(3000, () => console.log(`Listenting on Localhost 3000`))
