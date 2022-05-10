@@ -2,7 +2,7 @@
 
 [![Discord](https://discordapp.com/api/guilds/933103778855534614/widget.png?style=shield)](https://discord.gg/bh64hJVmS5)
 
-<img alt="Miro" src="https://github.com/miroapp/app-examples/raw/beta/assets/Banner.png" />
+<img alt="Miro" src="https://github.com/miroapp/app-examples/raw/main/assets/Banner.png" />
 
 Welcome to Miro App Examples! In this repository you can find examples of apps built on top of Miro's Developer Platform 2.0.<br />
 Make sure you visit our [developer documentation](https://beta.developers.miro.com) or read our [official blog post](https://miro.com/blog/developer-platform-beta) to learn more.
