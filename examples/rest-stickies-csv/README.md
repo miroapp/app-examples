@@ -25,12 +25,12 @@ Miro capabilities covered in this sample app:
 - [Bootstrap](https://www.npmjs.com/package/bootstrap)
 - [Dotenv](https://www.npmjs.com/package/dotenv)
 
-## How to start
+## Setup
 
 1. Clone or download repo
 2. `cd` to root folder
 3. Run `npm install` to install dependencies.
-4. Create a copy of the .env.example file in the root folder or rename it .env, and ensure the following variables are set:
+4. Create a copy of the .env.example file in the root folder or rename it .env, and ensure the following variables are set (see "How to run the project" for more info):
 
 ```
 clientID={YOUR_CLIENT_ID}
@@ -38,37 +38,19 @@ clientSecret={YOUR_CLIENT_SECRET}
 redirectURL={YOUR_REDIRECT_URL}
 boardId={MIRO_BOARD_ID}
 ```
-
-5. `cd` to `authorization` folder
-6. Run `npm install` in the `authorization` folder to install dependencies
-7. Create a copy of the .env.example file in the root folder or rename it .env, and ensure the following variables are set:
-
-```
-clientID={YOUR_CLIENT_ID}
-clientSecret={YOUR_CLIENT_SECRET}
-redirectURL={YOUR_REDIRECT_URL}
-boardId={MIRO_BOARD_ID}
-```
-
-### Set up localtunnel for https environment / authorization
-
-In this example, we will host our local environment over HTTPS using Localtunnel. (You can use other services such as ngrok as well.)
-
-1. Install and run `localtunnel` by running `npx localtunnel --port 8000 -s reststickiestunnel` (include a custom subdomain to ensure your lt url persists) to generate your HTTPS URL for localhost
-2. Copy this HTTPS URL and paste it in the Redirect URI for OAuth2.0 box in your Miro app settings
-3. Paste this same HTTPS URL into your `.env redirectURL` variable (above)
-4. From your desired Miro board, grab the board ID from the URL and paste it into your `.env boardId` variable (above)
-5. From your Miro app settings, grab the Client ID and Client Secret. Paste this into your `.env clientId` and `clientSecret` variables (above)
 
 ## How to run the project
 
 1. Open a new terminal in the root folder of the project
-1. `cd` to the authorization folder
-1. Run `npm run start` to start the server for the authorization flow on Port 3000
-1. Open another new terminal in the root folder of the project
-1. Run `npm run start` to start the server for the Handlebars app
-1. Your express server console should reflect "The web server has started on port 8000" (or the port of your choice)
-   (Make sure you leave both of these servers running)
+1. Run `npm run start`
+1. Your console should reflect "The web server has started on port 8000", "Listening on Localhost 3000", and your `localtunnel` address (https://mirotunnel.loca.lt/)
+1. Copy your `localtunnel` address, and paste it in the Redirect URI for OAuth2.0 box in your Miro app settings
+1. From your Miro app settings, grab the Client ID and Client Secret. Paste this into your `.env clientId` and `clientSecret` variables
+1. From your desired Miro board, grab the board ID from the URL and paste it into your `.env boardId` variable
+1. Finally, copy the original `localtunnel` address (https://mirotunnel.loca.lt/), and paste it into your `.env redirectURL` variable
+1. Visit http://localhost:8000/ to use the app
+
+> Note: You may have to restart the server to reinitialize your project's servers.
 
 ## Folder structure
 

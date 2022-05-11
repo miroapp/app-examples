@@ -6,11 +6,6 @@
     "scripts": {
         "start": "nodemon auth.js"
     },
-    "dependencies": {
-        "dotenv": "^16.0.0",
-        "express": "^4.17.3",
-        "axios": "^0.26.1"
-    },
     "devDependencies": {
         "nodemon": "^2.0.15"
     }

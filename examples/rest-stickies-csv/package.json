@@ -4,7 +4,7 @@
     "description": "Sample app to demonstrate OAuth 2.0 flow.",
     "main": "index.js",
     "scripts": {
-        "start": "nodemon app.js"
+        "start": "cd ./authorization && npm run start & npx localtunnel --port 3000 -s mirotunnel & nodemon app.js"
     },
     "dependencies": {
         "axios": "^0.26.1",
