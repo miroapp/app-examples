@@ -1,0 +1,37 @@
+<html lang="en">
+<head>
+    <!-- <meta> tags> -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <title>REST Stickies</title>
+</head>
+
+<body>
+    <ul class="nav">
+    <li class="nav-item">
+        <a class="nav-link active" href='/'>About</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="inbox" href='get-sticky'>List Stickies</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href='create-sticky'>Create Sticky</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href='update-sticky'>Update Sticky</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href='delete-sticky'>Delete Sticky</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href='upload-csv'>Upload CSV</a>
+    </li>
+    </ul>
+    <div class="container" style="margin-left: inherit;">
+        {{{body}}}
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+</body>
+</html>

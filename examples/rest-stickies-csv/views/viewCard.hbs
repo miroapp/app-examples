@@ -1,0 +1,28 @@
+<br>
+<h2>Stickies on Board</h2>
+<br>
+
+<div>
+    <button class="btn btn-warning" onClick="fetchNewStickies()">Fetch Stickies</button>
+</div>
+
+<br>
+
+<div class="w-50 p-2"> 
+    <ul class="message-list" style="list-style: none;">
+        {{#each miroData}}
+        <img style="width: 2rem; float: right;" src="https://cdn-icons-png.flaticon.com/512/497/497492.png">
+        <h5 style="" class="message-header">Sticky Note</h5>
+            <li><strong>ID:</strong> {{this.id}}</li>
+            <li><strong>Content:</strong> {{this.data.content}}</li>
+        <hr>
+        {{/each}}
+    </ul>
+</div>
+
+
+<script>
+    function fetchNewStickies(){
+        window.location.reload();
+    }
+</script>
