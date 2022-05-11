@@ -1,4 +1,4 @@
-# Miro REST Stickies with Tags
+# Miro REST sticky notes with tags
 
 This sample app demonstrates the use of the Miro REST API's [Sticky Note and Tags endpoints](https://beta.developers.miro.com/docs/stickynote-1) to import external structured data (.csv) into Miro. It makes use of each of the available CRUD (create, read, update, delete) methods to add and manage stickies with tags on a Miro board.
 
