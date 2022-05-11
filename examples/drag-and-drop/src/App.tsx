@@ -1,5 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ReactDOM from "react-dom";
+
+import type { DropEvent } from "@mirohq/websdk-types";
+
+const { board } = miro;
 
 function App() {
   const images = [
@@ -10,19 +14,19 @@ function App() {
     "https://static-website.miro.com/static/images/page/mr-features-1/tour-m-learn.svg",
   ];
 
-  const { board } = window.miro;
+  const drop = async (e: DropEvent) => {
+    const { x, y, target } = e;
 
-  async function init() {
-    board.ui.on("drop", async ({ x, y, target }) => {
-      if (target instanceof HTMLImageElement) {
-        const image = await board.createImage({ x, y, url: target.src });
-        await board.viewport.zoomTo(image);
-      }
-    });
-  }
+    if (target instanceof HTMLImageElement) {
+      const image = await board.createImage({ x, y, url: target.src });
+      await board.viewport.zoomTo(image);
+    }
+  };
 
-  // Initialize board
-  init();
+  // Register the drop event handler once.
+  useEffect(() => {
+    board.ui.on("drop", drop);
+  });
 
   return (
     <div className="main">
@@ -30,6 +34,7 @@ function App() {
         return (
           <img
             src={image}
+            draggable={false}
             className="miro-draggable draggable-item"
             key={index}
           />
