@@ -22,7 +22,8 @@ yarn create miro-app@beta
 
 |                                                         | Description                                                                                                                                        |
 | ------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [drag-and-drop](examples/drag-and-drop)                 | This example show you how to drag and drop images from your app onto the board.                                                                    |
+| [drag-and-drop](examples/drag-and-drop)                 | This example shows you how to drag and drop images from your app onto the board.                                                                   |
+| [connect-backend](examples/connect-backend)             | This example shows you how to connect an SDK app to a Firebase backend.                                                                            |
 | [stickynotes-to-shapes](examples/stickynotes-to-shapes) | This example allows you to select several stickies, click the plugin button in the bottom bar, and replace any selected stickies with shapes.      |
 | [template-builder](examples/template-builder)           | This example shows how to create and position on the board multiple widgets of different types and render create custom interfaces in the library. |
 | [calendar](examples/calendar)                           | This example shows you how to add a calendar made with shapes and text for a given month and year.                                                 |
@@ -32,12 +33,13 @@ yarn create miro-app@beta
 
 <p>&nbsp;</p>
 
-## REST API
+## REST APIs
 
-|                                       | Description                                                                                                                                |
-| ------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
-| [python_oauth](examples/oauth/python) | This python sample demonstrates how to implement the Oauth 2.0 authorization code flow in Miro.                                            |
-| [node_oauth](examples/oauth/node)     | This NodeJS sample demonstrates how to implement the Oauth 2.0 authorization code flow in Miro and make an API request to a Miro endpoint. |
+|                                                 | Description                                                                                                                                                                                                                                                                                             |
+| ----------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [python_oauth](examples/oauth/python)           | This python sample demonstrates how to implement the Oauth 2.0 authorization code flow in Miro.                                                                                                                                                                                                         |
+| [node_oauth](examples/oauth/node)               | This NodeJS sample demonstrates how to implement the Oauth 2.0 authorization code flow in Miro and make an API request to a Miro endpoint.                                                                                                                                                              |
+| [rest-stickies-csv](examples/rest-stickies-csv) | This NodeJS sample app uses server side rendering (HandlebarsJS) to provide a lightweight, CRUD-oriented REST example in the browser for Miro's Sticky Notes and Tags APIs. It demonstrates a structured > unstructured use case via CSV import, creating Miro Sticky Notes with Tags based on CSV data |
 
 <p>&nbsp;</p>
 
