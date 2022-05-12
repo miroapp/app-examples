@@ -3,7 +3,7 @@
 // NOTE: Any comments with "--->" signify part of a significant step in the flow. Comments without "--->" are added for additional reference on code.
 
 // For the full guide on Miro's OAuth 2.0 flow, please see the documentation here:
-// https://beta.developers.miro.com/docs/getting-started-with-oauth 
+// https://developers.miro.com/docs/getting-started-with-oauth 
 
 
 // Require sensitive environment variables (Client ID, Client Secret, Miro Board ID)
@@ -30,7 +30,7 @@ app.get('/', (req, res) => {
         // #3: 
         // ---> Request `access_token` and `refresh_token` pair by making a request to Miro /oauth endpoint. 
         // ---> Required parameters include `grant_type`, `client_id`, `client_secret`, `code`, and `redirect_uri`.
-        // ---> See full details in Miro documentation here: https://beta.developers.miro.com/docs/getting-started-with-oauth#step-3
+        // ---> See full details in Miro documentation here: https://developers.miro.com/docs/getting-started-with-oauth#step-3
 
         let url = `https://api.miro.com/v1/oauth/token?grant_type=authorization_code&client_id=${process.env.clientID}&client_secret=${process.env.clientSecret}&code=${req.query.code}&redirect_uri=${process.env.redirectURL}`
     
@@ -38,7 +38,7 @@ app.get('/', (req, res) => {
             try {
                 let oauthResponse = await axios.post(url);
                 
-                // Console log accesss_token and reference_token:
+                // Console log access_token and reference_token:
                 console.log(`access_token: ${oauthResponse.data.access_token}`)
                 console.log(`refresh_token: ${oauthResponse.data.refresh_token}`)
 
@@ -103,6 +103,6 @@ app.get('/', (req, res) => {
     res.redirect('https://miro.com/oauth/authorize?response_type=code&client_id=' + process.env.clientID + '&redirect_uri=' + process.env.redirectURL)
 
 })
-// Run express server on Localhost 3000
+// Run express server on localhost:3000
 
-app.listen(3000, () => console.log(`Listenting on Localhost 3000`))
+app.listen(3000, () => console.log(`Listening on localhost, port 3000`))
