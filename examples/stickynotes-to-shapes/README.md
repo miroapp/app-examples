@@ -4,7 +4,7 @@
 
 - We recommend a Chromium-based web browser for local development with HTTP. \
   Safari enforces HTTPS; therefore, it doesn't allow localhost through HTTP.
-- For more information about [converting sticky notes to shapes](https://beta.developers.miro.com/docs/converting-sticky-notes-to-shapes), visit our [developer documentation](https://beta.developers.miro.com).
+- For more information about [converting sticky notes to shapes](https://developers.miro.com/docs/converting-sticky-notes-to-shapes), visit our [developer documentation](https://developers.miro.com).
 
 ## How to start
 

@@ -4,7 +4,7 @@
 
 - We recommend a Chromium-based web browser for local development with HTTP. \
   Safari enforces HTTPS; therefore, it doesn't allow localhost through HTTP.
-- For more information about implementing [drag and drop](https://beta.developers.miro.com/docs/add-drag-and-drop-to-your-app), visit our [developer documentation](https://beta.developers.miro.com).
+- For more information about implementing [drag and drop](https://developers.miro.com/docs/add-drag-and-drop-to-your-app), visit our [developer documentation](https://developers.miro.com).
 
 ## How to start
 
@@ -32,7 +32,7 @@ http://localhost:3000
 ├── src
 │  └── styles
 │      └── style.css <-- CSS styles for the app.
-│  └── App.tsx <-- The main app. Contains strucutre for the sidebar when launched. This file also contains logic for fetching images from [The Noun Project](https://thenounproject.com/).
+│  └── App.tsx <-- The main app. Contains structure for the sidebar when launched. This file also contains logic for fetching images from [The Noun Project](https://thenounproject.com/).
 │      main.tsx <-- Initializes app, and contains logic for dropping image onto the board.
 ├── app.html <-- The app itself. This is loaded on the board inside the 'appContainer'
 └── index.html <-- The app entry point. This is what you specify in the 'App URL' box in the Miro app settings
