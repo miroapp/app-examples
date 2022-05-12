@@ -1,3 +1,7 @@
+const sharedRules = {
+  "no-inner-declarations": "off",
+};
+
 module.exports = {
   root: true,
   extends: ["eslint:recommended"],
@@ -9,6 +13,7 @@ module.exports = {
     ecmaVersion: "latest",
     sourceType: "module",
   },
+  rules: { ...sharedRules },
   overrides: [
     {
       files: ["*.ts", "*.tsx"],
@@ -23,6 +28,7 @@ module.exports = {
         "plugin:@typescript-eslint/recommended",
         "plugin:@typescript-eslint/eslint-recommended",
       ],
+      rules: { ...sharedRules },
     },
   ],
 };

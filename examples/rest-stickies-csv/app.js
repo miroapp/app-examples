@@ -38,6 +38,17 @@ const requestUrl = `https://api.miro.com/v2/boards/${process.env.boardId}/sticky
 // Declare global access_token variable
 let oauthAccessToken;
 
+let tagData;
+let tagData2;
+let tagData3;
+let tagData4;
+
+// Clean Tag IDs from response
+let tagId;
+let tagId2;
+let tagId3;
+let tagId4;
+
 // <-------- ROUTES -------->
 
 // ROUTE (GET): Retrieve access_token from OAuth redirect
