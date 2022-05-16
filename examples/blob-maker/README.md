@@ -6,7 +6,7 @@
   In this example, drag and drop functionality doesn't work if you serve the app on localhost.
 - We recommend a Chromium-based web browser for local development with HTTP. \
   Safari enforces HTTPS; therefore, it doesn't allow localhost through HTTP.
-- For more information about implementing [drag and drop](https://beta.developers.miro.com/docs/add-drag-and-drop-to-your-app), visit our [developer documentation](https://beta.developers.miro.com).
+- For more information about implementing [drag and drop](https://developers.miro.com/docs/add-drag-and-drop-to-your-app), visit our [developer documentation](https://developers.miro.com).
 
 ## How to start locally
 
@@ -31,7 +31,7 @@ http://localhost:3000
 - You should be able to select the option "Import from Github".
 - You can copy this app folder into a new github repo and use this url or you can use https://github.com/CharlieWinters/miro-blob-maker
 - After the app starts up, it will have a unique url that will serve the app over https. Click "Preview" in the bottom bar and then "Preview in a new window".
-- You should see "Great, your app is running locally", copy the url.
+- You should see "Great, your app is running locally!"; copy the URL.
 - Paste the URL in `App URL` in your app settings
 - Open a board; you should see your app in the main toolbar when you click the
   three dots.

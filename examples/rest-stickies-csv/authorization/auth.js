@@ -1,7 +1,7 @@
 // This auth.js script is used to authorize the end user and pass their access_token to `./app.js`
 
 // For the full guide on Miro's OAuth 2.0 flow, please see the documentation here:
-// https://beta.developers.miro.com/docs/getting-started-with-oauth
+// https://developers.miro.com/docs/getting-started-with-oauth
 
 // Require sensitive environment variables (Client ID, Client Secret, Miro Board ID)
 require("dotenv").config({ path: "../.env" });
@@ -24,7 +24,7 @@ app.get("/", (req, res) => {
     // #3:
     // ---> Request `access_token` by making a request to Miro /oauth endpoint.
     // ---> Required parameters include `grant_type`, `client_id`, `client_secret`, `code`, and `redirect_uri`.
-    // ---> See full details in Miro documentation here: https://beta.developers.miro.com/docs/getting-started-with-oauth#step-3
+    // ---> See full details in Miro documentation here: https://developers.miro.com/docs/getting-started-with-oauth#step-3
 
     let url = `https://api.miro.com/v1/oauth/token?grant_type=authorization_code&client_id=${process.env.clientID}&client_secret=${process.env.clientSecret}&code=${req.query.code}&redirect_uri=${process.env.redirectURL}`;
 
@@ -79,5 +79,5 @@ app.get("/", (req, res) => {
       process.env.redirectURL
   );
 });
-// Run express server on Localhost 3000
-app.listen(3000, () => console.log(`Listening on Localhost 3000`));
+// Run express server on localhost:3000
+app.listen(3000, () => console.log(`Listening on localhost, port 3000`));

@@ -1,18 +1,18 @@
-# Miro REST Stickies with Tags
+# Miro REST sticky notes with tags
 
-This sample app demonstrates the use of the Miro REST API's [Sticky Note and Tags endpoints](https://beta.developers.miro.com/docs/stickynote-1) to import external structured data (.csv) into Miro. It makes use of each of the available CRUD (create, read, update, delete) methods to add and manage stickies with tags on a Miro board.
+This sample app demonstrates the use of the Miro REST API [`sticky_notes`](https://developers.miro.com/reference/create-sticky-note-item) and [`tags`](https://developers.miro.com/reference/create-tag) endpoints to import external structured data (.csv) into Miro. It makes use of each of the available CRUD (create, read, update, delete) methods to add and manage sticky notes with tags on a Miro board.
 
 Miro capabilities covered in this sample app:
 
-1. [x] Miro Sticky Note items
-2. [x] Miro Tag items
-3. [x] CSV data —> Stickies with tags
+1. [x] Miro sticky note items
+2. [x] Miro tag items
+3. [x] CSV data —> sticky notes with tags
 
 ## Prerequisites:
 
-1. Create an [app in Miro](https://miro.com/app/settings/user-profile/apps)
-2. Create a board in Miro that you'd like to import / create stickies to
-3. `localtunnel` to host localhost online (see installation section below)
+1. Create an [app in Miro](https://miro.com/app/settings/user-profile/apps).
+2. Create a board in Miro that you'd like to import / create sticky notes to.
+3. `localtunnel` to host `localhost` online (see installation section below).
 
 ## Dependencies:
 
@@ -27,10 +27,10 @@ Miro capabilities covered in this sample app:
 
 ## Setup
 
-1. Clone or download repo
-2. `cd` to root folder
-3. Run `npm install` to install dependencies.
-4. Create a copy of the .env.example file in the root folder or rename it .env, and ensure the following variables are set (see "How to run the project" for more info):
+1. Clone or download the repo.
+2. `cd` to the root repo folder.
+3. `npm install` to install dependencies.
+4. Create a copy of the `.env.example` file in the root folder or rename it to `.env`, and ensure the following variables are set (see [How to run the project](#how-to-run-the-project) for more info):
 
 ```
 clientID={YOUR_CLIENT_ID}
@@ -41,14 +41,14 @@ boardId={MIRO_BOARD_ID}
 
 ## How to run the project
 
-1. Open a new terminal in the root folder of the project
+1. Open a new terminal in the root folder of the project.
 1. Run `npm run start`
-1. Your console should reflect "The web server has started on port 8000", "Listening on Localhost 3000", and your `localtunnel` address (https://mirotunnel.loca.lt/)
-1. Copy your `localtunnel` address, and paste it in the Redirect URI for OAuth2.0 box in your Miro app settings
-1. From your Miro app settings, grab the Client ID and Client Secret. Paste this into your `.env clientId` and `clientSecret` variables
-1. From your desired Miro board, grab the board ID from the URL and paste it into your `.env boardId` variable
-1. Finally, copy the original `localtunnel` address (https://mirotunnel.loca.lt/), and paste it into your `.env redirectURL` variable
-1. Visit http://localhost:8000/ to use the app
+1. Your console should return `"The web server has started on port 8000", "Listening on localhost, port 3000"`, and your `localtunnel` address (https://mirotunnel.loca.lt/)
+1. Copy your `localtunnel` address, and paste it in the Redirect URI for OAuth2.0 box in your Miro app settings.
+1. From your Miro app settings, grab **Client ID** and **Client secret**. Paste this into your `.env` file `clientId` and `clientSecret` variables.
+1. From your desired Miro board, grab the board ID from the URL and paste it into your `.env` file `boardId` variable.
+1. Finally, copy the original `localtunnel` address (https://mirotunnel.loca.lt/), and paste it into your `.env` file `redirectURL` variable.
+1. Visit http://localhost:8000/ to use the app.
 
 > Note: You may have to restart the server to reinitialize your project's servers.
 
