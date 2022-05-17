@@ -1,4 +1,4 @@
-# Sticky notes to shapes sample app
+## Sticky notes to shapes sample app
 
 **&nbsp;ℹ&nbsp;Note**:
 
@@ -6,26 +6,23 @@
   Safari enforces HTTPS; therefore, it doesn't allow localhost through HTTP.
 - For more information about [converting sticky notes to shapes](https://developers.miro.com/docs/converting-sticky-notes-to-shapes), visit our [developer documentation](https://developers.miro.com).
 
-## How to start
+### How to start locally
 
 - Run `yarn` or `npm install` to install dependencies.
 - Run `yarn start` or `npm start` to start developing. \
-  Your URL should be similar to this example:
+  Your URL should be similar to this example: \
+  ```
+  http://localhost:3000
+  ```
+- Paste the URL under **App URL** in your [app settings](https://developers.miro.com/docs/build-your-first-hello-world-app#step-3-create-your-app-in-miro).
+- Open a board; you should see your app in the app toolbar or in the **Apps** panel.
 
-```
-http://localhost:3000
-```
-
-- Paste this URL in the `App URL` box in your Miro app settings.
-- Open a board and click the three dots (...) or the chevron (>>) on the left
-  toolbar. You should see the Miro starter app.
-
-## How to build the app
+### How to build the app
 
 - Run `yarn run build` or `npm run build`. \
   This generates a static output inside `dist/`, which you can host on a static hosting service.
 
-## Folder structure
+### Folder structure
 
 ```
 .
@@ -38,5 +35,5 @@ http://localhost:3000
 
 This sample app shows how you can select items on the board, and then click the app icon to change the selected sticky notes into shapes.
 
-This app uses [Vite](https://vitejs.dev/).
+This app uses [Vite](https://vitejs.dev/). \
 If you want to modify the `vite.config.js` configuration, see the [Vite documentation](https://vitejs.dev/guide/).

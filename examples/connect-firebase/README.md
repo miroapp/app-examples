@@ -1,41 +1,43 @@
-## Connect Miro to a Firebase Backend
+## Connect a Miro app to a Firebase Backend
 
-This project follows our guide "How to connect the Web SDK to a backend", and contains the finished code. Read through the guide for an in-depth walkthrough on setting this project up from scratch.
+This project follows our guide _How to connect the Web SDK to a backend_, and it contains the finished code.\
+Read through the guide for an in-depth walkthrough on setting this project up from scratch.
 
-## How to start
+### How to connect to the Firebase backend
 
 - Run `yarn` or `npm install` to install dependencies.
 - Open `src/app.js`, and replace the `firebaseConfig` object with the settings from your Firebase project.
 
 ```js
 const firebaseConfig = {
-  apiKey: "YOUR-API-KEY",
-  authDomain: "YOUR-DOMAIN.firebaseapp.com",
-  databaseURL: "https://YOUR-DOMAIN-rtdb.firebaseio.com",
-  projectId: "YOUR-PROJECT-ID",
-  storageBucket: "YOUR-BUCKET.appspot.com",
-  messagingSenderId: "YOUR-SENDER-ID",
-  appId: "YOUR-APP-ID",
+  apiKey: "<YOUR-API-KEY>",
+  authDomain: "<YOUR-DOMAIN>.firebaseapp.com",
+  databaseURL: "https://<YOUR-DOMAIN>-rtdb.firebaseio.com",
+  projectId: "<YOUR-PROJECT-ID>",
+  storageBucket: "<YOUR-BUCKET>.appspot.com",
+  messagingSenderId: "<YOUR-SENDER-ID>",
+  appId: "<YOUR-APP-ID>",
 };
 ```
 
-- Run `yarn start` or `npm start` to start developing, you should have a URL
-  that looks like this
+### How to start locally
 
-```
-http://localhost:3000
-```
+- Run `yarn start` or `npm start` to start developing. \
+  Your URL should be similar to this example: \
+  ```
+  http://localhost:3000
+  ```
+- Paste the URL under **App URL** in your [app settings](https://developers.miro.com/docs/build-your-first-hello-world-app#step-3-create-your-app-in-miro).
+- Open a board; you should see your app in the app toolbar or in the **Apps** panel.
 
-- Paste the URL in `App URL` in your app settings
-- open a board & you should see your app in the main toolbar when you click the
-  three dots.
+### How to build the app
 
-## How to build the app:
-
-Run `yarn run build` or `npm run build` and this will generate a static output
-inside `dist/` which you can host on static hosting service.
+- Run `yarn run build` or `npm run build`. \
+  This generates a static output inside `dist/`, which you can host on a static hosting service.
 
 ### About the app
 
-This app is using [vite](https://vitejs.dev/) so you can check the documentation
-if you want to modify `vite.config.js` configuration if needed.
+This app connects to a database backend hosted on Firebase to enable persistent data storage.
+
+This app uses [Vite](https://vitejs.dev/). \
+If you want to modify the `vite.config.js` configuration, see the [Vite documentation](https://vitejs.dev/guide/).

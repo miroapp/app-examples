@@ -1,4 +1,4 @@
-# Miro REST sticky notes with tags
+## Miro REST sticky notes with tags
 
 This sample app demonstrates the use of the Miro REST API [`sticky_notes`](https://developers.miro.com/reference/create-sticky-note-item) and [`tags`](https://developers.miro.com/reference/create-tag) endpoints to import external structured data (.csv) into Miro. It makes use of each of the available CRUD (create, read, update, delete) methods to add and manage sticky notes with tags on a Miro board.
 
@@ -8,13 +8,13 @@ Miro capabilities covered in this sample app:
 2. [x] Miro tag items
 3. [x] CSV data —> sticky notes with tags
 
-## Prerequisites:
+### Prerequisites:
 
 1. Create an [app in Miro](https://miro.com/app/settings/user-profile/apps).
 2. Create a board in Miro that you'd like to import / create sticky notes to.
 3. `localtunnel` to host `localhost` online (see installation section below).
 
-## Dependencies:
+### Dependencies:
 
 - [Localtunnel](https://github.com/localtunnel/localtunnel) (or similar, such as [ngrok](https://ngrok.com/download))
 - [NodeJS](https://nodejs.org/en/download/)
@@ -25,7 +25,7 @@ Miro capabilities covered in this sample app:
 - [Bootstrap](https://www.npmjs.com/package/bootstrap)
 - [Dotenv](https://www.npmjs.com/package/dotenv)
 
-## Setup
+### Setup
 
 1. Clone or download the repo.
 2. `cd` to the root repo folder.
@@ -39,7 +39,7 @@ redirectURL={YOUR_REDIRECT_URL}
 boardId={MIRO_BOARD_ID}
 ```
 
-## How to run the project
+### How to run the project
 
 1. Open a new terminal in the root folder of the project.
 1. Run `npm run start`
@@ -52,7 +52,7 @@ boardId={MIRO_BOARD_ID}
 
 > Note: You may have to restart the server to reinitialize your project's servers.
 
-## Folder structure
+### Folder structure
 
 ```
 .
@@ -78,4 +78,6 @@ boardId={MIRO_BOARD_ID}
 
 ### About the app
 
-This is a backend app built on Node.js and Express.js, with Handlebars.js for rendering. We've used `localtunnel` for hosting our localhost port over HTTPS. Localtunnel exposes your local environment online so that you can more easily test. Per `localtunnel`, it's "Great for working with browser testing tools like browserling or external api callback services...which require a public url for callbacks."
+This is a backend app built on Node.js and Express.js, with Handlebars.js for rendering.\
+We use Localtunnel for hosting our localhost port over HTTPS. Localtunnel exposes your local environment online so that you can more easily test. \
+Per Localtunnel, it's "Great for working with browser testing tools like browserling or external API callback services [...] which require a public URL for callbacks."
