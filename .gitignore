@@ -4,3 +4,10 @@ node_modules
 dist
 .DS_Store
 .env
+.idea/app-examples.iml
+.idea/codeStyles/codeStyleConfig.xml
+.idea/codeStyles/Project.xml
+.idea/inspectionProfiles/Project_Default.xml
+.idea/markdown.xml
+.idea/modules.xml
+.idea/vcs.xml

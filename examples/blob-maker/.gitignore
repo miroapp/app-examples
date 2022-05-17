@@ -21,3 +21,7 @@ yarn-error.log*
 
 .env
 dist
+
+# JetBrains IDE local config files
+.idea
+/.idea

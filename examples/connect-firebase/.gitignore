@@ -18,6 +18,9 @@ yarn-debug.log*
 yarn-error.log*
 
 # local env files
-
 .env
 dist
+
+# local IDE configs
+.idea
+/.idea

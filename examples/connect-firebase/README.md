@@ -1,11 +1,11 @@
-# Connecting Miro to a Firebase Backend
+## Connect Miro to a Firebase Backend
 
 This project follows our guide "How to connect the Web SDK to a backend", and contains the finished code. Read through the guide for an in-depth walkthrough on setting this project up from scratch.
 
-## How to start:
+## How to start
 
-- Run `yarn` or `npm install` to install dependencies
-- Open `src/app.js`, and replace the `firebaseConfig` object with the settings from your Firebase project
+- Run `yarn` or `npm install` to install dependencies.
+- Open `src/app.js`, and replace the `firebaseConfig` object with the settings from your Firebase project.
 
 ```js
 const firebaseConfig = {
