@@ -21,6 +21,9 @@ yarn-error.log*
 .env
 dist
 
-# local IDE configs
+# JetBrains IDE local config files
 .idea
-/.idea
+.idea/*
+
+# VS Code local config files
+.vscode/

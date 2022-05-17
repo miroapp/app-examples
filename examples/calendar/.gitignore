@@ -11,8 +11,11 @@ dist-ssr
 
 # local env files
 .env
-dist
 
 # JetBrains IDE local config files
+.idea
 .idea/*
-/.idea
+
+# VS Code local config files
+.vscode/
+
