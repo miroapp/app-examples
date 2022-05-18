@@ -13,7 +13,7 @@ The fastest way to bootstrap a new app is by using [`create-miro-app`](https://w
 To get started, run the following command:
 
 ```shell
-npx create miro-app@latest
+npx create-miro-app@latest
 
 // or
 
