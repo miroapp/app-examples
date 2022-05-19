@@ -1,25 +1,26 @@
-# Miro OAuth2.0
+## Miro OAuth2.0
 
-## Prerequisites
+### Prerequisites
 
-- Create an app in Miro (https://miro.com/app/settings/user-profile/apps)
-- Install Localtunnel (or similar, such as Ngrok)
+- [Create a new app in Miro](https://miro.com/app/settings/user-profile/apps).
+- Install [Localtunnel](https://www.npmjs.com/package/localtunnel) or a similar tool, such as [ngrok](https://ngrok.com/).
 
-## How to start
+### How to start
 
 - Clone or download repo.
 - `cd` to the repo root folder.
 - `npm install` to install dependencies.
-- Create a `.env` file in the root folder, and set the following variables:
+- Create an `.env` file in the root folder, and set the following variables:
 
 ```
-clientID={YOUR_CLIENT_ID)
-clientSecret={YOUR_CLIENT_SECRET}
-redirectURL={YOUR_REDIRECT_URL}
-boardId={MIRO_BOARD_ID}
+clientID=<YOUR_CLIENT_ID>
+clientSecret=<YOUR_CLIENT_SECRET>
+redirectURL=<YOUR_REDIRECT_URL>
+boardId=<MIRO_BOARD_ID>
 ```
 
-In this example, we will host our local environment over `HTTPS` using [Localtunnel](https://www.npmjs.com/package/localtunnel). (You can use other services such as [ngrok](https://ngrok.com/download) as well.)
+In this example, we will host our local environment over `HTTPS` using [Localtunnel](https://www.npmjs.com/package/localtunnel).\
+(You can use other services such as [ngrok](https://ngrok.com/download) as well.)
 
 - Install [localtunnel](https://www.npmjs.com/package/localtunnel) (or your preferred service).
 - Generate your HTTPS URL (if using localtunnel, `lt --port 3000`) for localhost.
@@ -28,7 +29,7 @@ In this example, we will host our local environment over `HTTPS` using [Localtun
 - From your desired Miro board, grab the board ID from the URL and paste it into your `.env` file `boardId` variable (above).
 - From your Miro app settings, grab the Client ID and Client Secret. Paste this into your `.env` file `clientId` and `clientSecret` variables (above).
 
-## How to run the project
+### How to run the project
 
 - Run `npm run start` to run the project.
 - Your express server console should reflect `Listening on localhost, port 3000` (or the port of your choice).
@@ -37,7 +38,7 @@ In this example, we will host our local environment over `HTTPS` using [Localtun
 
 - This should redirect you to your Localtunnel URL, where you will see the JSON API response from the [GET Board API](https://developers.miro.com/reference/get-boards) displayed in the browser.
 
-## Folder structure
+### Folder structure
 
 ```
 .
@@ -52,8 +53,9 @@ In this example, we will host our local environment over `HTTPS` using [Localtun
 This sample app is intended to demonstrate the OAuth 2.0 flow that is required to call Miro's V2 APIs.
 
 Devs may consider using this Node.js demo as a structural basis for any other preferred language/framework.
-NOTE: Any comments with "--->" signify part of a significant step in the flow. Comments without "--->" are added for additional reference on code.
+NOTE: Any comments with `-->`or `<--` indicate a significant step in the flow. \
+Comments without these markers are for additional reference about the code.
 
-For the full guide on Miro's OAuth 2.0 flow, please see the documentation [here](https://developers.miro.com/docs/getting-started-with-oauth).
+For the full guide on Miro's OAuth 2.0 flow, [see the documentation](https://developers.miro.com/docs/getting-started-with-oauth).
 
-This app uses Express for a local server, localtunnel for exposing localhost, Node.js, and Axios for making HTTP requests.
+This app uses Express for a local server, Localtunnel for exposing localhost, Node.js, and Axios for making HTTP requests.
