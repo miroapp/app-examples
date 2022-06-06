@@ -1,0 +1,17 @@
+{
+  "name": "miro-templates-app",
+  "version": "0.1.0",
+  "licence": "MIT",
+  "scripts": {
+    "start": "vite",
+    "build": "vite build",
+    "serve": "vite preview"
+  },
+  "dependencies": {
+    "mirotone": "2.0.5"
+  },
+  "devDependencies": {
+    "@mirohq/websdk-types": "latest",
+    "vite": "2.7.13"
+  }
+}

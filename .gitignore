@@ -2,5 +2,10 @@ node_modules
 .DS_Store
 .turbo
 dist
-.vscode
+dist-ssr
+*.local
 .DS_Store
+.env
+.idea/*
+.vscode/*
+

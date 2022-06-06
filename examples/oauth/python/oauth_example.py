@@ -1,6 +1,6 @@
 """ This sample demonstrates how to implement the Oauth 2.0 authorization code flow in Miro.
     For a detailed explanation of this process, see the guide in our documentation:
-    https://beta.developers.miro.com/docs/getting-started-with-oauth
+    https://developers.miro.com/docs/getting-started-with-oauth
 """
 import requests, json
 
