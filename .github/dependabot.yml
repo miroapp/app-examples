@@ -1,0 +1,47 @@
+# To get started with Dependabot version updates, you'll need to specify which
+# package ecosystems to update and where the package manifests are located.
+# Please see the documentation for all configuration options:
+# https://docs.github.com/github/administering-a-repository/configuration-options-for-dependency-updates
+
+version: 2
+updates:
+  - package-ecosystem: "npm" # See documentation for possible values
+    directory: "/" # Location of package manifests
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm" # See documentation for possible values
+    directory: "/blob-marker" # Location of package manifests
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm" # See documentation for possible values
+    directory: "/calendar" # Location of package manifests
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "npm" # See documentation for possible values
+    directory: "/connect-firebase" # Location of package manifests
+    schedule:
+      interval: "weekly"
+- package-ecosystem: "npm" # See documentation for possible values
+    directory: "/drag-and-drop" # Location of package manifests
+    schedule:
+      interval: "weekly"
+- package-ecosystem: "npm" # See documentation for possible values
+    directory: "/rest-stickies-csv" # Location of package manifests
+    schedule:
+      interval: "weekly"
+- package-ecosystem: "npm" # See documentation for possible values
+    directory: "/stickynotes-to-shapes" # Location of package manifests
+    schedule:
+      interval: "weekly"
+- package-ecosystem: "npm" # See documentation for possible values
+    directory: "/template-builder" # Location of package manifests
+    schedule:
+      interval: "weekly"
+- package-ecosystem: "npm" # See documentation for possible values
+    directory: "/worlde" # Location of package manifests
+    schedule:
+      interval: "weekly"
+- package-ecosystem: "npm" # See documentation for possible values
+    directory: "/youtube-room" # Location of package manifests
+    schedule:
+      interval: "weekly"
