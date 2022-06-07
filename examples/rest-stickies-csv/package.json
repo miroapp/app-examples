@@ -1,5 +1,5 @@
 {
-  "name": "miro-oauth-sample",
+  "name": "rest-stickies-csv",
   "version": "1.0.0",
   "description": "Sample app to demonstrate OAuth 2.0 flow.",
   "main": "index.js",
