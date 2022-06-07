@@ -10,14 +10,13 @@ This Python/Flask boilerplate will allow to start using the Miro REST API in a f
 - Add `http://127.0.0.1:5000/callback` as a registered redirect URL in your app settings:
   - Go to [App settings](https://miro.com/app/settings/user-profile/apps)
   - Add `http://127.0.0.1:5000/callback` to the `Redirect URI for OAuth2.0:
-<img src="https://user-images.githubusercontent.com/713173/163155037-6f70fb9e-d3e9-42f4-b130-a5b82a606b86.png" align="center"/>
+    <img src="https://user-images.githubusercontent.com/713173/163155037-6f70fb9e-d3e9-42f4-b130-a5b82a606b86.png" align="center"/>
 - Make sure you enable the `boards.read` and `boards.write` scopes
 
 <img src="https://user-images.githubusercontent.com/713173/163156247-c3e64be2-ed40-4bf1-a8f0-6a084b1fa0c7.png" align="center"/>
 
 - Run the app with `python3 app.py`
 - Open the page http://127.0.0.1:5000
-
 
 ## Folder structure
 
