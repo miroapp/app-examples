@@ -1,13 +1,27 @@
 import { useState, StrictMode } from "react";
 import ReactDOM from "react-dom";
-import { stickyIds, createWordle, setStickyColorAndText } from "./lib/board";
+import {
+  stickyIdsTable,
+  createWordle,
+  setStickyColorAndText,
+  numberOfChances,
+  deleteStickyNotes,
+} from "./lib/board";
 import { isWordInWordList, getRandomWord, isRightWord } from "./lib/word";
 
 function App() {
   const [label, setLabel] = useState("");
+  const [isFirstGame, setIsFirstGame] = useState(1);
   const [guess, setGuess] = useState("");
+  const [startGameButtonText, setStartButtonText] = useState("Start new game");
   const [randomWord, setRandomWord] = useState("");
   const [tries, setTries] = useState(0);
+  interface Solution {
+    color?: string;
+    letter?: string;
+    isUsed?: boolean;
+  }
+  const solution = new Array<Solution>(randomWord.length);
 
   // Handle input change
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -15,18 +29,24 @@ function App() {
   };
 
   // When user clicks on "start a new game"
-  const handleNewGame = () => {
+  const handleNewGame = async () => {
+    if (!isFirstGame) {
+      // Delete sticky notes from previous game
+      deleteStickyNotes();
+    }
+    const viewport = await miro.board.viewport.get();
     setLabel("");
     setRandomWord(getRandomWord());
     // Create new Wordle
-    createWordle();
+    createWordle(viewport);
     setTries(0);
+    setIsFirstGame(0);
   };
 
   // When user clicks on "Check"
   const handleCheckWord = () => {
     setLabel("");
-    // Check if word is in word list
+    // Check if the word is in word list
     if (!isWordInWordList(guess)) {
       // If not, let the user know that the word doesn't exist
       setLabel("Word doesn't exist");
@@ -35,35 +55,67 @@ function App() {
     else if (isRightWord(randomWord, guess)) {
       // Change the color of the line of sticky to green and add the corresponding letters to them
       for (let i = 0; i < guess.length; i++) {
-        setStickyColorAndText(stickyIds[i][tries], "green", guess[i]);
+        setStickyColorAndText(stickyIdsTable[i][tries], "green", guess[i]);
       }
       setLabel("You won!");
     } else {
-      // Check the statuses of each letter and update stickies
+      // Mark all the right letters in the word with green label
       guess.split("").forEach((letter, i) => {
-        // if the letter is not in the word, the sticky note is black
+        if (letter === randomWord[i]) {
+          solution[i] = { color: "green", letter: letter, isUsed: true };
+        }
+      });
+      // Mark all the wrong letters in the word with black label
+      guess.split("").forEach((letter, i) => {
+        // If the letter is already marked, don't mark it again
+        if (solution[i] && typeof solution[i].letter != "undefined") return;
+
+        // If the letter is wrong, set the color as black
         if (!randomWord.includes(letter)) {
-          setStickyColorAndText(stickyIds[i][tries], "black", guess[i]);
+          solution[i] = { color: "black", letter: letter, isUsed: false };
         }
-        // if the letter is right, the sticky note is green
-        else if (letter === randomWord[i]) {
-          setStickyColorAndText(stickyIds[i][tries], "green", guess[i]);
-        }
-        // if the letter is in the word, but not at the right place, the color is yellow
-        else {
-          setStickyColorAndText(stickyIds[i][tries], "yellow", guess[i]);
+      });
+      guess.split("").forEach((letter, i) => {
+        // If the letter is already marked, don't mark it again
+        if (solution[i] && typeof solution[i].letter != "undefined") return;
+
+        // Check if the letter is somewhere else in the word and if this letter has not already been marked as yellow
+        // findIndex() method returns the index of the first element in the array that satisfies the provided testing function.
+        // Otherwise, it returns -1
+        const charIndex = randomWord
+          .split("")
+          .findIndex(
+            (x, index) =>
+              x === letter &&
+              (typeof solution[index] == "undefined" ||
+                typeof solution[index].isUsed == "undefined" ||
+                !solution[index].isUsed)
+          );
+        if (charIndex > -1) {
+          // Mark the letter as yellow
+          solution[i] = { color: "yellow", letter: letter, isUsed: false };
+          // Marked the corresponding letter as used
+          solution[charIndex] = { ...solution[charIndex], isUsed: true };
+          return;
+        } else {
+          solution[i] = { color: "black", letter: letter };
+          return;
         }
       });
 
-      // The user has 5 tries
-      if (tries == 4) {
-        setLabel("You lost!");
+      // Update the sticky notes
+      solution.forEach((sol, i) => {
+        setStickyColorAndText(stickyIdsTable[i][tries], sol.color, sol.letter);
+      });
+
+      // The user has 6 tries
+      if (tries == numberOfChances - 1) {
+        setLabel('You lost! the word was "' + randomWord + '"');
         setTries(0);
       }
       setTries(tries + 1);
     }
   };
-
   return (
     <div className="grid" style={{ height: "auto", width: "100%" }}>
       <div className="cs1 ce12"></div>
@@ -86,11 +138,19 @@ function App() {
         </div>
       </div>
       <div className="cs1 ce12">
-        <button className="button button-primary" onClick={handleCheckWord}>
+        <button
+          id="checkWord"
+          className="button button-primary"
+          onClick={handleCheckWord}
+        >
           Check
         </button>
-        <button className="button button-primary" onClick={handleNewGame}>
-          Start a new game
+        <button
+          id="startGame"
+          className="button button-primary"
+          onClick={handleNewGame}
+        >
+          {startGameButtonText}
         </button>
       </div>
     </div>

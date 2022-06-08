@@ -1,11 +1,13 @@
+import { Rect, StickyNote } from "@mirohq/websdk-types";
+
 const { board } = window.miro;
 
 const spaceBetweenStickies = 210;
-const center = 0;
-const numberOfChances = 5;
+export const numberOfChances = 6;
 const numberOfLetters = 5;
 
-export const stickyIds = [
+export const stickyIdsTable = [
+  ["string", "string", "string", "string", "string"],
   ["string", "string", "string", "string", "string"],
   ["string", "string", "string", "string", "string"],
   ["string", "string", "string", "string", "string"],
@@ -15,8 +17,8 @@ export const stickyIds = [
 
 let sticky;
 
-// Add black sticky notes 5*5
-export const createWordle = async () => {
+// Add black sticky notes
+export const createWordle = async (viewport: Rect) => {
   // Generate Wordle
   for (let i = 0; i < numberOfLetters; i++) {
     for (let j = 0; j < numberOfChances; j++) {
@@ -24,11 +26,11 @@ export const createWordle = async () => {
         style: {
           fillColor: "black",
         },
-        x: center + i * spaceBetweenStickies,
-        y: center + j * spaceBetweenStickies,
+        x: viewport.x + 0.5 * viewport.height + i * spaceBetweenStickies,
+        y: viewport.y + 0.3 * viewport.width + j * spaceBetweenStickies,
       });
       // Store each sticky note id for future updates
-      stickyIds[i][j] = sticky.id;
+      stickyIdsTable[i][j] = sticky.id;
     }
   }
 };
@@ -45,4 +47,13 @@ export const setStickyColorAndText = async (
   sticky.style.fillColor = newColor;
   // Sync the changes
   await sticky.sync();
+};
+
+export const deleteStickyNotes = async () => {
+  stickyIdsTable.forEach((stickyIds) => {
+    stickyIds.forEach(async (stickyId) => {
+      const sticky = await board.getById(stickyId);
+      board.remove(sticky);
+    });
+  });
 };
