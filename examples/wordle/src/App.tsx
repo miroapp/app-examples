@@ -46,7 +46,6 @@ function App() {
   // When user clicks on "Check"
   const handleCheckWord = () => {
     setLabel("");
-    console.log(randomWord);
     // Check if the word is in word list
     if (!isWordInWordList(guess)) {
       // If not, let the user know that the word doesn't exist
