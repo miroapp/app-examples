@@ -25,7 +25,7 @@
     "*.py": [
       "black"
     ],
-    "*.{js,jsx,ts,tsx,md,markdown,yaml,yml,html,css}": [
+    "*.{js,jsx,ts,tsx,md,markdown,yaml,yml,html,css,hbs}": [
       "prettier --write"
     ],
     "*.{js,jsx,ts,tsx}": [

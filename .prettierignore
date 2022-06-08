@@ -1,1 +1,4 @@
 dist
+package.json
+package-lock.json
+examples/rest/python-flask-starter/templates/
