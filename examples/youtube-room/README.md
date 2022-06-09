@@ -2,10 +2,12 @@
 
 **&nbsp;ℹ&nbsp;Note**:
 
-- We recommend a Chromium-based web browser for local development with HTTP. \
-  Safari enforces HTTPS; therefore, it doesn't allow localhost through HTTP.
 - Developing the app involves creating 2 separate apps, and testing them with different user sessions. \
   We recommend opening 2 browser sessions with different users to test the full functionality of the app.
+- We recommend a Chromium-based web browser for local development with HTTP. \
+  Safari enforces HTTPS; therefore, it doesn't allow localhost through HTTP.
+- All examples use `npm` as a package manager and `npx` as a package runner. \
+  If you prefer, you can install and use equivalent alternatives, such as `yarn` or `pnpm`.
 - For more information, visit our [developer documentation](https://developers.miro.com).
 
 This Miro Web SDK app shows you how you can sync multiple YouTube players across different user sessions. \
@@ -32,8 +34,8 @@ This app can be installed by multiple users. It contains the functionality that 
 
 ### How to start locally
 
-- Run `yarn` or `npm install` to install dependencies.
-- Run `yarn start` or `npm start` to start developing. \
+- Run `npm install` to install dependencies.
+- Run `npm start` to start developing. \
   Your URL should be similar to this example: \
   ```
   http://localhost:3000
@@ -84,7 +86,7 @@ After installing the participant app, no further setup in required. It will work
 
 When you're done developing your app, you will need to build your app before you can deploy it.
 
-- Run `yarn run build` or `npm run build`. \
+- Run `npm run build`. \
   This generates a static output inside `dist/`, which you can host on a static hosting service.
 
 ### How to deploy your app

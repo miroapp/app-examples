@@ -3,9 +3,17 @@
 This project follows our guide _How to connect the Web SDK to a backend_, and it contains the finished code.\
 Read through the guide for an in-depth walkthrough on setting this project up from scratch.
 
+**&nbsp;ℹ&nbsp;Note**:
+
+- We recommend a Chromium-based web browser for local development with HTTP. \
+  Safari enforces HTTPS; therefore, it doesn't allow localhost through HTTP.
+- All examples use `npm` as a package manager and `npx` as a package runner. \
+  If you prefer, you can install and use equivalent alternatives, such as `yarn` or `pnpm`.
+- For more information, visit our [developer documentation](https://developers.miro.com).
+
 ### How to connect to the Firebase backend
 
-- Run `yarn` or `npm install` to install dependencies.
+- Run `npm install` to install dependencies.
 - Open `src/app.js`, and replace the `firebaseConfig` object with the settings from your Firebase project.
 
 ```js
@@ -22,7 +30,7 @@ const firebaseConfig = {
 
 ### How to start locally
 
-- Run `yarn start` or `npm start` to start developing. \
+- Run `npm start` to start developing. \
   Your URL should be similar to this example: \
   ```
   http://localhost:3000
@@ -32,7 +40,7 @@ const firebaseConfig = {
 
 ### How to build the app
 
-- Run `yarn run build` or `npm run build`. \
+- Run `npm run build`. \
   This generates a static output inside `dist/`, which you can host on a static hosting service.
 
 ### About the app
