@@ -26,8 +26,8 @@ export const createWordle = async (viewport: Rect) => {
         style: {
           fillColor: "black",
         },
-        x: viewport.x + 0.5 * viewport.height + i * spaceBetweenStickies,
-        y: viewport.y + 0.3 * viewport.width + j * spaceBetweenStickies,
+        x: viewport.x + 0.5 * viewport.width + i * spaceBetweenStickies,
+        y: viewport.y + 0.5 * viewport.height + j * spaceBetweenStickies,
       });
       // Store each sticky note id for future updates
       stickyIdsTable[i][j] = sticky.id;
