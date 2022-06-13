@@ -6,7 +6,7 @@ This Python/Flask boilerplate will allow to start using the Miro REST API in a f
 
 - Install the project dependencies: run `pip3 install -r requirements.txt`
 - Copy the environment file to add your credentials: `cp sample.env .env`
-- Edit `.env` to include your Client ID and Client Secret (please follow [this guide](https://beta.developers.miro.com/docs/build-your-first-hello-world-app-1) about how to create a developer app). Note that this demo application works only with [refresh tokens](https://beta.developers.miro.com/reference/oauth-20-authorization-v2).
+- Edit `.env` to include your Client ID and Client Secret (please follow [this guide](https://developers.miro.com/docs/rest-api-build-your-first-hello-world-app) about how to create a developer app). Note that this demo application works only with [refresh tokens](https://developers.miro.com/reference/authorization-flow-for-expiring-tokens).
 - Add `http://127.0.0.1:5000/callback` as a registered redirect URL in your app settings:
   - Go to [App settings](https://miro.com/app/settings/user-profile/apps)
   - Add `http://127.0.0.1:5000/callback` to the `Redirect URI for OAuth2.0:
@@ -30,6 +30,6 @@ This Python/Flask boilerplate will allow to start using the Miro REST API in a f
 
 ### About the app
 
-This sample app shows how you can use the Miro REST API. It implements the full OAuth2 flow and calls the [Create Miro Board API endpoint](https://beta.developers.miro.com/reference/create-a-board)
+This sample app shows how you can use the Miro REST API. It implements the full OAuth2 flow and calls the [Create Miro board API endpoint](https://developers.miro.com/reference/create-board).
 
 This app uses [Flask](https://flask.palletsprojects.com/en/2.1.x/) and [Python](https://www.python.org/).

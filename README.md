@@ -5,7 +5,15 @@
 <img alt="Miro Developer Platform" src="https://github.com/miroapp/app-examples/raw/main/assets/Banner.png" />
 
 Welcome to Miro App Examples! In this repository you can find examples of apps built on top of the Miro Developer Platform 2.0.<br />
-Make sure you visit our [developer documentation](https://beta.developers.miro.com) to learn more.
+Make sure you visit our [developer documentation](https://developers.miro.com) to learn more.
+
+**&nbsp;ℹ&nbsp;Note**:
+
+- We recommend a Chromium-based web browser for local development with HTTP. \
+  Safari enforces HTTPS; therefore, it doesn't allow localhost through HTTP.
+- All examples use `npm` as a package manager and `npx` as a package runner. \
+  If you prefer, you can install and use equivalent alternatives, such as `yarn` or `pnpm`.
+- For more information, visit our [developer documentation](https://developers.miro.com).
 
 ### Miro Web SDK
 
@@ -13,11 +21,7 @@ The fastest way to bootstrap a new app is by using [`create-miro-app`](https://w
 To get started, run the following command:
 
 ```shell
-npx create-miro-app@latest
-
-// or
-
-yarn create miro-app@latest
+npx create-miro-app
 ```
 
 |                                                         | Description                                                                                                                                        |

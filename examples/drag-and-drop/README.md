@@ -4,12 +4,14 @@
 
 - We recommend a Chromium-based web browser for local development with HTTP. \
   Safari enforces HTTPS; therefore, it doesn't allow localhost through HTTP.
+- All examples use `npm` as a package manager and `npx` as a package runner. \
+  If you prefer, you can install and use equivalent alternatives, such as `yarn` or `pnpm`.
 - For more information about implementing [drag and drop](https://developers.miro.com/docs/add-drag-and-drop-to-your-app), visit our [developer documentation](https://developers.miro.com).
 
 ### How to start locally
 
-- Run `yarn` or `npm install` to install dependencies.
-- Run `yarn start` or `npm start` to start developing. \
+- Run `npm install` to install dependencies.
+- Run `npm start` to start developing. \
   Your URL should be similar to this example: \
   ```
   http://localhost:3000
@@ -19,7 +21,7 @@
 
 ### How to build the app
 
-- Run `yarn run build` or `npm run build`. \
+- Run `npm run build`. \
   This generates a static output inside `dist/`, which you can host on a static hosting service.
 
 ### Folder structure
