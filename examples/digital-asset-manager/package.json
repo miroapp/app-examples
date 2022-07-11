@@ -1,0 +1,33 @@
+{
+  "name": "digital-asset-manager",
+  "version": "1.0.0",
+  "description": "A Miro app that pulls assets from Bynder to be used in a Miro Board",
+  "scripts": {
+    "test-start": "cd client && yarn start",
+    "start": "vite",
+    "build": "vite build",
+    "serve": "vite preview"
+  },
+  "dependencies": {
+    "@mirohq/websdk-types": "^2.0.0",
+    "@netlify/functions": "^1.0.0",
+    "@types/react-router-dom": "^5.3.3",
+    "cookie": "^0.5.0",
+    "framer-motion": "^6.2.8",
+    "node-fetch": "^3.2.6",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-router-dom": "^6.3.0"
+  },
+  "devDependencies": {
+    "@types/node": "^10.12.10",
+    "@types/react": "^17.0.33",
+    "@types/react-dom": "^17.0.10",
+    "@vitejs/plugin-react": "^1.0.7",
+    "@vitejs/plugin-react-refresh": "1.3.6",
+    "typescript": "^4.4.4",
+    "vite": "^2.6.13"
+  },
+  "author": "Miro",
+  "license": "ISC"
+}

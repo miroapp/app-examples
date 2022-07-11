@@ -1,0 +1,428 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:500);
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+  background-color: #eee;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system,
+    BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans,
+    sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol,
+    Noto Color Emoji;
+}
+
+body {
+  height: 100%;
+  line-height: 1.5;
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+.container {
+  max-width: 580px;
+  margin: 0 auto;
+  background-color: var(--indigo50);
+  padding: var(--space-xxxlarge);
+  border-radius: var(--border-radius-xlarge);
+}
+
+img {
+  max-width: 100%;
+}
+
+.button {
+  text-decoration: none;
+}
+
+.icon {
+  pointer-events: none;
+}
+
+#root {
+  width: 100%;
+  height: 100%;
+}
+
+.main {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  box-sizing: border-box;
+  align-content: flex-start;
+  align-items: flex-start;
+  height: 100vh;
+  width: 100vw;
+}
+
+#home-container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  overflow-y: scroll;
+}
+
+#logo {
+  user-select: none;
+}
+
+#sign-in-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+  margin-top: 0px;
+}
+
+#sign-in-label {
+  font-size: 16px;
+  margin: 16px 0px;
+}
+
+/* 
+
+  Categories
+
+*/
+
+#categories-container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+  padding: 24px;
+}
+
+#category-row-container {
+  background-color: #fff;
+  width: 100%;
+  height: 48px;
+  border-bottom: 1px solid #ebebef;
+  padding: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-decoration: none;
+}
+
+#category-row-name {
+  color: #050038;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#learn-more-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-color: #fff;
+  width: 100%;
+  padding: 24px;
+  color: #5f5c80;
+}
+
+#learn-more-link {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  color: #5f5c80;
+}
+
+/* 
+
+  Asset View
+
+*/
+
+#asset-view-container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+  padding: 0px 24px 24px 24px;
+}
+
+.asset-view-header {
+  height: 32px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.asset-view-header-title {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#assets-container {
+  display: flex;
+  flex-direction: column;
+}
+
+#asset-item-container {
+  height: auto;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 10px;
+  overflow-y: scroll;
+}
+
+#asset-count-container {
+  height: 60px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#asset-count {
+  font-size: 12px;
+  color: #9391a6;
+}
+
+/* 
+
+  Tabs & Input
+
+*/
+
+.tabs {
+  width: 100%;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.form-group {
+  width: 100%;
+  height: 36px;
+  margin: 0;
+  position: relative;
+}
+
+#input-container {
+  width: 100%;
+  height: 36px;
+  display: flex;
+  gap: 8px;
+}
+
+.input {
+  position: absolute;
+}
+
+#input-x-container {
+  position: absolute;
+  right: 14px;
+  top: 6px;
+}
+
+#input-back-button {
+  height: 100%;
+  width: 36px;
+  min-width: 36px;
+  background: #f5f5f7;
+  border: 1px solid #ebebef;
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+/* 
+
+  Catalog Row
+
+*/
+
+#catalog-row-container {
+  height: 40px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0px;
+  background-color: #fff;
+}
+
+#catalog-row-image {
+  height: 40px;
+  width: 40px;
+  background-color: #f5f5f7;
+  border-radius: 4px;
+  border: 1px solid #ebebef;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#catalog-row-details-container {
+  height: 100;
+  margin-left: 12px;
+  display: flex;
+  flex-direction: column;
+}
+
+#catalog-row-detail-name {
+  font-size: 14px;
+  color: #050038;
+}
+
+#catalog-row-detail-info {
+  font-size: 12px;
+  color: #5f5c80;
+}
+
+/* 
+
+  Catalog Item
+
+*/
+
+#catalog-item-container {
+  height: 164px;
+  min-height: 164px;
+  max-width: 155px;
+  display: flex;
+  flex-direction: column;
+}
+
+.catalog-item-background-container {
+  margin-bottom: 0px;
+  width: 155px;
+  height: 130px;
+  min-height: 130px;
+  background-color: #eee;
+  border-radius: 4px;
+  font-size: 18px;
+  border: 1px solid rgba(134, 133, 158, 0.25);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-size: 12px;
+  color: #05003880;
+  overflow: hidden;
+  position: relative;
+  pointer-events: all;
+  cursor: grab;
+}
+
+#asset-image-background {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+#filename-container {
+  width: 100%;
+  display: flex;
+  overflow: hidden;
+  margin-top: 4px;
+  color: #050038;
+}
+
+#catalog-item-name {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 12px;
+}
+
+#catalog-item-extension {
+  white-space: nowrap;
+  font-size: 12px;
+}
+
+/* 
+
+  Assets
+
+*/
+
+#assets-container {
+  width: 100%;
+  overflow-y: scroll;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-items: flex-start;
+  align-content: flex-start;
+  box-sizing: border-box;
+  gap: 10px;
+}
+
+/* 
+
+  Images
+
+*/
+
+.draggable-item {
+  color: #fff;
+  font-size: 18px;
+  font-family: sans-serif;
+  height: 100%;
+  width: 100%;
+  pointer-events: auto;
+}
+
+/* 
+
+  Loader
+
+*/
+
+#loader-container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 
+
+  Bynder Sign In Button
+
+*/
+
+#bynder-sign-in-button {
+  height: 48px;
+  width: 244px;
+  border-radius: 30px;
+  background-color: #4262ff;
+  cursor: pointer;
+  color: #fff;
+  font-weight: normal;
+  font-size: 16px;
+  margin: 0px 0px 48px 0px;
+  text-align: center;
+  line-height: 48px;
+}
