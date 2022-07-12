@@ -1,0 +1,287 @@
+@import "mirotone/dist/styles.css";
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system,
+    BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans,
+    sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol,
+    Noto Color Emoji;
+}
+
+body {
+  height: 100%;
+  line-height: 1.5;
+  margin: 0;
+  padding: 0px 2rem;
+}
+
+img {
+  max-width: 100%;
+}
+
+button {
+  margin: 0 !important;
+}
+
+h3 {
+  margin: 20px 0px 0px 0px;
+  font-weight: bolder;
+}
+
+p {
+  font-size: 14px;
+  line-height: normal;
+  margin: 0px;
+}
+
+.container {
+  max-width: 580px;
+  margin: 0 auto;
+  background-color: var(--indigo50);
+  padding: var(--space-xxxlarge);
+  border-radius: var(--border-radius-xlarge);
+}
+
+.button {
+  text-decoration: none;
+}
+
+#root {
+  height: 100%;
+}
+
+/* 
+
+  Github
+
+*/
+
+#github-container {
+  height: 100%;
+  width: 100%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+#import-github-image {
+  width: 218px;
+  padding: 20px 0px 60px 0px;
+}
+
+/* 
+
+  Miro
+
+*/
+
+#miro-container {
+  height: 100%;
+  width: 100%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.selection-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin: 10px 0px;
+}
+
+/* 
+
+  Modal
+
+*/
+
+#modal-root {
+  height: 100%;
+  width: 100%;
+}
+
+#modal-container {
+  height: 100%;
+}
+
+#modal-grid {
+  height: 60%;
+  width: 100%;
+  display: grid;
+  align-items: center;
+  grid-template-columns: [checkbox-start] 5% [title-start] 55% [status-start] 20% [date-start] 20% [end];
+  grid-template-rows: repeat(auto-fill, 35px);
+  gap: 12px;
+  margin: 24px 0px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+#grid-checkbox {
+  grid-column-start: checkbox-start;
+  grid-column-end: title-start;
+  height: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+#grid-title {
+  grid-column-start: title-start;
+  grid-column-end: status-start;
+  height: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+#grid-status {
+  grid-column-start: status-start;
+  grid-column-end: date-start;
+  height: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0px 24px;
+}
+#grid-date {
+  grid-column-start: date-start;
+  grid-column-end: end;
+  height: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+#github-issue-title {
+  padding: 0px 12px;
+  border-left: 4px solid #6799f5;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 
+
+  Select
+
+*/
+
+.select-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+}
+
+.select-label {
+  font-size: 14px;
+}
+
+.select-label span {
+  color: red;
+}
+
+/* 
+
+  Input
+
+*/
+
+.input-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+}
+
+.input-label {
+  font-size: 14px;
+}
+
+.input-label span {
+  color: red;
+}
+
+.form-group {
+  width: 100%;
+  margin: 0;
+}
+
+/* 
+
+  Checkbox
+
+*/
+
+.checkbox {
+  margin-bottom: 20px !important;
+}
+
+/* 
+
+  Tag
+
+*/
+
+#tag-container {
+  width: 100%;
+  height: 30px;
+  padding: 8px 12px;
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #ffffff;
+}
+
+/* 
+
+  Color Picker
+*/
+
+.circle-picker {
+  margin-top: 10px;
+}
+
+/* 
+
+  Loader Container
+
+*/
+
+#loader-container {
+  display: flex;
+  justify-content: center;
+  grid-column-start: checkbox-start;
+  grid-column-end: end;
+  grid-row-start: 5;
+}
+
+/* 
+
+  App Card Modal
+
+*/
+
+.appcard-modal-container {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+#appcard-modal-button-container {
+  display: flex;
+  gap: 20px;
+  margin-top: 10px;
+}

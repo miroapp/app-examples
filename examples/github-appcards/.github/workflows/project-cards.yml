@@ -1,0 +1,15 @@
+name: Project Cards
+on:
+  project_card:
+    types: [created, deleted, edited, moved]
+jobs:
+  project_card_updated:
+    runs-on: ubuntu-latest
+    name: Project Card Updated
+    steps:
+      - name: Update Project Cards
+        uses: fjogeleit/http-request-action@v1.9.1
+        with:
+          url: "https://miro-github.netlify.app/.netlify/functions/project-cards"
+          method: "POST"
+          data: '{"gitHubProjectCard": ${{ toJSON(github.event.project_card) }}}'
