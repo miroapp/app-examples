@@ -48,6 +48,12 @@ npx create-miro-app
 | [rest-stickies-csv](examples/rest-stickies-csv)            | This NodeJS sample app uses server side rendering (HandlebarsJS) to provide a lightweight, CRUD-oriented REST example in the browser for Miro's Sticky Notes and Tags APIs. It demonstrates a structured > unstructured use case via CSV import, creating Miro Sticky Notes with Tags based on CSV data |
 | [python-flask-starter](examples/rest/python-flask-starter) | This Python/Flask boilerplate will allow to start using the Miro REST API in a few minutes. This sample implements the full Miro authorization (OAuth2 with refresh token) flow.                                                                                                                        |
 
+### Full Stack Apps
+
+|                                             | Description                                                                                                                    |
+| ------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| [github-appcards](examples/github-appcards) | This full stack example shows how to build an integration with GitHub that sync data between GitHub Issues and Miro App Cards. |
+
 <p>&nbsp;</p>
 
 If you'd like to contribute your own app or idea, visit our [contributing guide](CONTRIBUTING.md) to get started.
