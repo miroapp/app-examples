@@ -16,7 +16,7 @@ const AssetView = () => {
   }, [location]);
 
   return (
-    <div id={"asset-view-container"}>
+    <div className="asset-view-container">
       <AssetViewHeader
         handleInputChange={(value) => setSearchTerm(value)}
         title={assetName}

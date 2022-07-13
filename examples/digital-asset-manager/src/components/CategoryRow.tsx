@@ -14,11 +14,11 @@ const CategoryRow = ({
   return (
     <Link
       to={`${slug}/${collectionId}`}
-      id={"category-row-container"}
+      className="category-row-container"
       state={{ name: name }}
       style={lastItem ? { borderBottom: "none" } : {}}
     >
-      <p id={"category-row-name"}>{name}</p>
+      <p className="category-row-name">{name}</p>
       <div className="icon m2 icon-arrow-right" />
     </Link>
   );

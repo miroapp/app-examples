@@ -26,7 +26,7 @@ const BynderSignIn = ({
   return (
     <>
       <motion.a
-        id="bynder-sign-in-button"
+        className="bynder-sign-in-button"
         whileHover={{ backgroundColor: "#2E51F5" }}
         href={`/.netlify/functions/signin`}
         target="_blank"

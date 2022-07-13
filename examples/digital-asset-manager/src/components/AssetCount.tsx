@@ -6,8 +6,8 @@ const AssetCount = ({ count }: { count: number }) => {
   }
 
   return (
-    <div id={"asset-count-container"}>
-      <p id={"asset-count"}>
+    <div className="asset-count-container">
+      <p className="asset-count">
         {count.toString()} {ending}
       </p>
     </div>

@@ -8,11 +8,11 @@ const CatalogItem = ({
   property_extension: string;
 }) => {
   return (
-    <div id={"catalog-item-container"}>
-      <div className={"catalog-item-background-container"}>{background}</div>
-      <div id={"filename-container"} title={name}>
-        <span id={"catalog-item-name"}>{name}</span>
-        <span id={"catalog-item-extension"}>.{property_extension}</span>
+    <div className="catalog-item-container">
+      <div className="catalog-item-background-container">{background}</div>
+      <div className="filename-container" title={name}>
+        <span className="catalog-item-name">{name}</span>
+        <span className="catalog-item-extension">.{property_extension}</span>
       </div>
     </div>
   );

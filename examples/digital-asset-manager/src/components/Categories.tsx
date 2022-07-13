@@ -38,7 +38,7 @@ const Categories = () => {
   }, []);
 
   return (
-    <div id={"categories-container"}>
+    <div className="categories-container">
       {loading ? (
         <Loader />
       ) : (

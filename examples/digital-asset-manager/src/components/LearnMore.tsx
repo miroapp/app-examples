@@ -2,7 +2,7 @@ import { learnMoreLink } from "../constants";
 
 const LearnMore = () => {
   return (
-    <div id={"learn-more-container"}>
+    <div className="learn-more-container">
       <svg
         width="32"
         height="32"
@@ -30,7 +30,7 @@ const LearnMore = () => {
 
       <p>All assets are part of our official Brand Asset Gallery.</p>
 
-      <a id={"learn-more-link"} target={"_blank"} href={learnMoreLink}>
+      <a className="learn-more-link" target={"_blank"} href={learnMoreLink}>
         Learn more
       </a>
     </div>

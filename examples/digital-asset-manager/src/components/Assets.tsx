@@ -53,12 +53,12 @@ const Assets = ({
 
   return (
     <>
-      <div id={"assets-container"}>
+      <div className="assets-container">
         {loading ? (
           <Loader />
         ) : (
           <>
-            <div id={"asset-item-container"}>
+            <div className="asset-item-container">
               {assetUrls
                 .filter((o) => {
                   return o["name"]
@@ -72,8 +72,7 @@ const Assets = ({
                         <img
                           src={asset.thumbnails.thul}
                           data-image={asset.thumbnails.webimage}
-                          id={"asset-image-background"}
-                          className="miro-draggable draggable-item"
+                          className="miro-draggable draggable-item asset-image-background"
                           draggable={false}
                         />
                       }

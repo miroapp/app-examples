@@ -23,7 +23,7 @@ const variants = {
 
 export default function Loader() {
   return (
-    <div id={"loader-container"}>
+    <div className="loader-container">
       <>
         <motion.div
           style={style}

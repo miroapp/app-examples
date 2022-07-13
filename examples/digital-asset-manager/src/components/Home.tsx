@@ -27,14 +27,14 @@ const Home = ({
   }, []);
 
   return (
-    <div id={"home-container"}>
-      <img src={hero} id={"logo"} draggable={false} />
+    <div className="home-container">
+      <img src={hero} className="logo" draggable={false} />
 
       {signedIn ? (
         <Categories />
       ) : (
-        <div id={"sign-in-container"}>
-          <p id={"sign-in-label"}>Please sign in to continue</p>
+        <div className="sign-in-container">
+          <p className="sign-in-label">Please sign in to continue</p>
           <BynderSignIn setSignedIn={(value) => setSignedIn(value)} />
         </div>
       )}
