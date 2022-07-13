@@ -24,7 +24,7 @@ const Assets = ({
   const [assetUrls, setAssetUrls] = useState<ImageData[]>([]);
   const [assetCount, setAssetCount] = useState(0);
 
-  const listFiles = () => {
+  const fetchAssetsByCollectionId = () => {
     fetch(`/.netlify/functions/collectionId`, {
       method: "POST",
       body: JSON.stringify({ collectionId }),
@@ -40,7 +40,7 @@ const Assets = ({
   };
 
   useEffect(() => {
-    listFiles();
+    fetchAssetsByCollectionId();
   }, []);
 
   useEffect(() => {
