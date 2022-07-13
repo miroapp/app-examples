@@ -61,7 +61,7 @@ img {
   width: 100vw;
 }
 
-#home-container {
+.home-container {
   height: 100%;
   width: 100%;
   display: flex;
@@ -71,11 +71,11 @@ img {
   overflow-y: scroll;
 }
 
-#logo {
+.logo {
   user-select: none;
 }
 
-#sign-in-container {
+.sign-in-container {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -84,7 +84,7 @@ img {
   margin-top: 0px;
 }
 
-#sign-in-label {
+.sign-in-label {
   font-size: 16px;
   margin: 16px 0px;
 }
@@ -95,7 +95,7 @@ img {
 
 */
 
-#categories-container {
+.categories-container {
   height: 100%;
   width: 100%;
   display: flex;
@@ -106,7 +106,7 @@ img {
   padding: 24px;
 }
 
-#category-row-container {
+.category-row-container {
   background-color: #fff;
   width: 100%;
   height: 48px;
@@ -118,14 +118,14 @@ img {
   text-decoration: none;
 }
 
-#category-row-name {
+.category-row-name {
   color: #050038;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-#learn-more-container {
+.learn-more-container {
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -138,7 +138,7 @@ img {
   color: #5f5c80;
 }
 
-#learn-more-link {
+.learn-more-link {
   text-decoration: underline;
   text-underline-offset: 4px;
   color: #5f5c80;
@@ -150,7 +150,7 @@ img {
 
 */
 
-#asset-view-container {
+.asset-view-container {
   height: 100%;
   width: 100%;
   display: flex;
@@ -177,12 +177,12 @@ img {
   text-overflow: ellipsis;
 }
 
-#assets-container {
+.assets-container {
   display: flex;
   flex-direction: column;
 }
 
-#asset-item-container {
+.asset-item-container {
   height: auto;
   width: 100%;
   display: flex;
@@ -193,7 +193,7 @@ img {
   overflow-y: scroll;
 }
 
-#asset-count-container {
+.asset-count-container {
   height: 60px;
   width: 100%;
   display: flex;
@@ -201,7 +201,7 @@ img {
   align-items: center;
 }
 
-#asset-count {
+.asset-count {
   font-size: 12px;
   color: #9391a6;
 }
@@ -225,7 +225,7 @@ img {
   position: relative;
 }
 
-#input-container {
+.input-container {
   width: 100%;
   height: 36px;
   display: flex;
@@ -236,13 +236,13 @@ img {
   position: absolute;
 }
 
-#input-x-container {
+.input-x-container {
   position: absolute;
   right: 14px;
   top: 6px;
 }
 
-#input-back-button {
+.input-back-button {
   height: 100%;
   width: 36px;
   min-width: 36px;
@@ -261,7 +261,7 @@ img {
 
 */
 
-#catalog-row-container {
+.catalog-row-container {
   height: 40px;
   width: 100%;
   display: flex;
@@ -271,7 +271,7 @@ img {
   background-color: #fff;
 }
 
-#catalog-row-image {
+.catalog-row-image {
   height: 40px;
   width: 40px;
   background-color: #f5f5f7;
@@ -282,19 +282,19 @@ img {
   align-items: center;
 }
 
-#catalog-row-details-container {
+.catalog-row-details-container {
   height: 100;
   margin-left: 12px;
   display: flex;
   flex-direction: column;
 }
 
-#catalog-row-detail-name {
+.catalog-row-detail-name {
   font-size: 14px;
   color: #050038;
 }
 
-#catalog-row-detail-info {
+.catalog-row-detail-info {
   font-size: 12px;
   color: #5f5c80;
 }
@@ -305,7 +305,7 @@ img {
 
 */
 
-#catalog-item-container {
+.catalog-item-container {
   height: 164px;
   min-height: 164px;
   max-width: 155px;
@@ -334,13 +334,13 @@ img {
   cursor: grab;
 }
 
-#asset-image-background {
+.asset-image-background {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-#filename-container {
+.filename-container {
   width: 100%;
   display: flex;
   overflow: hidden;
@@ -348,14 +348,14 @@ img {
   color: #050038;
 }
 
-#catalog-item-name {
+.catalog-item-name {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   font-size: 12px;
 }
 
-#catalog-item-extension {
+.catalog-item-extension {
   white-space: nowrap;
   font-size: 12px;
 }
@@ -366,7 +366,7 @@ img {
 
 */
 
-#assets-container {
+.assets-container {
   width: 100%;
   overflow-y: scroll;
   display: flex;
@@ -399,7 +399,7 @@ img {
 
 */
 
-#loader-container {
+.loader-container {
   height: 100%;
   width: 100%;
   display: flex;
@@ -413,7 +413,7 @@ img {
 
 */
 
-#bynder-sign-in-button {
+.bynder-sign-in-button {
   height: 48px;
   width: 244px;
   border-radius: 30px;
