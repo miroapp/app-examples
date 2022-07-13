@@ -1,7 +1,7 @@
 import fetch from "node-fetch";
 import { serialize } from "cookie";
 
-exports.handler = (event) => {
+exports.handler = async (event) => {
   const code = event.queryStringParameters.code;
 
   const encodedData = Buffer.from(

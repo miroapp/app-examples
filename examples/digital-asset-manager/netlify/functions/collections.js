@@ -12,7 +12,7 @@ exports.handler = async function (event, context, callback) {
   const cookies = parse(event.headers.cookie);
   const access_token = cookies.bynder_access_token;
 
-  return await fetch(
+  return fetch(
     `${process.env.BASE_URL}/api/v4/collections/?limit=250&page=1&orderBy=name%20asc&isPublic=1&count=1`,
     {
       method: "GET",
