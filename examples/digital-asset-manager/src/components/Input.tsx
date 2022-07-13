@@ -16,9 +16,9 @@ const Input = ({
   };
 
   return (
-    <div id={"input-container"}>
+    <div className="input-container">
       {backButton && (
-        <Link id={"input-back-button"} to={"/"}>
+        <Link className="input-back-button" to={"/"}>
           <div className="icon m2 icon-arrow-left"></div>
         </Link>
       )}
@@ -33,15 +33,17 @@ const Input = ({
           }}
           value={internalInputValue}
         />
-        {internalInputValue !== "" && <X onClick={handleClearInput} />}
+        {internalInputValue !== "" && (
+          <CloseButton onClick={handleClearInput} />
+        )}
       </div>
     </div>
   );
 };
 
-const X = ({ onClick }: { onClick: () => void }) => {
+const CloseButton = ({ onClick }: { onClick: () => void }) => {
   return (
-    <div id={"input-x-container"} onClick={onClick}>
+    <button className="input-x-container" onClick={onClick}>
       <svg
         width="12"
         height="12"
@@ -56,7 +58,7 @@ const X = ({ onClick }: { onClick: () => void }) => {
           fill="#5F5C80"
         />
       </svg>
-    </div>
+    </button>
   );
 };
 
