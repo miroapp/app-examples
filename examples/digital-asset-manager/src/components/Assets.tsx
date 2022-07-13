@@ -27,7 +27,7 @@ const Assets = ({
   const listFiles = () => {
     fetch(`/.netlify/functions/collectionId`, {
       method: "POST",
-      body: JSON.stringify({ collectionId: collectionId }),
+      body: JSON.stringify({ collectionId }),
     })
       .then((response) => {
         return response.json();
