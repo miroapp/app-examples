@@ -33,7 +33,7 @@ app.engine(
 app.set("view engine", "hbs");
 
 // Declare global variable for Miro API endpoint (App Cards)
-const requestUrl = `https://api.miro.com/v2/boards/${process.env.boardId}/sticky_notes`;
+const requestUrl = `https://api.miro.com/v2/boards/${process.env.boardId}/sticky_notes`;    
 
 // Declare global access_token variable
 let oauthAccessToken;
@@ -48,6 +48,21 @@ let tagId;
 let tagId2;
 let tagId3;
 let tagId4;
+
+// Declare variables for connector endpoint ids
+let endpoint1Id;
+let endpoint2Id;
+let endpoint3Id;
+let endpoint4Id;
+let endpoint5Id;
+let endpoint6Id;
+let endpoint7Id;
+let endpoint8Id;
+let endpoint9Id;
+let endpoint10Id;
+let endpoint11Id;
+let endpoint12Id;
+
 
 // <-------- ROUTES -------->
 
@@ -108,8 +123,509 @@ app.post("/upload-csv", upload.single("csv"), function (req, res) {
   res.render("uploadCSV.hbs", { fileRows });
 });
 
-// ROUTE(POST): CREATE STICKIES AND TAGS FROM CSV CONTENT
+// ROUTE(POST): GENERATE CONNECTORS & CREATE STICKIES/TAGS FROM CSV CONTENT, 
 app.post("/create-from-csv", function (req, res) {
+
+  // <-------- Endpoints and Connectors Configuration  -------->
+
+  // Create start and end points as a basis for connectors, which will ultimately display as columns on the board based on their position
+
+  // Initialize connector shape endpoint ID variables
+  endpoint1Id;endpoint2Id;endpoint3Id;endpoint4Id;endpoint5Id;endpoint6Id;endpoint7Id;endpoint8Id;endpoint9Id;endpoint10Id;endpoint11Id;endpoint12Id;
+
+  async function createEndpoints() {
+    // Define request parameters and payload
+    let miroShapeEndpoint = `https://api.miro.com/v2/boards/${process.env.boardId}/shapes`;
+    let headers = { 
+      'Authorization': `Bearer ${oauthAccessToken}`, 
+      'Content-Type': 'application/json'
+    };
+    let basicEndpointData = `{
+      "data": {
+           "shape": "circle"
+      },
+      "style": {
+           "borderColor": "#1a1a1a",
+           "borderOpacity": "1.0",
+           "borderStyle": "normal",
+           "borderWidth": "2.0",
+           "color": "#1a1a1a",
+           "fillOpacity": "1.0",
+           "fontFamily": "arial",
+           "fontSize": "14",
+           "textAlign": "center",
+           "textAlignVertical": "top"
+      }`;
+    let geometryDetails = `
+      "geometry": {
+        "width": 10,
+        "height": 10
+      }`
+
+    // Declare 'endpoints' 1-12 (e.g. shapes to serve as star/end items for connectors) with specific position objects
+    let endpointConfig1 = {
+      method: 'post',
+      url: miroShapeEndpoint,
+      headers: headers,
+      data: `${basicEndpointData},
+        "position": {
+              "origin": "center",
+              "x": -200,
+              "y": 0
+        },
+        ${geometryDetails}}`
+    };
+
+    let endpointConfig2 = {
+      method: 'post',
+      url: miroShapeEndpoint,
+      headers: headers,
+      data: `${basicEndpointData},
+      "position": {
+            "origin": "center",
+            "x": -200,
+            "y": 2000
+      },
+      ${geometryDetails}}`
+  };
+
+  let endpointConfig3 = {
+    method: 'post',
+    url: miroShapeEndpoint,
+    headers: headers,
+    data: `${basicEndpointData},
+      "position": {
+           "origin": "center",
+           "x": 200,
+           "y": 0
+      },
+      ${geometryDetails}}`
+  };
+
+  let endpointConfig4 = {
+    method: 'post',
+    url: miroShapeEndpoint,
+    headers: headers,
+    data: `${basicEndpointData},
+      "position": {
+          "origin": "center",
+          "x": 200,
+          "y": 2000
+      },
+      ${geometryDetails}}`
+  };
+
+  let endpointConfig5 = {
+    method: 'post',
+    url: miroShapeEndpoint,
+    headers: headers,
+    data: `${basicEndpointData},
+      "position": {
+          "origin": "center",
+          "x": 200,
+          "y": 0
+      },
+      ${geometryDetails}}`
+  };
+
+  let endpointConfig6 = {
+    method: 'post',
+    url: miroShapeEndpoint,
+    headers: headers,
+    data: `${basicEndpointData},
+    "position": {
+        "origin": "center",
+        "x": 200,
+        "y": 2000
+    },
+    ${geometryDetails}}`
+  };
+
+  let endpointConfig7 = {
+    method: 'post',
+    url: miroShapeEndpoint,
+    headers: headers,
+    data: `${basicEndpointData},
+    "position": {
+      "origin": "center",
+      "x": 600,
+      "y": 0
+    },
+    ${geometryDetails}}`
+  };
+
+  let endpointConfig8 = {
+    method: 'post',
+    url: miroShapeEndpoint,
+    headers: headers,
+    data: `${basicEndpointData},
+    "position": {
+    "origin": "center",
+    "x": 600,
+    "y": 2000
+    },
+    ${geometryDetails}}`
+  };
+
+  let endpointConfig9 = {
+    method: 'post',
+    url: miroShapeEndpoint,
+    headers: headers,
+    data: `${basicEndpointData},
+      "position": {
+          "origin": "center",
+          "x": 1000,
+          "y": 0
+      },
+      ${geometryDetails}}`
+  };
+
+  let endpointConfig10 = {
+    method: 'post',
+    url: miroShapeEndpoint,
+    headers: headers,
+    data: `${basicEndpointData},
+    "position": {
+        "origin": "center",
+        "x": 1000,
+        "y": 2000
+    },
+    ${geometryDetails}}`
+  };
+
+  let endpointConfig11 = {
+    method: 'post',
+    url: miroShapeEndpoint,
+    headers: headers,
+    data: `${basicEndpointData},
+    "position": {
+      "origin": "center",
+      "x": 1400,
+      "y": 0
+    },
+    ${geometryDetails}}`
+  };
+
+  let endpointConfig12 = {
+    method: 'post',
+    url: miroShapeEndpoint,
+    headers: headers,
+    data: `${basicEndpointData},
+    "position": {
+    "origin": "center",
+    "x": 1400,
+    "y": 2000
+    },
+    ${geometryDetails}}`
+  };
+    // Call Miro API to create [shapes] endpoints for connectors
+    try {
+    // Requests to `/v2-experimental` endpoint
+    let endpoint1 = await axios(endpointConfig1);
+    let endpoint2 = await axios(endpointConfig2);
+    let endpoint3 = await axios(endpointConfig3);
+    let endpoint4 = await axios(endpointConfig4);
+    let endpoint5 = await axios(endpointConfig5);
+    let endpoint6 = await axios(endpointConfig6);
+    let endpoint7 = await axios(endpointConfig7);
+    let endpoint8 = await axios(endpointConfig8);
+    let endpoint9 = await axios(endpointConfig9);
+    let endpoint10 = await axios(endpointConfig10);
+    let endpoint11 = await axios(endpointConfig11);
+    let endpoint12 = await axios(endpointConfig12);
+    
+    // Parse responses for shape endpoints
+    endpoint1Id = JSON.stringify(endpoint1.data.id);
+    endpoint2Id = JSON.stringify(endpoint2.data.id);
+    endpoint3Id = JSON.stringify(endpoint3.data.id);
+    endpoint4Id = JSON.stringify(endpoint4.data.id);
+    endpoint5Id = JSON.stringify(endpoint5.data.id);
+    endpoint6Id = JSON.stringify(endpoint6.data.id);
+    endpoint7Id = JSON.stringify(endpoint7.data.id);
+    endpoint8Id = JSON.stringify(endpoint8.data.id);
+    endpoint9Id = JSON.stringify(endpoint9.data.id);
+    endpoint10Id = JSON.stringify(endpoint10.data.id);
+    endpoint11Id = JSON.stringify(endpoint11.data.id);
+    endpoint12Id = JSON.stringify(endpoint12.data.id);
+
+    // Once the endpoints are created, create connectors (lines) via V2 REST API
+        try {
+          // Function to create connectors
+          async function createConnectors(){
+            // Declare global style property for payload
+            let style = `{
+              "color": "#1a1a1a",
+              "fontSize": "14",
+              "strokeColor": "#000000",
+              "strokeWidth": "1.0",
+              "startStrokeCap": "none",
+              "endStrokeCap": "none"
+            }`;
+            let connector1 = `{
+              "endItem": {
+                "snapTo": "auto",
+                "id": ${endpoint2Id}
+              },
+              "shape": "straight",
+              "startItem": {
+                "snapTo": "auto",
+                "id": ${endpoint1Id}
+              },
+              "style": ${style}
+            }`;
+            let connector2 = `{
+              "endItem": {
+                "snapTo": "auto",
+                "id": ${endpoint4Id}
+              },
+              "shape": "straight",
+              "startItem": {
+                "snapTo": "auto",
+                "id": ${endpoint3Id}
+              },
+              "style": ${style}
+            }`;
+            let connector3 = `{
+              "endItem": {
+                "snapTo": "auto",
+                "id": ${endpoint6Id}
+              },
+              "shape": "straight",
+              "startItem": {
+                "snapTo": "auto",
+                "id": ${endpoint5Id}
+              },
+              "style": ${style}
+            }`;
+            let connector4 = `{
+              "endItem": {
+                "snapTo": "auto",
+                "id": ${endpoint8Id}
+              },
+              "shape": "straight",
+              "startItem": {
+                "snapTo": "auto",
+                "id": ${endpoint7Id}
+              },
+              "style": ${style}
+            }`;
+            let connector5 = `{
+              "endItem": {
+                "snapTo": "auto",
+                "id": ${endpoint10Id}
+              },
+              "shape": "straight",
+              "startItem": {
+                "snapTo": "auto",
+                "id": ${endpoint9Id}
+              },
+              "style": ${style}
+            }`;
+            let connector6 = `{
+              "endItem": {
+                "snapTo": "auto",
+                "id": ${endpoint12Id}
+              },
+              "shape": "straight",
+              "startItem": {
+                "snapTo": "auto",
+                "id": ${endpoint11Id}
+              },
+              "style": ${style}
+            }`;
+            // Payloads for connectors along top of constructed chart 
+            let topConnector1 = `{
+              "captions": [
+                {
+                     "textAlignVertical": "bottom",
+                     "content": "COLUMN 1",
+                     "position": "50%"
+                }
+              ],
+              "endItem": {
+                "snapTo": "auto",
+                "id": ${endpoint1Id}
+              },
+              "shape": "straight",
+              "startItem": {
+                "snapTo": "auto",
+                "id": ${endpoint3Id}
+              },
+              "style": ${style}
+            }`;
+            let topConnector2 = `{
+              "endItem": {
+                "snapTo": "auto",
+                "id": ${endpoint5Id}
+              },
+              "shape": "straight",
+              "startItem": {
+                "snapTo": "auto",
+                "id": ${endpoint3Id}
+              },
+              "style": ${style}
+            }`;
+            let topConnector3 = `{
+              "captions": [
+                {
+                     "textAlignVertical": "top",
+                     "content": "COLUMN 2",
+                     "position": "50%"
+                }
+              ],
+              "endItem": {
+                "snapTo": "auto",
+                "id": ${endpoint7Id}
+              },
+              "shape": "straight",
+              "startItem": {
+                "snapTo": "auto",
+                "id": ${endpoint5Id}
+              },
+              "style": ${style}
+            }`;
+            let topConnector4 = `{
+              "captions": [
+                {
+                     "textAlignVertical": "top",
+                     "content": "COLUMN 3",
+                     "position": "50%"
+                }
+              ],
+              "endItem": {
+                "snapTo": "auto",
+                "id": ${endpoint9Id}
+              },
+              "shape": "straight",
+              "startItem": {
+                "snapTo": "auto",
+                "id": ${endpoint7Id}
+              },
+              "style": ${style}
+            }`;
+            let topConnector5 = `{
+              "captions": [
+                {
+                     "textAlignVertical": "top",
+                     "content": "COLUMN 4",
+                     "position": "50%"
+                }
+              ],
+              "endItem": {
+                "snapTo": "auto",
+                "id": ${endpoint11Id}
+              },
+              "shape": "straight",
+              "startItem": {
+                "snapTo": "auto",
+                "id": ${endpoint9Id}
+              },
+              "style": ${style}
+            }`;
+
+            // Configuration for requests to /v2-experimental for Connectors
+            let connectorsEndpoint = `https://api.miro.com/v2-experimental/boards/${process.env.boardId}/connectors`;
+            let headers = { 
+              'Authorization': `Bearer ${oauthAccessToken}`, 
+              'Content-Type': 'application/json'
+            }
+            let config1 = {
+              method: 'post',
+              url: connectorsEndpoint,
+              headers: { 
+                'Authorization': `Bearer ${oauthAccessToken}`, 
+                'Content-Type': 'application/json'
+              },
+              data : connector1
+            }
+            let config2 = {
+              method: 'post',
+              url: connectorsEndpoint,
+              headers: headers,
+              data : connector2
+            }
+            let config3 = {
+              method: 'post',
+              url: connectorsEndpoint,
+              headers: headers,
+              data : connector3
+            }
+            let config4 = {
+              method: 'post',
+              url: connectorsEndpoint,
+              headers: headers,
+              data : connector4
+            }
+            let config5 = {
+              method: 'post',
+              url: connectorsEndpoint,
+              headers: headers,
+              data : connector5
+            }
+            let config6 = {
+              method: 'post',
+              url: connectorsEndpoint,
+              headers: headers,
+              data : connector6
+            }
+            // Request config for top connectors
+            let configTop1 = {
+              method: 'post',
+              url: connectorsEndpoint,
+              headers: headers,
+              data : topConnector1
+            }
+            let configTop2 = {
+              method: 'post',
+              url: connectorsEndpoint,
+              headers: headers,
+              data : topConnector2
+            }
+            let configTop3 = {
+              method: 'post',
+              url: connectorsEndpoint,
+              headers: headers,
+              data : topConnector3
+            }
+            let configTop4 = {
+              method: 'post',
+              url: connectorsEndpoint,
+              headers: headers,
+              data : topConnector4
+            }
+            let configTop5 = {
+              method: 'post',
+              url: connectorsEndpoint,
+              headers: headers,
+              data : topConnector5
+            }
+            // Call Miro V2 Connector endpoints to create connectors
+            await axios(config1);
+            await axios(config2);
+            await axios(config3);
+            await axios(config4);
+            await axios(config5);
+            await axios(config6);
+            await axios(configTop1);
+            await axios(configTop2);
+            await axios(configTop3);
+            await axios(configTop4);
+            await axios(configTop5);
+          }
+          createConnectors();
+
+        } catch (err) {
+          console.log(`ERROR on createConnectors(): ${err}`);
+        }
+
+    } catch (err) {
+      console.log(`ERROR on createEndpoints(): ${err}`);
+    }
+  }
+  createEndpoints();
+  
+  // <-------- STICKY AND TAGS CREATION FROM CSV  -------->
+
   let csvCardContent = req.body.Content;
 
   // Declare variables for sticky content
@@ -130,6 +646,7 @@ app.post("/create-from-csv", function (req, res) {
   // Loop through and make request for each line of CSV content
   // Set fixed length for array to avoid manipulation of length reference
   let length = csvCardContent.length;
+  
   for (let i = 0; i < length; i++) {
     // Capture sticky content from csv content
     stickyContent = {
@@ -182,23 +699,76 @@ app.post("/create-from-csv", function (req, res) {
     );
 
     // API request configuration for Create Sticky API
-    let payload = JSON.stringify({
-      data: {
-        content: `${stickyContent.content}`,
-        shape: "square",
-      },
-      style: {
-        fillColor: "light_pink",
-        textAlign: "left",
-        textAlignVertical: "top",
-      },
-      position: {
-        x: 0,
-        y: 40 * i,
-        origin: "center",
-      },
-    });
-
+    let payload;
+    if(i <50){
+       payload = JSON.stringify({
+        data: {
+          content: `${stickyContent.content}`,
+          shape: "square",
+        },
+        style: {
+          fillColor: "light_pink",
+          textAlign: "left",
+          textAlignVertical: "top",
+        },
+        position: {
+          x: 0,
+          y: 40 * i,
+          origin: "center",
+        },
+      });
+    } else if(i > 50 && i <100) {
+      payload = JSON.stringify({
+        data: {
+          content: `${stickyContent.content}`,
+          shape: "square",
+        },
+        style: {
+          fillColor: "light_pink",
+          textAlign: "left",
+          textAlignVertical: "top",
+        },
+        position: {
+          x: 400,
+          y: 40 * i -1920,
+          origin: "center",
+        },
+      });
+    } else if(i > 100 && i <147){
+      payload = JSON.stringify({
+        data: {
+          content: `${stickyContent.content}`,
+          shape: "square",
+        },
+        style: {
+          fillColor: "light_pink",
+          textAlign: "left",
+          textAlignVertical: "top",
+        },
+        position: {
+          x: 800,
+          y: 40 * i -3840,
+          origin: "center",
+        },
+      });
+    } else {
+      payload = JSON.stringify({
+        data: {
+          content: `${stickyContent.content}`,
+          shape: "square",
+        },
+        style: {
+          fillColor: "light_pink",
+          textAlign: "left",
+          textAlignVertical: "top",
+        },
+        position: {
+          x: 1200,
+          y: 40 * i -5760,
+          origin: "center",
+        },
+      });
+    }
     // API Request configuration
     let config = {
       method: "post",
@@ -395,6 +965,7 @@ app.post("/create-from-csv", function (req, res) {
                 let attachData = JSON.stringify(response.data);
                 console.log(attachData);
                 console.log("attach url : " + attachConfig.url);
+
                 return attachData;
               } catch (err) {
                 console.log(`ERROR on attachTag4(): ${err}`);
@@ -411,6 +982,8 @@ app.post("/create-from-csv", function (req, res) {
       }
     }
     callMiro();
+
+
   }
   // Redirect to 'List Stickies' view on success
   res.redirect(301, "/get-sticky");
