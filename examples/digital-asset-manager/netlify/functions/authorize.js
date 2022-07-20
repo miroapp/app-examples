@@ -1,6 +1,8 @@
 import fetch from "node-fetch";
 import { parse, serialize } from "cookie";
 
+const S_IN_HOUR = 3600;
+
 exports.handler = async function (event, context, callback) {
   if (!event.headers.cookie) {
     console.log("No cookies in request");
@@ -56,43 +58,44 @@ exports.handler = async function (event, context, callback) {
     }
     formBody = formBody.join("&");
 
-    return fetch(`${process.env.BASE_URL}/v6/authentication/oauth2/token/`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-        Authorization: `Basic ${encodedData})`,
-      },
-      body: formBody,
-    })
-      .then((response) => {
-        return response.json();
-      })
-      .then((result) => {
-        // Set response in cookies
-        const hour = 3600;
-
-        const access_token = serialize(
-          "bynder_access_token",
-          result.access_token,
-          {
-            secure: true,
-            httpOnly: true,
-            sameSite: "None",
-            path: "/",
-            maxAge: hour,
-          }
-        );
-
-        return {
-          statusCode: 200,
-          Location: process.env.PRODUCTION_URL,
-          multiValueHeaders: {
-            "Set-Cookie": [access_token],
+    try {
+      const authenticationData = await fetch(
+        `${process.env.BASE_URL}/v6/authentication/oauth2/token/`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+            Authorization: `Basic ${encodedData})`,
           },
-          body: JSON.stringify({ signedIn: "true" }),
-        };
-      })
-      .catch((error) => ({ statusCode: 422, body: String(error) }));
+          body: formBody,
+        }
+      );
+
+      const result = await authenticationData.json();
+
+      const access_token = serialize(
+        "bynder_access_token",
+        result.access_token,
+        {
+          secure: true,
+          httpOnly: true,
+          sameSite: "None",
+          path: "/",
+          maxAge: S_IN_HOUR,
+        }
+      );
+
+      return {
+        statusCode: 200,
+        Location: process.env.PRODUCTION_URL,
+        multiValueHeaders: {
+          "Set-Cookie": [access_token],
+        },
+        body: JSON.stringify({ signedIn: "true" }),
+      };
+    } catch (error) {
+      return { statusCode: 422, body: String(error) };
+    }
   }
 
   // Default user to signed out

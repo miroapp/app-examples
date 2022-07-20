@@ -1,6 +1,8 @@
 import fetch from "node-fetch";
 import { serialize } from "cookie";
 
+const S_IN_HOUR = 3600;
+
 exports.handler = async (event) => {
   const code = event.queryStringParameters.code;
 
@@ -25,52 +27,49 @@ exports.handler = async (event) => {
   }
   formBody = formBody.join("&");
 
-  return fetch(`${process.env.BASE_URL}/v6/authentication/oauth2/token/`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
-      Authorization: `Basic ${encodedData})`,
-    },
-    body: formBody,
-  })
-    .then((response) => {
-      return response.json();
-    })
-    .then((result) => {
-      // Set response in cookies
-      const hour = 3600;
-
-      const access_token = serialize(
-        "bynder_access_token",
-        result.access_token,
-        {
-          secure: true,
-          httpOnly: true,
-          sameSite: "None",
-          path: "/",
-          maxAge: hour,
-        }
-      );
-
-      const refresh_token = serialize(
-        "bynder_refresh_token",
-        result.refresh_token,
-        {
-          secure: true,
-          httpOnly: true,
-          sameSite: "None",
-          path: "/",
-        }
-      );
-
-      return {
-        statusCode: 301,
-        Location: process.env.PRODUCTION_URL,
-        multiValueHeaders: {
-          "Set-Cookie": [refresh_token, access_token],
+  try {
+    const authenticationData = await fetch(
+      `${process.env.BASE_URL}/v6/authentication/oauth2/token/`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          Authorization: `Basic ${encodedData})`,
         },
-        body: "<script>window.close();</script>",
-      };
-    })
-    .catch((error) => console.error(error));
+        body: formBody,
+      }
+    );
+
+    const result = await authenticationData.json();
+
+    const access_token = serialize("bynder_access_token", result.access_token, {
+      secure: true,
+      httpOnly: true,
+      sameSite: "None",
+      path: "/",
+      maxAge: S_IN_HOUR,
+    });
+
+    const refresh_token = serialize(
+      "bynder_refresh_token",
+      result.refresh_token,
+      {
+        secure: true,
+        httpOnly: true,
+        sameSite: "None",
+        path: "/",
+      }
+    );
+
+    return {
+      statusCode: 301,
+      Location: process.env.PRODUCTION_URL,
+      multiValueHeaders: {
+        "Set-Cookie": [refresh_token, access_token],
+      },
+      body: "<script>window.close();</script>",
+    };
+  } catch (error) {
+    return { statusCode: 422, body: String(error) };
+  }
 };
