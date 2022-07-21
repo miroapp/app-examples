@@ -14,16 +14,18 @@ const Home = ({
 }) => {
   // Check sign in status on load
   useEffect(() => {
-    fetch(`/.netlify/functions/authorize`, {
-      credentials: "same-origin",
-    })
-      .then((response) => {
-        return response.json();
-      })
-      .then((result) => {
-        const signedInValue = result.signedIn === "true";
-        setSignedIn(signedInValue);
+    const authorizeUser = async () => {
+      const authorizationData = await fetch(`/.netlify/functions/authorize`, {
+        credentials: "same-origin",
       });
+
+      const result = await authorizationData.json();
+
+      const signedInValue = result.signedIn === "true";
+      setSignedIn(signedInValue);
+    };
+
+    authorizeUser();
   }, []);
 
   return (
