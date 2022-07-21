@@ -24,47 +24,45 @@ const variants = {
 export default function Loader() {
   return (
     <div className="loader-container">
-      <>
-        <motion.div
-          style={style}
-          variants={variants}
-          initial={"start"}
-          animate={"end"}
-          transition={{
-            repeat: "Infinity",
-            repeatType: "reverse",
-            ease: "easeInOut",
-            duration: 1,
-            delay: 0,
-          }}
-        />
-        <motion.div
-          style={style}
-          variants={variants}
-          initial={"start"}
-          animate={"end"}
-          transition={{
-            repeat: "Infinity",
-            repeatType: "reverse",
-            ease: "easeInOut",
-            duration: 1,
-            delay: 0.2,
-          }}
-        />
-        <motion.div
-          style={style}
-          variants={variants}
-          initial={"start"}
-          animate={"end"}
-          transition={{
-            repeat: "Infinity",
-            repeatType: "reverse",
-            ease: "easeInOut",
-            duration: 1,
-            delay: 0.4,
-          }}
-        />
-      </>
+      <motion.div
+        style={style}
+        variants={variants}
+        initial={"start"}
+        animate={"end"}
+        transition={{
+          repeat: "Infinity",
+          repeatType: "reverse",
+          ease: "easeInOut",
+          duration: 1,
+          delay: 0,
+        }}
+      />
+      <motion.div
+        style={style}
+        variants={variants}
+        initial={"start"}
+        animate={"end"}
+        transition={{
+          repeat: "Infinity",
+          repeatType: "reverse",
+          ease: "easeInOut",
+          duration: 1,
+          delay: 0.2,
+        }}
+      />
+      <motion.div
+        style={style}
+        variants={variants}
+        initial={"start"}
+        animate={"end"}
+        transition={{
+          repeat: "Infinity",
+          repeatType: "reverse",
+          ease: "easeInOut",
+          duration: 1,
+          delay: 0.4,
+        }}
+      />
     </div>
   );
 }
