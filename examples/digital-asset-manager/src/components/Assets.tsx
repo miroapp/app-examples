@@ -46,8 +46,10 @@ const Assets = ({
   }, []);
 
   useEffect(() => {
-    const filteredItemLength = assetUrls.filter((o) => {
-      return o["name"].toLowerCase().includes(searchTerm.toLowerCase());
+    const filteredItemLength = assetUrls.filter((assetObject) => {
+      return assetObject["name"]
+        .toLowerCase()
+        .includes(searchTerm.toLowerCase());
     });
 
     setAssetCount(filteredItemLength.length);
