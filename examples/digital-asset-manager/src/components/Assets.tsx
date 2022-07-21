@@ -52,42 +52,40 @@ const Assets = ({
   }, [searchTerm]);
 
   return (
-    <>
-      <div className="assets-container">
-        {loading ? (
-          <Loader />
-        ) : (
-          <>
-            <div className="asset-item-container">
-              {assetUrls
-                .filter((assetObject) => {
-                  return assetObject["name"]
-                    .toLowerCase()
-                    .includes(searchTerm.toLowerCase());
-                })
-                .map((asset, index) => {
-                  return (
-                    <CatalogItem
-                      background={
-                        <img
-                          src={asset.thumbnails.thul}
-                          data-image={asset.thumbnails.webimage}
-                          className="miro-draggable draggable-item asset-image-background"
-                          draggable={false}
-                        />
-                      }
-                      name={asset.name}
-                      key={index}
-                      property_extension={asset.property_extension}
-                    />
-                  );
-                })}
-            </div>
-            <AssetCount count={assetCount} />
-          </>
-        )}
-      </div>
-    </>
+    <div className="assets-container">
+      {loading ? (
+        <Loader />
+      ) : (
+        <>
+          <div className="asset-item-container">
+            {assetUrls
+              .filter((assetObject) => {
+                return assetObject["name"]
+                  .toLowerCase()
+                  .includes(searchTerm.toLowerCase());
+              })
+              .map((asset, index) => {
+                return (
+                  <CatalogItem
+                    background={
+                      <img
+                        src={asset.thumbnails.thul}
+                        data-image={asset.thumbnails.webimage}
+                        className="miro-draggable draggable-item asset-image-background"
+                        draggable={false}
+                      />
+                    }
+                    name={asset.name}
+                    key={index}
+                    property_extension={asset.property_extension}
+                  />
+                );
+              })}
+          </div>
+          <AssetCount count={assetCount} />
+        </>
+      )}
+    </div>
   );
 };
 
