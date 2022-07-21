@@ -77,6 +77,7 @@ const Assets = ({
                         data-image={asset.thumbnails.webimage}
                         className="miro-draggable draggable-item asset-image-background"
                         draggable={false}
+                        alt="Draggable Image"
                       />
                     }
                     name={asset.name}
