@@ -22,17 +22,22 @@ const Categories = () => {
 
       const collectionsData = await fetch(`/.netlify/functions/collections`);
 
-      const result = await collectionsData.json();
-
-      setBynderCollectionNames([...result.collections]);
-      setLoading(false);
+      return await collectionsData.json();
     } catch (error) {
       console.error(error);
     }
   };
 
   useEffect(() => {
-    listBynderCollections();
+    const getData = async () => {
+      const result = await listBynderCollections();
+
+      setBynderCollectionNames([...result.collections]);
+      setLoading(false);
+      listBynderCollections();
+    };
+
+    getData();
   }, []);
 
   return (
