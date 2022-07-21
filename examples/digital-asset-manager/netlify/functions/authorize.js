@@ -4,8 +4,8 @@ import { parse, serialize } from "cookie";
 const S_IN_HOUR = 3600;
 
 exports.handler = async function (event, context, callback) {
+  // Missing Cookies
   if (!event.headers.cookie) {
-    console.log("No cookies in request");
     return callback(null, {
       statusCode: 200,
       body: JSON.stringify({ signedIn: "false" }),
@@ -18,8 +18,6 @@ exports.handler = async function (event, context, callback) {
 
   // User is already signed in
   if (access_token && refresh_token) {
-    console.log("User already Signed In");
-
     return callback(null, {
       statusCode: 200,
       body: JSON.stringify({ signedIn: "true" }),
@@ -28,16 +26,15 @@ exports.handler = async function (event, context, callback) {
 
   // User is not signed in
   if (!access_token && !refresh_token) {
-    console.log("User not signed in");
     return callback(null, {
       statusCode: 200,
       body: JSON.stringify({ signedIn: "false" }),
     });
   }
 
-  // User signed in before, but access token is expired
+  // User signed in before, but access token is expired.
+  // Using the refresh token to generate a new token pair.
   if (!access_token) {
-    console.log("Refreshing user's token");
     const encodedData = Buffer.from(
       process.env.CLIENT_ID + ":" + process.env.CLIENT_SECRET
     ).toString("base64");
@@ -99,7 +96,6 @@ exports.handler = async function (event, context, callback) {
   }
 
   // Default user to signed out
-  console.log("No cookies in request");
   return callback(null, {
     statusCode: 200,
     body: JSON.stringify({ signedIn: "false" }),
