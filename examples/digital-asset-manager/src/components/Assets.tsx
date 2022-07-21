@@ -31,18 +31,22 @@ const Assets = ({
         body: JSON.stringify({ collectionId }),
       });
 
-      const result = await collectionData.json();
-
-      setAssetUrls([...result]);
-      setAssetCount(result.length);
-      setLoading(false);
+      return await collectionData.json();
     } catch (error) {
       console.error(error);
     }
   };
 
   useEffect(() => {
-    fetchAssetsByCollectionId();
+    const getData = async () => {
+      const result = await fetchAssetsByCollectionId();
+
+      setAssetUrls([...result]);
+      setAssetCount(result.length);
+      setLoading(false);
+    };
+
+    getData();
   }, []);
 
   useEffect(() => {
