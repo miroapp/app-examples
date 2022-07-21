@@ -12,10 +12,7 @@ const AssetViewHeader = ({
 
   return (
     <>
-      <Input
-        backButton={true}
-        handleInputChange={(value) => handleInputChange(value)}
-      />
+      <Input backButton={true} handleInputChange={handleInputChange} />
       <div className="asset-view-header">
         <p className="asset-view-header-title">{headerTitle}</p>
       </div>
