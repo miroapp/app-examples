@@ -19,7 +19,7 @@ const Input = ({
     <div className="input-container">
       {backButton && (
         <Link className="input-back-button" to={"/"}>
-          <div className="icon m2 icon-arrow-left"></div>
+          <div className="icon icon-arrow-left"></div>
         </Link>
       )}
       <div className="form-group">
