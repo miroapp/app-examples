@@ -1,0 +1,27 @@
+<!-- Index -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/mirotone@3.2.0/dist/styles.css"
+    />
+    <link rel="stylesheet" href="/src/styles/style.css" />
+    <!-- Miro SDK -->
+    <script src="https://miro.com/app/static/sdk/v2/miro.js"></script>
+    <!-- Google API -->
+    <script
+      src="https://apis.google.com/js/platform.js?onload=init"
+      async
+      defer
+    ></script>
+    <script src="https://apis.google.com/js/client.js?onload=googleApiClientReady"></script>
+  </head>
+
+  <body>
+    <div id="panel-root"></div>
+    <script type="module" src="/src/panel/panel-main.tsx"></script>
+  </body>
+</html>
