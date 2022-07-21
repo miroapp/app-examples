@@ -46,16 +46,14 @@ const Categories = () => {
             .filter((collection) => {
               return !filteredCategories.includes(collection.name);
             })
-            .map((category, index, originalArray) => {
-              return (
-                <CategoryRow
-                  name={category.name}
-                  collectionId={category.id}
-                  key={index}
-                  lastItem={index === originalArray.length - 1}
-                />
-              );
-            })}
+            .map((category, index, originalArray) => (
+              <CategoryRow
+                name={category.name}
+                collectionId={category.id}
+                key={index}
+                lastItem={index === originalArray.length - 1}
+              />
+            ))}
           <LearnMore />
         </>
       )}
