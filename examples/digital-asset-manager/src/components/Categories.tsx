@@ -16,20 +16,19 @@ const Categories = () => {
     CategoryData[]
   >([]);
 
-  const listBynderCollections = () => {
-    fetch(`/.netlify/functions/authorize`).then(() => {
-      fetch(`/.netlify/functions/collections`)
-        .then((response) => {
-          return response.json();
-        })
-        .then((result) => {
-          setBynderCollectionNames([...result.collections]);
-          setLoading(false);
-        })
-        .catch((err) => {
-          console.error(err);
-        });
-    });
+  const listBynderCollections = async () => {
+    try {
+      await fetch(`/.netlify/functions/authorize`);
+
+      const collectionsData = await fetch(`/.netlify/functions/collections`);
+
+      const result = await collectionsData.json();
+
+      setBynderCollectionNames([...result.collections]);
+      setLoading(false);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   useEffect(() => {
