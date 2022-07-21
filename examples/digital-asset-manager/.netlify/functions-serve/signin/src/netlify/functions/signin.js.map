@@ -1,8 +1,0 @@
-{
-  "version": 3,
-  "sources": ["../../../../../../Users/addisonschultz/Downloads/asset-catalog-example/netlify/functions/signin.js"],
-  "sourceRoot": "/var/folders/f_/z71rwlpx28d_s_t4zpwvpx300000gn/T/tmp-57667-lMbzByxO7Vrm",
-  "sourcesContent": ["exports.handler = async (event, context, callback) => {\n  const authorizationURL = `${process.env.BASE_URL}/v6/authentication/oauth2/auth?client_id=${process.env.CLIENT_ID}&scope=offline%20asset%3Aread&redirect_uri=${process.env.REDIRECT_URI}&response_type=code&state=state`;\n\n  /* Redirect user to authorizationURI */\n  const response = {\n    statusCode: 302,\n    headers: {\n      Location: authorizationURL,\n      \"Cache-Control\": \"no-cache\",\n    },\n    body: \"\",\n  };\n\n  return callback(null, response);\n};\n"],
-  "mappings": ";AAAA,QAAQ,UAAU,OAAO,OAAO,SAAS,aAAa;AACpD,QAAM,mBAAmB,GAAG,QAAQ,IAAI,oDAAoD,QAAQ,IAAI,uDAAuD,QAAQ,IAAI;AAG3K,QAAM,WAAW;AAAA,IACf,YAAY;AAAA,IACZ,SAAS;AAAA,MACP,UAAU;AAAA,MACV,iBAAiB;AAAA,IACnB;AAAA,IACA,MAAM;AAAA,EACR;AAEA,SAAO,SAAS,MAAM,QAAQ;AAChC;",
-  "names": []
-}
