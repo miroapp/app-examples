@@ -15,8 +15,8 @@ const CategoryRow = ({
     <Link
       to={`${slug}/${collectionId}`}
       className="category-row-container"
-      state={{ name: name }}
-      style={lastItem ? { borderBottom: "none" } : {}}
+      state={{ name }}
+      {...(lastItem ? { style: { borderBottom: "none" } } : {})}
     >
       <p className="category-row-name">{name}</p>
       <div className="icon m2 icon-arrow-right" />
