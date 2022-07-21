@@ -123,7 +123,7 @@ app.post("/upload-csv", upload.single("csv"), function (req, res) {
   res.render("uploadCSV.hbs", { fileRows });
 });
 
-// ROUTE(POST): GENERATE CONNECTORS & CREATE STICKIES/TAGS FROM CSV CONTENT, 
+// ROUTE(POST): GENERATE CONNECTORS & CREATE STICKY NOTES/TAGS FROM CSV CONTENT, 
 app.post("/create-from-csv", function (req, res) {
 
   // <-------- Endpoints and Connectors Configuration  -------->
@@ -162,7 +162,7 @@ app.post("/create-from-csv", function (req, res) {
         "height": 10
       }`
 
-    // Declare 'endpoints' 1-12 (e.g. shapes to serve as star/end items for connectors) with specific position objects
+    // Declare 'endpoints' 1-12 (e.g. shapes to serve as start/end items for connectors) with specific position objects
     let endpointConfig1 = {
       method: 'post',
       url: miroShapeEndpoint,
