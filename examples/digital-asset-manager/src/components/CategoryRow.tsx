@@ -19,7 +19,7 @@ const CategoryRow = ({
       {...(lastItem ? { style: { borderBottom: "none" } } : {})}
     >
       <p className="category-row-name">{name}</p>
-      <div className="icon m2 icon-arrow-right" />
+      <div className="icon icon-arrow-right" />
     </Link>
   );
 };

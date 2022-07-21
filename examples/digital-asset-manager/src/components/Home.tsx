@@ -29,7 +29,6 @@ const Home = ({
   return (
     <div className="home-container">
       <img src={hero} className="logo" draggable={false} />
-
       {signedIn ? (
         <Categories />
       ) : (
