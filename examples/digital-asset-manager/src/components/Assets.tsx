@@ -81,7 +81,7 @@ const Assets = ({
                         data-image={asset.thumbnails.webimage}
                         className="miro-draggable draggable-item asset-image-background"
                         draggable={false}
-                        alt="Draggable Image"
+                        alt={`An image from Bynder called ${asset.name}`}
                       />
                     }
                     name={asset.name}
