@@ -8,7 +8,7 @@ const AssetCount = ({ count }: { count: number }) => {
   return (
     <div className="asset-count-container">
       <p className="asset-count">
-        {count.toString()} {ending}
+        {count} {ending}
       </p>
     </div>
   );
