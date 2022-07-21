@@ -60,8 +60,8 @@ const Assets = ({
           <>
             <div className="asset-item-container">
               {assetUrls
-                .filter((o) => {
-                  return o["name"]
+                .filter((assetObject) => {
+                  return assetObject["name"]
                     .toLowerCase()
                     .includes(searchTerm.toLowerCase());
                 })
