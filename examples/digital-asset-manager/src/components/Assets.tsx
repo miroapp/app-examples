@@ -24,19 +24,21 @@ const Assets = ({
   const [assetUrls, setAssetUrls] = useState<ImageData[]>([]);
   const [assetCount, setAssetCount] = useState(0);
 
-  const fetchAssetsByCollectionId = () => {
-    fetch(`/.netlify/functions/collectionId`, {
-      method: "POST",
-      body: JSON.stringify({ collectionId }),
-    })
-      .then((response) => {
-        return response.json();
-      })
-      .then((result) => {
-        setAssetUrls([...result]);
-        setAssetCount(result.length);
-        setLoading(false);
+  const fetchAssetsByCollectionId = async () => {
+    try {
+      const collectionData = await fetch(`/.netlify/functions/collectionId`, {
+        method: "POST",
+        body: JSON.stringify({ collectionId }),
       });
+
+      const result = await collectionData.json();
+
+      setAssetUrls([...result]);
+      setAssetCount(result.length);
+      setLoading(false);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   useEffect(() => {

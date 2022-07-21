@@ -32,7 +32,6 @@ const Categories = () => {
   };
 
   useEffect(() => {
-    setBynderCollectionNames([]);
     listBynderCollections();
   }, []);
 
