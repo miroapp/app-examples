@@ -1,4 +1,5 @@
 import Input from "./Input";
+import { toTitleCase } from "utils";
 
 const AssetViewHeader = ({
   handleInputChange,
@@ -7,7 +8,7 @@ const AssetViewHeader = ({
   handleInputChange: (value: string) => void;
   title: string;
 }) => {
-  const headerTitle = title.charAt(0).toUpperCase() + title.slice(1);
+  const headerTitle = toTitleCase(title);
 
   return (
     <>
