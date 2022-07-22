@@ -157,28 +157,28 @@ function App() {
       <h1>Edit GitHub card</h1>
       <Select
         label="GitHub project"
-        required={true}
+        required
         options={gitHubProjects}
         selected={selectedProject}
         onChange={(e) => setSelectedProject(JSON.parse(e.target.value))}
       />
       <Select
         label="Column"
-        required={true}
+        required
         options={gitHubColumns}
         selected={selectedColumn}
         onChange={(e) => setSelectedColumn(JSON.parse(e.target.value))}
       />
       <Input
         label="Title"
-        required={true}
+        required
         placeholder={"Title"}
         value={newTitle.replace(/<\/?[^>]+(>|$)/g, "")}
         onChange={(value) => setNewTitle(value)}
       />
       <Input
         label="Description"
-        required={true}
+        required
         placeholder={"Description"}
         value={newDescription}
         onChange={(value) => setNewDescription(value)}
