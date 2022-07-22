@@ -50,9 +50,9 @@ npx create-miro-app
 
 ### Full Stack Apps
 
-|                                             | Description                                                                                                                    |
-| ------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
-| [github-appcards](examples/github-appcards) | This full stack example shows how to build an integration with GitHub that sync data between GitHub Issues and Miro App Cards. |
+|                                             | Description                                                                                                                     |
+| ------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| [github-appcards](examples/github-appcards) | This full stack example shows how to build an integration with GitHub that syncs data between GitHub issues and Miro app cards. |
 
 <p>&nbsp;</p>
 
