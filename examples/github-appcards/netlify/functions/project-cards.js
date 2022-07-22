@@ -1,7 +1,6 @@
 /* 
 
-  This endpoint updates Miro App Card statuses when there is an update to their poisition
-  or column in GitHub (i.e. from "In Progress" to "Done")
+  This endpoint updates Miro app card statuses when the corresponding GitHub issues change state. For example, from 'In progress' to 'Done'.
 
 **/
 import { createClient } from "@supabase/supabase-js";
@@ -62,7 +61,8 @@ exports.handler = async function (event) {
     return {
       statusCode: 200,
       body: JSON.stringify({
-        message: "No Miro App Card found for this project card",
+        message:
+          "This GitHub project card doesn't have a corresponding Miro app card.",
       }),
     };
   }

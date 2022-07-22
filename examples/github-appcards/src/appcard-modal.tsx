@@ -154,9 +154,9 @@ function App() {
 
   return (
     <div className="appcard-modal-container">
-      <h1>Edit GitHub Card</h1>
+      <h1>Edit GitHub card</h1>
       <Select
-        label="GitHub Project"
+        label="GitHub project"
         required={true}
         options={gitHubProjects}
         selected={selectedProject}

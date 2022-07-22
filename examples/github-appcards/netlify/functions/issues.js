@@ -1,7 +1,6 @@
 /* 
 
-  This endpoint updates Miro App Cards when there is an update to their information
-  in GitHub (i.e. if the title or description is updated)
+  This endpoint updates title and/or description of Miro app cards when the corresponding data source is updated in GitHub.
 
 **/
 import { createClient } from "@supabase/supabase-js";
@@ -38,7 +37,8 @@ exports.handler = async function (event) {
     return {
       statusCode: 200,
       body: JSON.stringify({
-        message: "No Miro App Card found for this issue",
+        message:
+          "This GitHub issue doesn't have a corresponding Miro app card.",
       }),
     };
   }

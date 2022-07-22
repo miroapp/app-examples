@@ -4,10 +4,10 @@ import selection from "../../assets/selection.png";
 const NoSelection = () => {
   return (
     <>
-      <h3>Select from Miro Board</h3>
+      <h3>Select from Miro board</h3>
       <p>
-        Select at least one sticky note or Miro card from the board to convert
-        to a GitHub card.
+        From the board, select at least a sticky note or a card to convert it to
+        a GitHub card.
       </p>
 
       <img src={selection} draggable={false} />

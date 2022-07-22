@@ -92,7 +92,7 @@ const Miro = () => {
         disabled={!itemsSelected}
         onClick={() => handleCreateGitHubCards(selectedItems)}
       >
-        Convert to GitHub Card
+        Convert to GitHub card
       </button>
     </div>
   );

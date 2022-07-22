@@ -13,7 +13,7 @@ const GitHubIssueHeader = () => {
         <p>Status</p>
       </div>
       <div id={"grid-date"}>
-        <p>Date Created</p>
+        <p>Date created</p>
       </div>
     </>
   );
