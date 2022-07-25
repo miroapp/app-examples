@@ -1,4 +1,4 @@
-const baseUrl = "https://api.github.com";
+const GITHUB_API_URL = "https://api.github.com";
 const token = import.meta.env.VITE_GH_ACCESS_TOKEN;
 
 const headers = new Headers({
@@ -17,7 +17,7 @@ const headers = new Headers({
  */
 export const fetchGitHubProjects = async (username: string, repo: string) => {
   const gitHubProjects = fetch(
-    `${baseUrl}/repos/${username}/${repo}/projects`,
+    `${GITHUB_API_URL}/repos/${username}/${repo}/projects`,
     {
       method: "GET",
       headers: headers,
@@ -47,10 +47,13 @@ export const fetchGitHubProjects = async (username: string, repo: string) => {
  * }
  */
 export const fetchGitHubColumns = async (project_id: string) => {
-  const gitHubColumns = fetch(`${baseUrl}/projects/${project_id}/columns`, {
-    method: "GET",
-    headers: headers,
-  })
+  const gitHubColumns = fetch(
+    `${GITHUB_API_URL}/projects/${project_id}/columns`,
+    {
+      method: "GET",
+      headers: headers,
+    }
+  )
     .then((response) => response.json())
     .then((result) => {
       const gitHubProjectColumns = result.map((column: any) => {
@@ -74,10 +77,13 @@ export const fetchGitHubColumns = async (project_id: string) => {
  * }
  */
 export const fetchGitHubColumn = async (column_id: string) => {
-  const gitHubColumn = fetch(`${baseUrl}/projects/columns/${column_id}`, {
-    method: "GET",
-    headers: headers,
-  })
+  const gitHubColumn = fetch(
+    `${GITHUB_API_URL}/projects/columns/${column_id}`,
+    {
+      method: "GET",
+      headers: headers,
+    }
+  )
     .then((response) => response.json())
     .then((result) => {
       return result;
@@ -95,7 +101,7 @@ export const fetchGitHubColumn = async (column_id: string) => {
  */
 export const fetchGitHubProjectCards = async (column_id: string) => {
   const gitHubProjectCards = fetch(
-    `${baseUrl}/projects/columns/${column_id}/cards`,
+    `${GITHUB_API_URL}/projects/columns/${column_id}/cards`,
     {
       method: "GET",
       headers: headers,
@@ -118,7 +124,7 @@ export const fetchGitHubProjectCards = async (column_id: string) => {
  */
 export const fetchGitHubProjectCard = async (card_id: string) => {
   const gitHubProjectCard = fetch(
-    `${baseUrl}/projects/columns/cards/${card_id}`,
+    `${GITHUB_API_URL}/projects/columns/cards/${card_id}`,
     {
       method: "GET",
       headers: headers,
@@ -141,7 +147,7 @@ export const fetchGitHubProjectCard = async (card_id: string) => {
  */
 export const fetchGitHubIssues = async (username: string, repo: string) => {
   const gitHubProjectCards = fetch(
-    `${baseUrl}/repos/${username}/${repo}/issues`,
+    `${GITHUB_API_URL}/repos/${username}/${repo}/issues`,
     {
       method: "GET",
       headers: headers,
@@ -164,7 +170,7 @@ export const fetchGitHubIssues = async (username: string, repo: string) => {
  */
 export const fetchGitHubCollaborators = async (project_id: string) => {
   const gitHubCollaborators = fetch(
-    `${baseUrl}/projects/${project_id}/collaborators`,
+    `${GITHUB_API_URL}/projects/${project_id}/collaborators`,
     {
       method: "GET",
       headers: headers,
@@ -193,7 +199,7 @@ export const createGitHubIssue = async (
     labels?: string[];
   }
 ) => {
-  const gitHubIssue = fetch(`${baseUrl}/repos/${owner}/${repo}/issues`, {
+  const gitHubIssue = fetch(`${GITHUB_API_URL}/repos/${owner}/${repo}/issues`, {
     method: "POST",
     headers: headers,
     body: JSON.stringify(data),
@@ -220,7 +226,7 @@ export const createGitHubProjectCard = async (
   }
 ) => {
   const gitHubProjectCard = fetch(
-    `${baseUrl}/projects/columns/${column_id}/cards`,
+    `${GITHUB_API_URL}/projects/columns/${column_id}/cards`,
     {
       method: "POST",
       headers: headers,
@@ -250,7 +256,7 @@ export const updateGitHubIssue = async (
   }
 ) => {
   const gitHubIssue = fetch(
-    `${baseUrl}/repos/${username}/${repo}/issues/${issueNumber}`,
+    `${GITHUB_API_URL}/repos/${username}/${repo}/issues/${issueNumber}`,
     {
       method: "PATCH",
       headers: headers,
@@ -279,7 +285,7 @@ export const updateGitHubProjectCard = async (
   }
 ) => {
   const gitHubProjectCard = fetch(
-    `${baseUrl}/projects/columns/cards/${gitHubProjectCardId}/moves`,
+    `${GITHUB_API_URL}/projects/columns/cards/${gitHubProjectCardId}/moves`,
     {
       method: "POST",
       headers: headers,
