@@ -47,7 +47,7 @@ exports.handler = async function (event) {
   if (data) {
     await Promise.all(
       data.map(async (item) => {
-        //   Request Headers
+        // Request Headers
         const headers = {
           Accept: "application/json",
           "Content-Type": "application/json",
@@ -67,40 +67,37 @@ exports.handler = async function (event) {
         };
 
         return new Promise((resolve) => {
-          fetch(
-            `https://api.miro.com/v2/boards/${item.miroBoardId}/app_cards/${item.miroAppCardId}`,
-            options
-          )
-            .then((res) => {
-              if (res.ok) {
-                return res.json();
-              } else {
-                resolve({
-                  statusCode: res.status || 500,
-                  body: res.statusText,
-                });
-              }
-            })
-            .then((data) => {
-              const response = {
-                statusCode: 200,
-                headers: { "content-type": "application/json" },
-                body: JSON.stringify(data),
-              };
-              resolve(response);
-            })
-            .catch((err) => {
-              console.log(err);
-              resolve({ statusCode: err.statusCode || 500, body: err.message });
+          try {
+            const miroAppCardResponse = fetch(
+              `https://api.miro.com/v2/boards/${item.miroBoardId}/app_cards/${item.miroAppCardId}`,
+              options
+            );
+
+            if (miroAppCardResponse.ok) {
+              const data = miroAppCardResponse.json();
+              return data;
+            } else {
+              resolve({
+                statusCode: miroAppCardResponse.status || 500,
+                body: miroAppCardResponse.statusText,
+              });
+            }
+
+            const response = {
+              statusCode: 200,
+              headers: { "content-type": "application/json" },
+              body: JSON.stringify(data),
+            };
+            resolve(response);
+          } catch (error) {
+            resolve({
+              statusCode: error.statusCode || 500,
+              body: error.message,
             });
+          }
         });
       })
-    ).then(() => {
-      return {
-        statusCode: 200,
-        body: JSON.stringify({ message: "Items Updated" }),
-      };
-    });
+    );
   }
 
   // Final response
