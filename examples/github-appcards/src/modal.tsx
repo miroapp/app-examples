@@ -172,17 +172,15 @@ function Modal() {
           </div>
         ) : (
           <>
-            {filterGitHubIssues().map((issue, index) => {
-              return (
-                <GitHubIssueRow
-                  title={issue.title}
-                  date={issue.created_at}
-                  status={issue.status}
-                  onSelect={(value) => handleGitHubIssueSelect(value, issue)}
-                  key={index}
-                />
-              );
-            })}
+            {filterGitHubIssues().map((issue, index) => (
+              <GitHubIssueRow
+                title={issue.title}
+                date={issue.created_at}
+                status={issue.status}
+                onSelect={(value) => handleGitHubIssueSelect(value, issue)}
+                key={index}
+              />
+            ))}
           </>
         )}
       </div>
