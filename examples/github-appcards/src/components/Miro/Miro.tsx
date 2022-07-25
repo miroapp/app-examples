@@ -76,7 +76,7 @@ const Miro = () => {
   }, []);
 
   return (
-    <div id={"miro-container"}>
+    <div className="miro-container">
       {!itemsSelected ? (
         <NoSelection />
       ) : (

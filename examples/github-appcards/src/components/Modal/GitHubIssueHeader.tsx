@@ -5,14 +5,14 @@ import Tag from "../Tag";
 const GitHubIssueHeader = () => {
   return (
     <>
-      <div id={"grid-checkbox"}></div>
-      <div id={"grid-title"}>
+      <div className="grid-checkbox"></div>
+      <div className="grid-title">
         <p>Issue</p>
       </div>
-      <div id={"grid-status"}>
+      <div className="grid-status">
         <p>Status</p>
       </div>
-      <div id={"grid-date"}>
+      <div className="grid-date">
         <p>Date created</p>
       </div>
     </>

@@ -62,7 +62,7 @@ p {
 
 */
 
-#github-container {
+.github-container {
   height: 100%;
   width: 100%;
   text-align: center;
@@ -72,7 +72,7 @@ p {
   gap: 10px;
 }
 
-#import-github-image {
+.import-github-image {
   width: 218px;
   padding: 20px 0px 60px 0px;
 }
@@ -83,7 +83,7 @@ p {
 
 */
 
-#miro-container {
+.miro-container {
   height: 100%;
   width: 100%;
   text-align: center;
@@ -105,16 +105,16 @@ p {
 
 */
 
-#modal-root {
+.modal-root {
   height: 100%;
   width: 100%;
 }
 
-#modal-container {
+.modal-container {
   height: 100%;
 }
 
-#modal-grid {
+.modal-grid {
   height: 60%;
   width: 100%;
   display: grid;
@@ -127,7 +127,7 @@ p {
   overflow-x: hidden;
 }
 
-#grid-checkbox {
+.grid-checkbox {
   grid-column-start: checkbox-start;
   grid-column-end: title-start;
   height: 100%;
@@ -135,7 +135,8 @@ p {
   justify-content: flex-start;
   align-items: center;
 }
-#grid-title {
+
+.grid-title {
   grid-column-start: title-start;
   grid-column-end: status-start;
   height: 100%;
@@ -143,7 +144,8 @@ p {
   justify-content: flex-start;
   align-items: center;
 }
-#grid-status {
+
+.grid-status {
   grid-column-start: status-start;
   grid-column-end: date-start;
   height: 100%;
@@ -152,7 +154,8 @@ p {
   align-items: center;
   padding: 0px 24px;
 }
-#grid-date {
+
+.grid-date {
   grid-column-start: date-start;
   grid-column-end: end;
   height: 100%;
@@ -161,7 +164,7 @@ p {
   align-items: center;
 }
 
-#github-issue-title {
+.github-issue-title {
   padding: 0px 12px;
   border-left: 4px solid #6799f5;
   white-space: nowrap;
@@ -232,7 +235,7 @@ p {
 
 */
 
-#tag-container {
+.tag-container {
   width: 100%;
   height: 30px;
   padding: 8px 12px;
@@ -258,7 +261,7 @@ p {
 
 */
 
-#loader-container {
+.loader-container {
   display: flex;
   justify-content: center;
   grid-column-start: checkbox-start;
@@ -280,7 +283,7 @@ p {
   gap: 20px;
 }
 
-#appcard-modal-button-container {
+.appcard-modal-button-container {
   display: flex;
   gap: 20px;
   margin-top: 10px;

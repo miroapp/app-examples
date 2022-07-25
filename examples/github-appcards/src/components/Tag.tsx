@@ -8,7 +8,7 @@ const Tag = ({
   color: string;
 }) => {
   return (
-    <div id={"tag-container"} style={{ backgroundColor: color }}>
+    <div className="tag-container" style={{ backgroundColor: color }}>
       <p>{status.name}</p>
     </div>
   );

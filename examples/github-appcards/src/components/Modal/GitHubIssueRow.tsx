@@ -32,20 +32,20 @@ const GitHubIssueRow = ({
 
   return (
     <>
-      <div id={"grid-checkbox"}>
+      <div className="grid-checkbox">
         <Checkbox
           onSetChecked={(value) => {
             onSelect(value);
           }}
         />
       </div>
-      <div id={"grid-title"}>
-        <p id={"github-issue-title"}>{title}</p>
+      <div className="grid-title">
+        <p className="github-issue-title">{title}</p>
       </div>
-      <div id={"grid-status"}>
+      <div className="grid-status">
         <Tag status={status} color={color} />
       </div>
-      <div id={"grid-date"}>
+      <div className="grid-date">
         <p>{day + "/" + month + "/" + year}</p>
       </div>
     </>

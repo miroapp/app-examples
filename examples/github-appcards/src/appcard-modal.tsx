@@ -183,14 +183,11 @@ function App() {
         value={newDescription}
         onChange={(value) => setNewDescription(value)}
       />
-      <div id={"appcard-modal-button-container"}>
-        <button className={"button button-primary"} onClick={handleSaveClick}>
+      <div className="appcard-modal-button-container">
+        <button className="button button-primary" onClick={handleSaveClick}>
           Save
         </button>
-        <button
-          className={"button button-secondary"}
-          onClick={handleCancelClick}
-        >
+        <button className="button button-secondary" onClick={handleCancelClick}>
           Cancel
         </button>
       </div>

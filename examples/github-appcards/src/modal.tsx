@@ -155,7 +155,7 @@ function Modal() {
   };
 
   return (
-    <div id={"modal-container"} className="wrapper">
+    <div className="modal-container wrapper">
       <h2>Choose from GitHub</h2>
       <Select
         label={"Select GitHub Project"}
@@ -163,11 +163,11 @@ function Modal() {
         options={gitHubProjects}
         onChange={(e) => setSelectedProject(JSON.parse(e.target.value))}
       />
-      <div id={"modal-grid"}>
+      <div className="modal-grid">
         <GitHubIssueHeader />
 
         {loading ? (
-          <div id={"loader-container"}>
+          <div className="loader-container">
             <Loader />
           </div>
         ) : (

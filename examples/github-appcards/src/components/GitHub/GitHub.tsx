@@ -10,14 +10,18 @@ const GitHub = () => {
   };
 
   return (
-    <div id={"github-container"}>
+    <div className="github-container">
       <h3>Synced changes</h3>
       <p>
         AAny changes you apply, either in Miro or in GitHub, are synced between
         both tools.
       </p>
 
-      <img src={importGithub} id={"import-github-image"} draggable={false} />
+      <img
+        src={importGithub}
+        className="import-github-image"
+        draggable={false}
+      />
 
       <button
         className="button button-primary"
