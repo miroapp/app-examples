@@ -25,15 +25,13 @@ export const fetchGitHubProjects = async (username: string, repo: string) => {
   )
     .then((response) => response.json())
     .then((result) => {
-      const gitHubProjectData = result.map((project: any) => {
+      return result.map((project: any) => {
         return {
           name: project.name,
           body: project.body,
           id: project.id,
         };
       });
-
-      return gitHubProjectData;
     })
     .catch((error) => console.error(error));
 
@@ -43,8 +41,6 @@ export const fetchGitHubProjects = async (username: string, repo: string) => {
 /**
  * Fetches a list of columns under a specific project id
  *
- * Returns {
- * }
  */
 export const fetchGitHubColumns = async (project_id: string) => {
   const gitHubColumns = fetch(
@@ -56,14 +52,12 @@ export const fetchGitHubColumns = async (project_id: string) => {
   )
     .then((response) => response.json())
     .then((result) => {
-      const gitHubProjectColumns = result.map((column: any) => {
+      return result.map((column: any) => {
         return {
           name: column.name,
           id: column.id,
         };
       });
-
-      return gitHubProjectColumns;
     })
     .catch((error) => console.error(error));
 
@@ -73,8 +67,6 @@ export const fetchGitHubColumns = async (project_id: string) => {
 /**
  * Fetches a single column by id
  *
- * Returns {
- * }
  */
 export const fetchGitHubColumn = async (column_id: string) => {
   const gitHubColumn = fetch(
@@ -85,9 +77,6 @@ export const fetchGitHubColumn = async (column_id: string) => {
     }
   )
     .then((response) => response.json())
-    .then((result) => {
-      return result;
-    })
     .catch((error) => console.error(error));
 
   return gitHubColumn;
@@ -96,8 +85,6 @@ export const fetchGitHubColumn = async (column_id: string) => {
 /**
  * Fetches a list of cards under a specific project column id
  *
- * Returns {
- * }
  */
 export const fetchGitHubProjectCards = async (column_id: string) => {
   const gitHubProjectCards = fetch(
@@ -108,9 +95,6 @@ export const fetchGitHubProjectCards = async (column_id: string) => {
     }
   )
     .then((response) => response.json())
-    .then((result) => {
-      return result;
-    })
     .catch((error) => console.error(error));
 
   return gitHubProjectCards;
@@ -119,8 +103,6 @@ export const fetchGitHubProjectCards = async (column_id: string) => {
 /**
  * Fetches a single GitHub project card by id
  *
- * Returns {
- * }
  */
 export const fetchGitHubProjectCard = async (card_id: string) => {
   const gitHubProjectCard = fetch(
@@ -131,9 +113,6 @@ export const fetchGitHubProjectCard = async (card_id: string) => {
     }
   )
     .then((response) => response.json())
-    .then((result) => {
-      return result;
-    })
     .catch((error) => console.error(error));
 
   return gitHubProjectCard;
@@ -142,8 +121,6 @@ export const fetchGitHubProjectCard = async (card_id: string) => {
 /**
  * Fetches a list of issues in a repository
  *
- * Returns {
- * }
  */
 export const fetchGitHubIssues = async (username: string, repo: string) => {
   const gitHubProjectCards = fetch(
@@ -154,9 +131,6 @@ export const fetchGitHubIssues = async (username: string, repo: string) => {
     }
   )
     .then((response) => response.json())
-    .then((result) => {
-      return result;
-    })
     .catch((error) => console.error(error));
 
   return gitHubProjectCards;
@@ -165,8 +139,6 @@ export const fetchGitHubIssues = async (username: string, repo: string) => {
 /**
  * Fetches a list of collaborators in a project
  *
- * Returns {
- * }
  */
 export const fetchGitHubCollaborators = async (project_id: string) => {
   const gitHubCollaborators = fetch(
@@ -177,9 +149,6 @@ export const fetchGitHubCollaborators = async (project_id: string) => {
     }
   )
     .then((response) => response.json())
-    .then((result) => {
-      return result;
-    })
     .catch((error) => console.error(error));
 
   return gitHubCollaborators;
@@ -205,9 +174,6 @@ export const createGitHubIssue = async (
     body: JSON.stringify(data),
   })
     .then((response) => response.json())
-    .then((result) => {
-      return result;
-    })
     .catch((error) => console.error(error));
 
   return gitHubIssue;
@@ -234,9 +200,6 @@ export const createGitHubProjectCard = async (
     }
   )
     .then((response) => response.json())
-    .then((result) => {
-      return result;
-    })
     .catch((error) => console.error(error));
 
   return gitHubProjectCard;
@@ -264,9 +227,6 @@ export const updateGitHubIssue = async (
     }
   )
     .then((response) => response.json())
-    .then((result) => {
-      return result;
-    })
     .catch((error) => console.error(error));
 
   return gitHubIssue;
@@ -293,9 +253,6 @@ export const updateGitHubProjectCard = async (
     }
   )
     .then((response) => response.json())
-    .then((result) => {
-      return result;
-    })
     .catch((error) => console.error(error));
 
   return gitHubProjectCard;
