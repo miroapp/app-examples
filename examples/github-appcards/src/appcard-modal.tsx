@@ -72,80 +72,94 @@ function App() {
 
   // Fetch GitHub Projects
   React.useEffect(() => {
-    fetchGitHubProjects(username, repo)
-      .then((projects) => {
-        setGitHubProjects([...projects]);
-        return projects;
-      })
-      .then((projects) => {
-        setSelectedProject(projects[0]);
-      });
+    const getGitHubProjects = async () => {
+      try {
+        const gitHubProjects = await fetchGitHubProjects(username, repo);
+
+        setGitHubProjects([...gitHubProjects]);
+        setSelectedProject(gitHubProjects[0]);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    getGitHubProjects();
   }, []);
 
   // Fetch GitHub Columns
   React.useEffect(() => {
-    if (gitHubProjects.length > 0) {
-      fetchGitHubColumns(
-        gitHubProjects
-          .filter((project) => project.id !== selectedProject.id)[0]
-          .id.toString()
-      ).then((columns) => {
-        setGitHubColumns([...columns]);
-        return columns;
-      });
-    }
+    const getGitHubColumns = async () => {
+      if (gitHubProjects.length > 0) {
+        try {
+          const gitHubColumns = await fetchGitHubColumns(
+            gitHubProjects
+              .filter((project) => project.id !== selectedProject.id)[0]
+              .id.toString()
+          );
+
+          setGitHubColumns([...gitHubColumns]);
+        } catch (error) {
+          console.error(error);
+        }
+      }
+    };
+
+    getGitHubColumns();
   }, [gitHubProjects]);
 
   const handleSaveClick = async () => {
-    await supabase
+    const { data, error } = await supabase
       .from("card-mapping")
       .select(
         "id, miroAppCardId::text, gitHubIssueId, miroUserId::text, gitHubUsername, created_at, miroBoardId, gitHubIssueNumber, gitHubProjectCardId"
       )
-      .eq("miroAppCardId", appCardId)
-      .then(({ data }) => {
-        if (data) {
-          Promise.all(
-            data.map(async (item) => {
-              const gitHubIssueNumber = item.gitHubIssueNumber;
-              const color = await getStatusColor(selectedColumn.name);
+      .eq("miroAppCardId", appCardId);
 
-              // Update GitHub Issue
-              await updateGitHubIssue(username, repo, gitHubIssueNumber, {
-                title: newTitle,
-                body: newDescription,
-              });
+    if (error) {
+      console.error(error);
+    }
 
-              // Update GitHub Project Card
-              await updateGitHubProjectCard(item.gitHubProjectCardId, {
-                columnId: selectedColumn.id,
-                card_id: item.gitHubProjectCardId,
-                position: "top",
-              });
+    if (data) {
+      Promise.all(
+        data.map(async (item) => {
+          const gitHubIssueNumber = item.gitHubIssueNumber;
+          const color = await getStatusColor(selectedColumn.name);
 
-              // Update App Card via SDK
-              const currentAppCard = await miro.board.getById(appCardId);
-              if (currentAppCard) {
-                currentAppCard.title = newTitle;
-                currentAppCard.description = newDescription;
-                currentAppCard.fields = [
-                  {
-                    value: selectedColumn.name,
-                    iconShape: "square",
-                    fillColor: color,
-                    textColor: "#ffffff",
-                  },
-                ];
-                currentAppCard.style.cardTheme = color;
-
-                await currentAppCard.sync();
-              }
-            })
-          ).then(() => {
-            miro.board.ui.closeModal();
+          // Update GitHub Issue
+          await updateGitHubIssue(username, repo, gitHubIssueNumber, {
+            title: newTitle,
+            body: newDescription,
           });
-        }
-      });
+
+          // Update GitHub Project Card
+          await updateGitHubProjectCard(item.gitHubProjectCardId, {
+            columnId: selectedColumn.id,
+            card_id: item.gitHubProjectCardId,
+            position: "top",
+          });
+
+          // Update App Card via SDK
+          const currentAppCard = await miro.board.getById(appCardId);
+          if (currentAppCard) {
+            currentAppCard.title = newTitle;
+            currentAppCard.description = newDescription;
+            currentAppCard.fields = [
+              {
+                value: selectedColumn.name,
+                iconShape: "square",
+                fillColor: color,
+                textColor: "#ffffff",
+              },
+            ];
+            currentAppCard.style.cardTheme = color;
+
+            await currentAppCard.sync();
+
+            await miro.board.ui.closeModal();
+          }
+        })
+      );
+    }
   };
 
   const handleCancelClick = async () => {

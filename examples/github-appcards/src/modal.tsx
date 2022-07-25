@@ -25,9 +25,9 @@ function Modal() {
   // Store loading state of GitHub Cards
   const [loading, setLoading] = React.useState<boolean>(true);
 
-  const [selectedGitHubIssues, setSelectedGitHubIssues] = React.useState<any[]>(
-    []
-  );
+  const [selectedGitHubIssues, setSelectedGitHubIssues] = React.useState<
+    GitHubIssue[]
+  >([]);
 
   /**
    * Store information pulled from GitHub API
@@ -52,51 +52,81 @@ function Modal() {
 
   // Fetch  GitHub Projects
   React.useEffect(() => {
-    fetchGitHubProjects(username, repo).then((projects) => {
-      setGitHubProjects([...projects]);
-    });
+    const getGitHubProjects = async () => {
+      try {
+        const gitHubProjects = await fetchGitHubProjects(username, repo);
+
+        setGitHubProjects([...gitHubProjects]);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    getGitHubProjects();
   }, []);
 
   // Fetch GitHub Columns
   React.useEffect(() => {
-    if (gitHubProjects.length > 0) {
-      fetchGitHubColumns(
-        gitHubProjects
-          .filter((project) => project.id !== selectedProject.id)[0]
-          .id.toString()
-      ).then((columns) => {
-        setGitHubColumns([...columns]);
-      });
-    }
+    const getGitHubColumns = async () => {
+      if (gitHubProjects.length > 0) {
+        try {
+          const gitHubColumns = await fetchGitHubColumns(
+            gitHubProjects
+              .filter((project) => project.id !== selectedProject.id)[0]
+              .id.toString()
+          );
+
+          setGitHubColumns([...gitHubColumns]);
+        } catch (error) {
+          console.error(error);
+        }
+      }
+    };
+
+    getGitHubColumns();
   }, [gitHubProjects]);
 
   // Fetch GitHub Cards
   React.useEffect(() => {
-    if (gitHubColumns.length > 0) {
-      gitHubColumns.map((column) => {
-        fetchGitHubProjectCards(column.id.toString()).then((cards) => {
-          setGitHubProjectCards((previousState) => [
-            ...previousState,
-            ...cards,
-          ]);
+    const getGitHubCards = () => {
+      if (gitHubColumns.length > 0) {
+        gitHubColumns.map(async (column) => {
+          try {
+            const gitHubCards = await fetchGitHubProjectCards(
+              column.id.toString()
+            );
+
+            setGitHubProjectCards((previousState) => [
+              ...previousState,
+              ...gitHubCards,
+            ]);
+          } catch (error) {
+            console.error(error);
+          }
         });
-      });
-    }
+      }
+    };
+
+    getGitHubCards();
   }, [gitHubColumns]);
 
-  // Fetch GitHub Issues & filter issues that are not in current project
+  // Fetch GitHub Issues
   React.useEffect(() => {
-    fetchGitHubIssues(username, repo)
-      .then((issues) => {
-        setGitHubIssues([...issues]);
-      })
-      .then(() => {
+    const getGitHubIssues = async () => {
+      try {
+        const gitHubIssues = await fetchGitHubIssues(username, repo);
+        setGitHubIssues([...gitHubIssues]);
         setLoading(false);
-      });
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    getGitHubIssues();
   }, [gitHubProjectCards]);
 
   const filterGitHubIssues = () => {
-    // Filter out issues that aren't in the current project
+    // Filter out issues that aren't in the current GitHub project
     const filteredGitHubIssues = gitHubIssues.filter((issue) => {
       return gitHubProjectCards.some((gitHubProjectCard) => {
         return gitHubProjectCard.content_url === issue.url;
@@ -135,7 +165,7 @@ function Modal() {
   };
 
   // Handle when a GitHubIssueRow is selected or not
-  const handleGitHubIssueSelect = (isChecked: boolean, issue: any) => {
+  const handleGitHubIssueSelect = (isChecked: boolean, issue: GitHubIssue) => {
     //  Set ore remove issue into selected state
     if (isChecked) {
       setSelectedGitHubIssues((previousState) => [...previousState, issue]);
@@ -149,9 +179,13 @@ function Modal() {
 
   // Handle importing and converting GitHub issues to App Cards
   const handleImportClick = async () => {
-    await insertGitHubAppCards(selectedGitHubIssues).then(() => {
-      miro.board.ui.closeModal();
-    });
+    try {
+      await insertGitHubAppCards(selectedGitHubIssues);
+
+      await miro.board.ui.closeModal();
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (

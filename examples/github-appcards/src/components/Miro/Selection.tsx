@@ -33,22 +33,36 @@ const Selection = ({
 
   // Fetch Projects from GitHub
   React.useEffect(() => {
-    fetchGitHubProjects(username, repo).then((projects) => {
-      setGitHubProjects([...projects]);
-    });
+    const getGitHubProjects = async () => {
+      try {
+        const gitHubProjects = await fetchGitHubProjects(username, repo);
+        setGitHubProjects([...gitHubProjects]);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    getGitHubProjects();
   }, []);
 
   // Fetch Columns from selected Project
   React.useEffect(() => {
-    if (gitHubProjects.length > 0) {
-      fetchGitHubColumns(
-        gitHubProjects
-          .filter((project) => project.id !== selectedProject.id)[0]
-          .id.toString()
-      ).then((columns) => {
-        setGitHubColumns([...columns]);
-      });
-    }
+    const getGitHubColumns = async () => {
+      if (gitHubProjects.length > 0) {
+        try {
+          const gitHubColumns = await fetchGitHubColumns(
+            gitHubProjects
+              .filter((project) => project.id !== selectedProject.id)[0]
+              .id.toString()
+          );
+          setGitHubColumns([...gitHubColumns]);
+        } catch (error) {
+          console.error(error);
+        }
+      }
+    };
+
+    getGitHubColumns();
   }, [gitHubProjects]);
 
   // After fetching columns from GitHub, set default to the first one

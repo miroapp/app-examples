@@ -10,7 +10,7 @@ const Select = ({
   label: string;
   required: boolean;
   options: { name: string }[];
-  selected: {
+  selected?: {
     name: string;
   };
   onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
