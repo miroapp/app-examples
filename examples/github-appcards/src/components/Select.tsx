@@ -9,7 +9,7 @@ const Select = ({
 }: {
   label: string;
   required: boolean;
-  options: any[];
+  options: { name: string }[];
   selected: {
     name: string;
   };
