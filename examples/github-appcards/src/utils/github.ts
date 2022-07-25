@@ -16,26 +16,27 @@ const headers = new Headers({
  * }
  */
 export const fetchGitHubProjects = async (username: string, repo: string) => {
-  const gitHubProjects = fetch(
-    `${GITHUB_API_URL}/repos/${username}/${repo}/projects`,
-    {
-      method: "GET",
-      headers: headers,
-    }
-  )
-    .then((response) => response.json())
-    .then((result) => {
-      return result.map((project: any) => {
-        return {
-          name: project.name,
-          body: project.body,
-          id: project.id,
-        };
-      });
-    })
-    .catch((error) => console.error(error));
+  try {
+    const gitHubProjects = await fetch(
+      `${GITHUB_API_URL}/repos/${username}/${repo}/projects`,
+      {
+        method: "GET",
+        headers: headers,
+      }
+    );
 
-  return gitHubProjects;
+    const result = await gitHubProjects.json();
+
+    return result.map((project: any) => {
+      return {
+        name: project.name,
+        body: project.body,
+        id: project.id,
+      };
+    });
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 /**
@@ -43,25 +44,26 @@ export const fetchGitHubProjects = async (username: string, repo: string) => {
  *
  */
 export const fetchGitHubColumns = async (project_id: string) => {
-  const gitHubColumns = fetch(
-    `${GITHUB_API_URL}/projects/${project_id}/columns`,
-    {
-      method: "GET",
-      headers: headers,
-    }
-  )
-    .then((response) => response.json())
-    .then((result) => {
-      return result.map((column: any) => {
-        return {
-          name: column.name,
-          id: column.id,
-        };
-      });
-    })
-    .catch((error) => console.error(error));
+  try {
+    const gitHubColumns = await fetch(
+      `${GITHUB_API_URL}/projects/${project_id}/columns`,
+      {
+        method: "GET",
+        headers: headers,
+      }
+    );
 
-  return gitHubColumns;
+    const result = await gitHubColumns.json();
+
+    return result.map((column: any) => {
+      return {
+        name: column.name,
+        id: column.id,
+      };
+    });
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 /**
@@ -69,17 +71,19 @@ export const fetchGitHubColumns = async (project_id: string) => {
  *
  */
 export const fetchGitHubColumn = async (column_id: string) => {
-  const gitHubColumn = fetch(
-    `${GITHUB_API_URL}/projects/columns/${column_id}`,
-    {
-      method: "GET",
-      headers: headers,
-    }
-  )
-    .then((response) => response.json())
-    .catch((error) => console.error(error));
+  try {
+    const gitHubColumn = await fetch(
+      `${GITHUB_API_URL}/projects/columns/${column_id}`,
+      {
+        method: "GET",
+        headers: headers,
+      }
+    );
 
-  return gitHubColumn;
+    return await gitHubColumn.json();
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 /**
@@ -87,17 +91,19 @@ export const fetchGitHubColumn = async (column_id: string) => {
  *
  */
 export const fetchGitHubProjectCards = async (column_id: string) => {
-  const gitHubProjectCards = fetch(
-    `${GITHUB_API_URL}/projects/columns/${column_id}/cards`,
-    {
-      method: "GET",
-      headers: headers,
-    }
-  )
-    .then((response) => response.json())
-    .catch((error) => console.error(error));
+  try {
+    const gitHubProjectCards = await fetch(
+      `${GITHUB_API_URL}/projects/columns/${column_id}/cards`,
+      {
+        method: "GET",
+        headers: headers,
+      }
+    );
 
-  return gitHubProjectCards;
+    return await gitHubProjectCards.json();
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 /**
@@ -105,17 +111,19 @@ export const fetchGitHubProjectCards = async (column_id: string) => {
  *
  */
 export const fetchGitHubProjectCard = async (card_id: string) => {
-  const gitHubProjectCard = fetch(
-    `${GITHUB_API_URL}/projects/columns/cards/${card_id}`,
-    {
-      method: "GET",
-      headers: headers,
-    }
-  )
-    .then((response) => response.json())
-    .catch((error) => console.error(error));
+  try {
+    const gitHubProjectCard = await fetch(
+      `${GITHUB_API_URL}/projects/columns/cards/${card_id}`,
+      {
+        method: "GET",
+        headers: headers,
+      }
+    );
 
-  return gitHubProjectCard;
+    return await gitHubProjectCard.json();
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 /**
@@ -123,17 +131,19 @@ export const fetchGitHubProjectCard = async (card_id: string) => {
  *
  */
 export const fetchGitHubIssues = async (username: string, repo: string) => {
-  const gitHubProjectCards = fetch(
-    `${GITHUB_API_URL}/repos/${username}/${repo}/issues`,
-    {
-      method: "GET",
-      headers: headers,
-    }
-  )
-    .then((response) => response.json())
-    .catch((error) => console.error(error));
+  try {
+    const gitHubProjectCards = await fetch(
+      `${GITHUB_API_URL}/repos/${username}/${repo}/issues`,
+      {
+        method: "GET",
+        headers: headers,
+      }
+    );
 
-  return gitHubProjectCards;
+    return await gitHubProjectCards.json();
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 /**
@@ -141,17 +151,19 @@ export const fetchGitHubIssues = async (username: string, repo: string) => {
  *
  */
 export const fetchGitHubCollaborators = async (project_id: string) => {
-  const gitHubCollaborators = fetch(
-    `${GITHUB_API_URL}/projects/${project_id}/collaborators`,
-    {
-      method: "GET",
-      headers: headers,
-    }
-  )
-    .then((response) => response.json())
-    .catch((error) => console.error(error));
+  try {
+    const gitHubCollaborators = await fetch(
+      `${GITHUB_API_URL}/projects/${project_id}/collaborators`,
+      {
+        method: "GET",
+        headers: headers,
+      }
+    );
 
-  return gitHubCollaborators;
+    return await gitHubCollaborators.json();
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 /**
@@ -168,15 +180,20 @@ export const createGitHubIssue = async (
     labels?: string[];
   }
 ) => {
-  const gitHubIssue = fetch(`${GITHUB_API_URL}/repos/${owner}/${repo}/issues`, {
-    method: "POST",
-    headers: headers,
-    body: JSON.stringify(data),
-  })
-    .then((response) => response.json())
-    .catch((error) => console.error(error));
+  try {
+    const gitHubIssue = await fetch(
+      `${GITHUB_API_URL}/repos/${owner}/${repo}/issues`,
+      {
+        method: "POST",
+        headers: headers,
+        body: JSON.stringify(data),
+      }
+    );
 
-  return gitHubIssue;
+    return await gitHubIssue.json();
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 /**
@@ -191,18 +208,20 @@ export const createGitHubProjectCard = async (
     content_type: string;
   }
 ) => {
-  const gitHubProjectCard = fetch(
-    `${GITHUB_API_URL}/projects/columns/${column_id}/cards`,
-    {
-      method: "POST",
-      headers: headers,
-      body: JSON.stringify(data),
-    }
-  )
-    .then((response) => response.json())
-    .catch((error) => console.error(error));
+  try {
+    const gitHubProjectCard = await fetch(
+      `${GITHUB_API_URL}/projects/columns/${column_id}/cards`,
+      {
+        method: "POST",
+        headers: headers,
+        body: JSON.stringify(data),
+      }
+    );
 
-  return gitHubProjectCard;
+    return await gitHubProjectCard.json();
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 /**
@@ -218,18 +237,20 @@ export const updateGitHubIssue = async (
     body: string;
   }
 ) => {
-  const gitHubIssue = fetch(
-    `${GITHUB_API_URL}/repos/${username}/${repo}/issues/${issueNumber}`,
-    {
-      method: "PATCH",
-      headers: headers,
-      body: JSON.stringify(data),
-    }
-  )
-    .then((response) => response.json())
-    .catch((error) => console.error(error));
+  try {
+    const gitHubIssue = await fetch(
+      `${GITHUB_API_URL}/repos/${username}/${repo}/issues/${issueNumber}`,
+      {
+        method: "PATCH",
+        headers: headers,
+        body: JSON.stringify(data),
+      }
+    );
 
-  return gitHubIssue;
+    return await gitHubIssue.json();
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 /**
@@ -244,16 +265,18 @@ export const updateGitHubProjectCard = async (
     position: string;
   }
 ) => {
-  const gitHubProjectCard = fetch(
-    `${GITHUB_API_URL}/projects/columns/cards/${gitHubProjectCardId}/moves`,
-    {
-      method: "POST",
-      headers: headers,
-      body: JSON.stringify(data),
-    }
-  )
-    .then((response) => response.json())
-    .catch((error) => console.error(error));
+  try {
+    const gitHubProjectCard = await fetch(
+      `${GITHUB_API_URL}/projects/columns/cards/${gitHubProjectCardId}/moves`,
+      {
+        method: "POST",
+        headers: headers,
+        body: JSON.stringify(data),
+      }
+    );
 
-  return gitHubProjectCard;
+    return await gitHubProjectCard.json();
+  } catch (error) {
+    console.error(error);
+  }
 };
