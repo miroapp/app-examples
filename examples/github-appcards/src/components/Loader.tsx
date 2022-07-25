@@ -28,8 +28,8 @@ const Loader = () => {
       <motion.div
         style={style}
         variants={variants}
-        initial={"start"}
-        animate={"end"}
+        initial="start"
+        animate="end"
         transition={{
           repeat: "Infinity",
           repeatType: "reverse",
@@ -41,8 +41,8 @@ const Loader = () => {
       <motion.div
         style={style}
         variants={variants}
-        initial={"start"}
-        animate={"end"}
+        initial="start"
+        animate="end"
         transition={{
           repeat: "Infinity",
           repeatType: "reverse",
@@ -54,8 +54,8 @@ const Loader = () => {
       <motion.div
         style={style}
         variants={variants}
-        initial={"start"}
-        animate={"end"}
+        initial="start"
+        animate="end"
         transition={{
           repeat: "Infinity",
           repeatType: "reverse",

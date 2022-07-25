@@ -172,14 +172,14 @@ function App() {
       <Input
         label="Title"
         required
-        placeholder={"Title"}
+        placeholder="Title"
         value={newTitle.replace(/<\/?[^>]+(>|$)/g, "")}
         onChange={(value) => setNewTitle(value)}
       />
       <Input
         label="Description"
         required
-        placeholder={"Description"}
+        placeholder="Description"
         value={newDescription}
         onChange={(value) => setNewDescription(value)}
       />

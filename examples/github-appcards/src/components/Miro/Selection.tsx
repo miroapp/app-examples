@@ -59,13 +59,13 @@ const Selection = ({
   return (
     <div className="selection-container">
       <Select
-        label={"Select GitHub Project"}
+        label="Select GitHub Project"
         required={true}
         options={gitHubProjects}
         onChange={(e) => setSelectedProject(JSON.parse(e.target.value))}
       />
       <Select
-        label={"Column"}
+        label="Column"
         required={true}
         options={gitHubColumns}
         onChange={(e) => onSelectColumn(JSON.parse(e.target.value))}

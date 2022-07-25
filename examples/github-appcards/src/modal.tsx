@@ -158,7 +158,7 @@ function Modal() {
     <div className="modal-container wrapper">
       <h2>Choose from GitHub</h2>
       <Select
-        label={"Select GitHub Project"}
+        label="Select GitHub Project"
         required={true}
         options={gitHubProjects}
         onChange={(e) => setSelectedProject(JSON.parse(e.target.value))}
