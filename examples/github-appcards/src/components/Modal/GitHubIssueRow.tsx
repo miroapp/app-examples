@@ -11,7 +11,7 @@ const GitHubIssueRow = ({
 }: {
   title: string;
   date: string;
-  status: { name: string; id: any };
+  status: { name: string; id: number };
   onSelect: (value: boolean) => void;
 }) => {
   const issueDate = new Date(date);
