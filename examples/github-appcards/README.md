@@ -27,7 +27,7 @@
 
 ### Folder structure
 
-The strcuture below outlines the most important files in the project used for it's core functionality.
+The structure below outlines the most important files in the project used for its core functionality.
 
 ```
 .
@@ -44,7 +44,7 @@ The strcuture below outlines the most important files in the project used for it
 │  └── app.tsx <-- The main entry. Contains structure for the sidebar when launched.
 │      appcard-modal.tsx <-- The main entry for the modal that appears when an app card is expanded.
 │      constants.ts <-- A collection of static variables used throughout the app.
-│      index.ts <-- Initializes app, and contains logic ffor opening the app from the sidebar and expanding an app card.
+│      index.ts <-- Initializes app, and contains logic for opening the app from the sidebar and expanding an app card.
 │      modal.tsx <-- The main entry for the modal that appears when selecting a GitHub issue to import.
 ├── app.html <-- The app itself. This is loaded on the board inside 'app.tsx'
 ├── appcard-modal.html <-- The app card modal itself. This is loaded on the board inside the 'appcard-modal.tsx'
