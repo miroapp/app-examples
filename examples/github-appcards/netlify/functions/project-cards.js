@@ -103,40 +103,43 @@ exports.handler = async function (event) {
         };
 
         return new Promise((resolve) => {
-          fetch(
-            `https://api.miro.com/v2/boards/${item.miroBoardId}/app_cards/${item.miroAppCardId}`,
-            options
-          )
-            .then((res) => {
-              if (res.ok) {
-                return res.json();
-              } else {
-                resolve({
-                  statusCode: res.status || 500,
-                  body: res.statusText,
-                });
-              }
-            })
-            .then((data) => {
+          try {
+            const miroAppCardResponse = fetch(
+              `https://api.miro.com/v2/boards/${item.miroBoardId}/app_cards/${item.miroAppCardId}`,
+              options
+            );
+
+            if (miroAppCardResponse.ok) {
+              const data = miroAppCardResponse.json();
               const response = {
                 statusCode: 200,
                 headers: { "content-type": "application/json" },
                 body: JSON.stringify(data),
               };
               resolve(response);
-            })
-            .catch((err) => {
-              console.log(err);
-              resolve({ statusCode: err.statusCode || 500, body: err.message });
+            } else {
+              resolve({
+                statusCode: miroAppCardResponse.status || 500,
+                body: miroAppCardResponse.statusText,
+              });
+            }
+
+            const response = {
+              statusCode: 200,
+              headers: { "content-type": "application/json" },
+              body: JSON.stringify(data),
+            };
+            resolve(response);
+          } catch (error) {
+            console.log(error);
+            resolve({
+              statusCode: error.statusCode || 500,
+              body: error.message,
             });
+          }
         });
       })
-    ).then(() => {
-      return {
-        statusCode: 200,
-        body: JSON.stringify({ message: "Items Updated" }),
-      };
-    });
+    );
   }
 
   // Final response

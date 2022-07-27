@@ -75,20 +75,18 @@ exports.handler = async function (event) {
 
             if (miroAppCardResponse.ok) {
               const data = miroAppCardResponse.json();
-              return data;
+              const response = {
+                statusCode: 200,
+                headers: { "content-type": "application/json" },
+                body: JSON.stringify(data),
+              };
+              resolve(response);
             } else {
               resolve({
                 statusCode: miroAppCardResponse.status || 500,
                 body: miroAppCardResponse.statusText,
               });
             }
-
-            const response = {
-              statusCode: 200,
-              headers: { "content-type": "application/json" },
-              body: JSON.stringify(data),
-            };
-            resolve(response);
           } catch (error) {
             resolve({
               statusCode: error.statusCode || 500,
