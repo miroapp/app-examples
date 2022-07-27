@@ -21,7 +21,7 @@ The fastest way to bootstrap a new app is by using [`create-miro-app`](https://w
 To get started, run the following command:
 
 ```shell
-npx create-miro-app
+npx create-miro-app@latest
 ```
 
 |                                                         | Description                                                                                                                                        |
@@ -33,20 +33,20 @@ npx create-miro-app
 | [stickynotes-to-shapes](examples/stickynotes-to-shapes) | This example allows you to select several stickies, click the plugin button in the bottom bar, and replace any selected stickies with shapes.      |
 | [template-builder](examples/template-builder)           | This example shows how to create and position on the board multiple widgets of different types and render create custom interfaces in the library. |
 | [calendar](examples/calendar)                           | This example shows you how to add a calendar made with shapes and text for a given month and year.                                                 |
-| [wordle](examples/wordle)                               | This example shows you how to create a wordle-like game using Miro's Web SDK.                                                                      |
+| [wordle](examples/wordle)                               | This example shows you how to create a Wordle-like game using the Miro Web SDK.                                                                    |
 | [blob-maker](examples/blob-maker)                       | This example shows you how to create a drag and drop blobmaker using Miro's Web SDK.                                                               |
-| [youtube-room](examples/youtube-room)                   | This example shows you how to sync a Youtube player across multiple users through Socket.IO.                                                       |
+| [youtube-room](examples/youtube-room)                   | This example shows you how to sync a YouTube player across multiple users through Socket.IO.                                                       |
 
 <p>&nbsp;</p>
 
 ### REST APIs
 
-|                                                            | Description                                                                                                                                                                                                                                                                                             |
-| ---------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [python_oauth](examples/oauth/python)                      | This python sample demonstrates how to implement the Oauth 2.0 authorization code flow in Miro.                                                                                                                                                                                                         |
-| [node_oauth](examples/oauth/node)                          | This NodeJS sample demonstrates how to implement the Oauth 2.0 authorization code flow in Miro and make an API request to a Miro endpoint.                                                                                                                                                              |
-| [rest-stickies-csv](examples/rest-stickies-csv)            | This NodeJS sample app uses server side rendering (HandlebarsJS) to provide a lightweight, CRUD-oriented REST example in the browser for Miro's Sticky Notes and Tags APIs. It demonstrates a structured > unstructured use case via CSV import, creating Miro Sticky Notes with Tags based on CSV data |
-| [python-flask-starter](examples/rest/python-flask-starter) | This Python/Flask boilerplate will allow to start using the Miro REST API in a few minutes. This sample implements the full Miro authorization (OAuth2 with refresh token) flow.                                                                                                                        |
+|                                                            | Description                                                                                                                                                                                                                                                                                                     |
+| ---------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [python_oauth](examples/oauth/python)                      | This Python sample demonstrates how to implement the Oauth 2.0 authorization code flow in Miro.                                                                                                                                                                                                                 |
+| [node_oauth](examples/oauth/node)                          | This Node.js sample demonstrates how to implement the Oauth 2.0 authorization code flow in Miro and make an API request to a Miro endpoint.                                                                                                                                                                     |
+| [rest-stickies-csv](examples/rest-stickies-csv)            | This Node.js sample app uses server side rendering (Handlebars.js) to provide a lightweight, CRUD-oriented REST example in the browser for Miro's sticky notes and tags APIs.<br />It demonstrates a structured > unstructured use case via CSV import, creating Miro sticky notes with tags based on CSV data. |
+| [python-flask-starter](examples/rest/python-flask-starter) | This Python/Flask boilerplate will allow to start using the Miro REST API in a few minutes.<br />This sample implements the full Miro authorization (OAuth 2.0 with refresh token) flow.                                                                                                                        |
 
 <p>&nbsp;</p>
 
