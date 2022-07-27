@@ -133,33 +133,35 @@ function Modal() {
       });
     });
 
-    const filteredGitHubIssuesWithStatus = filteredGitHubIssues.map((issue) => {
-      // Find matching GitHub Project Card for Issue
-      const matchingGitHubProjectCard = gitHubProjectCards.find(
-        (card) => card.content_url === issue.url
-      );
+    const filteredGitHubIssuesWithStatus = filteredGitHubIssues
+      .map((issue) => {
+        // Find matching GitHub Project Card for Issue
+        const matchingGitHubProjectCard = gitHubProjectCards.find(
+          (card) => card.content_url === issue.url
+        );
 
-      if (matchingGitHubProjectCard === undefined) {
-        throw new TypeError("No Matching GitHub Card for current Issue");
-      }
+        if (matchingGitHubProjectCard === undefined) {
+          return null;
+        }
 
-      // Find Project Column ID the card lives in
-      const columnId = matchingGitHubProjectCard.column_url
-        .split("https://api.github.com/projects/columns/")
-        .pop();
+        // Find Project Column ID the card lives in
+        const columnId = matchingGitHubProjectCard.column_url
+          .split("https://api.github.com/projects/columns/")
+          .pop();
 
-      // Find the name of the column
-      const status = gitHubColumns.find(
-        (column) => column.id.toString() === columnId
-      );
+        // Find the name of the column
+        const status = gitHubColumns.find(
+          (column) => column.id.toString() === columnId
+        );
 
-      // Return issue with column and card attached
-      return {
-        ...issue,
-        status: status || { name: "", id: null },
-        gitHubProjectCard: matchingGitHubProjectCard,
-      };
-    });
+        // Return issue with column and card attached
+        return {
+          ...issue,
+          status: status || { name: "", id: null },
+          gitHubProjectCard: matchingGitHubProjectCard,
+        };
+      })
+      .filter(Boolean);
 
     return filteredGitHubIssuesWithStatus;
   };
