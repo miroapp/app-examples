@@ -1,0 +1,13 @@
+name: "Issues"
+on: issues
+jobs:
+  issue_updated:
+    runs-on: ubuntu-latest
+    name: Issue Updated
+    steps:
+      - name: Update Issues
+        uses: fjogeleit/http-request-action@v1.9.1
+        with:
+          url: "https://miro-github.netlify.app/.netlify/functions/issues"
+          method: "POST"
+          data: '{"gitHubIssue": ${{ toJSON(github.event.issue) }}}'
