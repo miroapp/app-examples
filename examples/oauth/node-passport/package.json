@@ -1,0 +1,19 @@
+{
+  "name": "miro-rest-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.mjs & sleep 1 && open http://localhost:${PORT:-4000}/auth/miro/callback && wait",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.1",
+    "express-session": "^1.17.3",
+    "node-fetch": "^3.2.9",
+    "passport": "^0.6.0",
+    "passport-oauth2": "^1.6.1"
+  }
+}
