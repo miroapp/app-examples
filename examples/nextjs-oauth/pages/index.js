@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import Head from "next/head";
+import Link from "next/link";
 
 export default function Main() {
   const [authenticated, setAuthenticated] = useState(false);
@@ -22,7 +23,7 @@ export default function Main() {
       {authenticated ? (
         <p>Logged in sucessfully!</p>
       ) : (
-        <a href="/api/signin">Sign In</a>
+        <Link href="/api/signin">Sign In</Link>
       )}
     </div>
   );
