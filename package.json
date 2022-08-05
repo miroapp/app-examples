@@ -17,7 +17,7 @@
   "scripts": {
     "build": "yarn turbo run build",
     "prepare": "husky install",
-    "lint": "eslint ./",
+    "lint": "eslint ./ --ignore-pattern='nextjs-oauth' && turbo run lint",
     "preformat": "command -v black >/dev/null || (echo 'You need to install black fromatter, run brew install black' && exit 1)",
     "format": "yarn prettier -w ./ && black ./examples"
   },

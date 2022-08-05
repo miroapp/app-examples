@@ -1,5 +1,5 @@
 {
-  "name": "miro-oauth-sample",
+  "name": "node-oauth",
   "version": "1.0.0",
   "description": "Sample app to demonstrate OAuth 2.0 flow.",
   "main": "index.js",
