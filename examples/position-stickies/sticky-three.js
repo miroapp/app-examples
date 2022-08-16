@@ -6,7 +6,7 @@ const dupl_data = require("./DATA-TWO");
 
 const options = {
   method: "GET",
-  url: "https://api.miro.com/v2/boards/o9J_licCjc0=/items?limit=50",
+  url: "https://api.miro.com/v2/boards/<your-board-id>/items?limit=50",
   headers: {
     Accept: "application/json",
     Authorization: `Bearer ${process.env.ACCESS_TOKEN}`,
@@ -55,7 +55,7 @@ axios
 
         return axios.request({
           method: "POST",
-          url: "https://api.miro.com/v2/boards/o9J_licCjc0=/sticky_notes",
+          url: "https://api.miro.com/v2/boards/<your-board-id>/sticky_notes",
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
@@ -75,7 +75,7 @@ axios
 
         return axios.request({
           method: "POST",
-          url: "https://api.miro.com/v2/boards/o9J_licCjc0=/sticky_notes",
+          url: "https://api.miro.com/v2/boards/<your-board-id>/sticky_notes",
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
