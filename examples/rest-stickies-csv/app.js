@@ -1085,40 +1085,14 @@ app.post("/create-sticky", async function (req, res) {
 
 // ROUTE(POST): UPDATE EXISTING STICKY
 
-app.post("/update-sticky", function (req, res) {
-  let stickyId = req.body.Id;
-  let newStickyContent = req.body.Content;
+app.post("/update-sticky", async function (req, res) {
+  let { id, content } = req.body;
 
-  // Miro request URL for POST Create App sticky:
-  let stickyRequestUrl = requestUrl + `/${stickyId}`;
+  const board = await miro.as(USER_ID).getBoard(MIRO_BOARD_ID);
+  const stickyNote = await board.getStickyNoteItem(id);
+  await stickyNote.update({ data: { content } });
 
-  let payload = JSON.stringify({
-    data: { content: newStickyContent },
-  });
-  // API Request configuration
-  let config = {
-    method: "patch",
-    url: stickyRequestUrl,
-    headers: {
-      Authorization: `Bearer ${oauthAccessToken}`,
-      "Content-Type": "application/json",
-    },
-    data: payload,
-  };
-
-  // Call Miro API to update App Card:
-  async function callMiroUpdate() {
-    try {
-      let response = await axios(config);
-      let miroData = JSON.stringify(response.data);
-      return miroData;
-    } catch (err) {
-      console.log(`ERROR: ${err}`);
-    }
-  }
-
-  callMiroUpdate();
-  res.redirect(301, "/get-sticky");
+  res.redirect(301, "/update-sticky");
 });
 
 // ROUTE(POST): DELETE EXISTING STICKY NOTE
