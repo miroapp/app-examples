@@ -101,12 +101,7 @@ app.get("/upload-csv", (req, res) => {
   if (oauthAccessToken) {
     res.render("uploadCSV");
   } else {
-    res.redirect(
-      "https://miro.com/oauth/authorize?response_type=code&client_id=" +
-        process.env.MIRO_CLIENT_ID +
-        "&redirect_uri=" +
-        process.env.MIRO_REDIRECT_URL
-    );
+    res.redirect(miro.getAuthUrl());
   }
 });
 
@@ -1032,16 +1027,11 @@ app.get("/get-sticky", async (req, res) => {
 });
 
 // ROUTE(GET): RENDER 'CREATE CARD' VIEW
-app.get("/create-sticky", (req, res) => {
-  if (oauthAccessToken) {
+app.get("/create-sticky", async (req, res) => {
+  if (await miro.isAuthorized(USER_ID)) {
     res.render("createCard");
   } else {
-    res.redirect(
-      "https://miro.com/oauth/authorize?response_type=code&client_id=" +
-        process.env.MIRO_CLIENT_ID +
-        "&redirect_uri=" +
-        process.env.MIRO_REDIRECT_URL
-    );
+    res.redirect(miro.getAuthUrl());
   }
 });
 
@@ -1050,12 +1040,7 @@ app.get("/update-sticky", (req, res) => {
   if (oauthAccessToken) {
     res.render("updateCard");
   } else {
-    res.redirect(
-      "https://miro.com/oauth/authorize?response_type=code&client_id=" +
-        process.env.MIRO_CLIENT_ID +
-        "&redirect_uri=" +
-        process.env.MIRO_REDIRECT_URL
-    );
+    res.redirect(miro.getAuthUrl());
   }
 });
 
@@ -1064,12 +1049,7 @@ app.get("/delete-sticky", (req, res) => {
   if (oauthAccessToken) {
     res.render("deleteCard");
   } else {
-    res.redirect(
-      "https://miro.com/oauth/authorize?response_type=code&client_id=" +
-        process.env.MIRO_CLIENT_ID +
-        "&redirect_uri=" +
-        process.env.MIRO_REDIRECT_URL
-    );
+    res.redirect(miro.getAuthUrl());
   }
 });
 
