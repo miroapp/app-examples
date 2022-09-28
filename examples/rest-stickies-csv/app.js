@@ -6,6 +6,16 @@ const express = require("express");
 const exphbs = require("express-handlebars");
 const app = express();
 
+const { Miro } = require("@mirohq/miro-node");
+
+const miro = new Miro({
+  clientId: process.env.MIRO_CLIENT_ID,
+  clientSecret: process.env.MIRO_CLIENT_SECRET,
+  redirectUrl: process.env.MIRO_REDIRECT_URL,
+});
+const USER_ID = "WE_DONT_NEED_A_REAL_ID";
+const MIRO_BOARD_ID = "uXjVPTm8qe0=";
+
 // Require axios for http requests:
 const axios = require("axios");
 
@@ -33,7 +43,7 @@ app.engine(
 app.set("view engine", "hbs");
 
 // Declare global variable for Miro API endpoint (App Cards)
-const requestUrl = `https://api.miro.com/v2/boards/${process.env.boardId}/sticky_notes`;
+const requestUrl = `https://api.miro.com/v2/boards/${MIRO_BOARD_ID}/sticky_notes`;
 
 // Declare global access_token variable
 let oauthAccessToken;
@@ -66,27 +76,24 @@ let endpoint12Id;
 // <-------- ROUTES -------->
 
 // ROUTE (GET): Retrieve access_token from OAuth redirect
-app.get("/authorized", (req, res) => {
-  let parsedUrl = req.url;
-  let urlValues = parsedUrl.split("?");
-  console.log(urlValues[1]);
-  oauthAccessToken = urlValues[1];
+app.get("/authorized", async (req, res) => {
+  try {
+    await miro.handleAuthorizationCodeRequest(USER_ID, req);
+  } catch (e) {
+    console.error(e);
+  }
 
   res.render("authorizeApp");
 });
 
 // ROUTE (POST): Trigger the authorization flow
-app.post("/", function (req, res) {
-  if (oauthAccessToken) {
+app.post("/", async function (req, res) {
+  if (await miro.isAuthorized(USER_ID)) {
     res.render("authorizeApp");
-  } else {
-    res.redirect(
-      "https://miro.com/oauth/authorize?response_type=code&client_id=" +
-        process.env.clientID +
-        "&redirect_uri=" +
-        process.env.redirectURL
-    );
+    return;
   }
+
+  res.redirect(miro.getAuthUrl());
 });
 
 // ROUTE(GET): VIEW UPLOAD .CSV OPTION
@@ -96,9 +103,9 @@ app.get("/upload-csv", (req, res) => {
   } else {
     res.redirect(
       "https://miro.com/oauth/authorize?response_type=code&client_id=" +
-        process.env.clientID +
+        process.env.MIRO_CLIENT_ID +
         "&redirect_uri=" +
-        process.env.redirectURL
+        process.env.MIRO_REDIRECT_URL
     );
   }
 });
@@ -144,7 +151,7 @@ app.post("/create-from-csv", function (req, res) {
 
   async function createEndpoints() {
     // Define request parameters and payload
-    let miroShapeEndpoint = `https://api.miro.com/v2/boards/${process.env.boardId}/shapes`;
+    let miroShapeEndpoint = `https://api.miro.com/v2/boards/${MIRO_BOARD_ID}/shapes`;
     let headers = {
       Authorization: `Bearer ${oauthAccessToken}`,
       "Content-Type": "application/json",
@@ -533,7 +540,7 @@ app.post("/create-from-csv", function (req, res) {
             }`;
 
           // Configuration for requests to /v2-experimental for Connectors
-          let connectorsEndpoint = `https://api.miro.com/v2-experimental/boards/${process.env.boardId}/connectors`;
+          let connectorsEndpoint = `https://api.miro.com/v2-experimental/boards/${MIRO_BOARD_ID}/connectors`;
           let headers = {
             Authorization: `Bearer ${oauthAccessToken}`,
             "Content-Type": "application/json",
@@ -621,6 +628,7 @@ app.post("/create-from-csv", function (req, res) {
           await axios(configTop4);
           await axios(configTop5);
         }
+
         createConnectors();
       } catch (err) {
         console.log(`ERROR on createConnectors(): ${err}`);
@@ -629,6 +637,7 @@ app.post("/create-from-csv", function (req, res) {
       console.log(`ERROR on createEndpoints(): ${err}`);
     }
   }
+
   createEndpoints();
 
   // <-------- STICKY AND TAGS CREATION FROM CSV  -------->
@@ -779,7 +788,7 @@ app.post("/create-from-csv", function (req, res) {
     // API Request configuration
     let config = {
       method: "post",
-      url: `https://api.miro.com/v2/boards/${process.env.boardId}/sticky_notes`,
+      url: `https://api.miro.com/v2/boards/${MIRO_BOARD_ID}/sticky_notes`,
       headers: {
         Authorization: `Bearer ${oauthAccessToken}`,
         "Content-Type": "application/json",
@@ -794,6 +803,7 @@ app.post("/create-from-csv", function (req, res) {
         let response = await axios(config);
         let miroData = JSON.stringify(response.data.id);
         console.log("Sticky ID : " + miroData);
+
         // Create tag
         async function createTag() {
           let tagPayload1 = JSON.stringify({
@@ -826,7 +836,7 @@ app.post("/create-from-csv", function (req, res) {
 
           let config1 = {
             method: "post",
-            url: `https://api.miro.com/v2/boards/${process.env.boardId}/tags`,
+            url: `https://api.miro.com/v2/boards/${MIRO_BOARD_ID}/tags`,
             headers: {
               Authorization: `Bearer ${oauthAccessToken}`,
               "Content-Type": "application/json",
@@ -836,7 +846,7 @@ app.post("/create-from-csv", function (req, res) {
 
           let config2 = {
             method: "post",
-            url: `https://api.miro.com/v2/boards/${process.env.boardId}/tags`,
+            url: `https://api.miro.com/v2/boards/${MIRO_BOARD_ID}/tags`,
             headers: {
               Authorization: `Bearer ${oauthAccessToken}`,
               "Content-Type": "application/json",
@@ -846,7 +856,7 @@ app.post("/create-from-csv", function (req, res) {
 
           let config3 = {
             method: "post",
-            url: `https://api.miro.com/v2/boards/${process.env.boardId}/tags`,
+            url: `https://api.miro.com/v2/boards/${MIRO_BOARD_ID}/tags`,
             headers: {
               Authorization: `Bearer ${oauthAccessToken}`,
               "Content-Type": "application/json",
@@ -856,7 +866,7 @@ app.post("/create-from-csv", function (req, res) {
 
           let config4 = {
             method: "post",
-            url: `https://api.miro.com/v2/boards/${process.env.boardId}/tags`,
+            url: `https://api.miro.com/v2/boards/${MIRO_BOARD_ID}/tags`,
             headers: {
               Authorization: `Bearer ${oauthAccessToken}`,
               "Content-Type": "application/json",
@@ -888,7 +898,7 @@ app.post("/create-from-csv", function (req, res) {
               let stickyId = miroData.replace(/['"]+/g, "");
               let attachConfig = {
                 method: "post",
-                url: `https://api.miro.com/v2/boards/${process.env.boardId}/items/${stickyId}?tag_id=${tagId}`,
+                url: `https://api.miro.com/v2/boards/${MIRO_BOARD_ID}/items/${stickyId}?tag_id=${tagId}`,
                 headers: {
                   Authorization: `Bearer ${oauthAccessToken}`,
                   "Content-Type": "application/json",
@@ -905,6 +915,7 @@ app.post("/create-from-csv", function (req, res) {
                 console.log(`ERROR on attachTag(): ${err}`);
               }
             }
+
             attachTag();
 
             // Attach tag 2
@@ -912,7 +923,7 @@ app.post("/create-from-csv", function (req, res) {
               let stickyId = miroData.replace(/['"]+/g, "");
               let attachConfig = {
                 method: "post",
-                url: `https://api.miro.com/v2/boards/${process.env.boardId}/items/${stickyId}?tag_id=${tagId2}`,
+                url: `https://api.miro.com/v2/boards/${MIRO_BOARD_ID}/items/${stickyId}?tag_id=${tagId2}`,
                 headers: {
                   Authorization: `Bearer ${oauthAccessToken}`,
                   "Content-Type": "application/json",
@@ -929,6 +940,7 @@ app.post("/create-from-csv", function (req, res) {
                 console.log(`ERROR on attachTag2(): ${err}`);
               }
             }
+
             attachTag2();
 
             // Attach tag 3
@@ -936,7 +948,7 @@ app.post("/create-from-csv", function (req, res) {
               let stickyId = miroData.replace(/['"]+/g, "");
               let attachConfig = {
                 method: "post",
-                url: `https://api.miro.com/v2/boards/${process.env.boardId}/items/${stickyId}?tag_id=${tagId3}`,
+                url: `https://api.miro.com/v2/boards/${MIRO_BOARD_ID}/items/${stickyId}?tag_id=${tagId3}`,
                 headers: {
                   Authorization: `Bearer ${oauthAccessToken}`,
                   "Content-Type": "application/json",
@@ -953,6 +965,7 @@ app.post("/create-from-csv", function (req, res) {
                 console.log(`ERROR on attachTag3(): ${err}`);
               }
             }
+
             attachTag3();
 
             // Attach tag 4
@@ -960,7 +973,7 @@ app.post("/create-from-csv", function (req, res) {
               let stickyId = miroData.replace(/['"]+/g, "");
               let attachConfig = {
                 method: "post",
-                url: `https://api.miro.com/v2/boards/${process.env.boardId}/items/${stickyId}?tag_id=${tagId4}`,
+                url: `https://api.miro.com/v2/boards/${MIRO_BOARD_ID}/items/${stickyId}?tag_id=${tagId4}`,
                 headers: {
                   Authorization: `Bearer ${oauthAccessToken}`,
                   "Content-Type": "application/json",
@@ -978,16 +991,19 @@ app.post("/create-from-csv", function (req, res) {
                 console.log(`ERROR on attachTag4(): ${err}`);
               }
             }
+
             attachTag4();
           } catch (err) {
             console.log(`ERROR on createTag(): ${err}`);
           }
         }
+
         createTag();
       } catch (err) {
         console.log(`ERROR: ${err}`);
       }
     }
+
     callMiro();
   }
   // Redirect to 'List Stickies' view on success
@@ -1000,34 +1016,18 @@ app.get("/", (req, res) => {
 });
 
 // ROUTE(GET) RETRIEVE STICKY DATA / 'List Stickies'
-app.get("/get-sticky", (req, res) => {
-  if (oauthAccessToken) {
-    let config = {
-      method: "get",
-      url: requestUrl,
-      headers: {
-        Authorization: `Bearer ${oauthAccessToken}`,
-      },
-    };
-    // Function to call Miro API/retrieve Sticky Notes
-    async function getStickies() {
-      try {
-        let response = await axios(config);
-        let miroData = response.data.data;
-        res.render("viewCard.hbs", { miroData });
-      } catch (err) {
-        console.log(`ERROR: ${err}`);
-      }
-      return;
+app.get("/get-sticky", async (req, res) => {
+  if (await miro.isAuthorized(USER_ID)) {
+    const board = await miro.as(USER_ID).getBoard(MIRO_BOARD_ID);
+    const allItems = await board.getAllItems({ type: "sticky_note" });
+
+    const boardItems = [];
+    for await (const item of allItems) {
+      boardItems.push(item);
     }
-    getStickies();
+    res.render("viewCard.hbs", { miroData: boardItems });
   } else {
-    res.redirect(
-      "https://miro.com/oauth/authorize?response_type=code&client_id=" +
-        process.env.clientID +
-        "&redirect_uri=" +
-        process.env.redirectURL
-    );
+    res.redirect(miro.getAuthUrl());
   }
 });
 
@@ -1038,9 +1038,9 @@ app.get("/create-sticky", (req, res) => {
   } else {
     res.redirect(
       "https://miro.com/oauth/authorize?response_type=code&client_id=" +
-        process.env.clientID +
+        process.env.MIRO_CLIENT_ID +
         "&redirect_uri=" +
-        process.env.redirectURL
+        process.env.MIRO_REDIRECT_URL
     );
   }
 });
@@ -1052,9 +1052,9 @@ app.get("/update-sticky", (req, res) => {
   } else {
     res.redirect(
       "https://miro.com/oauth/authorize?response_type=code&client_id=" +
-        process.env.clientID +
+        process.env.MIRO_CLIENT_ID +
         "&redirect_uri=" +
-        process.env.redirectURL
+        process.env.MIRO_REDIRECT_URL
     );
   }
 });
@@ -1066,9 +1066,9 @@ app.get("/delete-sticky", (req, res) => {
   } else {
     res.redirect(
       "https://miro.com/oauth/authorize?response_type=code&client_id=" +
-        process.env.clientID +
+        process.env.MIRO_CLIENT_ID +
         "&redirect_uri=" +
-        process.env.redirectURL
+        process.env.MIRO_REDIRECT_URL
     );
   }
 });
@@ -1100,7 +1100,7 @@ app.post("/create-sticky", function (req, res) {
   // API Request configuration
   let config = {
     method: "post",
-    url: `https://api.miro.com/v2/boards/${process.env.boardId}/sticky_notes`,
+    url: `https://api.miro.com/v2/boards/${MIRO_BOARD_ID}/sticky_notes`,
     headers: {
       Authorization: `Bearer ${oauthAccessToken}`,
       "Content-Type": "application/json",
@@ -1117,6 +1117,7 @@ app.post("/create-sticky", function (req, res) {
       let response = await axios(config);
       miroData = JSON.stringify(response.data.id);
       tagId = await createTag();
+
       // Function to create tag item
       async function createTag() {
         let tagPayload = JSON.stringify({
@@ -1125,7 +1126,7 @@ app.post("/create-sticky", function (req, res) {
         });
         let config = {
           method: "post",
-          url: `https://api.miro.com/v2/boards/${process.env.boardId}/tags`,
+          url: `https://api.miro.com/v2/boards/${MIRO_BOARD_ID}/tags`,
           headers: {
             Authorization: `Bearer ${oauthAccessToken}`,
             "Content-Type": "application/json",
@@ -1142,13 +1143,15 @@ app.post("/create-sticky", function (req, res) {
           console.log(`ERROR on createTag(): ${err}`);
         }
       }
+
       createTag();
+
       // Function to attach tag to sticky
       async function attachTag() {
         let stickyId = miroData.replace(/['"]+/g, "");
         let attachConfig = {
           method: "post",
-          url: `https://api.miro.com/v2/boards/${process.env.boardId}/items/${stickyId}?tag_id=${tagId}`,
+          url: `https://api.miro.com/v2/boards/${MIRO_BOARD_ID}/items/${stickyId}?tag_id=${tagId}`,
           headers: {
             Authorization: `Bearer ${oauthAccessToken}`,
             "Content-Type": "application/json",
@@ -1163,11 +1166,13 @@ app.post("/create-sticky", function (req, res) {
           console.log(`ERROR: ${err}`);
         }
       }
+
       attachTag();
     } catch (err) {
       console.log(`ERROR: ${err}`);
     }
   }
+
   callMiro();
   res.redirect(301, "/get-sticky");
 });
@@ -1194,6 +1199,7 @@ app.post("/update-sticky", function (req, res) {
     },
     data: payload,
   };
+
   // Call Miro API to update App Card:
   async function callMiroUpdate() {
     try {
@@ -1204,6 +1210,7 @@ app.post("/update-sticky", function (req, res) {
       console.log(`ERROR: ${err}`);
     }
   }
+
   callMiroUpdate();
   res.redirect(301, "/get-sticky");
 });
@@ -1226,6 +1233,7 @@ app.post("/delete-sticky", function (req, res) {
       "Content-Type": "application/json",
     },
   };
+
   // Call Miro API to delete App Card:
   async function callMiroDelete() {
     try {
@@ -1236,6 +1244,7 @@ app.post("/delete-sticky", function (req, res) {
       console.log(`ERROR: ${err}`);
     }
   }
+
   callMiroDelete();
   res.redirect(301, "/get-sticky");
 });
