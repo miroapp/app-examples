@@ -6,7 +6,7 @@ const express = require("express");
 const exphbs = require("express-handlebars");
 const app = express();
 
-const { Miro } = require("@mirohq/miro-node");
+const { Miro, TagCreateRequest, StickyNoteData } = require("@mirohq/miro-node");
 
 const miro = new Miro({
   clientId: process.env.MIRO_CLIENT_ID,
@@ -1074,107 +1074,26 @@ app.get("/delete-sticky", (req, res) => {
 });
 
 // ROUTE(POST): CREATE STICKY
-app.post("/create-sticky", function (req, res) {
-  let stickyTitle = req.body.Title;
-  let stickyDescription = req.body.Description;
-  let stickyTag1 = req.body.Tag1;
+app.post("/create-sticky", async function (req, res) {
+  let { title, description, tag } = req.body;
 
-  // API Request Payload
-  let payload = JSON.stringify({
+  const board = await miro.as(USER_ID).getBoard(MIRO_BOARD_ID);
+  const stickyNote = await board.createStickyNoteItem({
     data: {
-      content: stickyTitle + " " + stickyDescription,
-      shape: "square",
-    },
-    style: {
-      fillColor: "light_blue",
-      textAlign: "center",
-      textAlignVertical: "top",
-    },
-    position: {
-      x: 0,
-      y: 0,
-      origin: "center",
+      content: `${title} ${description}`,
+      shape: StickyNoteData.ShapeEnum.Square,
     },
   });
 
-  // API Request configuration
-  let config = {
-    method: "post",
-    url: `https://api.miro.com/v2/boards/${MIRO_BOARD_ID}/sticky_notes`,
-    headers: {
-      Authorization: `Bearer ${oauthAccessToken}`,
-      "Content-Type": "application/json",
-    },
-    data: payload,
-  };
-
-  // Call Miro API to create Sticky:
-  async function callMiro() {
-    let miroData;
-    let tagId;
-    try {
-      // Call Create Sticky endpoint
-      let response = await axios(config);
-      miroData = JSON.stringify(response.data.id);
-      tagId = await createTag();
-
-      // Function to create tag item
-      async function createTag() {
-        let tagPayload = JSON.stringify({
-          fillColor: "blue",
-          title: stickyTag1,
-        });
-        let config = {
-          method: "post",
-          url: `https://api.miro.com/v2/boards/${MIRO_BOARD_ID}/tags`,
-          headers: {
-            Authorization: `Bearer ${oauthAccessToken}`,
-            "Content-Type": "application/json",
-          },
-          data: tagPayload,
-        };
-        try {
-          let tagResponse = await axios(config);
-          tagData = JSON.stringify(tagResponse.data.id);
-          console.log("tag id: " + tagData);
-          tagId = tagData.replace(/['"]+/g, "");
-          return tagId;
-        } catch (err) {
-          console.log(`ERROR on createTag(): ${err}`);
-        }
-      }
-
-      createTag();
-
-      // Function to attach tag to sticky
-      async function attachTag() {
-        let stickyId = miroData.replace(/['"]+/g, "");
-        let attachConfig = {
-          method: "post",
-          url: `https://api.miro.com/v2/boards/${MIRO_BOARD_ID}/items/${stickyId}?tag_id=${tagId}`,
-          headers: {
-            Authorization: `Bearer ${oauthAccessToken}`,
-            "Content-Type": "application/json",
-          },
-        };
-        try {
-          let response = await axios(attachConfig);
-          let attachData = JSON.stringify(response.data);
-          console.log(attachData);
-          return attachData;
-        } catch (err) {
-          console.log(`ERROR: ${err}`);
-        }
-      }
-
-      attachTag();
-    } catch (err) {
-      console.log(`ERROR: ${err}`);
-    }
+  if (tag) {
+    const { id } = await board.createTag({
+      title: tag,
+      fillColor: TagCreateRequest.FillColorEnum.Blue,
+    });
+    await stickyNote.attachTag(id.toString());
   }
 
-  callMiro();
-  res.redirect(301, "/get-sticky");
+  res.redirect(301, "/create-sticky");
 });
 
 // ROUTE(POST): UPDATE EXISTING STICKY
