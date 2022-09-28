@@ -1038,7 +1038,14 @@ app.get("/create-sticky", async (req, res) => {
 // ROUTE(GET): RENDER 'UPDATE CARD' VIEW
 app.get("/update-sticky", async (req, res) => {
   if (await miro.isAuthorized(USER_ID)) {
-    res.render("updateCard");
+    const board = await miro.as(USER_ID).getBoard(MIRO_BOARD_ID);
+    const allItems = await board.getAllItems({ type: "sticky_note" });
+
+    const stickies = [];
+    for await (const item of allItems) {
+      stickies.push(item);
+    }
+    res.render("updateCard", { stickies });
   } else {
     res.redirect(miro.getAuthUrl());
   }
