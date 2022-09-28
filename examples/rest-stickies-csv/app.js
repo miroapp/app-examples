@@ -97,8 +97,8 @@ app.post("/", async function (req, res) {
 });
 
 // ROUTE(GET): VIEW UPLOAD .CSV OPTION
-app.get("/upload-csv", (req, res) => {
-  if (oauthAccessToken) {
+app.get("/upload-csv", async (req, res) => {
+  if (await miro.isAuthorized(USER_ID)) {
     res.render("uploadCSV");
   } else {
     res.redirect(miro.getAuthUrl());
@@ -1036,8 +1036,8 @@ app.get("/create-sticky", async (req, res) => {
 });
 
 // ROUTE(GET): RENDER 'UPDATE CARD' VIEW
-app.get("/update-sticky", (req, res) => {
-  if (oauthAccessToken) {
+app.get("/update-sticky", async (req, res) => {
+  if (await miro.isAuthorized(USER_ID)) {
     res.render("updateCard");
   } else {
     res.redirect(miro.getAuthUrl());
@@ -1045,8 +1045,8 @@ app.get("/update-sticky", (req, res) => {
 });
 
 // ROUTE(GET): RENDER 'DELETE CARD' VIEW
-app.get("/delete-sticky", (req, res) => {
-  if (oauthAccessToken) {
+app.get("/delete-sticky", async (req, res) => {
+  if (await miro.isAuthorized(USER_ID)) {
     res.render("deleteCard");
   } else {
     res.redirect(miro.getAuthUrl());
