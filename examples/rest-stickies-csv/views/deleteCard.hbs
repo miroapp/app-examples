@@ -11,8 +11,12 @@
 </div>
 <form class="form form-group" action="/delete-sticky" method="POST">
   <div class="form-components-container">
-    <label>Sticky ID* (req.)</label><br />
-    <input name="Id" type="text" placeholder="ID" /><br />
+    <label for="id">Sticky ID* (req.)</label><br />
+    <select name="id" id="id">
+      {{#each stickies}}
+        <option value="{{this.id}}">{{this.id}}: {{this.data.content}}</option>
+      {{/each}}
+    </select><br /><br />
     <div
       class="alert alert-success col-2"
       role="alert"

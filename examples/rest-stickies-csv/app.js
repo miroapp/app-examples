@@ -42,9 +42,6 @@ app.engine(
 // Configure handlebars
 app.set("view engine", "hbs");
 
-// Declare global variable for Miro API endpoint (App Cards)
-const requestUrl = `https://api.miro.com/v2/boards/${MIRO_BOARD_ID}/sticky_notes`;
-
 // Declare global access_token variable
 let oauthAccessToken;
 
@@ -1054,7 +1051,14 @@ app.get("/update-sticky", async (req, res) => {
 // ROUTE(GET): RENDER 'DELETE CARD' VIEW
 app.get("/delete-sticky", async (req, res) => {
   if (await miro.isAuthorized(USER_ID)) {
-    res.render("deleteCard");
+    const board = await miro.as(USER_ID).getBoard(MIRO_BOARD_ID);
+    const allItems = await board.getAllItems({ type: "sticky_note" });
+
+    const stickies = [];
+    for await (const item of allItems) {
+      stickies.push(item);
+    }
+    res.render("deleteCard", { stickies });
   } else {
     res.redirect(miro.getAuthUrl());
   }
@@ -1097,35 +1101,13 @@ app.post("/update-sticky", async function (req, res) {
 
 // ROUTE(POST): DELETE EXISTING STICKY NOTE
 
-app.post("/delete-sticky", function (req, res) {
-  console.log("Card ID : " + req.body.Id);
-  let stickyId = req.body.Id;
+app.post("/delete-sticky", async function (req, res) {
+  let { id } = req.body;
 
-  // Miro request URL for POST Create App Card:
-  let stickyRequestUrl = requestUrl + `/${stickyId}`;
+  const board = await miro.as(USER_ID).getBoard(MIRO_BOARD_ID);
+  const stickyNote = await board.getStickyNoteItem(id);
+  await stickyNote.delete();
 
-  // Request configuration
-  let config = {
-    method: "delete",
-    url: stickyRequestUrl,
-    headers: {
-      Authorization: `Bearer ${oauthAccessToken}`,
-      "Content-Type": "application/json",
-    },
-  };
-
-  // Call Miro API to delete App Card:
-  async function callMiroDelete() {
-    try {
-      let response = await axios(config);
-      let miroData = JSON.stringify(response.data);
-      return miroData;
-    } catch (err) {
-      console.log(`ERROR: ${err}`);
-    }
-  }
-
-  callMiroDelete();
   res.redirect(301, "/get-sticky");
 });
 
