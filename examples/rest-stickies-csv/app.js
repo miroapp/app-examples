@@ -126,53 +126,98 @@ app.post("/upload-csv", upload.single("csv"), function (req, res) {
 // ROUTE(POST): GENERATE CONNECTORS & CREATE STICKY NOTES/TAGS FROM CSV CONTENT,
 app.post("/create-from-csv", async function (req, res) {
   let { content } = req.body;
-
-  const board = await miro.as(USER_ID).getBoard(MIRO_BOARD_ID);
-  const ROW_LENGTH = 6;
-  const colors = [
-    'blue',
-    'red',
-    'yellow',
-    'green'
-  ]
   
-  for (let i = 0, limit = content.length; i < limit; i += ROW_LENGTH) {
+  const board = await miro.as(USER_ID).getBoard(MIRO_BOARD_ID);
+  
+  const createStickiesAndTags = () => {
+    const ROW_LENGTH = 6;
+    const MAX_STICKIES_PER_COLUMN  = 10
+    const tagColors = [
+      'blue',
+      'red',
+      'yellow',
+      'green'
+    ]
+    
     let x = 0;
-    let y = 40 * i;
-    
-    if (i > 50 && i < 100) { x = 400; y -= 1920 }
-    else if (i >= 100 && i < 147) { x = 800; y -=3840 }
-    else if (i >= 147) { x = 1200; y -= 5760 }
-    
-    const sticky = await board.createStickyNoteItem({
-      data: {
-        content:
-          `<strong>${content[i]}</strong>` +
-          "<br>" +
-          `${content[i + 1]}`,
-        shape: "square",
-      },
-      style: {
-        fillColor: "light_pink",
-        textAlign: "left",
-        textAlignVertical: "top",
-      },
-      position: {
-        x,
-        y,
-        origin: "center",
-      },
-    })
-    for (let j = 0; j < 4; j++) {
-      const randomNumber = Math.floor(1000 + Math.random() * 9000);
-      const tag = await board.createTag({
-        fillColor: colors[j],
-        title: `${content[i + 2 + j]} (${randomNumber})`,
-      })
+    let y = 0;
+    const promises = [];
+    for (let i = 0, limit = content.length; i < limit; i += ROW_LENGTH) {
+      y = (i % (MAX_STICKIES_PER_COLUMN * ROW_LENGTH)) * 40;
+      if (i % (MAX_STICKIES_PER_COLUMN * ROW_LENGTH) === 0) {
+        x += 400
+      }
       
-      await sticky.attachTag(tag.id.toString())
+      promises.push(board.createStickyNoteItem({
+        data: {
+          content:
+            `<strong>${content[i]}</strong>` +
+            "<br>" +
+            `${content[i + 1]}`,
+          shape: "square",
+        },
+        style: {
+          fillColor: "light_pink",
+          textAlign: "left",
+          textAlignVertical: "top",
+        },
+        position: {
+          x,
+          y,
+          origin: "center",
+        },
+      }))
+      
+      for (let j = 0; j < 4; j++) {
+        const title = content[i + 2 + j];
+        const randomNumber = Math.floor(999999 * Math.random()); // add random number to prevent double tags
+        
+        if (!!title) {
+          promises.push(board.createTag({
+            fillColor: tagColors[j],
+            title: `${title} (${randomNumber})`,
+          }))
+        }
+      }
     }
+    return promises;
   }
+  const tagStickies = async (stickiesAndTags) => {
+    const tagAttachmentPromises = []
+    let lastId;
+    
+    const organized = stickiesAndTags.reduce((accumulator, item) => {
+      if (item.type === 'sticky_note') {
+        lastId = item.id
+        accumulator[lastId] = [item]
+      } else {
+        accumulator[lastId].push(item.id)
+      }
+      
+      return accumulator
+    }, { });
+    
+    const stickyIds = Object.keys(organized)
+    
+    stickyIds.map(stickyId => {
+      const [sticky, ...tags] = organized[stickyId];
+      tags.map((id) => {
+        tagAttachmentPromises.push(sticky.attachTag(id))
+      })
+    })
+    
+    await Promise.all(tagAttachmentPromises)
+  }
+  
+  const stickiesAndTagsCreationPromises = createStickiesAndTags()
+  const stickiesAndTags = await Promise.all(stickiesAndTagsCreationPromises).catch(error => {
+    console.log('error creating sticky or tag', error)
+  })
+  
+  if (stickiesAndTags.length) {
+    await tagStickies(stickiesAndTags);
+  }
+  
   
   // Redirect to 'List Stickies' view on success
   res.redirect(301, "/get-sticky");
