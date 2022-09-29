@@ -127,11 +127,15 @@ app.post("/upload-csv", upload.single("csv"), function (req, res) {
 app.post("/create-from-csv", async function (req, res) {
   let { content } = req.body;
   
+  const CSV_ROW_LENGTH = 6;
+  const TABLE_HEIGHT = 2000;
+  const COLUMN_WIDTH = 400
+  const STICKY_WIDTH = 40;
+  const MAX_STICKIES_PER_COLUMN  = 8
+  
   const board = await miro.as(USER_ID).getBoard(MIRO_BOARD_ID);
   
   const createStickiesAndTags = () => {
-    const ROW_LENGTH = 6;
-    const MAX_STICKIES_PER_COLUMN  = 10
     const tagColors = [
       'blue',
       'red',
@@ -142,10 +146,10 @@ app.post("/create-from-csv", async function (req, res) {
     let x = 0;
     let y = 0;
     const promises = [];
-    for (let i = 0, limit = content.length; i < limit; i += ROW_LENGTH) {
-      y = (i % (MAX_STICKIES_PER_COLUMN * ROW_LENGTH)) * 40;
-      if (i % (MAX_STICKIES_PER_COLUMN * ROW_LENGTH) === 0) {
-        x += 400
+    for (let i = 0, limit = content.length; i < limit; i += CSV_ROW_LENGTH) {
+      y = (i % (MAX_STICKIES_PER_COLUMN * CSV_ROW_LENGTH)) * STICKY_WIDTH;
+      if (i % (MAX_STICKIES_PER_COLUMN * CSV_ROW_LENGTH) === 0) {
+        x += COLUMN_WIDTH
       }
       
       promises.push(board.createStickyNoteItem({
@@ -164,7 +168,6 @@ app.post("/create-from-csv", async function (req, res) {
         position: {
           x,
           y,
-          origin: "center",
         },
       }))
       
@@ -172,7 +175,7 @@ app.post("/create-from-csv", async function (req, res) {
         const title = content[i + 2 + j];
         const randomNumber = Math.floor(999999 * Math.random()); // add random number to prevent double tags
         
-        if (!!title) {
+        if (title) {
           promises.push(board.createTag({
             fillColor: tagColors[j],
             title: `${title} (${randomNumber})`,
@@ -209,17 +212,93 @@ app.post("/create-from-csv", async function (req, res) {
     
     await Promise.all(tagAttachmentPromises)
   }
+  const createTable = async () => {
+    const coordinatesForPoints = [
+      { x: COLUMN_WIDTH, y: 0 },
+      { x: COLUMN_WIDTH, y: TABLE_HEIGHT },
+      { x: COLUMN_WIDTH * 2, y: 0 },
+      { x: COLUMN_WIDTH * 2, y: TABLE_HEIGHT },
+      { x: COLUMN_WIDTH * 3, y: 0 },
+      { x: COLUMN_WIDTH * 3, y: TABLE_HEIGHT },
+      { x: COLUMN_WIDTH * 4, y: 0 },
+      { x: COLUMN_WIDTH * 4, y: TABLE_HEIGHT },
+      { x: COLUMN_WIDTH * 5, y: 0 },
+      { x: COLUMN_WIDTH * 5, y: TABLE_HEIGHT },
+    ]
+    const promises = coordinatesForPoints.map(({ x, y  }) => board.createShapeItem({
+      data: {
+        shape: "circle"
+      },
+      style: {
+        borderColor: "#1a1a1a",
+        borderWidth: "2.0",
+      },
+      geometry: {
+        width: 10,
+        height: 10
+      },
+      position: {
+        origin: 'center',
+        x: x - 200,
+        y: y - 200,
+      }
+    }))
+    const points = await Promise.all(promises);
+    
+    const style = {
+      color: "#1a1a1a",
+      fontSize: "14",
+      strokeColor: "#000000",
+      strokeWidth: "1.0",
+      startStrokeCap: "none",
+      endStrokeCap: "none"
+    }
+    
+    const connections = [
+      // top to bottom
+      [0, 1],
+      [2, 3],
+      [4, 5],
+      [6, 7],
+      [8, 9],
+      
+      // top ltr
+      [0, 2, {captions: [{ content: 'COLUMN 1', position: '50%', textAlignVertical: 'top'}]}],
+      [2, 4, {captions: [{ content: 'COLUMN 2', position: '50%', textAlignVertical: 'top'}]}],
+      [4, 6, {captions: [{ content: 'COLUMN 3', position: '50%', textAlignVertical: 'top'}]}],
+      [6, 8, {captions: [{ content: 'COLUMN 4', position: '50%', textAlignVertical: 'top'}]}],
+      
+      // bottom ltr
+      [1, 3],
+      [3, 5],
+      [5, 7],
+      [7, 9],
+    ].map(([a, b, data]) => board.createConnector({
+      startItem: {
+        id: points[a].id
+      },
+      endItem: {
+        id: points[b].id
+      },
+      style,
+      ...data
+    }))
+    
+    await Promise.all(connections);
+  }
   
+  await createTable()
   const stickiesAndTagsCreationPromises = createStickiesAndTags()
   const stickiesAndTags = await Promise
     .all(stickiesAndTagsCreationPromises)
     .catch(error => {
       console.log('error creating sticky or tag', error)
     })
-  
+
   if (stickiesAndTags.length) {
     await tagStickies(stickiesAndTags);
   }
+  
   
   // Redirect to 'List Stickies' view on success
   res.redirect(301, "/get-sticky");
