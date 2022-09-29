@@ -182,22 +182,23 @@ app.post("/create-from-csv", async function (req, res) {
     }
     return promises;
   }
+  
   const tagStickies = async (stickiesAndTags) => {
     const tagAttachmentPromises = []
+    const stickyIds = []
     let lastId;
     
     const organized = stickiesAndTags.reduce((accumulator, item) => {
       if (item.type === 'sticky_note') {
         lastId = item.id
         accumulator[lastId] = [item]
+        stickyIds.push(lastId)
       } else {
         accumulator[lastId].push(item.id)
       }
       
       return accumulator
     }, { });
-    
-    const stickyIds = Object.keys(organized)
     
     stickyIds.map(stickyId => {
       const [sticky, ...tags] = organized[stickyId];
@@ -210,14 +211,15 @@ app.post("/create-from-csv", async function (req, res) {
   }
   
   const stickiesAndTagsCreationPromises = createStickiesAndTags()
-  const stickiesAndTags = await Promise.all(stickiesAndTagsCreationPromises).catch(error => {
-    console.log('error creating sticky or tag', error)
-  })
+  const stickiesAndTags = await Promise
+    .all(stickiesAndTagsCreationPromises)
+    .catch(error => {
+      console.log('error creating sticky or tag', error)
+    })
   
   if (stickiesAndTags.length) {
     await tagStickies(stickiesAndTags);
   }
-  
   
   // Redirect to 'List Stickies' view on success
   res.redirect(301, "/get-sticky");
