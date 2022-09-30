@@ -8,7 +8,6 @@
   },
   "dependencies": {
     "@mirohq/miro-node": "^0.0.1-alpha.8",
-    "axios": "^0.26.1",
     "body-parser": "^1.19.2",
     "bootstrap": "^5.1.3",
     "dotenv": "^16.0.0",
