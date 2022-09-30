@@ -97,21 +97,24 @@ app.post("/create-from-csv", async function (req, res) {
   let { content } = req.body;
 
   const CSV_ROW_LENGTH = 6;
-  const TABLE_HEIGHT = 2000;
   const COLUMN_WIDTH = 400;
-  const STICKY_WIDTH = 40;
-  const MAX_STICKIES_PER_COLUMN = 8;
+  const STICKY_WIDTH = COLUMN_WIDTH - 200;
+  const MAX_STICKIES_PER_COLUMN = 7;
 
+  const TABLE_HEIGHT = MAX_STICKIES_PER_COLUMN * STICKY_WIDTH + COLUMN_WIDTH;
+  const COLUMNS_NEEDED = Math.ceil(
+    content.length / 6 / MAX_STICKIES_PER_COLUMN
+  );
   const board = await miro.as(USER_ID).getBoard(MIRO_BOARD_ID);
 
   const createStickiesAndTags = () => {
     const tagColors = ["blue", "red", "yellow", "green"];
 
-    let x = 0;
+    let x = -(COLUMN_WIDTH / 2);
     let y = 0;
     const promises = [];
     for (let i = 0, limit = content.length; i < limit; i += CSV_ROW_LENGTH) {
-      y = (i % (MAX_STICKIES_PER_COLUMN * CSV_ROW_LENGTH)) * STICKY_WIDTH;
+      y = ((i % (MAX_STICKIES_PER_COLUMN * CSV_ROW_LENGTH)) + 4) * 40;
       if (i % (MAX_STICKIES_PER_COLUMN * CSV_ROW_LENGTH) === 0) {
         x += COLUMN_WIDTH;
       }
@@ -127,6 +130,9 @@ app.post("/create-from-csv", async function (req, res) {
             fillColor: "light_pink",
             textAlign: "left",
             textAlignVertical: "top",
+          },
+          geometry: {
+            width: STICKY_WIDTH,
           },
           position: {
             x,
@@ -179,18 +185,46 @@ app.post("/create-from-csv", async function (req, res) {
     await Promise.all(tagAttachmentPromises);
   };
   const createTable = async () => {
-    const coordinatesForPoints = [
-      { x: COLUMN_WIDTH, y: 0 },
-      { x: COLUMN_WIDTH, y: TABLE_HEIGHT },
-      { x: COLUMN_WIDTH * 2, y: 0 },
-      { x: COLUMN_WIDTH * 2, y: TABLE_HEIGHT },
-      { x: COLUMN_WIDTH * 3, y: 0 },
-      { x: COLUMN_WIDTH * 3, y: TABLE_HEIGHT },
-      { x: COLUMN_WIDTH * 4, y: 0 },
-      { x: COLUMN_WIDTH * 4, y: TABLE_HEIGHT },
-      { x: COLUMN_WIDTH * 5, y: 0 },
-      { x: COLUMN_WIDTH * 5, y: TABLE_HEIGHT },
-    ];
+    const coordinatesForPoints = [];
+    const coordinatesForLines = []; // prefill with left side top to bottom and left to right
+
+    for (let i = 0; i <= COLUMNS_NEEDED; i++) {
+      coordinatesForPoints.push(
+        { x: COLUMN_WIDTH * i + 1, y: 0 },
+        { x: COLUMN_WIDTH * i + 1, y: TABLE_HEIGHT }
+      );
+    }
+    for (let i = 0; i <= COLUMNS_NEEDED * 2 + 1; i += 1) {
+      // Connectors go from 1 shape to another, so these indexes refer to the indexes of the circles in `coordinatesForPoints`
+
+      if (i % 2 === 0) {
+        coordinatesForLines.push(
+          [
+            i,
+            i + 2,
+            {
+              captions: [
+                {
+                  content: `COLUMN ${Math.ceil(i / 2) + 1}`,
+                  position: "50%",
+                  textAlignVertical: "top",
+                },
+              ],
+            },
+          ],
+          [i + 1, i + 3]
+        );
+      }
+      if (i <= COLUMNS_NEEDED) {
+        coordinatesForLines.push(
+          [i * 2, i * 2 + 1] // top to bottom right side
+        );
+      }
+    }
+    coordinatesForLines.sort((a, b) => a[0] - b[0]);
+    // coordinatesForLines.push([(COLUMNS_NEEDED * 2), (COLUMNS_NEEDED * 2) + 1]) // right side top to bottom
+    console.log({ coordinatesForLines });
+
     const promises = coordinatesForPoints.map(({ x, y }) =>
       board.createShapeItem({
         data: {
@@ -206,12 +240,13 @@ app.post("/create-from-csv", async function (req, res) {
         },
         position: {
           origin: "center",
-          x: x - 200,
-          y: y - 200,
+          x: x,
+          y: y,
         },
       })
     );
     const points = await Promise.all(promises);
+    console.log(points.length);
 
     const style = {
       color: "#1a1a1a",
@@ -222,68 +257,19 @@ app.post("/create-from-csv", async function (req, res) {
       endStrokeCap: "none",
     };
 
-    const connections = [
-      // top to bottom
-      [0, 1],
-      [2, 3],
-      [4, 5],
-      [6, 7],
-      [8, 9],
-
-      // top ltr
-      [
-        0,
-        2,
-        {
-          captions: [
-            { content: "COLUMN 1", position: "50%", textAlignVertical: "top" },
-          ],
-        },
-      ],
-      [
-        2,
-        4,
-        {
-          captions: [
-            { content: "COLUMN 2", position: "50%", textAlignVertical: "top" },
-          ],
-        },
-      ],
-      [
-        4,
-        6,
-        {
-          captions: [
-            { content: "COLUMN 3", position: "50%", textAlignVertical: "top" },
-          ],
-        },
-      ],
-      [
-        6,
-        8,
-        {
-          captions: [
-            { content: "COLUMN 4", position: "50%", textAlignVertical: "top" },
-          ],
-        },
-      ],
-
-      // bottom ltr
-      [1, 3],
-      [3, 5],
-      [5, 7],
-      [7, 9],
-    ].map(([a, b, data]) =>
-      board.createConnector({
-        startItem: {
-          id: points[a].id,
-        },
-        endItem: {
-          id: points[b].id,
-        },
-        style,
-        ...data,
-      })
+    const connections = coordinatesForLines.map(
+      ([a, b, data]) =>
+        points[b]?.id &&
+        board.createConnector({
+          startItem: {
+            id: points[a].id,
+          },
+          endItem: {
+            id: points[b].id,
+          },
+          style,
+          ...data,
+        })
     );
 
     await Promise.all(connections);
@@ -297,7 +283,7 @@ app.post("/create-from-csv", async function (req, res) {
     console.log("error creating sticky or tag", error);
   });
 
-  if (stickiesAndTags.length) {
+  if (stickiesAndTags?.length) {
     await tagStickies(stickiesAndTags);
   }
 
