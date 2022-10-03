@@ -1,6 +1,6 @@
 ## Miro REST sticky notes with tags
 
-This sample app demonstrates the use of the Miro REST API [`sticky_notes`](https://developers.miro.com/reference/create-sticky-note-item) and [`tags`](https://developers.miro.com/reference/create-tag) endpoints to import external structured data (.csv) into Miro. It makes use of each of the available CRUD (create, read, update, delete) methods to add and manage sticky notes with tags on a Miro board.
+This sample app demonstrates the use of the [Miro Node Client](https://www.npmjs.com/package/@mirohq/miro-node) to interact with the [Miro Rest API](https://developers.miro.com/reference/api-reference). It makes use of each of the available CRUD (create, read, update, delete) methods to add and manage sticky notes with tags on a Miro board.
 
 Miro capabilities covered in this sample app:
 
@@ -16,6 +16,7 @@ Miro capabilities covered in this sample app:
 
 ### Dependencies:
 
+- [Miro Node Client](https://www.npmjs.com/package/@mirohq/miro-node)
 - [Localtunnel](https://github.com/localtunnel/localtunnel) (or similar, such as [ngrok](https://ngrok.com/download))
 - [NodeJS](https://nodejs.org/en/download/)
 - [ExpressJS](https://expressjs.com/en/starter/installing.html)
