@@ -8,11 +8,7 @@ const app = express();
 
 const { Miro, TagCreateRequest, StickyNoteData } = require("@mirohq/miro-node");
 
-const miro = new Miro({
-  clientId: process.env.MIRO_CLIENT_ID,
-  clientSecret: process.env.MIRO_CLIENT_SECRET,
-  redirectUrl: process.env.MIRO_REDIRECT_URL,
-});
+const miro = new Miro();
 const USER_ID = "WE_DONT_NEED_A_REAL_ID_FOR_THIS_EXAMPLE";
 
 // Require body-parser to parse form submissions
@@ -295,11 +291,12 @@ app.post("/create-from-csv", async function (req, res) {
 
   await createTable();
   const stickiesAndTagsCreationPromises = createStickiesAndTags();
-  const stickiesAndTags = await Promise.all(
-    stickiesAndTagsCreationPromises
-  ).catch((error) => {
-    console.log("error creating sticky or tag", error);
-  });
+  let stickiesAndTags = [];
+  try {
+    stickiesAndTags = await Promise.all(stickiesAndTagsCreationPromises);
+  } catch (e) {
+    console.error("Error creating stickies and tags:", e);
+  }
 
   if (stickiesAndTags?.length) {
     await tagStickies(stickiesAndTags);
