@@ -6,7 +6,7 @@ const express = require("express");
 const exphbs = require("express-handlebars");
 const app = express();
 
-const { Miro, TagCreateRequest, StickyNoteData } = require("@mirohq/miro-node");
+const { Miro } = require("@mirohq/miro-node");
 
 const miro = new Miro();
 const USER_ID = "WE_DONT_NEED_A_REAL_ID_FOR_THIS_EXAMPLE";
@@ -289,7 +289,11 @@ app.post("/create-from-csv", async function (req, res) {
     await Promise.all(connections);
   };
 
-  await createTable();
+  try {
+    await createTable();
+  } catch (e) {
+    console.error("error creating the table:", e);
+  }
   const stickiesAndTagsCreationPromises = createStickiesAndTags();
   let stickiesAndTags = [];
   try {
@@ -299,7 +303,11 @@ app.post("/create-from-csv", async function (req, res) {
   }
 
   if (stickiesAndTags?.length) {
-    await tagStickies(stickiesAndTags);
+    try {
+      await tagStickies(stickiesAndTags);
+    } catch (e) {
+      console.error("error tagging stickies", e);
+    }
   }
 
   // Redirect to 'List Stickies' view on success
@@ -314,8 +322,22 @@ app.get("/", (req, res) => {
 // ROUTE(GET) RETRIEVE STICKY DATA / 'List Stickies'
 app.get("/get-sticky", async (req, res) => {
   if (await miro.isAuthorized(USER_ID)) {
-    const board = await miro.as(USER_ID).getBoard(process.env.MIRO_BOARD_ID);
-    const allItems = await board.getAllItems({ type: "sticky_note" });
+    let board;
+    let allItems;
+    try {
+      board = await miro.as(USER_ID).getBoard(process.env.MIRO_BOARD_ID);
+    } catch (e) {
+      console.error("error getting board", e);
+    }
+    try {
+      allItems = await board.getAllItems({ type: "sticky_note" });
+    } catch (e) {
+      console.error(
+        "error getting all items for board",
+        { boardId: process.env.MIRO_BOARD_ID },
+        e
+      );
+    }
 
     const boardItems = [];
     for await (const item of allItems) {
@@ -376,14 +398,14 @@ app.post("/create-sticky", async function (req, res) {
   const stickyNote = await board.createStickyNoteItem({
     data: {
       content: `${title} ${description}`,
-      shape: StickyNoteData.ShapeEnum.Square,
+      shape: "square",
     },
   });
 
   if (tag) {
     const { id } = await board.createTag({
       title: tag,
-      fillColor: TagCreateRequest.FillColorEnum.Blue,
+      fillColor: "blue",
     });
     await stickyNote.attachTag(id.toString());
   }
