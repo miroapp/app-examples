@@ -1,5 +1,5 @@
 // Require sensitive environment variables (oauthToken, Miro boardID)
-require("dotenv/config");
+require("dotenv").config();
 
 // Require express for server and handlebars for clientside rendering
 const express = require("express");
@@ -13,8 +13,7 @@ const miro = new Miro({
   clientSecret: process.env.MIRO_CLIENT_SECRET,
   redirectUrl: process.env.MIRO_REDIRECT_URL,
 });
-const USER_ID = "WE_DONT_NEED_A_REAL_ID";
-const MIRO_BOARD_ID = "uXjVPTm8qe0=";
+const USER_ID = "WE_DONT_NEED_A_REAL_ID_FOR_THIS_EXAMPLE";
 
 // Require body-parser to parse form submissions
 const bodyParser = require("body-parser");
@@ -72,7 +71,10 @@ app.get("/upload-csv", async (req, res) => {
 });
 
 // ROUTE(POST): UPLOAD .CSV FILE
-app.post("/upload-csv", upload.single("csv"), function (req, res) {
+app.post("/upload-csv", upload.single("csv"), async function (req, res) {
+  if (!(await miro.isAuthorized(USER_ID))) {
+    res.redirect(miro.getAuthUrl());
+  }
   let fileRows = ["No file uploaded"];
 
   if (req.file) {
@@ -94,27 +96,44 @@ app.post("/upload-csv", upload.single("csv"), function (req, res) {
 
 // ROUTE(POST): GENERATE CONNECTORS & CREATE STICKY NOTES/TAGS FROM CSV CONTENT,
 app.post("/create-from-csv", async function (req, res) {
-  let { content } = req.body;
+  if (!(await miro.isAuthorized(USER_ID))) {
+    res.redirect(miro.getAuthUrl());
+  }
 
-  const CSV_ROW_LENGTH = 6;
+  const { content } = req.body;
+
+  const TAG_COLORS = ["blue", "red", "yellow", "green"];
+  const CSV_ROW_STRUCTURE = [
+    "title",
+    "description",
+    "tag",
+    "tag",
+    "tag",
+    "tag",
+  ];
+  const CSV_ROW_LENGTH = CSV_ROW_STRUCTURE.length;
+  const NUMBER_OF_TAGS = CSV_ROW_STRUCTURE.filter(
+    (type) => type === "tag"
+  ).length;
   const COLUMN_WIDTH = 400;
   const STICKY_WIDTH = COLUMN_WIDTH - 200;
-  const MAX_STICKIES_PER_COLUMN = 7;
+  const MAX_STICKIES_PER_COLUMN = 8;
+  const STICKY_SPACING = 40;
 
   const TABLE_HEIGHT = MAX_STICKIES_PER_COLUMN * STICKY_WIDTH + COLUMN_WIDTH;
   const COLUMNS_NEEDED = Math.ceil(
-    content.length / 6 / MAX_STICKIES_PER_COLUMN
+    content.length / CSV_ROW_LENGTH / MAX_STICKIES_PER_COLUMN
   );
-  const board = await miro.as(USER_ID).getBoard(MIRO_BOARD_ID);
+  const board = await miro.as(USER_ID).getBoard(process.env.MIRO_BOARD_ID);
 
   const createStickiesAndTags = () => {
-    const tagColors = ["blue", "red", "yellow", "green"];
-
     let x = -(COLUMN_WIDTH / 2);
     let y = 0;
+
     const promises = [];
     for (let i = 0, limit = content.length; i < limit; i += CSV_ROW_LENGTH) {
-      y = ((i % (MAX_STICKIES_PER_COLUMN * CSV_ROW_LENGTH)) + 4) * 40;
+      y =
+        ((i % (MAX_STICKIES_PER_COLUMN * CSV_ROW_LENGTH)) + 4) * STICKY_SPACING;
       if (i % (MAX_STICKIES_PER_COLUMN * CSV_ROW_LENGTH) === 0) {
         x += COLUMN_WIDTH;
       }
@@ -141,14 +160,14 @@ app.post("/create-from-csv", async function (req, res) {
         })
       );
 
-      for (let j = 0; j < 4; j++) {
+      for (let j = 0; j < NUMBER_OF_TAGS; j++) {
         const title = content[i + 2 + j];
         const randomNumber = Math.floor(999999 * Math.random()); // add random number to prevent double tags
 
         if (title) {
           promises.push(
             board.createTag({
-              fillColor: tagColors[j],
+              fillColor: TAG_COLORS[j],
               title: `${title} (${randomNumber})`,
             })
           );
@@ -185,8 +204,11 @@ app.post("/create-from-csv", async function (req, res) {
     await Promise.all(tagAttachmentPromises);
   };
   const createTable = async () => {
+    let COLOR = "#1a1a1a";
+    let DOT_SIZE = 10;
+
     const coordinatesForPoints = [];
-    const coordinatesForLines = []; // prefill with left side top to bottom and left to right
+    const pointIndexesToConnectToEachOther = [];
 
     for (let i = 0; i <= COLUMNS_NEEDED; i++) {
       coordinatesForPoints.push(
@@ -195,10 +217,10 @@ app.post("/create-from-csv", async function (req, res) {
       );
     }
     for (let i = 0; i <= COLUMNS_NEEDED * 2 + 1; i += 1) {
-      // Connectors go from 1 shape to another, so these indexes refer to the indexes of the circles in `coordinatesForPoints`
+      // Connectors go from 1 shape to another (so NOT from X/Y to another X/y), so these indexes refer to the indexes of the circles in `coordinatesForPoints`
 
       if (i % 2 === 0) {
-        coordinatesForLines.push(
+        pointIndexesToConnectToEachOther.push(
           [
             i,
             i + 2,
@@ -211,19 +233,16 @@ app.post("/create-from-csv", async function (req, res) {
                 },
               ],
             },
-          ],
-          [i + 1, i + 3]
+          ], // top left to right
+          [i + 1, i + 3] // bottom left to right
         );
       }
       if (i <= COLUMNS_NEEDED) {
-        coordinatesForLines.push(
-          [i * 2, i * 2 + 1] // top to bottom right side
+        pointIndexesToConnectToEachOther.push(
+          [i * 2, i * 2 + 1] // top to bottom
         );
       }
     }
-    coordinatesForLines.sort((a, b) => a[0] - b[0]);
-    // coordinatesForLines.push([(COLUMNS_NEEDED * 2), (COLUMNS_NEEDED * 2) + 1]) // right side top to bottom
-    console.log({ coordinatesForLines });
 
     const promises = coordinatesForPoints.map(({ x, y }) =>
       board.createShapeItem({
@@ -231,33 +250,32 @@ app.post("/create-from-csv", async function (req, res) {
           shape: "circle",
         },
         style: {
-          borderColor: "#1a1a1a",
+          borderColor: COLOR,
           borderWidth: "2.0",
         },
         geometry: {
-          width: 10,
-          height: 10,
+          width: DOT_SIZE,
+          height: DOT_SIZE,
         },
         position: {
           origin: "center",
-          x: x,
-          y: y,
+          x,
+          y,
         },
       })
     );
     const points = await Promise.all(promises);
-    console.log(points.length);
 
     const style = {
-      color: "#1a1a1a",
+      color: COLOR,
       fontSize: "14",
-      strokeColor: "#000000",
+      strokeColor: COLOR,
       strokeWidth: "1.0",
       startStrokeCap: "none",
       endStrokeCap: "none",
     };
 
-    const connections = coordinatesForLines.map(
+    const connections = pointIndexesToConnectToEachOther.map(
       ([a, b, data]) =>
         points[b]?.id &&
         board.createConnector({
@@ -299,7 +317,7 @@ app.get("/", (req, res) => {
 // ROUTE(GET) RETRIEVE STICKY DATA / 'List Stickies'
 app.get("/get-sticky", async (req, res) => {
   if (await miro.isAuthorized(USER_ID)) {
-    const board = await miro.as(USER_ID).getBoard(MIRO_BOARD_ID);
+    const board = await miro.as(USER_ID).getBoard(process.env.MIRO_BOARD_ID);
     const allItems = await board.getAllItems({ type: "sticky_note" });
 
     const boardItems = [];
@@ -324,7 +342,7 @@ app.get("/create-sticky", async (req, res) => {
 // ROUTE(GET): RENDER 'UPDATE CARD' VIEW
 app.get("/update-sticky", async (req, res) => {
   if (await miro.isAuthorized(USER_ID)) {
-    const board = await miro.as(USER_ID).getBoard(MIRO_BOARD_ID);
+    const board = await miro.as(USER_ID).getBoard(process.env.MIRO_BOARD_ID);
     const allItems = await board.getAllItems({ type: "sticky_note" });
 
     const stickies = [];
@@ -340,7 +358,7 @@ app.get("/update-sticky", async (req, res) => {
 // ROUTE(GET): RENDER 'DELETE CARD' VIEW
 app.get("/delete-sticky", async (req, res) => {
   if (await miro.isAuthorized(USER_ID)) {
-    const board = await miro.as(USER_ID).getBoard(MIRO_BOARD_ID);
+    const board = await miro.as(USER_ID).getBoard(process.env.MIRO_BOARD_ID);
     const allItems = await board.getAllItems({ type: "sticky_note" });
 
     const stickies = [];
@@ -357,7 +375,7 @@ app.get("/delete-sticky", async (req, res) => {
 app.post("/create-sticky", async function (req, res) {
   let { title, description, tag } = req.body;
 
-  const board = await miro.as(USER_ID).getBoard(MIRO_BOARD_ID);
+  const board = await miro.as(USER_ID).getBoard(process.env.MIRO_BOARD_ID);
   const stickyNote = await board.createStickyNoteItem({
     data: {
       content: `${title} ${description}`,
@@ -381,7 +399,7 @@ app.post("/create-sticky", async function (req, res) {
 app.post("/update-sticky", async function (req, res) {
   let { id, content } = req.body;
 
-  const board = await miro.as(USER_ID).getBoard(MIRO_BOARD_ID);
+  const board = await miro.as(USER_ID).getBoard(process.env.MIRO_BOARD_ID);
   const stickyNote = await board.getStickyNoteItem(id);
   await stickyNote.update({ data: { content } });
 
@@ -393,7 +411,7 @@ app.post("/update-sticky", async function (req, res) {
 app.post("/delete-sticky", async function (req, res) {
   let { id } = req.body;
 
-  const board = await miro.as(USER_ID).getBoard(MIRO_BOARD_ID);
+  const board = await miro.as(USER_ID).getBoard(process.env.MIRO_BOARD_ID);
   const stickyNote = await board.getStickyNoteItem(id);
   await stickyNote.delete();
 
