@@ -85,7 +85,6 @@ app.post("/upload-csv", upload.single("csv"), async function (req, res) {
         fs.unlinkSync(req.file.path); // remove temp file
         fileRows.shift(); // remove csv headers (start with actual content)
       });
-    console.log(fileRows);
   }
   res.render("uploadCSV.hbs", { fileRows });
 });
