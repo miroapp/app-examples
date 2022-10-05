@@ -34,7 +34,7 @@ app.engine(
 // Configure handlebars
 app.set("view engine", "hbs");
 
-// <-------- ALL ROUTES -------->
+// <-------- ROUTES -------->
 
 // ROUTE (GET): Retrieve access_token from OAuth redirect
 app.get("/authorized", async (req, res) => {
