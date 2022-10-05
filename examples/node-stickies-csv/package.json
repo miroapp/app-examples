@@ -7,7 +7,7 @@
     "start": "cd ./authorization && npm run start & npx localtunnel --port 3000 -s mirotunnel & nodemon app.js"
   },
   "dependencies": {
-    "axios": "^0.26.1",
+    "@mirohq/miro-node": "^0.0.1-alpha.10",
     "body-parser": "^1.19.2",
     "bootstrap": "^5.1.3",
     "dotenv": "^16.0.0",

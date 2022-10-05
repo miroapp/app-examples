@@ -11,10 +11,15 @@
 </div>
 <form class="form form-group" action="/update-sticky" method="POST">
   <div class="form-components-container">
-    <label>Sticky ID* (req.)</label><br />
-    <input name="Id" type="text" placeholder="ID" /><br />
-    <label>Sticky Content</label><br />
-    <input name="Content" type="text" placeholder="Content" /><br />
+    <label for="id">Sticky ID* (req.)</label><br />
+    <select name="id" id="id">
+      {{#each stickies}}
+        <option value="{{this.id}}">{{this.id}}: {{this.data.content}}</option>
+      {{/each}}
+    </select><br /><br />
+    <label for="content">Sticky Content</label><br />
+    <input name="content" id="content" type="text" placeholder="Content" /><br
+    />
     <div
       class="alert alert-success col-2"
       role="alert"
