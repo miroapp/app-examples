@@ -421,10 +421,10 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
-"@mirohq/miro-api@1.0.0":
-  version "0.0.3"
-  resolved "https://artifactory.tools.devrtb.com/artifactory/api/npm/npm-virtual/@mirohq/miro-api/-/miro-api-0.0.3.tgz#eefe862f200d8b7643d82a81ecacf63f9b636971"
-  integrity sha512-bWxTzm5XUj1NUZdjnjTCV6plHwFdwRkrG7qEXcL03M3lEEo50tTB5bIZjuIEBRdSvbyQwUZ4IbVykPK1Lzd4qQ==
+"@mirohq/miro-api@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@mirohq/miro-api/-/miro-api-1.0.0.tgz#6f6ffdac4da079973920f0b2b75e388692d62407"
+  integrity sha512-h1uSl5eS22BzdIvaG8HBoW4/ot90zQCY6tWQFNLf2+RVntOJTTPrpLhqt1MC3olkDoUJ1/sWT7RNMMS9IgS9sQ==
   dependencies:
     form-data "^4.0.0"
     node-fetch "^2.6.7"
