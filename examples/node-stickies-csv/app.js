@@ -6,7 +6,7 @@ const express = require("express");
 const exphbs = require("express-handlebars");
 const app = express();
 
-const { Miro } = require("@mirohq/miro-node");
+const { Miro } = require("@mirohq/miro-api");
 
 const miro = new Miro();
 const USER_ID = "WE_DONT_NEED_A_REAL_ID_FOR_THIS_EXAMPLE";
