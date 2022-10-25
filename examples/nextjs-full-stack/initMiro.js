@@ -1,7 +1,7 @@
 import { Miro } from "@mirohq/miro-api";
 import { serialize } from "cookie";
 
-function serializeCookie(name, value) {
+function getSerializedCookie(name, value) {
   return serialize(name, value, {
     path: "/",
     httpOnly: true,
@@ -29,8 +29,8 @@ export default function initMiro(request, response) {
         set: (userId, state) => {
           // store state (tokens) in the cookie
           response.setHeader("Set-Cookie", [
-            serializeCookie(tokensCookie, JSON.stringify(state)),
-            serializeCookie(userIdCookie, userId),
+            getSerializedCookie(tokensCookie, JSON.stringify(state)),
+            getSerializedCookie(userIdCookie, userId),
           ]);
         },
       },

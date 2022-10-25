@@ -35,7 +35,7 @@ Next, we can start working directly with this sample app:
 1. Clone or download repository
 2. `cd` to root folder
 3. Run `yarn install` to install dependencies.
-4. Create a .env file in the root folder, and set the following variables:
+4. Create a `.env` file in the root folder, and set the following variables:
 
 ```
 MIRO_CLIENT_ID={YOUR_CLIENT_ID)
@@ -45,7 +45,7 @@ MIRO_REDIRECT_URL=http://localhost:3000/api/redirect/
 
 5. Run `yarn dev` to start the local server
 
-Once your server is up and running, navigate to `http://localhost:3000/` in your browser.
+Once your server is up and running, navigate to [http://localhost:3000/](http://localhost:3000/) in your browser.
 
 ## Folder Structure
 
