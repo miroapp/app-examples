@@ -17,7 +17,7 @@ module.exports = {
   rules: { ...sharedRules },
   overrides: [
     {
-      files: ["*.ts", "*.tsx"],
+      files: ["*.ts", "*.tsx", "*.jsx"],
       parser: "@typescript-eslint/parser",
       parserOptions: {
         ecmaVersion: 2018,

@@ -421,10 +421,10 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
-"@mirohq/miro-api@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@mirohq/miro-api/-/miro-api-1.0.0.tgz#6f6ffdac4da079973920f0b2b75e388692d62407"
-  integrity sha512-h1uSl5eS22BzdIvaG8HBoW4/ot90zQCY6tWQFNLf2+RVntOJTTPrpLhqt1MC3olkDoUJ1/sWT7RNMMS9IgS9sQ==
+"@mirohq/miro-api@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@mirohq/miro-api/-/miro-api-1.0.1.tgz#4ec2add62efdd3ba46e3a49858881f77cab8ab2b"
+  integrity sha512-md5RDJMmx0LYE5Iu7oPhIlpydQEZCrAFLp1/QoDwFBagNaZNZ8jgdMOYZ1lzTIBlQ0MgRDKiFVNVkyAevieAkg==
   dependencies:
     form-data "^4.0.0"
     node-fetch "^2.6.7"
@@ -1219,6 +1219,13 @@ busboy@^0.2.11:
   dependencies:
     dicer "0.2.5"
     readable-stream "1.1.x"
+
+busboy@^1.6.0:
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/busboy/-/busboy-1.6.0.tgz#966ea36a9502e43cdb9146962523b92f531f6893"
+  integrity sha512-8SFQbg/0hQ9xy3UNTB0YEnsNBbWfhf7RtnzpL7TkBiTBRfrQ9Fxcnz7VJsleJpyp6rVLvXiuORqjlHi5q+PYuA==
+  dependencies:
+    streamsearch "^1.1.0"
 
 bytes@3.1.2:
   version "3.1.2"
@@ -4084,6 +4091,11 @@ streamsearch@0.1.2:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/streamsearch/-/streamsearch-0.1.2.tgz#808b9d0e56fc273d809ba57338e929919a1a9f1a"
   integrity sha512-jos8u++JKm0ARcSUTAZXOVC0mSox7Bhn6sBgty73P1f3JGf7yG2clTbBNHUdde/kdvP2FESam+vM6l8jBrNxHA==
+
+streamsearch@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/streamsearch/-/streamsearch-1.1.0.tgz#404dd1e2247ca94af554e841a8ef0eaa238da764"
+  integrity sha512-Mcc5wHehp9aXz1ax6bZUyY5afg9u2rv5cqQI3mRrYkGC8rW2hM02jWuwjtL++LS5qinSyhj2QfLyNsuc+VsExg==
 
 string-argv@^0.3.1:
   version "0.3.1"

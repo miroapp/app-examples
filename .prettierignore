@@ -2,4 +2,4 @@ dist
 package.json
 package-lock.json
 examples/rest/python-flask-starter/templates/
-examples/nextjs-oauth/.next
+.next
