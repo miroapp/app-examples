@@ -6,10 +6,10 @@ This example also stores your access and refresh tokens in your browsers cookies
 
 ## Stack
 
-- [x] React
-- [x] Next JS
-- [x] Miro API Client
-- [x] Mirotone (styling)
+- React
+- Next JS
+- Miro API Client
+- Mirotone (styling)
 
 ## Prerequisites
 
