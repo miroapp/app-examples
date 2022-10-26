@@ -56,10 +56,11 @@ npx create-miro-app@latest
 
 ### Full Stack Apps
 
-|                                                       | Description                                                                                                                     |
-| ----------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
-| [github-appcards](examples/github-appcards)           | This full stack example shows how to build an integration with GitHub that syncs data between GitHub issues and Miro app cards. |
-| [plant-uml](https://github.com/miroapp/miro-plantuml) | This full stack example shows import [Plant UML](https://plantuml.com/) diagrams into Miro as editable board items.             |
+|                                                       | Description                                                                                                                       |
+| ----------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| [github-appcards](examples/github-appcards)           | This full stack example shows how to build an integration with GitHub that syncs data between GitHub issues and Miro app cards.   |
+| [plant-uml](https://github.com/miroapp/miro-plantuml) | This full stack example shows import [Plant UML](https://plantuml.com/) diagrams into Miro as editable board items.               |
+| [nextjs](examples/nextjs-full-stack)                  | This full stack example shows a Next.js application that will upload camera image to the Miro board using SDK and API integration |
 
 <p>&nbsp;</p>
 
