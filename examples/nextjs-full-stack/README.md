@@ -30,7 +30,7 @@ First, make sure you've handled the prerequisites in full:
   - Continue to scroll down to 'Redirect URI for OAuth2.0' and paste in the following redirect url: `http://localhost:3000/api/redirect/`
   - Click 'Options'. \
     From the drop-down menu select 'Use this URI for SDK authorization'
-  - Lastly, scroll down to 'Permissions' and check off the `Board:Read` and `Board:Write` scopes
+  - Lastly, scroll down to 'Permissions' and check off the `board:read`, `board:write` and `webcam:record` scopes
 
 Next, we can start working directly with this sample app:
 

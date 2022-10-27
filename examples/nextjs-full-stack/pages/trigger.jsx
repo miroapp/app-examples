@@ -4,12 +4,10 @@ import Head from "next/head";
 export default function () {
   useEffect(() => {
     window.miro.board.ui.on("icon:click", async () => {
-      // open popup with the video stream
-      window.open(
-        `/?boardId=${(await window.miro.board.getInfo()).id}`,
-        "cameraCapture",
-        "popup"
-      );
+      // open panel with the video stream
+      window.miro.board.ui.openPanel({
+        url: `/?boardId=${(await window.miro.board.getInfo()).id}`,
+      });
     });
   }, []);
 
