@@ -78,7 +78,13 @@ export default function Main({ boardId }) {
     canvas.height = height;
 
     canvas.getContext("2d").drawImage(video, 0, 0, width, height);
-    canvas.toBlob((blob) => uploadBlob(blob, boardId));
+    canvas.toBlob(async (blob) => {
+      try {
+        await uploadBlob(blob, boardId);
+      } finally {
+        e.target.disabled = false;
+      }
+    });
   };
 
   return (
@@ -88,7 +94,6 @@ export default function Main({ boardId }) {
       </Head>
 
       <div>
-        <h1>Upload camera image</h1>
         <div>
           <video ref={videoRef} style={{ width: "100%", maxWidth: "400px" }}>
             Video stream not available.
