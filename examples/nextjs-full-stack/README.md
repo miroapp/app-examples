@@ -47,7 +47,7 @@ MIRO_REDIRECT_URL=http://localhost:3000/api/redirect/
 
 5. Run `yarn dev` to start the local server
 
-Once your server is up and running, navigate to [http://localhost:3000/](http://localhost:3000/) in your browser.
+Once your server is up and running, go to [Miro.com](https://miro.com), open a board in your developer team and start the app by clicking on your App icon in the toolbar on the left.
 
 ## Folder Structure
 
