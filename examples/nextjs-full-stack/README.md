@@ -14,7 +14,7 @@ This example also stores your access and refresh tokens in your browsers cookies
 ## Prerequisites
 
 1. Create a [Developer team in Miro](https://developers.miro.com/docs/create-a-developer-team).
-2. Create an [app in Miro](https://developers.miro.com/docs/build-your-first-hello-world-app#step-3-create-your-app-in-miro).
+2. Create an [app in Miro](https://developers.miro.com/docs/build-your-first-hello-world-app#step-2-create-your-app-in-miro).
 3. Create a board in Miro that you'd like to manipulate with the REST API.
 
 ## How to start
