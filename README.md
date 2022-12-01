@@ -4,7 +4,7 @@
 
 <img alt="Miro Developer Platform" src="https://github.com/miroapp/app-examples/raw/main/assets/Banner.png" />
 
-Welcome to Miro App Examples! In this repository you can find examples of apps built on top of the Miro Developer Platform 2.0.<br />
+Welcome to Miro App Examples! In this repository you can find examples of apps built on top of the Miro Developer Platform 2.0. \
 Make sure you visit our [developer documentation](https://developers.miro.com) to learn more.
 
 **&nbsp;ℹ&nbsp;Note**:
@@ -17,7 +17,7 @@ Make sure you visit our [developer documentation](https://developers.miro.com) t
 
 ### Miro Web SDK
 
-The fastest way to bootstrap a new app is by using [`create-miro-app`](https://www.npmjs.com/package/create-miro-app).<br />
+The fastest way to bootstrap a new app is by using [`create-miro-app`](https://www.npmjs.com/package/create-miro-app). \
 To get started, run the following command:
 
 ```shell
@@ -46,24 +46,24 @@ npx create-miro-app@latest
 | [python-oauth](examples/python-oauth)                             | This Python sample demonstrates how to implement the Oauth 2.0 authorization code flow in Miro.                                                                                                                                                                                                                 |
 | [node-oauth](examples/node-oauth)                                 | This Node.js sample demonstrates how to implement the Oauth 2.0 authorization code flow in Miro and make an API request to a Miro endpoint.                                                                                                                                                                     |
 | [node-passport-oauth](examples/node-passport-oauth)               | This Node.js sample demonstrates how to implement the Oauth 2.0 authorization code flow in Miro and make an API request to a Miro endpoint using [Passport.js](https://www.passportjs.org/).                                                                                                                    |
-| [nextjs-oauth](examples/nextjs-oauth)                             | This app demonstrates how to implement the Oauth 2.0 authorization code flow from Miro into a client side appliction built with Next.js .                                                                                                                                                                       |
+| [nextjs-oauth](examples/nextjs-oauth)                             | This app demonstrates how to implement the Oauth 2.0 authorization code flow from Miro into a client side application built with Next.js.                                                                                                                                                                       |
 | [node-stickies-csv](examples/node-stickies-csv)                   | This Node.js sample app uses server side rendering (Handlebars.js) to provide a lightweight, CRUD-oriented REST example in the browser for Miro's sticky notes and tags APIs.<br />It demonstrates a structured > unstructured use case via CSV import, creating Miro sticky notes with tags based on CSV data. |
 | [python-flask-starter](examples/rest/python-flask-starter)        | This Python/Flask boilerplate will allow to start using the Miro REST API in a few minutes.<br />This sample implements the full Miro authorization (OAuth 2.0 with refresh token) flow.                                                                                                                        |
 | [python-external-oauth](examples/python-external-oauth)           | This Python/Flask app shows you how to set up an OAuth 2.0 flow with GitHub.<br />This sample allows you to log in with GitHub and post some details to a Miro Board.                                                                                                                                           |
-| [enterprise-team-management](examples/enterprise-team-management) | This Node.js sample demonstrates how to manage teams and organizations within Miro using Miro's REST API.<br />_Note: This example requires you to have an [Enterprise Team account](https://miro.com/enterprise/) in Miro._                                                                                    |
+| [enterprise-team-management](examples/enterprise-team-management) | This Node.js sample demonstrates how to manage teams and organizations within Miro using Miro's REST API.<br />ℹ️ _This example requires an Enterprise plan subscription and an [Enterprise Team account](https://miro.com/enterprise/)._                                                                       |
 
 <p>&nbsp;</p>
 
-### Full Stack Apps
+### Full stack apps
 
-|                                                       | Description                                                                                                                       |
-| ----------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
-| [github-appcards](examples/github-appcards)           | This full stack example shows how to build an integration with GitHub that syncs data between GitHub issues and Miro app cards.   |
-| [plant-uml](https://github.com/miroapp/miro-plantuml) | This full stack example shows import [Plant UML](https://plantuml.com/) diagrams into Miro as editable board items.               |
-| [nextjs](examples/nextjs-full-stack)                  | This full stack example shows a Next.js application that will upload camera image to the Miro board using SDK and API integration |
+|                                                       | Description                                                                                                                               |
+| ----------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| [github-appcards](examples/github-appcards)           | This full stack example shows how to build an integration with GitHub that syncs data between GitHub issues and Miro app cards.           |
+| [plant-uml](https://github.com/miroapp/miro-plantuml) | This full stack example shows how to import [Plant UML](https://plantuml.com/) diagrams into Miro as editable board items.                    |
+| [nextjs](examples/nextjs-full-stack)                  | This full stack example shows a Next.js application that uploads a camera image to the Miro board using Web SDK and REST API integration. |
 
 <p>&nbsp;</p>
 
 If you'd like to contribute your own app or idea, visit our [contributing guide](CONTRIBUTING.md) to get started.
 
-_Interested in learning more? Feel free to join our [Developer Community](https://bit.ly/miro-developers) to chat with other Miro Developers!_
+💡 _Interested in learning more? Feel free to join our [Developer Community](https://bit.ly/miro-developers) to chat with other Miro Developers!_

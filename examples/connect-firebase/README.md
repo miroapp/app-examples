@@ -35,7 +35,7 @@ const firebaseConfig = {
   ```
   http://localhost:3000
   ```
-- Paste the URL under **App URL** in your [app settings](https://developers.miro.com/docs/build-your-first-hello-world-app#step-3-create-your-app-in-miro).
+- Paste the URL under **App URL** in your [app settings](https://developers.miro.com/docs/build-your-first-hello-world-app#step-2-create-your-app-in-miro).
 - Open a board; you should see your app in the app toolbar or in the **Apps** panel.
 
 ### How to build the app
