@@ -6,11 +6,11 @@ This example also stores your access and refresh tokens in your browsers cookies
 
 ## Stack
 
-- [x] React
-- [x] Next.js
-- [x] Axios
-- [x] Miro REST API
-- [x] Mirotone (styling)
+- [x] [React](https://reactjs.org/)
+- [x] [Next.js](https://nextjs.org/)
+- [x] [Axios](https://axios-http.com/)
+- [x] [Miro REST API](https://developers.miro.com/reference/api-reference)
+- [x] [Mirotone](https://www.mirotone.xyz/css) (styling)
 
 ## Prerequisites
 
@@ -50,7 +50,7 @@ clientSecret={YOUR_CLIENT_SECRET}
 redirectURL=http://localhost:3000/api/redirect/
 ```
 
-1. Go to `constants.js`, and add the `boardId` of the Miro board you'd like to use/modify.
+1. Go to [`constants.js`](./constants.js), and add the `boardId` of the Miro board you'd like to use/modify.
 2. Run `yarn dev` to start the local server.
 
 Once your server is up and running, go to `http://localhost:3000/` in your browser. \

@@ -6,10 +6,10 @@ This example also stores your access and refresh tokens in your browsers cookies
 
 ## Stack
 
-- [x] React
-- [x] Next.js
-- [x] Miro API client
-- [x] Mirotone (styling)
+- [x] [React](https://reactjs.org/)
+- [x] [Next.js](https://nextjs.org/)
+- [x] [Miro Node.js API client](https://developers.miro.com/docs/miro-nodejs-readme)
+- [x] [Mirotone](https://www.mirotone.xyz/css) (styling)
 
 ## Prerequisites
 
