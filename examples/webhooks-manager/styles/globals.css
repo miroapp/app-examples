@@ -1,0 +1,24 @@
+* {
+  box-sizing: border-box;
+}
+
+.wrapper {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+p {
+  margin-top: 0;
+}
+
+img {
+  max-width: 60%;
+  margin: 0 auto;
+  height: auto;
+}
+
+a.button {
+  text-decoration: none;
+  line-height: 48px;
+}
