@@ -7,7 +7,7 @@ export default async function handler(
 ) {
   if (typeof req.body.url !== "string") {
     res.status(400);
-    res.send("Missing webhook url in body");
+    res.send("Missing webhook 'url' in the body");
     return;
   }
 
@@ -32,7 +32,7 @@ export default async function handler(
 
   if (typeof req.body.boardId !== "string") {
     res.status(400);
-    res.send("Missing boardId in body");
+    res.send("Missing 'boardId' in the body");
     return;
   }
 
@@ -53,7 +53,7 @@ export default async function handler(
   } catch (err) {
     res.status(400).send({
       error:
-        "Failed to configure the url, check that the challenge is correctly handled",
+        "Failed to configure the body 'url'. Make sure that the challenge is  handled correctly",
     });
   }
 }

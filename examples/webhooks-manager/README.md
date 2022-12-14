@@ -40,6 +40,7 @@ When your server is up and running:
 
 ### Usage
 
-The application uses webhook apis to create, list and delete webhooks. Webhooks are associated with the board and the user that has the app open.
+The application uses webhook APIs to create, list, and delete webhooks. \
+Webhooks are associated with the board and with the user who has the app open and running on the board.
 
-[`./pages/api/webhook.ts`](./pages/api/webhook.ts) contains the example code use for handling webhooks challenges. The endpoint will log the contents or received webhook.
+[`./pages/api/webhook.ts`](./pages/api/webhook.ts) contains the example code to handle webhooks challenges. The endpoint logs the content of the received webhook.

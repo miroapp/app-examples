@@ -6,7 +6,7 @@ export const getServerSideProps: GetServerSideProps =
   async function getServerSideProps({ req }) {
     const { miro } = initMiro(req);
 
-    // redirect to auth url if user has not authorized the app
+    // If the user doesn't authorize the app, redirect to auth URL
     if (!(await miro.isAuthorized(""))) {
       return {
         redirect: {
@@ -189,17 +189,17 @@ export default function Main({
       <div className="cs1 ce12">
         <hr />
         <p>
-          Subscribe to a webhook using this UI. Your endpoint must be an HTTPS
+          Subscribe to a webhook without leaving the UI. Your endpoint must be an HTTPS
           URL with a valid SSL certificate that can correctly process event
           notifications.{" "}
         </p>
         <p>
           When adding a webhook you will receive an HTTP POST request with a
-          challenge in the body on the callback URL that you provide.
+          challenge in the body of the callback URL that you provide.
         </p>
         <p>
-          You must respond to this request from your backend and ensure that you
-          send the same challenge in the response.
+          Your backend must respond to this request. The response your backend sends
+          must contain the same challenge.
         </p>
         <p>
           For more information on the end-to-end webhook workflow and event

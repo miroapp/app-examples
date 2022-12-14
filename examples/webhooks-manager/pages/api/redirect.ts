@@ -1,7 +1,7 @@
 import initMiro from "../../initMiro";
 import { NextApiRequest, NextApiResponse } from "next";
 
-// handle redirect with code and exchange it for the access token
+// Handle the redirect with code, and exchange it for the access token
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse

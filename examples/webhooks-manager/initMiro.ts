@@ -16,12 +16,12 @@ export default function initMiro(
 ) {
   const tokensCookie = "miro_tokens";
 
-  // setup a Miro instance that loads tokens from cookies
+  // Set up a Miro instance that loads tokens from cookies
   return {
     miro: new Miro({
       storage: {
         get: () => {
-          // Load state (tokens) from a cookie if it's set
+          // If the state (tokens) is set, load it from a cookie
           try {
             return JSON.parse(request.cookies[tokensCookie] || "null");
           } catch (err) {
@@ -33,7 +33,7 @@ export default function initMiro(
             throw new Error(
               "initMiro should be invoked with a response object"
             );
-          // store state (tokens) in the cookie
+          // Store the state (tokens) in the cookie
           console.log("Setting cookies");
           response.setHeader("Set-Cookie", [
             getSerializedCookie(tokensCookie, JSON.stringify(state)),

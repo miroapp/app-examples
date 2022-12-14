@@ -1,7 +1,7 @@
 import initMiro from "../../initMiro";
 import { NextApiRequest, NextApiResponse } from "next";
 
-// handle webhook (used for testing)
+// Handle webhook (for testing purposes)
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
