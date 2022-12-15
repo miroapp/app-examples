@@ -2,11 +2,15 @@ import { Miro } from "@mirohq/miro-api";
 import { serialize } from "cookie";
 
 function getSerializedCookie(name: string, value: string) {
+  const expires = new Date();
+  expires.setFullYear(expires.getFullYear() + 2);
+
   return serialize(name, value, {
     path: "/",
     httpOnly: true,
     sameSite: "none",
     secure: true,
+    expires,
   });
 }
 
