@@ -1,4 +1,3 @@
-import initMiro from "../../initMiro";
 import { NextApiRequest, NextApiResponse } from "next";
 
 // Handle webhook (for testing purposes)
