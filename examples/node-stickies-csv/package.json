@@ -4,7 +4,7 @@
   "description": "Sample app to demonstrate using the Miro Node.js client library.",
   "main": "index.js",
   "scripts": {
-    "start": "npx localtunnel --port 3000 -s mirotunnel & nodemon app.js"
+    "start": "nodemon app.js"
   },
   "dependencies": {
     "@mirohq/miro-api": "1.0.2",
