@@ -322,7 +322,7 @@ app.get("/", (req, res) => {
 app.get("/get-sticky", async (req, res) => {
   if (await miro.isAuthorized(USER_ID)) {
     let board;
-    let allItems;
+    let allItems = [];
     try {
       board = await miro.as(USER_ID).getBoard(process.env.MIRO_BOARD_ID);
     } catch (e) {
