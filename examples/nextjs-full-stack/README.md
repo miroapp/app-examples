@@ -1,4 +1,4 @@
-# Miro full stack app example
+# Full-stack Miro app example
 
 This sample app demonstrates the use of the Miro REST API and Web SDK. After configuring your project outlined in the Prerequisites section, this app allows you to authenticate yourself with your Miro account, and use the related access tokens to make REST API calls via the Miro Developer Platform.
 

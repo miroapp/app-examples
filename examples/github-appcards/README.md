@@ -1,5 +1,9 @@
 ## GitHub app cards
 
+This full-stack example shows how to build an integration with GitHub that syncs data between GitHub issues and Miro app cards.
+
+💡 Check the complete tutorial: [Enable 2-way sync between app cards and GitHub cards]](https://developers.miro.com/docs/enable-2-way-sync-between-app-cards-and-github-cards)
+
 **&nbsp;ℹ&nbsp;Note**:
 
 - We recommend a Chromium-based web browser for local development with HTTP. \
@@ -54,19 +58,49 @@ The structure below outlines the most important files in the project used for it
 
 ## Required Environment Variables
 
+To run the app, Vite loads an `.env` file with the [environment variables](https://vitejs.dev/guide/env-and-mode.html#env-files).
+Use the commented example below to create your `.env` file.
+
 ```.env
+# Generate an access token in GitHub, and enter the value here.
+# To generate the access token, go to https://github.com/settings/tokens
 VITE_GH_ACCESS_TOKEN=
+
+# In Supabase, you create a Postgres database, and you assign it a password.
+# Enter the password of the created database in Supabase here.
+# For more information, see:
+# https://supabase.com/docs/guides/database/managing-passwords
 VITE_SUPABASE_PASSWORD=
+
+# Enter the URL of the Supabase database that the app uses for data persistence here.
+# For more information, see:
+# https://supabase.com/docs/guides/database
 VITE_DATABASE_URL=
+
+# Enter the API key of the Supabase project with the database that the app uses for data persistence here.
+# For more information, see:
+# https://supabase.com/docs/guides/api#api-url-and-keys
 VITE_DATABASE_PUBLIC_KEY=
+
+# Enter the base URL of the hosting service your app runs on here.
+# If you're developing locally, it can be 'localhost'.
 VITE_BASE_URL=
-VITE_MIRO_API_TOKEN=
+
+# Enter the client secret of your app here.
+# For more information, see:
+# https://developers.miro.com/docs/build-your-first-hello-world-app#step-3-configure-your-app-in-miro
 MIRO_CLIENT_SECRET=
+
+# Enter the OAuth code grant flow redirect URI for your app here.
+# For more information, see:
+# https://developers.miro.com/docs/getting-started-with-oauth
+# https://developers.miro.com/reference/authorization-flow-for-expiring-access-tokens
 MIRO_REDIRECT_URI=
 ```
 
 ### About the app
 
-This sample app demonstrates how a 2 way sync flow could work with GitHub Projects.
+This sample app demonstrates how a 2-way sync flow works with GitHub Projects.
 
-This example was built in React off of the [`create-miro-app`](https://www.npmjs.com/package/create-miro-app) React/Typescript starter. This app uses [Vite](https://vitejs.dev/). If you want to modify the `vite.config.js` configuration, see the [Vite documentation](https://vitejs.dev/guide/).
+This example was built in React off of the [`create-miro-app`](https://www.npmjs.com/package/create-miro-app) React/Typescript starter. \
+This app uses [Vite](https://vitejs.dev/). If you want to modify the `vite.config.js` configuration, see the [Vite documentation](https://vitejs.dev/guide/).

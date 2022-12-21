@@ -15,8 +15,8 @@ export default function Main() {
   return (
     <div className={"container"}>
       <Head>
-        <title>Miro Full Stack Example</title>
-        <meta name="description" content="Miro Full Stack Example" />
+        <title>Full-stack Miro app example</title>
+        <meta name="description" content="Full-stack Miro app example" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
