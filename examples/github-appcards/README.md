@@ -2,7 +2,7 @@
 
 This full-stack example shows how to build an integration with GitHub that syncs data between GitHub issues and Miro app cards.
 
-💡 Check the complete tutorial: [Enable 2-way sync between app cards and GitHub cards]](https://developers.miro.com/docs/enable-2-way-sync-between-app-cards-and-github-cards)
+💡 Check the complete tutorial: [Enable 2-way sync between app cards and GitHub cards](https://developers.miro.com/docs/enable-2-way-sync-between-app-cards-and-github-cards)
 
 **&nbsp;ℹ&nbsp;Note**:
 
