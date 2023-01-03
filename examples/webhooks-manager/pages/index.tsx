@@ -74,6 +74,10 @@ export default function Main({
   const [boardId, setBoardId] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
 
+  const boardWebhooks = webhooks.filter(
+    (hook) => hook.data.boardId !== boardId
+  );
+
   const isPanel =
     typeof window === "undefined"
       ? true
@@ -128,9 +132,7 @@ export default function Main({
 
   return (
     <div className="grid wrapper">
-      {webhooks.map((hook) => {
-        if (hook.data.boardId !== boardId) return null;
-
+      {boardWebhooks.map((hook) => {
         return (
           <>
             <div className="cs1 ce11" key={hook.id}>
@@ -159,7 +161,7 @@ export default function Main({
         className="cs1 ce12 form-example--main-content"
         onSubmit={createWebhook}
       >
-        {webhooks.length && <hr />}
+        {boardWebhooks.length && <hr />}
         <div className="form-group form-group-small">
           <label htmlFor="webhook">Webhook callback URL</label>
           <input
