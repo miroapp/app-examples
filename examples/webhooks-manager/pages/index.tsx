@@ -18,16 +18,26 @@ export const getServerSideProps: GetServerSideProps =
 
     const api = miro.as("");
 
-    const { body } = await api._api.call(
-      "GET",
-      "v2-experimental/webhooks/subscriptions"
-    );
+    try {
+      const { body } = await api._api.call(
+        "GET",
+        "v2-experimental/webhooks/subscriptions"
+      );
 
-    return {
-      props: {
-        webhooks: (body as any).data,
-      },
-    };
+      return {
+        props: {
+          webhooks: (body as any).data,
+        },
+      };
+    } catch (err) {
+      // on error assume auth problem, so re-auth
+      return {
+        redirect: {
+          destination: miro.getAuthUrl(),
+          permanent: false,
+        },
+      };
+    }
   };
 
 interface Webhook {
@@ -72,7 +82,7 @@ export default function Main({
   const [webhooks, setWebhooks] = useState(initialWebhooks);
   const [url, setUrl] = useState("");
   const [boardId, setBoardId] = useState("");
-  const [errorMsg, setErrorMsg] = useState("");
+  const [errorMsg, setErrorMsg] = useState<string | { error: string }>("");
 
   const boardWebhooks = webhooks.filter(
     (hook) => hook.data.boardId !== boardId
@@ -107,7 +117,14 @@ export default function Main({
         webhooks.concat(await apiCall("POST", "/api/manage", { url, boardId }))
       );
     } catch (err: any) {
-      setErrorMsg(err.message);
+      let message = err.message;
+      try {
+        message = JSON.parse(err.message).error;
+      } catch (err) {
+        // error is not formated as expected
+      }
+      setErrorMsg(message);
+
       return console.log(err);
     }
     setUrl("");
@@ -161,7 +178,7 @@ export default function Main({
         className="cs1 ce12 form-example--main-content"
         onSubmit={createWebhook}
       >
-        {boardWebhooks.length && <hr />}
+        {boardWebhooks.length > 0 && <hr />}
         <div className="form-group form-group-small">
           <label htmlFor="webhook">Webhook callback URL</label>
           <input
@@ -176,7 +193,7 @@ export default function Main({
         {errorMsg && (
           <p style={{ color: "var(--red800)" }}>
             <span className="icon icon-warning" />
-            {errorMsg}
+            {typeof errorMsg === "string" ? errorMsg : errorMsg.error}
           </p>
         )}
 
