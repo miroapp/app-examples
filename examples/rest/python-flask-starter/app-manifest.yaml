@@ -1,0 +1,6 @@
+appName: Flask demo
+redirectUris:
+  - http://127.0.0.1:5000/callback
+scopes:
+  - board:read
+  - board:write

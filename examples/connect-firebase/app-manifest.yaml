@@ -1,0 +1,5 @@
+appName: Firebase demo
+sdkUri: "http://localhost:3000"
+scopes:
+  - board:read
+  - board:write

@@ -1,0 +1,5 @@
+appName: Drag and Drop
+sdkUri: "http://localhost:3000"
+scopes:
+  - board:read
+  - board:write

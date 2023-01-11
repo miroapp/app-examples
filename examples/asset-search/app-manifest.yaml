@@ -1,0 +1,5 @@
+appName: Asset Search
+sdkUri: "http://localhost:3000"
+scopes:
+  - board:read
+  - board:write

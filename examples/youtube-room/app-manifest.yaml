@@ -1,0 +1,5 @@
+appName: Youtube room
+sdkUri: "http://localhost:3000/facilitator"
+scopes:
+  - board:read
+  - board:write

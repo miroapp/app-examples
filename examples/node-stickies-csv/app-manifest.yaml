@@ -1,0 +1,6 @@
+appName: CSV to Stickies
+redirectUris:
+  - http://localhost:8000/authorized
+scopes:
+  - board:read
+  - board:write

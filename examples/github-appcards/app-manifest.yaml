@@ -1,0 +1,7 @@
+appName: Github app cards
+sdkUri: "http://localhost:3000"
+redirectUris:
+  - http://localhost:3000/authorize
+scopes:
+  - board:read
+  - board:write

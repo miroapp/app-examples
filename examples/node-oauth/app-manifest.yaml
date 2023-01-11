@@ -1,0 +1,5 @@
+appName: Oauth demo
+redirectUris:
+  - http://localhost:3000/
+scopes:
+  - board:read
