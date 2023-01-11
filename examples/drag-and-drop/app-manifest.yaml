@@ -1,3 +1,4 @@
+# See https://developers.miro.com/docs/app-manifest on how to use this
 appName: Drag and Drop
 sdkUri: "http://localhost:3000"
 scopes:
