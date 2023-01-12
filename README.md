@@ -17,11 +17,11 @@ Make sure you visit our [developer documentation](https://developers.miro.com) t
 
 ### App configuration
 
-All examples contain `app-manifest.yaml` file which can be used to quickly configure the example app.
+All examples include an [`app-manifest.yaml` file](https://developers.miro.com/docs/app-manifest) to quickly configure the example app.
 
-- Go to [App settings](https://miro.com/app/settings/user-profile/apps)
-- Click on Edit in manifest
-- Paste the yaml configuration and click Save
+- Go to [App settings](https://miro.com/app/settings/user-profile/apps).
+- Click **Edit in manifest**.
+- Paste the YAML configuration, and click **Save**.
 
 ### Get started
 
