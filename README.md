@@ -15,7 +15,15 @@ Make sure you visit our [developer documentation](https://developers.miro.com) t
   If you prefer, you can install and use equivalent alternatives, such as `yarn` or `pnpm`.
 - For more information, visit our [developer documentation](https://developers.miro.com).
 
-### Miro Web SDK
+### App configuration
+
+All examples include an [`app-manifest.yaml` file](https://developers.miro.com/docs/app-manifest) to quickly configure the example app.
+
+- Go to [App settings](https://miro.com/app/settings/user-profile/apps).
+- Click **Edit in manifest**.
+- Paste the YAML configuration, and click **Save**.
+
+### Get started
 
 The fastest way to bootstrap a new app is by using [`create-miro-app`](https://www.npmjs.com/package/create-miro-app). \
 To get started, run the following command:
@@ -23,6 +31,8 @@ To get started, run the following command:
 ```shell
 npx create-miro-app@latest
 ```
+
+### Miro Web SDK
 
 |                                                         | Description                                                                                                                                        |
 | ------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |

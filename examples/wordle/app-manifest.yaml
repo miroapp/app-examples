@@ -1,0 +1,6 @@
+# See https://developers.miro.com/docs/app-manifest on how to use this
+appName: Wordle
+sdkUri: "http://localhost:3000"
+scopes:
+  - board:read
+  - board:write

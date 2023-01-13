@@ -1,5 +1,5 @@
 import Input from "./Input";
-import { toTitleCase } from "utils";
+import { toTitleCase } from "../utils";
 
 const AssetViewHeader = ({
   handleInputChange,
