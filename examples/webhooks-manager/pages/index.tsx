@@ -85,7 +85,7 @@ export default function Main({
   const [errorMsg, setErrorMsg] = useState<string | { error: string }>("");
 
   const boardWebhooks = webhooks.filter(
-    (hook) => hook.data.boardId !== boardId
+    (hook) => hook.data.boardId === boardId
   );
 
   const isPanel =
@@ -149,6 +149,12 @@ export default function Main({
 
   return (
     <div className="grid wrapper">
+      {boardWebhooks.length > 0 && (
+        <div className="cs1 ce12">
+          <small>Your subscriptions on the current board:</small>
+        </div>
+      )}
+
       {boardWebhooks.map((hook) => {
         return (
           <>
@@ -208,9 +214,8 @@ export default function Main({
       <div className="cs1 ce12">
         <hr />
         <p>
-          Subscribe to a webhook without leaving the UI. Your endpoint must be
-          an HTTPS URL with a valid SSL certificate that can correctly process
-          event notifications.{" "}
+          Your endpoint must be an HTTPS URL with a valid SSL certificate that
+          can correctly process event notifications.{" "}
         </p>
         <p>
           When adding a webhook you will receive an HTTP POST request with a
@@ -220,6 +225,7 @@ export default function Main({
           Your backend must respond to this request. The response your backend
           sends must contain the same challenge.
         </p>
+        <p>Subscriptions are created per user, per board.</p>
         <p>
           For more information on the end-to-end webhook workflow and event
           samples, see the{" "}
