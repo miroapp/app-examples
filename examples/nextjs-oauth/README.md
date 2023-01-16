@@ -32,10 +32,10 @@ First, make sure you handled the prerequisites:
 - Click **Options**. \
   From the drop-down menu select **Use this URI for SDK authorization**.
 - Lastly, scroll down to **Permissions**, and select the following permissions:
-  - `board:read`
-  - `board:write`
+  - `boards:read`
+  - `boards:write`
 - Go back to your Developer team dashboard, and create a new board in Miro.
-- Make a note of the board ID in the URL of the new board: you'll use it later in step 5.
+- Make a note of the board ID in the URL of the new boards: you'll use it later in step 5.
 
 Now you can start working directly with the sample app:
 

@@ -2,5 +2,5 @@
 appName: Drag and drop
 sdkUri: "http://localhost:3000"
 scopes:
-  - board:read
-  - board:write
+  - boards:read
+  - boards:write

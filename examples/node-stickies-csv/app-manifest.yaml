@@ -3,5 +3,5 @@ appName: CSV to sticky notes
 redirectUris:
   - http://localhost:8000/authorized
 scopes:
-  - board:read
-  - board:write
+  - boards:read
+  - boards:write

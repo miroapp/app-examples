@@ -3,4 +3,4 @@ appName: Node passport demo
 redirectUris:
   - http://localhost:4000/auth/miro/callback
 scopes:
-  - board:read
+  - boards:read
