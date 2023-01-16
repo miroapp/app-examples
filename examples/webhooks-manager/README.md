@@ -25,8 +25,8 @@
 - Click **Options**. \
   From the drop-down menu select **Use this URI for SDK authorization**.
 - Lastly, go to **Permissions**, and select the following permissions:
-  - `board:read`
-  - `board:write`
+  - `boards:read`
+  - `boards:write`
 
 4. Open the [`.env`](.env) file, and enter the app client ID and client secret
    values that you saved at the beginning of step 3 above.

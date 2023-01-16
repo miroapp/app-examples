@@ -30,8 +30,8 @@ First, make sure you handled the prerequisites:
   - Click **Options**. \
     From the drop-down menu select **Use this URI for SDK authorization**.
   - Lastly, scroll down to **Permissions**, and select the following permissions:
-    - `board:read`
-    - `board:write`
+    - `boards:read`
+    - `boards:write`
     - `webcam:record`
 
 Now you can start working directly with the sample app:

@@ -2,5 +2,5 @@
 appName: Calendar
 sdkUri: "http://localhost:3000"
 scopes:
-  - board:read
-  - board:write
+  - boards:read
+  - boards:write
