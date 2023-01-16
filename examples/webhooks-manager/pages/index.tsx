@@ -151,7 +151,7 @@ export default function Main({
     <div className="grid wrapper">
       {boardWebhooks.length > 0 && (
         <div className="cs1 ce12">
-          <small>Your subscriptions on the current boards:</small>
+          <small>Your subscriptions on the current board:</small>
         </div>
       )}
 
