@@ -80,6 +80,7 @@ export default function Main({
   webhooks: Webhook[];
 }) {
   const [webhooks, setWebhooks] = useState(initialWebhooks);
+  const [isLoading, setIsLoading] = useState(false);
   const [url, setUrl] = useState("");
   const [boardId, setBoardId] = useState("");
   const [errorMsg, setErrorMsg] = useState<string | { error: string }>("");
@@ -111,6 +112,7 @@ export default function Main({
   async function createWebhook(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setErrorMsg("");
+    setIsLoading(true);
 
     try {
       setWebhooks(
@@ -126,18 +128,23 @@ export default function Main({
       setErrorMsg(message);
 
       return console.log(err);
+    } finally {
+      setIsLoading(false);
     }
     setUrl("");
   }
 
   async function deleteWebhook(idToDelete: string) {
     setErrorMsg("");
+    setIsLoading(true);
 
     try {
       await apiCall("DELETE", "/api/manage", { url: idToDelete });
     } catch (err: any) {
       setErrorMsg(err.message);
       return console.error(err);
+    } finally {
+      setIsLoading(false);
     }
 
     setWebhooks(webhooks.filter(({ id }) => idToDelete !== id));
@@ -198,7 +205,6 @@ export default function Main({
         </div>
         {errorMsg && (
           <p style={{ color: "var(--red800)" }}>
-            <span className="icon icon-warning" />
             {typeof errorMsg === "string" ? errorMsg : errorMsg.error}
           </p>
         )}
@@ -206,6 +212,7 @@ export default function Main({
         <button
           type="submit"
           className="cs1 ce12 button button-primary button-small"
+          disabled={isLoading}
         >
           Add webhook
         </button>
@@ -215,7 +222,7 @@ export default function Main({
         <hr />
         <p>
           Your endpoint must be an HTTPS URL with a valid SSL certificate that
-          can correctly process event notifications.{" "}
+          can correctly process event notifications.
         </p>
         <p>
           When adding a webhook you will receive an HTTP POST request with a
@@ -237,6 +244,17 @@ export default function Main({
           </a>
           .
         </p>
+      </div>
+
+      <div className="cs1 ce12">
+        <div className="feedback">
+          <a
+            href="mailto:josip@miro.com?subject=Webhooks manager feedback"
+            title="Leave feedback"
+          >
+            <span className="icon icon-comment-feedback" />
+          </a>
+        </div>
       </div>
     </div>
   );

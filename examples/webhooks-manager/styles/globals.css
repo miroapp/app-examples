@@ -27,3 +27,16 @@ a.button {
   text-decoration: none;
   line-height: 48px;
 }
+
+.feedback {
+  position: sticky;
+  bottom: 0;
+  background: #fff;
+  padding: 3px;
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.button [class*="icon-"] {
+  transform: scale(0.8);
+}

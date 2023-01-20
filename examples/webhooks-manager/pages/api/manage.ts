@@ -53,7 +53,7 @@ export default async function handler(
   } catch (err) {
     res.status(400).send({
       error:
-        "Failed to configure the body 'url'. Make sure that the challenge is  handled correctly",
+        "Failed to add subscription. Make sure that the URL is valid and the challenge is handled correctly (see instructions below).",
     });
   }
 }
