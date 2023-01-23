@@ -249,6 +249,7 @@ export default function Main({
       <div className="cs1 ce12">
         <div className="feedback">
           <a
+            target="_top"
             href="mailto:josip@miro.com?subject=Webhooks manager feedback"
             title="Leave feedback"
           >
