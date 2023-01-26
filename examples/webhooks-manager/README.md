@@ -1,4 +1,9 @@
-## Create a Miro app
+## Webhooks manager
+
+This is the source code of [Webhook manager app](https://miro.com/marketplace/webhook-manager/).
+The app is deployed on [Vercel](https://webhooks-manager-sepia.vercel.app/).
+
+The app allows creation of webhooks for boards using a simple UI. It removes the need to interact with our REST API to set up webhooks, simplifying the process for developers that want to create webhooks quickly.
 
 ### How to start locally
 
