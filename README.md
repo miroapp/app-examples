@@ -36,16 +36,16 @@ npx create-miro-app@latest
 
 |                                                         | Description                                                                                                                                                                | 
 | ------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | 
-| [drag-and-drop](examples/drag-and-drop)                 | This example shows you how to drag and drop images from your app onto the board.                                                                   <br><br>`<Create in Miro>`<br> |
-| [asset-search](examples/asset-search)                   | This example shows you how to filter and search through assets by name and/or multiple tags.                                                       <br><br>`<Create in Miro>`<br> |
-| [digital-asset-manager](examples/digital-asset-manager) | This example shows you how to build a digital asset manager using Bynder's API.                                                                    <br><br>`<Create in Miro>`<br> |
-| [connect-firebase](examples/connect-firebase)           | This example shows you how to connect an SDK app to a Firebase backend.                                                                            <br><br>`<Create in Miro>`<br> |
-| [stickynotes-to-shapes](examples/stickynotes-to-shapes) | This example allows you to select several stickies, click the plugin button in the bottom bar, and replace any selected stickies with shapes.      <br><br>`<Create in Miro>`<br> |
-| [template-builder](examples/template-builder)           | This example shows how to create and position on the board multiple widgets of different types and render create custom interfaces in the library. <br><br>`<Create in Miro>`<br> |
-| [calendar](examples/calendar)                           | This example shows you how to add a calendar made with shapes and text for a given month and year.                                                 <br><br>`<Create in Miro>`<br> |
-| [wordle](examples/wordle)                               | This example shows you how to create a Wordle-like game using the Miro Web SDK.                                                                    <br><br>`<Create in Miro>`<br> |
-| [blob-maker](examples/blob-maker)                       | This example shows you how to create a drag and drop blobmaker using Miro's Web SDK.                                                               <br><br>`<Create in Miro>`<br> |
-| [youtube-room](examples/youtube-room)                   | This example shows you how to sync a YouTube player across multiple users through Socket.IO.                                                       <br><br>`<Create in Miro>`<br> |
+| [drag-and-drop](examples/drag-and-drop)                 | This example shows you how to drag and drop images from your app onto the board.                                                                   <br>`<>`<br> |
+| [asset-search](examples/asset-search)                   | This example shows you how to filter and search through assets by name and/or multiple tags.                                                       <br>`<>`<br> |
+| [digital-asset-manager](examples/digital-asset-manager) | This example shows you how to build a digital asset manager using Bynder's API.                                                                    <br>`<>`<br> |
+| [connect-firebase](examples/connect-firebase)           | This example shows you how to connect an SDK app to a Firebase backend.                                                                            <br>`<>`<br> |
+| [stickynotes-to-shapes](examples/stickynotes-to-shapes) | This example allows you to select several stickies, click the plugin button in the bottom bar, and replace any selected stickies with shapes.      <br>`<>`<br> |
+| [template-builder](examples/template-builder)           | This example shows how to create and position on the board multiple widgets of different types and render create custom interfaces in the library. <br>`<>`<br> |
+| [calendar](examples/calendar)                           | This example shows you how to add a calendar made with shapes and text for a given month and year.                                                 <br>`<>`<br> |
+| [wordle](examples/wordle)                               | This example shows you how to create a Wordle-like game using the Miro Web SDK.                                                                    <br>`<>`<br> |
+| [blob-maker](examples/blob-maker)                       | This example shows you how to create a drag and drop blobmaker using Miro's Web SDK.                                                               <br>`<>`<br> |
+| [youtube-room](examples/youtube-room)                   | This example shows you how to sync a YouTube player across multiple users through Socket.IO.                                                       <br>`<>`<br> |
 
 <p>&nbsp;</p>
 
