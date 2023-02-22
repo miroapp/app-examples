@@ -21,8 +21,9 @@ This full-stack example shows how to build an integration with GitHub that syncs
   ```
   http://localhost:3000
   ```
-- Paste the URL under **App URL** in your [app settings](https://developers.miro.com/docs/build-your-first-hello-world-app#step-2-create-your-app-in-miro).
-- Open a board; you should see your app in the app toolbar or in the **Apps** panel.
+- Open the [app manifest editor](https://developers.miro.com/docs/manually-create-an-app#step-2-configure-your-app-in-miro).
+- In the app manifest, paste the URL as the value of [`sdkUri`](https://developers.miro.com/docs/app-manifest#sdkuri).
+- Open a board: you should see your app in the apps toolbar or in the apps panel.
 
 ### How to build the app
 
@@ -50,10 +51,10 @@ The structure below outlines the most important files in the project used for it
 │      constants.ts <-- A collection of static variables used throughout the app.
 │      index.ts <-- Initializes app, and contains logic for opening the app from the sidebar and expanding an app card.
 │      modal.tsx <-- The main entry for the modal that appears when selecting a GitHub issue to import.
-├── app.html <-- The app itself. This is loaded on the board inside 'app.tsx'
-├── appcard-modal.html <-- The app card modal itself. This is loaded on the board inside the 'appcard-modal.tsx'
-├── index.html <-- The app entry point. This is what you specify in the 'App URL' box in the Miro app settings
-└── modal.html <-- The modal itself. This is loaded on the board inside the 'modal.tsx'
+├── app.html <-- The app itself. This is loaded on the board inside 'app.tsx'.
+├── appcard-modal.html <-- The app card modal itself. This is loaded on the board inside the 'appcard-modal.tsx'.
+├── index.html <-- The app entry point. This is the value you assign to 'sdkUri' in the app manifest file.
+└── modal.html <-- The modal itself. This is loaded on the board inside the 'modal.tsx'.
 ```
 
 ## Required Environment Variables
@@ -87,8 +88,9 @@ VITE_DATABASE_PUBLIC_KEY=
 VITE_BASE_URL=
 
 # Enter the client secret of your app here.
-# For more information, see:
-# https://developers.miro.com/docs/build-your-first-hello-world-app#step-3-configure-your-app-in-miro
+# To retrieve the client secret, go to https://miro.com/app/settings/user-profile/
+# Select 'Your apps', and then the app whose secret you want to retrieve.
+# The app client secret is under 'App Credentials' > 'Client secret'.
 MIRO_CLIENT_SECRET=
 
 # Enter the OAuth code grant flow redirect URI for your app here.

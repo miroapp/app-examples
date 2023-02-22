@@ -16,8 +16,9 @@
   ```
   http://localhost:3000
   ```
-- Paste the URL under **App URL** in your [app settings](https://developers.miro.com/docs/build-your-first-hello-world-app#step-2-create-your-app-in-miro).
-- Open a board; you should see your app in the app toolbar or in the **Apps** panel.
+- Open the [app manifest editor](https://developers.miro.com/docs/manually-create-an-app#step-2-configure-your-app-in-miro).
+- In the app manifest, paste the URL as the value of [`sdkUri`](https://developers.miro.com/docs/app-manifest#sdkuri).
+- Open a board: you should see your app in the apps toolbar or in the apps panel.
 
 ### How to build the app
 
@@ -31,10 +32,10 @@
 ├── src
 │  ├── assets
 │  │  └── style.css
-│  ├── app.js      // The code for the app lives here
-│  └── index.js    // The code for the app entry point lives here
-├── app.html       // The app itself. It's loaded on the board inside the 'appContainer'
-└── index.html     // The app entry point. This is what you specify in the 'App URL' box in the Miro app settings
+│  ├── app.js      // The code for the app lives here.
+│  └── index.js    // The code for the app entry point lives here.
+├── app.html       // The app itself. It's loaded on the board inside the 'appContainer'.
+└── index.html     // The app entry point. This is the value you assign to 'sdkUri' in the app manifest file.
 ```
 
 ### About the app

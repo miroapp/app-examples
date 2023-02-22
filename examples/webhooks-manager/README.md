@@ -11,7 +11,7 @@ The app allows creation of webhooks for boards using a simple UI. It removes the
    [Developer team](https://developers.miro.com/docs/create-a-developer-team)
    under your user account.
 
-2. [Create an app in Miro](https://developers.miro.com/docs/build-your-first-hello-world-app#step-2-create-your-app-in-miro).
+2. [Create an app in Miro](https://developers.miro.com/docs/build-your-first-hello-world-app#step-1-bootstrap-the-hello-world-app).
 
 - Click the **Create new app** button.
 - On the **Create new app** modal, give your app a name, assign it to your
