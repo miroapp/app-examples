@@ -42,16 +42,15 @@ boardId="<MIRO_BOARD_ID>"
 
 1. Open a new terminal in the root folder of the project.
 2. Run `npm run start`
-3. Your console should return `"The web server has started on port 8000", "Listening on localhost, port 8000"`
+3. Your console should return `Listening on localhost, port 8000`
 4. In your account profile, go to **Your apps**, and then select the app you just created to access its settings page. \
    On the app settings page:
-   - Go to **App Credentials**, and copy the app **Client ID** and **Client secret** values. Paste these details to your `.env` file `clientId` and `clientSecret` variables.
+   - Go to **App Credentials**, and copy the app **Client ID** and **Client secret** values. \
+     Paste these details to your `.env` file `clientId` and `clientSecret` variables.
    - Go to your desired Miro board, copy the board ID from the URL, and paste it to your `.env` file `boardId` variable.
    - Assign `http://localhost:8000/authorized` as a value for your `.env` file `redirectUrl` variable.
 5. Then, open the [app manifest editor](https://developers.miro.com/docs/manually-create-an-app#step-2-configure-your-app-in-miro) by clicking **Edit in Manifest**. \
    In the app manifest editor, configure the app as follows:
-   - [`sdkUri`](https://developers.miro.com/docs/app-manifest#sdkuri): assign `http://localhost:8000` as a value for this property. \
-     It defines the entry point of the app, and it corresponds to the URL of the server that the app runs on.
    - [`redirectUriForSdk`](https://developers.miro.com/docs/app-manifest#redirecturiforsdk): assign `http://localhost:8000/authorized` as a value for this property. \
      It defines the redirect URL that starts the OAuth 2.0 code grant flow for the REST API from the Web SDK.
 6. To use the app, go to `http://localhost:8000/`.

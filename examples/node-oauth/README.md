@@ -7,10 +7,10 @@
 
 ### How to start
 
-- Clone or download repo.
-- `cd` to the repo root folder.
-- `npm install` to install dependencies.
-- Create an `.env` file in the root folder, and set the following variables:
+1. Clone or download repo.
+2. `cd` to the repo root folder.
+3. `npm install` to install dependencies.
+4. Create an `.env` file in the root folder, and set the following variables:
 
 ```
 clientId=<YOUR_CLIENT_ID>
@@ -22,12 +22,17 @@ boardId=<MIRO_BOARD_ID>
 In this example, we will host our local environment over `HTTPS` using [Localtunnel](https://www.npmjs.com/package/localtunnel).\
 (You can use other services such as [ngrok](https://ngrok.com/download) as well.)
 
-- Install [localtunnel](https://www.npmjs.com/package/localtunnel) (or your preferred service).
-- Generate your HTTPS URL (if using localtunnel, `lt --port 3000`) for localhost.
-- Copy this HTTPS URL and paste it in the `Redirect URI for OAuth2.0` box in your Miro app settings.
-- Paste this same HTTPS URL into your `.env` file `redirectUrl` variable.
-- From your desired Miro board, copy the board ID from the URL, and paste it to your `.env` file `boardId` variable.
-- From your Miro app settings, copy **Client ID** and **Client secret**, and paste the values to your `.env` file `clientId` and `clientSecret` variables, respectively.
+1. Install [localtunnel](https://www.npmjs.com/package/localtunnel) (or your preferred service).
+2. Generate your HTTPS URL (if using localtunnel, `lt --port 3000`) for localhost.
+3. In your account profile, go to **Your apps**, and then select the app you just created to access its settings page. \
+   On the app settings page:
+   - Go to **App Credentials**, and copy the app **Client ID** and **Client secret** values. Paste these details to your `.env` file `clientId` and `clientSecret` variables.
+   - Go to your desired Miro board, copy the board ID from the URL, and paste it to your `.env` file `boardId` variable.
+   - Assign `http://localhost:3000` as a value for your `.env` file `redirectUrl` variable.
+4. Then, open the [app manifest editor](https://developers.miro.com/docs/manually-create-an-app#step-2-configure-your-app-in-miro) by clicking **Edit in Manifest**. \
+   In the app manifest editor, configure the app as follows:
+   - [`redirectUriForSdk`](https://developers.miro.com/docs/app-manifest#redirecturiforsdk): assign `http://localhost:3000` as a value for this property. \
+     It defines the redirect URL that starts the OAuth 2.0 code grant flow for the REST API from the Web SDK.
 
 ### How to run the project
 
@@ -43,10 +48,10 @@ This should redirect you to your Localtunnel URL, where you will see the JSON AP
 
 ```
 .
-├── package.json <-- The app dependencies which are installed in "How to start"
-└── index.js <-- The main Node.js script to run the OAuth and API request flow
-└── .env <-- File where you are storing your sensitive credentials
-└── node_modules <-- Node modules that are installed based on dependencies
+├── package.json <-- App dependencies that are installed for the project.
+└── index.js <-- The main Node.js script to run the OAuth and API request flow.
+└── .env <-- A file you create, where you store sensitive credentials (client ID, client secret).
+└── node_modules <-- Node.js modules that are installed based on dependencies.
 ```
 
 ### About the app
