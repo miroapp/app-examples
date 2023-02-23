@@ -1,5 +1,6 @@
 {
   "name": "miro-wordle",
+  "description": "This example shows you how to create a Wordle-like game using the Miro Web SDK.",
   "version": "0.0.1",
   "scripts": {
     "start": "vite",

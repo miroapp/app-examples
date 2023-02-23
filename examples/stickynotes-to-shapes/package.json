@@ -1,5 +1,6 @@
 {
   "name": "stickynotes-to-shapes",
+  "description": "This example allows you to select several stickies, click the plugin button in the bottom bar, and replace any selected stickies with shapes.",
   "version": "0.0.0",
   "scripts": {
     "start": "vite",
