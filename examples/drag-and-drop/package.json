@@ -1,5 +1,6 @@
 {
   "name": "drag-and-drop",
+  "description": "This example shows you how to drag and drop images from your app onto the board.",
   "version": "0.0.1",
   "scripts": {
     "start": "vite",
