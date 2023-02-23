@@ -14,16 +14,24 @@ This full-stack example shows how to build an integration with GitHub that syncs
 
 ### How to start locally
 
-- Run `npm install` to install dependencies.
-- Add a `.env` file with the required environment variables (See section at bottom)
-- Run `npm start` to start developing. \
-  Your URL should be similar to this example:
-  ```
-  http://localhost:3000
-  ```
-- Open the [app manifest editor](https://developers.miro.com/docs/manually-create-an-app#step-2-configure-your-app-in-miro).
-- In the app manifest, paste the URL as the value of [`sdkUri`](https://developers.miro.com/docs/app-manifest#sdkuri).
-- Open a board: you should see your app in the apps toolbar or in the apps panel.
+1. Run `npm install` to install dependencies.
+2. Add a `.env` file with the required environment variables (See example at the end of this article).
+3. Run `npm start` to start developing. \
+   Your URL should be similar to this example:
+   ```
+   http://localhost:3000
+   ```
+4. Open the [app manifest editor](https://developers.miro.com/docs/manually-create-an-app#step-2-configure-your-app-in-miro).\
+   In the app manifest editor, configure the app as follows:
+   - [`sdkUri`](https://developers.miro.com/docs/app-manifest#sdkuri): assign `http://localhost:3000` as a value for this property. \
+     It defines the entry point of the app, and it corresponds to the URL of the server that the app runs on.
+   - [`redirectUris`](https://developers.miro.com/docs/app-manifest#redirecturis): assign `http://localhost:3000/authorize` as a value for this property. \
+     It defines the redirect URL that starts the OAuth 2.0 code grant flow for the REST API.
+   - [`scopes`](https://developers.miro.com/docs/app-manifest#scopes): add the permission scopes that users need to grant the app when they install it. \
+     To enable the app to read from and write to the board, add the following permissions:
+     - `boards:read`
+     - `boards:write`
+5. Open a board: you should see your app in the apps toolbar or in the apps panel.
 
 ### How to build the app
 

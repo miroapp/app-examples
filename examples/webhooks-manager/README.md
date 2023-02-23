@@ -27,14 +27,14 @@ The app allows creation of webhooks for boards using a simple UI. It removes the
 - In the app manifest editor, configure the app as follows:
   - [`sdkUri`](https://developers.miro.com/docs/app-manifest#sdkuri): assign `http://localhost:3000` as a value for this property. \
     It defines the entry point of the app, and it corresponds to the URL of the server that the app runs on.
-  - [`redirectUriForSdk`](https://developers.miro.com/docs/app-manifest#redirecturiforsdk): assign `http://localhost:3000/api/redirect/` as a value for this property. \
-    It defines the redirect URL that starts the OAuth 2.0 code grant flow for the REST API from the Web SDK.
+  - [`redirectUris`](https://developers.miro.com/docs/app-manifest#redirecturis): assign `http://localhost:3000/api/redirect/` as a value for this property. \
+    It defines the redirect URL that starts the OAuth 2.0 code grant flow for the REST API.
   - [`scopes`](https://developers.miro.com/docs/app-manifest#scopes): add the permission scopes that users need to grant the app when they install it. \
     To enable the app to read from and write to the board, add the following permissions:
     - `boards:read`
     - `boards:write`
 
-4. Open the [`.env`](.env) file, and enter the app client ID and client secret
+1. Open the [`.env`](.env) file, and enter the app client ID and client secret
    values that you saved at the beginning of step 3 above.
 
    ```
@@ -43,7 +43,7 @@ The app allows creation of webhooks for boards using a simple UI. It removes the
    MIRO_REDIRECT_URL=http://localhost:3000/api/redirect/
    ```
 
-5. Run `npm start` to start the local web server.
+2. Run `npm start` to start the local web server.
 
 When your server is up and running:
 

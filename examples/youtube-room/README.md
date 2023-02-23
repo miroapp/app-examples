@@ -34,18 +34,31 @@ This app can be installed by multiple users. It contains the functionality that 
 
 ### How to start locally
 
-- Run `npm install` to install dependencies.
-- Run `npm start` to start developing. \
-  Your URL should be similar to this example:
-  ```
-  http://localhost:3000
-  ```
-- [Create a new Miro app](https://developers.miro.com/docs/build-your-first-hello-world-app#step-1-bootstrap-the-hello-world-app) for the facilitator app component.
-- Paste `http://localhost:3000/facilitator` as the value of [`sdkUri`](https://developers.miro.com/docs/app-manifest#sdkuri) in the [app manifest](https://developers.miro.com/docs/manually-create-an-app#step-2-configure-your-app-in-miro) file for the facilitator app component.
-- [Create a new Miro app](https://developers.miro.com/docs/build-your-first-hello-world-app#step-1-bootstrap-the-hello-world-app) for the participant app component.
-- Paste `http://localhost:3000/participant` as the value of [`sdkUri`](https://developers.miro.com/docs/app-manifest#sdkuri) in the [app manifest](https://developers.miro.com/docs/manually-create-an-app#step-2-configure-your-app-in-miro) file for the participant app component.
-- Open a board and click the three dots (**...**) or the chevron (**>>**) on the left toolbar. \
-  You should see the Miro calendar app.
+1. Run `npm install` to install dependencies.
+2. Run `npm start` to start developing. \
+   Your URL should be similar to this example:
+   ```
+   http://localhost:3000
+   ```
+3. [Create a new Miro app](https://developers.miro.com/docs/build-your-first-hello-world-app#step-1-bootstrap-the-hello-world-app) for the _facilitator app_ component.
+4. Open the [app manifest editor](https://developers.miro.com/docs/manually-create-an-app#step-2-configure-your-app-in-miro) by clicking **Edit in Manifest**. \
+   In the app manifest editor, configure the the _facilitator app_ as follows:
+   - [`sdkUri`](https://developers.miro.com/docs/app-manifest#sdkuri): assign `http://localhost:3000/facilitator` as a value for this property. \
+     It defines the entry point of the _facilitator app_, and it corresponds to the URL of the server that the app runs on.
+   - [`scopes`](https://developers.miro.com/docs/app-manifest#scopes): add the permission scopes that users need to grant the app when they install it. \
+     To enable the app to read from and write to the board, add the following permissions:
+     - `boards:read`
+     - `boards:write`
+5. [Create a new Miro app](https://developers.miro.com/docs/build-your-first-hello-world-app#step-1-bootstrap-the-hello-world-app) for the _participant app_ component.
+6. Open the [app manifest editor](https://developers.miro.com/docs/manually-create-an-app#step-2-configure-your-app-in-miro) by clicking **Edit in Manifest**. \
+   In the app manifest editor, configure the the _participant app_ as follows:
+   - [`sdkUri`](https://developers.miro.com/docs/app-manifest#sdkuri): assign `http://localhost:3000/participant` as a value for this property. \
+     It defines the entry point of the _participant app_, and it corresponds to the URL of the server that the app runs on.
+   - [`scopes`](https://developers.miro.com/docs/app-manifest#scopes): add the permission scopes that users need to grant the app when they install it. \
+     To enable the app to read from and write to the board, add the following permissions:
+     - `boards:read`
+     - `boards:write`
+7. Open a board: you should see your app in the apps toolbar or in the apps panel.
 
 ### Folder structure
 
