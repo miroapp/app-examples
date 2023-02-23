@@ -43,9 +43,9 @@ The structure below outlines the most important files in the project used for it
 │      └── style.css <-- CSS styles for the app.
 |  └── components <-- Folder of all UI components used in the app.
 |  └── utils
-│      └── github.ts <-- Utility functions for interacting with the GitHub API
-│          miro.ts <-- Utility functions for interacting with the Miro Web SDK & API
-│          supabase.ts <-- Main entry for interacting with Supabase
+│      └── github.ts <-- Utility functions for interacting with the GitHub API.
+│          miro.ts <-- Utility functions for interacting with the Miro Web SDK and REST API.
+│          supabase.ts <-- Main entry for interacting with Supabase.
 │  └── app.tsx <-- The main entry. Contains structure for the sidebar when launched.
 │      appcard-modal.tsx <-- The main entry for the modal that appears when an app card is expanded.
 │      constants.ts <-- A collection of static variables used throughout the app.

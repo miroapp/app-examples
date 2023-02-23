@@ -41,10 +41,11 @@ This app can be installed by multiple users. It contains the functionality that 
   http://localhost:3000
   ```
 - [Create a new Miro app](https://developers.miro.com/docs/build-your-first-hello-world-app#step-1-bootstrap-the-hello-world-app) for the facilitator app component.
-- Paste `http://localhost:3000/facilitator` in the `App URL` box in your Facilitator app settings.
+- Paste `http://localhost:3000/facilitator` as the value of [`sdkUri`](https://developers.miro.com/docs/app-manifest#sdkuri) in the [app manifest](https://developers.miro.com/docs/manually-create-an-app#step-2-configure-your-app-in-miro) file for the facilitator app component.
 - [Create a new Miro app](https://developers.miro.com/docs/build-your-first-hello-world-app#step-1-bootstrap-the-hello-world-app) for the participant app component.
-- Paste `http://localhost:3000/participant` in the `App URL` box in your participant app settings.
-- Open a board and click the three dots (...) or the chevron (>>) on the left toolbar. You should see the Miro calendar app.
+- Paste `http://localhost:3000/participant` as the value of [`sdkUri`](https://developers.miro.com/docs/app-manifest#sdkuri) in the [app manifest](https://developers.miro.com/docs/manually-create-an-app#step-2-configure-your-app-in-miro) file for the participant app component.
+- Open a board and click the three dots (**...**) or the chevron (**>>**) on the left toolbar. \
+  You should see the Miro calendar app.
 
 ### Folder structure
 

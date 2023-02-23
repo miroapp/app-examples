@@ -50,9 +50,9 @@
 ├── src
 │  ├── assets
 │  │  └── style.css
-│  ├── app.js      // The code for the app lives here
-│  └── index.js    // The code for the app entry point lives here
-├── app.html       // The app itself. It's loaded on the board inside the 'appContainer'
+│  ├── app.js      // The code for the app lives here.
+│  └── index.js    // The code for the app entry point lives here.
+├── app.html       // The app itself. It's loaded on the board inside the 'appContainer'.
 └── index.html     // The app entry point. This is the value you assign to 'sdkUri' in the app manifest file.
 ```
 

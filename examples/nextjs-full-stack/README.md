@@ -19,17 +19,22 @@ This example also stores your access and refresh tokens in your browsers cookies
 
 ## How to start
 
-First, make sure you handled the prerequisites:
+First, make sure you handled the [prerequisites](#prerequisites).
 
-- Create a [Developer team in Miro](https://developers.miro.com/docs/create-a-developer-team).
-- Create an [app in Miro](https://miro.com/app/settings/user-profile/apps):
-  - From your developer team in Miro, click the **Build Apps** button in the team dashboard UI.
-  - Name your app, and click **Create**.
-  - Scroll down to **App Credentials**, and copy client ID and client secret: you'll use them later in step 4.
-  - Scroll further down to **Redirect URI for OAuth2.0**, and paste the following redirect URL: `http://localhost:3000/api/redirect/`
-  - Click **Options**. \
-    From the drop-down menu select **Use this URI for SDK authorization**.
-  - Lastly, scroll down to **Permissions**, and select the following permissions:
+Then, proceed to configure the app:
+
+- In your account profile, go to **Your apps**, and then select the app you just created to access its settings page.
+- On the app settings page:
+  - Go to **App Credentials**, and copy the app **Client ID** and **Client secret** values: you'll need to enter these values
+    in step 4 below.
+  - Then, open the [app manifest editor](https://developers.miro.com/docs/manually-create-an-app#step-2-configure-your-app-in-miro) by clicking **Edit in Manifest**.
+- In the app manifest editor, configure the app as follows:
+  - [`sdkUri`](https://developers.miro.com/docs/app-manifest#sdkuri): assign `http://localhost:3000` as a value for this property. \
+    It defines the entry point of the app, and it corresponds to the URL of the server that the app runs on.
+  - [`redirectUriForSdk`](https://developers.miro.com/docs/app-manifest#redirecturiforsdk): assign `http://localhost:3000/api/redirect/` as a value for this property. \
+    It defines the redirect URL that starts the OAuth 2.0 code grant flow for the REST API from the Web SDK.
+  - [`scopes`](https://developers.miro.com/docs/app-manifest#scopes): add the permission scopes that users need to grant the app when they install it. \
+    To enable the app to read from and write to the board, and to use the local machine webcam to record video, add the following permissions:
     - `boards:read`
     - `boards:write`
     - `webcam:record`
@@ -47,7 +52,7 @@ MIRO_CLIENT_SECRET={YOUR_CLIENT_SECRET}
 MIRO_REDIRECT_URL=http://localhost:3000/api/redirect/
 ```
 
-5. Run `yarn dev` to start the local server.
+5. Run `yarn dev` to start the local web server.
 
 Once your server is up and running:
 

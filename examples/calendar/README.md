@@ -32,9 +32,9 @@
 ├── src
 │  └── styles
 │      └── style.css <-- CSS styles for the app.
-│  └── App.tsx <-- The main app. Contains strucutre for the sidebar when launched.
-│      main.tsx <-- Initializes app
-│      useCalendar.ts <-- Functions to generate a calendar
+│  └── App.tsx <-- The main app. Contains structure for the sidebar when launched.
+│      main.tsx <-- Initializes app.
+│      useCalendar.ts <-- Functions to generate a calendar.
 ├── app.html <-- The app itself. This is loaded on the board inside the 'appContainer'.
 └── index.html <-- The app entry point. This is the value you assign to 'sdkUri' in the app manifest file.
 ```

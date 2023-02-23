@@ -33,7 +33,7 @@
 │  └── styles
 │      └── style.css <-- CSS styles for the app.
 │  └── App.tsx <-- The main app. Contains structure for the sidebar when launched.
-│      main.tsx <-- Initializes app
+│      main.tsx <-- Initializes app.
 │      └── lib
 │         └── board.ts <-- Methods to create and update content on Miro's board.
 │         └── word.ts <-- Methods to select word for the game and
