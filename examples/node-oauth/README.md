@@ -13,9 +13,9 @@
 - Create an `.env` file in the root folder, and set the following variables:
 
 ```
-clientID=<YOUR_CLIENT_ID>
+clientId=<YOUR_CLIENT_ID>
 clientSecret=<YOUR_CLIENT_SECRET>
-redirectURL=<YOUR_REDIRECT_URL>
+redirectUrl=<YOUR_REDIRECT_URL>
 boardId=<MIRO_BOARD_ID>
 ```
 
@@ -25,18 +25,19 @@ In this example, we will host our local environment over `HTTPS` using [Localtun
 - Install [localtunnel](https://www.npmjs.com/package/localtunnel) (or your preferred service).
 - Generate your HTTPS URL (if using localtunnel, `lt --port 3000`) for localhost.
 - Copy this HTTPS URL and paste it in the `Redirect URI for OAuth2.0` box in your Miro app settings.
-- Paste this same HTTPS URL into your `.env` file `redirectURL` variable (above).
-- From your desired Miro board, grab the board ID from the URL and paste it into your `.env` file `boardId` variable (above).
-- From your Miro app settings, grab the Client ID and Client Secret. Paste this into your `.env` file `clientId` and `clientSecret` variables (above).
+- Paste this same HTTPS URL into your `.env` file `redirectUrl` variable.
+- From your desired Miro board, copy the board ID from the URL, and paste it to your `.env` file `boardId` variable.
+- From your Miro app settings, copy **Client ID** and **Client secret**, and paste the values to your `.env` file `clientId` and `clientSecret` variables, respectively.
 
 ### How to run the project
 
-- Run `npm run start` to run the project.
-- Your express server console should reflect `Listening on localhost, port 3000` (or the port of your choice).
-- Once your server is running, copy the `Installation URL` for your app, under "Share App" in the Miro App UI.
-- Navigate to the authorization screen via the Installation URL and authorize/install the app.
+1. Open a new terminal in the root folder of the project.
+2. Run `npm run start`
+3. Your Express server console should return `Listening on localhost, port 3000` (or the port of your choice).
+4. Once your server is running, copy the installation URL of your app under **Share App** in the app settings UI.
+5. Navigate to the authorization screen by following the installation URL, and authorize/install the app.
 
-- This should redirect you to your Localtunnel URL, where you will see the JSON API response from the [GET Board API](https://developers.miro.com/reference/get-boards) displayed in the browser.
+This should redirect you to your Localtunnel URL, where you will see the JSON API response from the [GET Board API](https://developers.miro.com/reference/get-boards) displayed in the browser.
 
 ### Folder structure
 
@@ -52,9 +53,12 @@ In this example, we will host our local environment over `HTTPS` using [Localtun
 
 This sample app is intended to demonstrate the OAuth 2.0 flow that is required to call Miro's V2 APIs.
 
-Devs may consider using this Node.js demo as a structural basis for any other preferred language/framework.
-NOTE: Any comments with `-->`or `<--` indicate a significant step in the flow. \
-Comments without these markers are for additional reference about the code.
+You may consider using this Node.js demo as a structural basis for any other preferred language/framework.
+
+ℹ️ Note:
+
+- Comments with `-->`or `<--` indicate a significant step in the flow. \
+  Comments without these markers are for additional reference about the code.
 
 For the full guide on Miro's OAuth 2.0 flow, [see the documentation](https://developers.miro.com/docs/getting-started-with-oauth).
 
