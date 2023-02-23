@@ -64,20 +64,20 @@ Once your server is up and running:
 
 ```
 .
-├── package.json <-- The dependencies for the app
-└── .env <-- File you will create, where you store your sensitive credentials (Client ID, Secret)
-└── index.js <-- main index.js file for basic UI functions
-└── initMiro.js <-- module where we configure Miro authorization helper
+├── package.json <-- The dependencies for the app.
+└── .env <-- A file you create, where you store sensitive credentials (client ID, client secret).
+└── index.js <-- Main index.js file for basic UI functions.
+└── initMiro.js <-- Module where we configure the Miro authorization helper.
 └── pages
         └── api
-            └── upload.js <-- api endpoint to upload the image to Miro API
-            └── redirect.js <-- handle redirect after successful authorization to get access token
-    └── _app.js <-- main _app.js file for Next JS app
-    └── _document.js <-- Next JS import file
-    └── index.js <-- UI for the video preview and popup window
-    └── trigger.js <-- page that we use as the app entrypoint
+            └── upload.js <-- API endpoint to upload the image to the Miro API.
+            └── redirect.js <-- Handles redirect after successful authorization to get access token.
+    └── _app.js <-- Main _app.js file for Next.js app.
+    └── _document.js <-- Next.js import file.
+    └── index.js <-- UI for the video preview and popup window.
+    └── trigger.js <-- Page that we use as the app entry point.
 └── public
 └── styles
-└── node_modules <-- Node modules that are installed based on dependencies
+└── node_modules <-- Node.js modules that are installed based on dependencies.
 
 ```

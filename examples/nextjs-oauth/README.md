@@ -60,26 +60,26 @@ If the project is running successfully, you should see a **Sign in** button in t
 
 ```
 .
-├── package.json <-- The dependencies for the app
-└── next.config.js <-- Configuration file for Next JS
-└── constants.js <-- Houses isolated variables (Miro board ID)
-└── .env <-- File you will create, where you store your sensitive credentials (Client ID, Secret)
-└── node_modules <-- Node modules that are installed based on dependencies
+├── package.json <-- The dependencies for the app.
+└── next.config.js <-- Configuration file for Next.js.
+└── constants.js <-- Holds isolated variables (Miro board ID).
+└── .env <-- A file will create, where you store sensitive credentials (client ID, client secret).
+└── node_modules <-- Node.js modules that are installed based on dependencies.
 └── components
-      └── input.js <-- client component
-      └── MiroItem.js <-- client component
-      └── Time.server.js <-- server component
+      └── input.js <-- Client component
+      └── MiroItem.js <-- Client component
+      └── Time.server.js <-- Server component
 └── pages
         └── api
-            └── authenticate.js <-- check user auth status
-            └── createStickyNote.js <-- call Miro API to create sticky note
-            └── getItems.js <-- call Miro API to retrieve board items
-            └── redirect.js <-- handle redirect after successful authorization
-            └── signin.js <-- handle oauth authorization
-            └── updateContent.js <-- call Miro API to update sticky note content
-    └── _app.js <-- main app.js file for Next JS app
-    └── _document.js <-- Next JS import file
-    └── index.js <-- main index.js file for basic UI functions
+            └── authenticate.js <-- Checks user auth status.
+            └── createStickyNote.js <-- Calls the Miro API to create a sticky note.
+            └── getItems.js <-- Calls the Miro API to retrieve board items.
+            └── redirect.js <-- Handles redirect after successful authorization to get access token.
+            └── signin.js <-- Handles OAuth authorization.
+            └── updateContent.js <-- Calls the Miro API to update sticky note content.
+    └── _app.js <-- Main _app.js file for Next.js app.
+    └── _document.js <-- Next.js import file.
+    └── index.js <-- Main index.js file for basic UI functions.
 └── public
 └── styles
 
