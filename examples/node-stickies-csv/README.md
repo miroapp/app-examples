@@ -51,8 +51,14 @@ boardId="<MIRO_BOARD_ID>"
    - Assign `http://localhost:8000/authorized` as a value for your `.env` file `redirectUrl` variable.
 5. Then, open the [app manifest editor](https://developers.miro.com/docs/manually-create-an-app#step-2-configure-your-app-in-miro) by clicking **Edit in Manifest**. \
    In the app manifest editor, configure the app as follows:
-   - [`redirectUriForSdk`](https://developers.miro.com/docs/app-manifest#redirecturiforsdk): assign `http://localhost:8000/authorized` as a value for this property. \
-     It defines the redirect URL that starts the OAuth 2.0 code grant flow for the REST API from the Web SDK.
+
+   - [`redirectUris`](https://developers.miro.com/docs/app-manifest#redirecturis): assign `http://localhost:8000/authorized` as a value for this property. \
+     It defines the redirect URL that starts the OAuth 2.0 code grant flow for the REST API.
+     - [`scopes`](https://developers.miro.com/docs/app-manifest#scopes): add the permission scopes that users need to grant the app when they install it. \
+       To enable the app to read from and write to the board, add the following permissions:
+     - `boards:read`
+     - `boards:write`
+
 6. To use the app, go to `http://localhost:8000/`.
 
 ℹ️ Note:

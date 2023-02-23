@@ -18,8 +18,6 @@ This Python/Flask boilerplate will allow to start using the Miro REST API in a f
 
    - [`redirectUris`](https://developers.miro.com/docs/app-manifest#redirecturis): assign `http://127.0.0.1:5000/callback` as a value for this property. \
      It defines the redirect URL that starts the OAuth 2.0 code grant flow for the REST API.
-   - [`redirectUriForSdk`](https://developers.miro.com/docs/app-manifest#redirecturiforsdk): assign `http://127.0.0.1:5000/callback` as a value for this property. \
-     It defines the redirect URL that starts the OAuth 2.0 code grant flow for the REST API from the Web SDK.
    - [`scopes`](https://developers.miro.com/docs/app-manifest#scopes): add the permission scopes that users need to grant the app when they install it. \
      To enable the app to read from and write to the board, add the following permissions:
      - `boards:read`
