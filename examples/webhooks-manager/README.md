@@ -34,7 +34,7 @@ The app allows creation of webhooks for boards using a simple UI. It removes the
     - `boards:read`
     - `boards:write`
 
-1. Open the [`.env`](.env) file, and enter the app client ID and client secret
+4. Open the [`.env`](.env) file, and enter the app client ID and client secret
    values that you saved at the beginning of step 3 above.
 
    ```
@@ -43,7 +43,7 @@ The app allows creation of webhooks for boards using a simple UI. It removes the
    MIRO_REDIRECT_URL=http://localhost:3000/api/redirect/
    ```
 
-2. Run `npm start` to start the local web server.
+5. Run `npm start` to start the local web server.
 
 When your server is up and running:
 
