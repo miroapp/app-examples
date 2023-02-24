@@ -48,9 +48,9 @@ Now you can start working directly with the sample app:
 4. Create a `.env` file in the root folder, and set the following variables:
 
 ```
-clientId={YOUR_CLIENT_ID)
+clientID={YOUR_CLIENT_ID)
 clientSecret={YOUR_CLIENT_SECRET}
-redirectUrl=http://localhost:3000/api/redirect/
+redirectURL=http://localhost:3000/api/redirect/
 ```
 
 5. Go to [`constants.js`](./constants.js), and add the `boardId` of the Miro board you'd like to use/modify.

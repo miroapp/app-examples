@@ -32,9 +32,9 @@ Miro capabilities covered in this sample app:
 4. Create a copy of the `.env.example` file in the root folder or rename it to `.env`, and ensure the following variables are set (see [How to run the project](#how-to-run-the-project) for more info):
 
 ```
-clientId="<YOUR_CLIENT_ID>"
+clientID="<YOUR_CLIENT_ID>"
 clientSecret="<YOUR_CLIENT_SECRET>"
-redirectUrl="http://localhost:8000/authorized"
+redirectURL="http://localhost:8000/authorized"
 boardId="<MIRO_BOARD_ID>"
 ```
 
@@ -46,9 +46,9 @@ boardId="<MIRO_BOARD_ID>"
 4. In your account profile, go to **Your apps**, and then select the app you just created to access its settings page. \
    On the app settings page:
    - Go to **App Credentials**, and copy the app **Client ID** and **Client secret** values. \
-     Paste these details to your `.env` file `clientId` and `clientSecret` variables.
+     Paste these details to your `.env` file `clientID` and `clientSecret` variables.
    - Go to your desired Miro board, copy the board ID from the URL, and paste it to your `.env` file `boardId` variable.
-   - Assign `http://localhost:8000/authorized` as a value for your `.env` file `redirectUrl` variable.
+   - Assign `http://localhost:8000/authorized` as a value for your `.env` file `redirectURL` variable.
 5. Then, open the [app manifest editor](https://developers.miro.com/docs/manually-create-an-app#step-2-configure-your-app-in-miro) by clicking **Edit in Manifest**. \
    In the app manifest editor, configure the app as follows:
 

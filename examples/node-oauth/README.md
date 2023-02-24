@@ -13,9 +13,9 @@
 4. Create an `.env` file in the root folder, and set the following variables:
 
 ```
-clientId=<YOUR_CLIENT_ID>
+clientID=<YOUR_CLIENT_ID>
 clientSecret=<YOUR_CLIENT_SECRET>
-redirectUrl=<YOUR_REDIRECT_URL>
+redirectURL=<YOUR_REDIRECT_URL>
 boardId=<MIRO_BOARD_ID>
 ```
 
@@ -26,9 +26,9 @@ In this example, we will host our local environment over `HTTPS` using [Localtun
 2. Generate your HTTPS URL (if using localtunnel, `lt --port 3000`) for localhost.
 3. In your account profile, go to **Your apps**, and then select the app you just created to access its settings page. \
    On the app settings page:
-   - Go to **App Credentials**, and copy the app **Client ID** and **Client secret** values. Paste these details to your `.env` file `clientId` and `clientSecret` variables.
+   - Go to **App Credentials**, and copy the app **Client ID** and **Client secret** values. Paste these details to your `.env` file `clientID` and `clientSecret` variables.
    - Go to your desired Miro board, copy the board ID from the URL, and paste it to your `.env` file `boardId` variable.
-   - Assign `http://localhost:3000` as a value for your `.env` file `redirectUrl` variable.
+   - Assign `http://localhost:3000` as a value for your `.env` file `redirectURL` variable.
 4. Then, open the [app manifest editor](https://developers.miro.com/docs/manually-create-an-app#step-2-configure-your-app-in-miro) by clicking **Edit in Manifest**. \
    In the app manifest editor, configure the app as follows:
    - [`redirectUris`](https://developers.miro.com/docs/app-manifest#redirecturis): assign `http://localhost:3000` as a value for this property. \

@@ -12,7 +12,7 @@ This Python/Flask boilerplate will allow to start using the Miro REST API in a f
 3. In your account profile, go to **Your apps**, and then select the app you just created to access its settings page. \
    On the app settings page:
    - Go to **App Credentials**, and copy the app **Client ID** and **Client secret** values. \
-     Paste these details to your `.env` file `clientId` and `clientSecret` variables.
+     Paste these details to your `.env` file `clientID` and `clientSecret` variables.
 4. Then, open the [app manifest editor](https://developers.miro.com/docs/manually-create-an-app#step-2-configure-your-app-in-miro) by clicking **Edit in Manifest**. \
    In the app manifest editor, configure the app as follows:
 
