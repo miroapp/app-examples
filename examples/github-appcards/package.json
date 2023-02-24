@@ -1,5 +1,6 @@
 {
   "name": "github-appcards",
+  "description": "This full-stack example shows how to build an integration with GitHub that syncs data between GitHub issues and Miro app cards.",
   "version": "1.0.0",
   "licence": "MIT",
   "scripts": {

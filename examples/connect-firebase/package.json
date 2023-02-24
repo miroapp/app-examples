@@ -1,5 +1,6 @@
 {
   "name": "connect-firebase",
+  "description": "This example shows you how to connect an SDK app to a Firebase backend.",
   "version": "0.1.0",
   "licence": "MIT",
   "scripts": {
