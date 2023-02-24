@@ -30,13 +30,20 @@ const firebaseConfig = {
 
 ### How to start locally
 
-- Run `npm start` to start developing. \
-  Your URL should be similar to this example:
-  ```
-  http://localhost:3000
-  ```
-- Paste the URL under **App URL** in your [app settings](https://developers.miro.com/docs/build-your-first-hello-world-app#step-2-create-your-app-in-miro).
-- Open a board; you should see your app in the app toolbar or in the **Apps** panel.
+1. Run `npm start` to start developing. \
+   Your URL should be similar to this example:
+   ```
+   http://localhost:3000
+   ```
+2. Open the [app manifest editor](https://developers.miro.com/docs/manually-create-an-app#step-2-configure-your-app-in-miro) by clicking **Edit in Manifest**. \
+   In the app manifest editor, configure the app as follows:
+   - [`sdkUri`](https://developers.miro.com/docs/app-manifest#sdkuri): assign `http://localhost:3000` as a value for this property. \
+     It defines the entry point of the app, and it corresponds to the URL of the server that the app runs on.
+   - [`scopes`](https://developers.miro.com/docs/app-manifest#scopes): add the permission scopes that users need to grant the app when they install it. \
+     To enable the app to read from and write to the board, add the following permissions:
+     - `boards:read`
+     - `boards:write`
+3. Open a board: you should see your app in the apps toolbar or in the apps panel.
 
 ### How to build the app
 

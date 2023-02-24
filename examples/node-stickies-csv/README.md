@@ -8,12 +8,12 @@ Miro capabilities covered in this sample app:
 2. [x] Miro tag items
 3. [x] CSV data to Sticky notes with tags
 
-### Prerequisites:
+### Prerequisites
 
 1. Create an [app in Miro](https://miro.com/app/settings/user-profile/apps).
 2. Create a board in Miro that you'd like to import / create sticky notes to.
 
-### Dependencies:
+### Dependencies
 
 - [Miro Node.js client](https://www.npmjs.com/package/@mirohq/miro-api)
 - [Node.js](https://nodejs.org/en/download/)
@@ -38,19 +38,33 @@ redirectURL="http://localhost:8000/authorized"
 boardId="<MIRO_BOARD_ID>"
 ```
 
-### How to run the project
+### How to start
 
 1. Open a new terminal in the root folder of the project.
-1. Run `npm run start`
-1. Your console should return `"The web server has started on port 8000", "Listening on localhost, port 3000"`
-1. Put `https://localhost:8000` in the **Redirect URI for OAuth 2.0** input field in your Miro app settings.
-1. In your Miro app settings, copy **Client ID** and **Client secret**. Paste these details to your `.env` file `clientId` and `clientSecret` variables.
-1. In your desired Miro board, copy the board ID from the URL, and paste it to your `.env` file `boardId` variable.
-1. Finally, put `http://localhost:8000/authorized` into your `.env` file `redirectURL` variable.
-1. To use the app, go to `http://localhost:8000/`.
+2. Run `npm run start`
+3. Your console should return `Listening on localhost, port 8000`
+4. In your account profile, go to **Your apps**, and then select the app you just created to access its settings page. \
+   On the app settings page:
+   - Go to **App Credentials**, and copy the app **Client ID** and **Client secret** values. \
+     Paste these details to your `.env` file `clientID` and `clientSecret` variables.
+   - Go to your desired Miro board, copy the board ID from the URL, and paste it to your `.env` file `boardId` variable.
+   - Assign `http://localhost:8000/authorized` as a value for your `.env` file `redirectURL` variable.
+5. Then, open the [app manifest editor](https://developers.miro.com/docs/manually-create-an-app#step-2-configure-your-app-in-miro) by clicking **Edit in Manifest**. \
+   In the app manifest editor, configure the app as follows:
 
-ℹ️ To reinitialize your project's servers, it may be necessary to to restart the server. ℹ️
-When the server restarts, your auth token is invalidated and you have to re-authorize.
+   - [`redirectUris`](https://developers.miro.com/docs/app-manifest#redirecturis): assign `http://localhost:8000/authorized` as a value for this property. \
+     It defines the redirect URL that starts the OAuth 2.0 code grant flow for the REST API.
+     - [`scopes`](https://developers.miro.com/docs/app-manifest#scopes): add the permission scopes that users need to grant the app when they install it. \
+       To enable the app to read from and write to the board, add the following permissions:
+     - `boards:read`
+     - `boards:write`
+
+6. To use the app, go to `http://localhost:8000/`.
+
+ℹ️ Note:
+
+- To reinitialize your project's servers, it may be necessary to to restart the server.
+- When the server restarts, your auth token is invalidated, and you have to re-authorize.
 
 ### Folder structure
 
