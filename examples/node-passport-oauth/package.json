@@ -1,7 +1,7 @@
 {
   "name": "node-passport-oauth",
   "version": "1.0.0",
-  "description": "",
+  "description": "This Node.js sample demonstrates how to implement the Oauth 2.0 authorization code flow in Miro and make an API request to a Miro endpoint using Passport.js.",
   "main": "index.js",
   "scripts": {
     "start": "node index.mjs & sleep 1 && open http://localhost:${PORT:-4000}/auth/miro/callback && wait",

@@ -1,5 +1,6 @@
 {
   "name": "asset-search",
+  "description": "This example shows you how to filter and search through assets by name and/or multiple tags.",
   "version": "0.0.1",
   "scripts": {
     "start": "vite",
