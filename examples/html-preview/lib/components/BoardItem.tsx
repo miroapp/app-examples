@@ -9,17 +9,17 @@ function color(hexColor?: string, opacity?: string) {
   return hexColor + hexOpacity;
 }
 
-function align(value?: string) {
-  if (value === "bottom") return "flex-end";
-  if (value === "right") return "flex-end";
-  if (value === "middle") return "center";
-  if (value === "center") return "center";
+function align(position?: string) {
+  if (position === "bottom") return "flex-end";
+  if (position === "right") return "flex-end";
+  if (position === "middle") return "center";
+  if (position === "center") return "center";
   return "flex-start";
 }
 
-function toAlignment(s?: string) {
-  if (s === "center") return "center";
-  if (s === "right") return "right";
+function toAlignment(stringAlignment?: string) {
+  if (stringAlignment === "center") return "center";
+  if (stringAlignment === "right") return "right";
   return "left";
 }
 
@@ -27,15 +27,13 @@ export const BoardItem: FC<PropsWithChildren<{ item: Item }>> = ({
   item,
   children,
 }) => {
-  const transform: string[] = [];
-  transform.push(`translate(-50%, -50%)`);
-  let border = "";
-  if (item.geometry?.rotation) {
-    transform.push(`rotate(${item.geometry?.rotation}deg)`);
-  }
-  if (item.style) {
-    border = `${item.style.borderWidth}px solid ${item.style.borderColor}`;
-  }
+  const rotation = item.geometry?.rotation
+    ? `rotate(${item.geometry?.rotation}deg)`
+    : "";
+
+  const border = item.style
+    ? `${item.style.borderWidth}px solid ${item.style.borderColor}`
+    : "";
 
   return (
     <div
@@ -53,7 +51,7 @@ export const BoardItem: FC<PropsWithChildren<{ item: Item }>> = ({
         top: item.position?.y,
         width: item.geometry?.width,
         height: item.geometry?.height,
-        transform: transform.join(" "),
+        transform: `translate(-50%, -50%) ${rotation}`,
         padding: "8px 6px",
         border,
         fontSize: item.style?.fontSize

@@ -7,7 +7,12 @@ import { BoardItem } from "../../lib/components/BoardItem";
 import { Link } from "../../lib/components/Link";
 import { type Item } from "../../lib/item";
 
-import { getFrames, findFrame, getItems, getLinks } from "../../lib/data";
+import {
+  getAllFrames,
+  findFrameByTitle,
+  getItems,
+  getLinks,
+} from "../../lib/data";
 
 export const getServerSideProps: GetServerSideProps = async ({
   req,
@@ -47,8 +52,8 @@ export const getServerSideProps: GetServerSideProps = async ({
     return { notFound: true };
   }
 
-  const frames = await getFrames(board);
-  const frame = findFrame(frames, (query.path || "index").toString());
+  const frames = await getAllFrames(board);
+  const frame = findFrameByTitle(frames, (query.path || "index").toString());
   const items = await getItems(api, board, frame);
   const links = await getLinks(board, items, frames);
 

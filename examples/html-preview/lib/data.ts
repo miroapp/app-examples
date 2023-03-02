@@ -12,7 +12,7 @@ import {
 
 import { type Item } from "./item";
 
-export async function getFrames(board: Board): Promise<FrameItem[]> {
+export async function getAllFrames(board: Board): Promise<FrameItem[]> {
   const frames: FrameItem[] = [];
   for await (const frame of board.getAllItems({ type: "frame" })) {
     if (frame instanceof FrameItem) frames.push(frame);
@@ -20,7 +20,7 @@ export async function getFrames(board: Board): Promise<FrameItem[]> {
   return frames;
 }
 
-export function findFrame(frames: FrameItem[], path: string): FrameItem {
+export function findFrameByTitle(frames: FrameItem[], path: string): FrameItem {
   return frames.filter((frame) => frame.data?.title == path)[0] || frames[0];
 }
 
@@ -67,8 +67,7 @@ export async function enrichItem(
     item instanceof ImageItem ? await getImage(api, item?.data?.imageUrl) : "";
 
   return {
-    id: item.id,
-    type: item.type,
+    ...item,
     style: "style" in item ? item.style : {},
     content: (data && "content" in data && data?.content) || "",
     image: image,
