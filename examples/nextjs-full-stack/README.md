@@ -14,22 +14,27 @@ This example also stores your access and refresh tokens in your browsers cookies
 ## Prerequisites
 
 1. Create a [Developer team in Miro](https://developers.miro.com/docs/create-a-developer-team).
-2. Create an [app in Miro](https://developers.miro.com/docs/build-your-first-hello-world-app#step-2-create-your-app-in-miro).
+2. Create an [app in Miro](https://developers.miro.com/docs/build-your-first-hello-world-app#step-1-bootstrap-the-hello-world-app).
 3. Create a board in Miro that you'd like to manipulate with the REST API.
 
 ## How to start
 
-First, make sure you handled the prerequisites:
+First, make sure you handled the [prerequisites](#prerequisites).
 
-- Create a [Developer team in Miro](https://developers.miro.com/docs/create-a-developer-team).
-- Create an [app in Miro](https://miro.com/app/settings/user-profile/apps):
-  - From your developer team in Miro, click the **Build Apps** button in the team dashboard UI.
-  - Name your app, and click **Create**.
-  - Scroll down to **App Credentials**, and copy client ID and client secret: you'll use them later in step 4.
-  - Scroll further down to **Redirect URI for OAuth2.0**, and paste the following redirect URL: `http://localhost:3000/api/redirect/`
-  - Click **Options**. \
-    From the drop-down menu select **Use this URI for SDK authorization**.
-  - Lastly, scroll down to **Permissions**, and select the following permissions:
+Then, proceed to configure the app:
+
+- In your account profile, go to **Your apps**, and then select the app you just created to access its settings page.
+- On the app settings page:
+  - Go to **App Credentials**, and copy the app **Client ID** and **Client secret** values: you'll need to enter these values
+    in step 4 below.
+  - Then, open the [app manifest editor](https://developers.miro.com/docs/manually-create-an-app#step-2-configure-your-app-in-miro) by clicking **Edit in Manifest**.
+- In the app manifest editor, configure the app as follows:
+  - [`sdkUri`](https://developers.miro.com/docs/app-manifest#sdkuri): assign `http://localhost:3000` as a value for this property. \
+    It defines the entry point of the app, and it corresponds to the URL of the server that the app runs on.
+  - [`redirectUris`](https://developers.miro.com/docs/app-manifest#redirecturis): assign `http://localhost:3000/api/redirect/` as a value for this property. \
+    It defines the redirect URL that starts the OAuth 2.0 code grant flow for the REST API.
+  - [`scopes`](https://developers.miro.com/docs/app-manifest#scopes): add the permission scopes that users need to grant the app when they install it. \
+    To enable the app to read from and write to the board, and to use the local machine webcam to record video, add the following permissions:
     - `boards:read`
     - `boards:write`
     - `webcam:record`
@@ -47,7 +52,7 @@ MIRO_CLIENT_SECRET={YOUR_CLIENT_SECRET}
 MIRO_REDIRECT_URL=http://localhost:3000/api/redirect/
 ```
 
-5. Run `yarn dev` to start the local server.
+5. Run `yarn dev` to start the local web server.
 
 Once your server is up and running:
 
@@ -59,20 +64,20 @@ Once your server is up and running:
 
 ```
 .
-├── package.json <-- The dependencies for the app
-└── .env <-- File you will create, where you store your sensitive credentials (Client ID, Secret)
-└── index.js <-- main index.js file for basic UI functions
-└── initMiro.js <-- module where we configure Miro authorization helper
+├── package.json <-- The dependencies for the app.
+└── .env <-- A file you create, where you store sensitive credentials (client ID, client secret).
+└── index.js <-- Main index.js file for basic UI functions.
+└── initMiro.js <-- Module where we configure the Miro authorization helper.
 └── pages
         └── api
-            └── upload.js <-- api endpoint to upload the image to Miro API
-            └── redirect.js <-- handle redirect after successful authorization to get access token
-    └── _app.js <-- main _app.js file for Next JS app
-    └── _document.js <-- Next JS import file
-    └── index.js <-- UI for the video preview and popup window
-    └── trigger.js <-- page that we use as the app entrypoint
+            └── upload.js <-- API endpoint to upload the image to the Miro API.
+            └── redirect.js <-- Handles redirect after successful authorization to get access token.
+    └── _app.js <-- Main _app.js file for Next.js app.
+    └── _document.js <-- Next.js import file.
+    └── index.js <-- UI for the video preview and popup window.
+    └── trigger.js <-- Page that we use as the app entry point.
 └── public
 └── styles
-└── node_modules <-- Node modules that are installed based on dependencies
+└── node_modules <-- Node.js modules that are installed based on dependencies.
 
 ```

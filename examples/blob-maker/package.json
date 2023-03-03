@@ -1,5 +1,6 @@
 {
   "name": "blob-maker",
+  "description": "This example shows you how to create a drag and drop blobmaker using Miro's Web SDK.",
   "version": "0.1.0",
   "licence": "MIT",
   "scripts": {

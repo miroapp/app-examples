@@ -15,27 +15,30 @@ This example also stores your access and refresh tokens in your browsers cookies
 ## Prerequisites
 
 1. Create a [developer team in Miro](https://developers.miro.com/docs/create-a-developer-team).
-2. Create an [app in Miro](https://developers.miro.com/docs/build-your-first-hello-world-app#step-2-create-your-app-in-miro).
+2. Create an [app in Miro](https://developers.miro.com/docs/build-your-first-hello-world-app#step-1-bootstrap-the-hello-world-app).
 3. Create a board in Miro that you'd like to manipulate with the REST API.
+4. Make a note of the board ID in the URL of the new board: you'll add this ID as a value for `boardId` in [`constants.js`](./constants.js) in step 5 below.
 
 ## How to start
 
-First, make sure you handled the prerequisites:
+First, make sure you handled the [prerequisites](#prerequisites).
 
-- Create a [Developer team in Miro](https://developers.miro.com/docs/create-a-developer-team).
-- Create an [app in Miro](https://miro.com/app/settings/user-profile/apps)
+Then, proceed to configure the app:
 
-- From your developer team in Miro, click the **Build Apps** button in the team dashboard UI.
-- Name your app, and click **Create**.
-- Scroll down to **App Credentials**, and copy client ID and client secret: you'll use them later in step 4.
-- Scroll further down to **Redirect URI for OAuth2.0**, and paste the following redirect URL: `http://localhost:3000/api/redirect/`
-- Click **Options**. \
-  From the drop-down menu select **Use this URI for SDK authorization**.
-- Lastly, scroll down to **Permissions**, and select the following permissions:
-  - `boards:read`
-  - `boards:write`
-- Go back to your Developer team dashboard, and create a new board in Miro.
-- Make a note of the board ID in the URL of the new boards: you'll use it later in step 5.
+- In your account profile, go to **Your apps**, and then select the app you just created to access its settings page.
+- On the app settings page:
+  - Go to **App Credentials**, and copy the app **Client ID** and **Client secret** values: you'll need to enter these values
+    in step 4 below.
+  - Then, open the [app manifest editor](https://developers.miro.com/docs/manually-create-an-app#step-2-configure-your-app-in-miro) by clicking **Edit in Manifest**.
+- In the app manifest editor, configure the app as follows:
+  - [`sdkUri`](https://developers.miro.com/docs/app-manifest#sdkuri): assign `http://localhost:3000` as a value for this property. \
+    It defines the entry point of the app, and it corresponds to the URL of the server that the app runs on.
+  - [`redirectUris`](https://developers.miro.com/docs/app-manifest#redirecturis): assign `http://localhost:3000/api/redirect/` as a value for this property. \
+    It defines the redirect URL that starts the OAuth 2.0 code grant flow for the REST API.
+  - [`scopes`](https://developers.miro.com/docs/app-manifest#scopes): add the permission scopes that users need to grant the app when they install it. \
+    To enable the app to read from and write to the board, add the following permissions:
+    - `boards:read`
+    - `boards:write`
 
 Now you can start working directly with the sample app:
 
@@ -50,8 +53,8 @@ clientSecret={YOUR_CLIENT_SECRET}
 redirectURL=http://localhost:3000/api/redirect/
 ```
 
-1. Go to [`constants.js`](./constants.js), and add the `boardId` of the Miro board you'd like to use/modify.
-2. Run `yarn dev` to start the local server.
+5. Go to [`constants.js`](./constants.js), and add the `boardId` of the Miro board you'd like to use/modify.
+6. Run `yarn dev` to start the local web server.
 
 Once your server is up and running, go to `http://localhost:3000/` in your browser. \
 If the project is running successfully, you should see a **Sign in** button in the UI.
@@ -60,26 +63,26 @@ If the project is running successfully, you should see a **Sign in** button in t
 
 ```
 .
-├── package.json <-- The dependencies for the app
-└── next.config.js <-- Configuration file for Next JS
-└── constants.js <-- Houses isolated variables (Miro board ID)
-└── .env <-- File you will create, where you store your sensitive credentials (Client ID, Secret)
-└── node_modules <-- Node modules that are installed based on dependencies
+├── package.json <-- The dependencies for the app.
+└── next.config.js <-- Configuration file for Next.js.
+└── constants.js <-- Holds isolated variables (Miro board ID).
+└── .env <-- A file will create, where you store sensitive credentials (client ID, client secret).
+└── node_modules <-- Node.js modules that are installed based on dependencies.
 └── components
-      └── input.js <-- client component
-      └── MiroItem.js <-- client component
-      └── Time.server.js <-- server component
+      └── input.js <-- Client component
+      └── MiroItem.js <-- Client component
+      └── Time.server.js <-- Server component
 └── pages
         └── api
-            └── authenticate.js <-- check user auth status
-            └── createStickyNote.js <-- call Miro API to create sticky note
-            └── getItems.js <-- call Miro API to retrieve board items
-            └── redirect.js <-- handle redirect after successful authorization
-            └── signin.js <-- handle oauth authorization
-            └── updateContent.js <-- call Miro API to update sticky note content
-    └── _app.js <-- main app.js file for Next JS app
-    └── _document.js <-- Next JS import file
-    └── index.js <-- main index.js file for basic UI functions
+            └── authenticate.js <-- Checks user auth status.
+            └── createStickyNote.js <-- Calls the Miro API to create a sticky note.
+            └── getItems.js <-- Calls the Miro API to retrieve board items.
+            └── redirect.js <-- Handles redirect after successful authorization to get access token.
+            └── signin.js <-- Handles OAuth authorization.
+            └── updateContent.js <-- Calls the Miro API to update sticky note content.
+    └── _app.js <-- Main _app.js file for Next.js app.
+    └── _document.js <-- Next.js import file.
+    └── index.js <-- Main index.js file for basic UI functions.
 └── public
 └── styles
 
