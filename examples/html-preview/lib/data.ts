@@ -20,8 +20,11 @@ export async function getAllFrames(board: Board): Promise<FrameItem[]> {
   return frames;
 }
 
-export function findFrameByTitle(frames: FrameItem[], path: string): FrameItem {
-  return frames.filter((frame) => frame.data?.title == path)[0] || frames[0];
+export function findFrameByTitle(
+  frames: FrameItem[],
+  title: string
+): FrameItem {
+  return frames.filter((frame) => frame.data?.title == title)[0] || frames[0];
 }
 
 async function getImage(api: MiroApi, url: string | undefined) {
