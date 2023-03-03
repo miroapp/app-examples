@@ -1,0 +1,51 @@
+* {
+  padding: 0;
+  margin: 0;
+  list-style: disc;
+  list-style-position: inside;
+  font-size: inherit;
+  box-sizing: border-box;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+.wrapper {
+  margin: 0 auto;
+  padding: 0;
+  position: relative;
+}
+
+img {
+  height: 100%;
+  width: 100%;
+}
+
+a.button {
+  text-decoration: none;
+  line-height: 48px;
+}
+
+.type-sticky_note {
+  background: #fffcb9;
+  box-shadow: 0 9px 10px -9px rgba(0, 0, 0, 0.7);
+  text-align: center;
+}
+
+li {
+  padding-left: 5px;
+}
+
+.type-shape {
+  background: #ddd;
+}
+
+.home-wrapper {
+  width: 500px;
+  margin: 20px auto;
+  background: #fdfdfd;
+  padding: 20px;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+  border: 1px solid #fff;
+}
