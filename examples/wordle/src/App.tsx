@@ -117,11 +117,15 @@ function App() {
     }
   };
   return (
-    <div className="grid" style={{ height: "auto", width: "100%" }}>
+    <div className="grid">
       <div className="cs1 ce12"></div>
       <div className="cs1 ce12">
         {label !== "" && (
-          <span className="label label-warning" id="info-text">
+          <span
+            className="label label-warning"
+            id="info-text"
+            style={{ marginBottom: "20px" }}
+          >
             {label}
           </span>
         )}
@@ -134,24 +138,41 @@ function App() {
             placeholder="Enter your word"
             onChange={handleInputChange}
             autoComplete="off"
+            style={{ marginBottom: "20px" }}
           />
         </div>
-      </div>
-      <div className="cs1 ce12">
-        <button
-          id="checkWord"
-          className="button button-primary"
-          onClick={handleCheckWord}
-        >
-          Check
-        </button>
-        <button
-          id="startGame"
-          className="button button-primary"
-          onClick={handleNewGame}
-        >
-          {startGameButtonText}
-        </button>
+        <div className="cs1 ce12">
+          <button
+            id="checkWord"
+            className="button button-primary"
+            onClick={handleCheckWord}
+            style={{ width: "100%" }}
+          >
+            Check
+          </button>
+        </div>
+        <div className="cs1 ce12">
+          <button
+            id="startGame"
+            className="button button-primary"
+            onClick={handleNewGame}
+            style={{ width: "100%" }}
+          >
+            {startGameButtonText}
+          </button>
+        </div>
+        <p style={{ color: "grey" }}>
+          Select 'Start new game' to begin playing Wordle for Miro.
+        </p>
+        <br />
+        <p style={{ color: "grey" }}>
+          Enter a 5 character word in the input field and select 'Check'.
+        </p>
+        <ul style={{ color: "grey" }}>
+          <li>A correct letter turns green.</li>
+          <li>A correct letter in the wrong place turns yellow.</li>
+          <li>An incorrect letter stays black.</li>
+        </ul>
       </div>
     </div>
   );
