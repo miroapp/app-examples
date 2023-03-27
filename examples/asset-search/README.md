@@ -1,4 +1,4 @@
-## Miro Asset Search
+## Miro asset search
 
 **&nbsp;ℹ&nbsp;Note**:
 
