@@ -1,5 +1,5 @@
 # See https://developers.miro.com/docs/app-manifest on how to use this
-appName: Oauth demo
+appName: Oauth
 redirectUris:
   - http://localhost:3000/
 scopes:
