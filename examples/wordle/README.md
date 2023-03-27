@@ -22,8 +22,8 @@
      It defines the entry point of the app, and it corresponds to the URL of the server that the app runs on.
    - [`scopes`](https://developers.miro.com/docs/app-manifest#scopes): add the permission scopes that users need to grant the app when they install it. \
      To enable the app to read from and write to the board, add the following permissions:
-     - `boards:read`
      - `boards:write`
+     - `boards:read`
 4. Open a board: you should see your app in the apps toolbar or in the apps panel.
 
 ### How to build the app
