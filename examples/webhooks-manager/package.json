@@ -1,6 +1,6 @@
 {
   "name": "webhooks-manager",
-  "description": "This full-stack sample app shows how you can create webhook subscriptions for boards using a simple UI. The app is deployed on Vercel.",
+  "description": "This full-stack sample app shows how to create webhook subscriptions for boards through a simple UI. The app is deployed on Vercel.",
   "version": "0.1.0",
   "license": "MIT",
   "scripts": {
