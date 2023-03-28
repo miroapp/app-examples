@@ -1,7 +1,7 @@
 {
   "name": "nextjs-full-stack",
   "version": "0.1.0",
-  "description": "This full-stack sample app shows how to build a Next.js application that uploads a camera image to a Miro board by integrating Web SDK and REST API functionality.",
+  "description": "This full-stack sample app shows how to build a Next.js application that uploads a camera image to a Miro board by integrating Miro Web SDK and REST API functionality.",
   "private": true,
   "scripts": {
     "dev": "next dev",

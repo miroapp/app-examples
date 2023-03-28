@@ -1,7 +1,7 @@
 {
   "name": "node-oauth",
   "version": "1.0.0",
-  "description": "This sample app shows how to implement the OAuth 2.0 authorization code grant flow to enable communicating with Miro APIs 2.0. Built with Node.js, Express.js, and Axios.",
+  "description": "This sample app shows how to implement the OAuth 2.0 authorization code grant flow to enable communicating with Miro APIs 2.0. This app uses Node.js, Express.js, and Axios.",
   "main": "index.js",
   "scripts": {
     "start": "nodemon index.js"

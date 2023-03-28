@@ -84,4 +84,4 @@ Once your server is up and running:
 
 ## About the app
 
-This full-stack sample app shows how to build a Next.js application that uploads a camera image to a Miro board by integrating Web SDK and REST API functionality.
+This full-stack sample app shows how to build a Next.js application that uploads a camera image to a Miro board by integrating Miro Web SDK and REST API functionality.
