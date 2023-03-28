@@ -1,6 +1,6 @@
 {
   "name": "template-builder",
-  "description": "This example shows how to create and position on the board multiple widgets of different types and render create custom interfaces in the library.",
+  "description": "This sample app shows how to create a template programmatically with the Miro Web SDK. This app uses Vite.",
   "version": "0.0.0",
   "scripts": {
     "start": "vite",

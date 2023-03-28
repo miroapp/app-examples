@@ -2,6 +2,7 @@
   "name": "pages",
   "version": "0.1.0",
   "license": "MIT",
+  "description": "This sample app shows how to use the Miro API to generate HTML pages from Miro boards. Each frame on the board produces an HTML page.",
   "scripts": {
     "build": "next build",
     "start": "next dev",

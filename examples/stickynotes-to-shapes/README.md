@@ -45,4 +45,4 @@
 This sample app shows how you can select items on the board, and then click the app icon to change the selected sticky notes into shapes.
 
 This app uses [Vite](https://vitejs.dev/). \
-If you want to modify the `vite.config.js` configuration, see the [Vite documentation](https://vitejs.dev/guide/).
+To modify the `vite.config.js` configuration, see the [Vite documentation](https://vitejs.dev/guide/).

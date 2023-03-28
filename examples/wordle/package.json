@@ -1,6 +1,6 @@
 {
   "name": "miro-wordle",
-  "description": "This example shows you how to create a Wordle-like game using the Miro Web SDK.",
+  "description": "This sample app shows how to build the famous Wordle game in Miro, where sticky notes are created and color-coded based on Wordle game rules. This app uses React and Vite, and it's based on the 'create-miro-app' React/Typescript starter.",
   "version": "0.0.1",
   "scripts": {
     "start": "vite",

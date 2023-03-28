@@ -1,6 +1,6 @@
 {
   "name": "github-appcards",
-  "description": "This full-stack example shows how to build an integration with GitHub that syncs data between GitHub issues and Miro app cards.",
+  "description": "This full-stack sample app shows how to build an integration with GitHub Projects that enables a 2-way sync data flow between GitHub issues and Miro app cards. This app uses Vite.",
   "version": "1.0.0",
   "licence": "MIT",
   "scripts": {

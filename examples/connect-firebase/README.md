@@ -1,6 +1,6 @@
 ## Connect a Miro app to a Firebase Backend
 
-This project follows our guide _How to connect the Web SDK to a backend_, and it contains the finished code.\
+This project follows our guide _How to connect the Miro Web SDK to a backend_, and it contains the finished code.\
 Read through the guide for an in-depth walkthrough on setting this project up from scratch.
 
 **&nbsp;ℹ&nbsp;Note**:
@@ -52,7 +52,7 @@ const firebaseConfig = {
 
 ### About the app
 
-This app connects to a database backend hosted on Firebase to enable persistent data storage.
+This sample app shows how to connect to a database backend hosted on Firebase to enable persistent data storage. This app uses the Miro Web SDK.
 
 This app uses [Vite](https://vitejs.dev/). \
-If you want to modify the `vite.config.js` configuration, see the [Vite documentation](https://vitejs.dev/guide/).
+To modify the `vite.config.js` configuration, see the [Vite documentation](https://vitejs.dev/guide/).
