@@ -1,7 +1,8 @@
 {
   "name": "node-stickies-csv",
   "version": "2.0.0",
-  "description": "This Node.js sample app uses server side rendering (Handlebars.js) to provide a lightweight, CRUD-oriented REST example in the browser for Miro's sticky notes and tags APIs.\nIt demonstrates a structured > unstructured use case via CSV import, creating Miro sticky notes with tags based on CSV data.",
+  "description": "This sample app shows how you can create Miro sticky notes with tags via a CSV import. This is a backend app built on Node.js and Express.js, with Handlebars.js for server-side rendering.
+",
   "main": "index.js",
   "scripts": {
     "start": "nodemon app.js"
