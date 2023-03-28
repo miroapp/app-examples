@@ -50,7 +50,7 @@
 
 ### About the app
 
-This sample app shows how to implement asset search and filtering by name and tags. \
+This sample app shows how to implement asset searching and filtering by name and tags. \
 This app uses React and it's based on the [`create-miro-app`](https://www.npmjs.com/package/create-miro-app) React/Typescript starter.
 
 This app uses [Vite](https://vitejs.dev/). \
