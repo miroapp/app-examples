@@ -59,7 +59,7 @@ This should redirect you to your Localtunnel URL, where you will see the JSON AP
 
 ### About the app
 
-This sample app shows how to implement the OAuth 2.0 authorization code grant flow to enable communicating with Miro APIs 2.0.
+This sample app shows how to implement the OAuth 2.0 authorization code grant flow to make Miro REST API calls.
 
 You may consider using this Node.js demo as a structural basis for any other preferred language/framework.
 
