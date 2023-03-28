@@ -10,48 +10,35 @@
 
 ### How to use the app
 
-This sample app shows how to use the Miro API can be used to generate HTML pages from Miro boards. This allows creating multi-page website mockups quickly.
-The initial screen will ask you to connect your Miro account. After that you'll see the list of boards on your team.
+This sample app shows how to use the Miro API to generate HTML pages from Miro boards. This enables creating multi-page website mockups quickly.
 
-Each frame on the board represents a different page. To see the specific frame use it's title in the URL. By default either a frame with a name `index` or the first created frame will be used. URLs in the app are in the following format: `/{boardId}/{frameTitle}`.
+The initial screen prompts you to connect your Miro account. After signing in, you can see the list of boards under your team.
 
-You can use connectors to link items from one frame to items in another frame. This will create HTML links to the page containing the target item.
+On the board, each frame represents an HTML page. To view a specific frame, use its title in the URL. \
+By default, either a frame named `index`, or the first created frame are used. \
+In the app, URLs are in the following format: `/{boardId}/{frameTitle}`.
+
+You can use [connectors](https://developers.miro.com/docs/connector_intro) to link items from one frame to items in a different frame. This generates HTML links to the page containing the target item.
 
 ### How to start locally
 
 1. [Sign in](https://miro.com/login/) to Miro, and then create a
    [Developer team](https://developers.miro.com/docs/create-a-developer-team)
    under your user account.
-
 2. [Create and configure an app in Miro](https://developers.miro.com/docs/manually-create-an-app).
-
 3. Configure the app:
-
-- In your account profile, go to **Your apps**, and then select the app you just
-  created to access its configuration page.
-- On the app configuration page, go to **App Credentials**, and copy the app
-  **Client ID** and **Client secret** values: you'll need to enter these values
-  in step 4 below.
-- Go to **App URL** and enter the following URL: `http://localhost:3000`
-- Go to **Redirect URI for OAuth2.0**, and enter the following redirect URL: `http://localhost:3000/api/redirect/`
-- Click **Options**. \
-  From the drop-down menu select **Use this URI for SDK authorization**.
-- Lastly, go to **Permissions**, and select the following permissions:
-  - `board:read`
-  - `board:write`
-
-3. Open the [app manifest editor](https://developers.miro.com/docs/manually-create-an-app#step-2-configure-your-app-in-miro) by clicking **Edit in Manifest**. \
-   In the app manifest editor, configure the app as follows:
-
-- [`sdkUri`](https://developers.miro.com/docs/app-manifest#sdkuri): assign `http://localhost:3000` as a value for this property. \
-  It defines the entry point of the app, and it corresponds to the URL of the server that the app runs on.
-- [`redirectUris`](https://developers.miro.com/docs/app-manifest#redirecturis) and [`redirectUriForSdk`](https://developers.miro.com/docs/app-manifest#redirecturiforsdk): assign `http://localhost:3000/api/redirect/` as a value for these properties. \
-  The [redirect URI](https://developers.miro.com/reference/ne-create-authorization-request-link) points to the page that you intend to load after a successful user authorization.
-- [`scopes`](https://developers.miro.com/docs/app-manifest#scopes): add the permission scopes that users need to grant the app when they install it. \
-  To enable the app to read from and write to the board, add the following permissions:
-  - `boards:read`
-  - `boards:write`
-
+   - In your account profile, go to **Your apps**, and then select the app you just created to access its configuration page.
+   - On the app configuration page, go to **App Credentials**, and copy the app **Client ID** and **Client secret** values: you'll need to enter these values in step 4 below.
+   - Open the [app manifest editor](https://developers.miro.com/docs/manually-create-an-app#step-2-configure-your-app-in-miro) by clicking **Edit in Manifest**. \
+     In the app manifest editor, configure the app as follows:
+     - [`sdkUri`](https://developers.miro.com/docs/app-manifest#sdkuri): assign `http://localhost:3000` as a value for this property. \
+       It defines the entry point of the app, and it corresponds to the URL of the server that the app runs on.
+     - [`redirectUris`](https://developers.miro.com/docs/app-manifest#redirecturis) and [`redirectUriForSdk`](https://developers.miro.com/docs/app-manifest#redirecturiforsdk): assign `http://localhost:3000/api/redirect/` as a value for these properties. \
+       The [redirect URI](https://developers.miro.com/reference/ne-create-authorization-request-link) points to the page that you intend to load after a successful user authorization.
+     - [`scopes`](https://developers.miro.com/docs/app-manifest#scopes): add the permission scopes that users need to grant the app when they install it. \
+       To enable the app to read from and write to the board, add the following permissions:
+       - `boards:read`
+       - `boards:write`
 4. Open the [`.env`](.env) file, and enter the app client ID and client secret
    values that you saved at the beginning of step 3 above.
 5. Run `npm start` to start developing.
