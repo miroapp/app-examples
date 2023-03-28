@@ -1,8 +1,7 @@
 {
   "name": "node-stickies-csv",
   "version": "2.0.0",
-  "description": "This sample app shows how you can create Miro sticky notes with tags via a CSV import. This is a backend app built on Node.js and Express.js, with Handlebars.js for server-side rendering.
-",
+  "description": "This sample app shows how you can create Miro sticky notes with tags via a CSV import. This is a backend app built on Node.js and Express.js, with Handlebars.js for server-side rendering.",
   "main": "index.js",
   "scripts": {
     "start": "nodemon app.js"
