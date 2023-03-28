@@ -57,7 +57,6 @@ This sample app shows you how to build the famous Wordle game in Miro. \
 The game opens the Library panel allowing you to start a new game and enter your guesses. \
 The game will create sticky notes and color them the same way Wordle does it.
 
-This app uses React and it's based on the [`create-miro-app`](https://www.npmjs.com/package/create-miro-app) React/Typescript starter.
+This app uses React and [Vite](https://vitejs.dev/), and it's based on the [`create-miro-app`](https://www.npmjs.com/package/create-miro-app) React/Typescript starter.
 
-This app uses [Vite](https://vitejs.dev/). \
-If you want to modify the `vite.config.js` configuration, see the [Vite documentation](https://vitejs.dev/guide/).
+To modify the `vite.config.js` configuration, see the [Vite documentation](https://vitejs.dev/guide/).

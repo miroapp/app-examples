@@ -55,4 +55,4 @@ const firebaseConfig = {
 This sample app shows how to connect to a database backend hosted on Firebase to enable persistent data storage. This app uses the Miro Web SDK.
 
 This app uses [Vite](https://vitejs.dev/). \
-If you want to modify the `vite.config.js` configuration, see the [Vite documentation](https://vitejs.dev/guide/).
+To modify the `vite.config.js` configuration, see the [Vite documentation](https://vitejs.dev/guide/).
