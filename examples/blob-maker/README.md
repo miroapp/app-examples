@@ -64,4 +64,4 @@
 
 ### About the app
 
-This sample app shows how you can create dynamic blob SVGs on the fly, and drag and drop them onto a Miro board.
+This sample app shows how to create dynamic blob SVGs on the fly, which you can then drag and drop to a Miro board. Built with the Web SDK.

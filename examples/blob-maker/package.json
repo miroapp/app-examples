@@ -1,6 +1,6 @@
 {
   "name": "blob-maker",
-  "description": "This example shows you how to create a drag and drop blobmaker using Miro's Web SDK.",
+  "description": "This sample app shows how to create dynamic blob SVGs on the fly, which you can then drag and drop to a Miro board. Built with the Web SDK.",
   "version": "0.1.0",
   "licence": "MIT",
   "scripts": {

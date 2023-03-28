@@ -87,3 +87,7 @@ If the project is running successfully, you should see a **Sign in** button in t
 └── styles
 
 ```
+
+## About the app
+
+This sample app shows how to implement the OAuth 2.0 authorization code grant flow from Miro to a client-side application built with Next.js.
