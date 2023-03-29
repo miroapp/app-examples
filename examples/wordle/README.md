@@ -8,6 +8,16 @@
   If you prefer, you can install and use equivalent alternatives, such as `yarn` or `pnpm`.
 - For more information, visit our [developer documentation](https://developers.miro.com).
 
+### About the app
+
+This sample app shows you how to build the famous Wordle game in Miro. \
+The game opens the Library panel allowing you to start a new game and enter your guesses. \
+The game creates sticky notes and colors them the same way Wordle does it.
+
+This app uses React and [Vite](https://vitejs.dev/), and it's based on the [`create-miro-app`](https://www.npmjs.com/package/create-miro-app) React/Typescript starter.
+
+To modify the `vite.config.js` configuration, see the [Vite documentation](https://vitejs.dev/guide/).
+
 ### How to start locally
 
 1. Run `npm install` to install dependencies.
@@ -51,12 +61,3 @@ check game statuses.
 └── index.html <-- The app entry point. This is the value you assign to 'sdkUri' in the app manifest file.
 ```
 
-### About the app
-
-This sample app shows you how to build the famous Wordle game in Miro. \
-The game opens the Library panel allowing you to start a new game and enter your guesses. \
-The game creates sticky notes and colors them the same way Wordle does it.
-
-This app uses React and [Vite](https://vitejs.dev/), and it's based on the [`create-miro-app`](https://www.npmjs.com/package/create-miro-app) React/Typescript starter.
-
-To modify the `vite.config.js` configuration, see the [Vite documentation](https://vitejs.dev/guide/).
