@@ -11,6 +11,13 @@ Read through the guide for an in-depth walkthrough on setting this project up fr
   If you prefer, you can install and use equivalent alternatives, such as `yarn` or `pnpm`.
 - For more information, visit our [developer documentation](https://developers.miro.com).
 
+### About the app
+
+This sample app shows how to connect to a database backend hosted on Firebase to enable persistent data storage. This app uses the Miro Web SDK.
+
+This app uses [Vite](https://vitejs.dev/). \
+To modify the `vite.config.js` configuration, see the [Vite documentation](https://vitejs.dev/guide/).
+
 ### How to connect to the Firebase backend
 
 - Run `npm install` to install dependencies.
@@ -50,9 +57,3 @@ const firebaseConfig = {
 - Run `npm run build`. \
   This generates a static output inside `dist/`, which you can host on a static hosting service.
 
-### About the app
-
-This sample app shows how to connect to a database backend hosted on Firebase to enable persistent data storage. This app uses the Miro Web SDK.
-
-This app uses [Vite](https://vitejs.dev/). \
-To modify the `vite.config.js` configuration, see the [Vite documentation](https://vitejs.dev/guide/).
