@@ -174,6 +174,16 @@ function App() {
           <li>An incorrect letter stays black.</li>
         </ul>
       </div>
+      <div className="cs11 ce12">
+        <div className="feedback">
+          <a
+            target="_top"
+            href="https://github.com/miroapp/app-examples/issues"
+            title="Leave feedback"
+            className="icon icon-comment-feedback"
+          ></a>
+        </div>
+      </div>
     </div>
   );
 }
