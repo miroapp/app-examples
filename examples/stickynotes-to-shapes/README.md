@@ -8,6 +8,13 @@
   If you prefer, you can install and use equivalent alternatives, such as `yarn` or `pnpm`.
 - For more information about [converting sticky notes to shapes](https://developers.miro.com/docs/converting-sticky-notes-to-shapes), visit our [developer documentation](https://developers.miro.com).
 
+### About the app
+
+This sample app shows how you can select items on the board, and then click the app icon to change the selected sticky notes into shapes.
+
+This app uses [Vite](https://vitejs.dev/). \
+To modify the `vite.config.js` configuration, see the [Vite documentation](https://vitejs.dev/guide/).
+
 ### How to start locally
 
 1. Run `npm install` to install dependencies.
@@ -40,9 +47,3 @@
 └── index.html <-- The app entry point. This is the value you assign to 'sdkUri' in the app manifest file.
 ```
 
-### About the app
-
-This sample app shows how you can select items on the board, and then click the app icon to change the selected sticky notes into shapes.
-
-This app uses [Vite](https://vitejs.dev/). \
-To modify the `vite.config.js` configuration, see the [Vite documentation](https://vitejs.dev/guide/).
