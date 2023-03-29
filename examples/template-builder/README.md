@@ -50,4 +50,4 @@ This sample app shows how you can create a template programmatically using the M
 It demonstrates how to work with shape and text items on the board.
 
 This app uses [Vite](https://vitejs.dev/). \
-If you want to modify the `vite.config.js` configuration, see the [Vite documentation](https://vitejs.dev/guide/).
+To modify the `vite.config.js` configuration, see the [Vite documentation](https://vitejs.dev/guide/).
