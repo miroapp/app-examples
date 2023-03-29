@@ -1,7 +1,7 @@
 {
   "name": "digital-asset-manager",
   "version": "1.0.0",
-  "description": "This sample app implements searching and filtering images retrieved from Bynder. Users can drag and drop selected images to a Miro board.",
+  "description": "Digital asset manager to search and filter images retrieved from Bynder. Users can drag and drop selected images to a Miro board.",
   "scripts": {
     "test-start": "cd client && yarn start",
     "start": "vite",
