@@ -1,6 +1,6 @@
 {
   "name": "drag-and-drop",
-  "description": "This sample app shows how to implement image drag and drop to a Miro board. This app uses Vite.",
+  "description": "Drag and drop images to a Miro board. This app uses Vite.",
   "version": "0.0.1",
   "scripts": {
     "start": "vite",
