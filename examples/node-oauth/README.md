@@ -1,5 +1,20 @@
 ## Miro OAuth2.0
 
+### About the app
+
+This sample app shows how to implement the OAuth 2.0 authorization code grant flow to make Miro REST API calls.
+
+You may consider using this Node.js demo as a structural basis for any other preferred language/framework.
+
+ℹ️ Note:
+
+- Comments with `-->`or `<--` indicate a significant step in the flow. \
+  Comments without these markers are for additional reference about the code.
+
+For the full guide on Miro's OAuth 2.0 flow, [see the documentation](https://developers.miro.com/docs/getting-started-with-oauth).
+
+This app uses Express for a local server, Localtunnel for exposing localhost, Node.js, and Axios for making HTTP requests.
+
 ### Prerequisites
 
 - [Create a new app in Miro](https://miro.com/app/settings/user-profile/apps).
@@ -57,17 +72,4 @@ This should redirect you to your Localtunnel URL, where you will see the JSON AP
 └── node_modules <-- Node.js modules that are installed based on dependencies.
 ```
 
-### About the app
 
-This sample app shows how to implement the OAuth 2.0 authorization code grant flow to make Miro REST API calls.
-
-You may consider using this Node.js demo as a structural basis for any other preferred language/framework.
-
-ℹ️ Note:
-
-- Comments with `-->`or `<--` indicate a significant step in the flow. \
-  Comments without these markers are for additional reference about the code.
-
-For the full guide on Miro's OAuth 2.0 flow, [see the documentation](https://developers.miro.com/docs/getting-started-with-oauth).
-
-This app uses Express for a local server, Localtunnel for exposing localhost, Node.js, and Axios for making HTTP requests.
