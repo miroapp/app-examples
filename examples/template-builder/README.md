@@ -8,6 +8,14 @@
   If you prefer, you can install and use equivalent alternatives, such as `yarn` or `pnpm`.
 - For more information, visit our [developer documentation](https://developers.miro.com).
 
+### About the app
+
+This sample app shows how you can create a template programmatically using the Miro Web SDK. \
+It demonstrates how to work with shape and text items on the board.
+
+This app uses [Vite](https://vitejs.dev/). \
+To modify the `vite.config.js` configuration, see the [Vite documentation](https://vitejs.dev/guide/).
+
 ### How to start locally
 
 1. Run `npm install` to install dependencies.
@@ -44,10 +52,3 @@
 └── index.html     // The app entry point. This is the value you assign to 'sdkUri' in the app manifest file.
 ```
 
-### About the app
-
-This sample app shows how you can create a template programmatically using the Miro Web SDK. \
-It demonstrates how to work with shape and text items on the board.
-
-This app uses [Vite](https://vitejs.dev/). \
-To modify the `vite.config.js` configuration, see the [Vite documentation](https://vitejs.dev/guide/).
