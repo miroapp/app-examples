@@ -1,6 +1,6 @@
 {
   "name": "calendar",
-  "description": "This sample app shows how to generate a calendar with shapes and text items for a given month and year. This app uses Vite.",
+  "description": "Generate a calendar with shapes and text items for a given month and year. This app uses Vite.",
   "version": "0.0.1",
   "scripts": {
     "start": "vite",
