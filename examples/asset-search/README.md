@@ -50,8 +50,7 @@
 
 ### About the app
 
-This sample app shows how you can search through images and then drag and drop them onto a Miro board. \
-Built in React off of the [`create-miro-app`](https://www.npmjs.com/package/create-miro-app) React/Typescript starter.
+This sample app shows how to implement asset searching and filtering by name and tags. \
+This app uses React and [Vite](https://vitejs.dev/), and it's based on the [`create-miro-app`](https://www.npmjs.com/package/create-miro-app) React/Typescript starter.
 
-This app uses [Vite](https://vitejs.dev/). \
-If you want to modify the `vite.config.js` configuration, see the [Vite documentation](https://vitejs.dev/guide/).
+To modify the `vite.config.js` configuration, see the [Vite documentation](https://vitejs.dev/guide/).

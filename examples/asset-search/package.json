@@ -1,6 +1,6 @@
 {
   "name": "asset-search",
-  "description": "This example shows you how to filter and search through assets by name and/or multiple tags.",
+  "description": "This sample app shows how to implement asset search and filtering by name and tags. This app uses Vite.",
   "version": "0.0.1",
   "scripts": {
     "start": "vite",

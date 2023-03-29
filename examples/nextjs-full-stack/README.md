@@ -81,3 +81,7 @@ Once your server is up and running:
 └── node_modules <-- Node.js modules that are installed based on dependencies.
 
 ```
+
+## About the app
+
+This full-stack sample app shows how to build a Next.js application that uploads a camera image to a Miro board by using the Miro Web SDK and Miro REST API.

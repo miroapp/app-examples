@@ -110,7 +110,8 @@ MIRO_REDIRECT_URI=
 
 ### About the app
 
-This sample app demonstrates how a 2-way sync flow works with GitHub Projects.
+This full-stack sample app shows how to build an integration with GitHub Projects that enables a 2-way sync data flow between GitHub issues and Miro app cards.
 
-This example was built in React off of the [`create-miro-app`](https://www.npmjs.com/package/create-miro-app) React/Typescript starter. \
-This app uses [Vite](https://vitejs.dev/). If you want to modify the `vite.config.js` configuration, see the [Vite documentation](https://vitejs.dev/guide/).
+This app uses React and [Vite](https://vitejs.dev/), and it's based on the [`create-miro-app`](https://www.npmjs.com/package/create-miro-app) React/Typescript starter.
+
+To modify the `vite.config.js` configuration, see the [Vite documentation](https://vitejs.dev/guide/).
