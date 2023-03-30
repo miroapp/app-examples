@@ -56,4 +56,3 @@ const firebaseConfig = {
 
 - Run `npm run build`. \
   This generates a static output inside `dist/`, which you can host on a static hosting service.
-

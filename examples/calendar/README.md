@@ -51,4 +51,3 @@ To modify the `vite.config.js` configuration, see the [Vite documentation](https
 ├── app.html <-- The app itself. This is loaded on the board inside the 'appContainer'.
 └── index.html <-- The app entry point. This is the value you assign to 'sdkUri' in the app manifest file.
 ```
-
