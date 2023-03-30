@@ -1,6 +1,6 @@
 {
   "name": "miro-wordle",
-  "description": "Build the famous Wordle game in Miro, where sticky notes are created and color-coded based on Wordle game rules. This app uses React and Vite, and it's based on the 'create-miro-app' React/TypeScript starter.",
+  "description": "Build the famous Wordle game in Miro, where sticky notes are created and color-coded based on Wordle game rules. This app uses React and Vite, and is based on the 'create-miro-app' React/TypeScript starter.",
   "version": "0.0.1",
   "scripts": {
     "start": "vite",
