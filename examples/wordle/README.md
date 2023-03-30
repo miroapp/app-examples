@@ -1,4 +1,4 @@
-## Miro Wordle app
+## Miro Wordle sample app
 
 **&nbsp;ℹ&nbsp;Note**:
 
@@ -10,7 +10,7 @@
 
 ### About the app
 
-This app shows you how to build the famous Wordle game in Miro. \
+This sample app shows you how to build the famous Wordle game in Miro. \
 The game opens the Library panel allowing you to start a new game and enter your guesses. \
 The game creates sticky notes and colors them the same way Wordle does it.
 

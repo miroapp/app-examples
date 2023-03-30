@@ -1,6 +1,6 @@
 ## Example of Miro OAuth2 flow with passport library
 
-This app demonstrates the use of the Miro OAuth2 flow using the [passport](https://www.passportjs.org) library to authenticate users.
+This sample app demonstrates the use of the Miro OAuth2 flow using the [passport](https://www.passportjs.org) library to authenticate users.
 
 ### Prerequisites:
 
@@ -13,4 +13,4 @@ This app demonstrates the use of the Miro OAuth2 flow using the [passport](https
 2. `cd` to this example folder.
 3. `npm install` to install dependencies.
 4. Add missing `clientID` and `clientSecret` variables in the OAuth2Strategy configuration.
-5. `npm start` to start the app.
+5. `npm start` to start the example app.
