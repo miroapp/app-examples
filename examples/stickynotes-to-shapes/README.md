@@ -1,4 +1,4 @@
-## Sticky notes to shapes sample app
+## Sticky notes to shapes app
 
 **&nbsp;ℹ&nbsp;Note**:
 
@@ -10,7 +10,7 @@
 
 ### About the app
 
-This sample app shows how you can select items on the board, and then click the app icon to change the selected sticky notes into shapes.
+This app shows how you can select items on the board, and then click the app icon to change the selected sticky notes into shapes.
 
 This app uses [Vite](https://vitejs.dev/). \
 To modify the `vite.config.js` configuration, see the [Vite documentation](https://vitejs.dev/guide/).
@@ -43,7 +43,7 @@ To modify the `vite.config.js` configuration, see the [Vite documentation](https
 ```
 .
 ├── src
-│  └── index.js <-- The code for the entry point lives here. For this sample app, all the logic is contained here.
+│  └── index.js <-- The code for the entry point lives here. For this app, all the logic is contained here.
 └── index.html <-- The app entry point. This is the value you assign to 'sdkUri' in the app manifest file.
 ```
 

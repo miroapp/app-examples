@@ -1,4 +1,4 @@
-## Template builder sample app
+## Template builder app
 
 **&nbsp;ℹ&nbsp;Note**:
 
@@ -10,7 +10,7 @@
 
 ### About the app
 
-This sample app shows how you can create a template programmatically using the Miro Web SDK. \
+This app shows how you can create a template programmatically using the Miro Web SDK. \
 It demonstrates how to work with shape and text items on the board.
 
 This app uses [Vite](https://vitejs.dev/). \

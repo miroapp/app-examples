@@ -1,6 +1,6 @@
 ### About the app
 
-This sample app shows how you can use the Miro REST API. \
+This app shows how you can use the Miro REST API. \
 It implements the full OAuth2 flow and calls the [Create Miro board API endpoint](https://developers.miro.com/reference/create-board).
 
 This app uses [Flask](https://flask.palletsprojects.com/en/2.1.x/) and [Python](https://www.python.org/).

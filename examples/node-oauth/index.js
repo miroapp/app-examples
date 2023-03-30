@@ -1,4 +1,4 @@
-// This sample app is intended to demonstrate the OAuth 2.0 flow that is required to call Miro's V2 APIs.
+// This app is intended to demonstrate the OAuth 2.0 flow that is required to call Miro's V2 APIs.
 // Devs may consider using this Node.js demo as a structural basis for any other preferred language/framework.
 // NOTE: Any comments with "--->" signify part of a significant step in the flow. Comments without "--->" are added for additional reference on code.
 
