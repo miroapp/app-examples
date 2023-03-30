@@ -14,7 +14,7 @@ This full-stack example shows how to build an integration with GitHub that syncs
 
 ### About the app
 
-This full-stack sample app shows how to build an integration with GitHub Projects that enables a 2-way sync data flow between GitHub issues and Miro app cards.
+This full-stack app shows how to build an integration with GitHub Projects that enables a 2-way sync data flow between GitHub issues and Miro app cards.
 
 This app uses React and [Vite](https://vitejs.dev/), and it's based on the [`create-miro-app`](https://www.npmjs.com/package/create-miro-app) React/TypeScript starter.
 
