@@ -1,6 +1,6 @@
 {
   "name": "template-builder",
-  "description": "This sample app shows how to create a template programmatically with the Miro Web SDK. This app uses Vite.",
+  "description": "Create a template programmatically with the Miro Web SDK. This app uses Vite.",
   "version": "0.0.0",
   "scripts": {
     "start": "vite",

@@ -1,6 +1,9 @@
-# Python Flask starter
+### About the app
 
-This Python/Flask boilerplate will allow to start using the Miro REST API in a few minutes.
+This app shows how you can use the Miro REST API. \
+It implements the full OAuth2 flow and calls the [Create Miro board API endpoint](https://developers.miro.com/reference/create-board).
+
+This app uses [Flask](https://flask.palletsprojects.com/en/2.1.x/) and [Python](https://www.python.org/).
 
 ## How to start
 
@@ -39,10 +42,3 @@ This Python/Flask boilerplate will allow to start using the Miro REST API in a f
 ├── app.py <-- The app itself.
 └── requirements.txt <-- Python libraries used to build the app.
 ```
-
-### About the app
-
-This sample app shows how you can use the Miro REST API. \
-It implements the full OAuth2 flow and calls the [Create Miro board API endpoint](https://developers.miro.com/reference/create-board).
-
-This app uses [Flask](https://flask.palletsprojects.com/en/2.1.x/) and [Python](https://www.python.org/).

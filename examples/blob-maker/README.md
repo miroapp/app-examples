@@ -10,6 +10,10 @@
   If you prefer, you can install and use equivalent alternatives, such as `yarn` or `pnpm`.
 - For more information about implementing [drag and drop](https://developers.miro.com/docs/add-drag-and-drop-to-your-app), visit our [developer documentation](https://developers.miro.com).
 
+### About the app
+
+This app shows how to create dynamic blob SVGs on the fly, which you can then drag and drop to a Miro board. This app uses the Miro Web SDK.
+
 ### How to start locally
 
 1. Run `npm install` to install dependencies.
@@ -61,7 +65,3 @@
 ├── app.html       // The app itself. It's loaded on the board inside the 'appContainer'.
 └── index.html     // The app entry point. This is the value you assign to 'sdkUri' in the app manifest file.
 ```
-
-### About the app
-
-This sample app shows how to create dynamic blob SVGs on the fly, which you can then drag and drop to a Miro board. This app uses the Miro Web SDK.

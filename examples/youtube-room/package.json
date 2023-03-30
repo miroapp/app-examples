@@ -1,6 +1,6 @@
 {
   "name": "youtube-room",
-  "description": "This sample app shows how to sync multiple YouTube players across different user sessions. This app uses Express.js and Socket.IO.",
+  "description": "Sync multiple YouTube players across different user sessions. This app uses Express.js and Socket.IO.",
   "version": "0.1.0",
   "licence": "MIT",
   "scripts": {
