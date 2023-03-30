@@ -1,7 +1,7 @@
 {
   "name": "nextjs-oauth",
   "version": "0.1.0",
-  "description": "This sample app shows how to implement the OAuth 2.0 authorization code grant flow from Miro to a client-side application built with Next.js.",
+  "description": "(Full-stack app) Implement the OAuth 2.0 authorization code grant flow from Miro to a client-side application built with Next.js.",
   "private": true,
   "scripts": {
     "dev": "next dev",

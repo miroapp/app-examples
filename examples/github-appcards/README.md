@@ -12,6 +12,14 @@ This full-stack example shows how to build an integration with GitHub that syncs
   If you prefer, you can install and use equivalent alternatives, such as `yarn` or `pnpm`.
 - For more information about implementing [drag and drop](https://developers.miro.com/docs/add-drag-and-drop-to-your-app), visit our [developer documentation](https://developers.miro.com).
 
+### About the app
+
+This full-stack app shows how to build an integration with GitHub Projects that enables a 2-way sync data flow between GitHub issues and Miro app cards.
+
+This app uses React and [Vite](https://vitejs.dev/), and it's based on the [`create-miro-app`](https://www.npmjs.com/package/create-miro-app) React/TypeScript starter.
+
+To modify the `vite.config.js` configuration, see the [Vite documentation](https://vitejs.dev/guide/).
+
 ### How to start locally
 
 1. Run `npm install` to install dependencies.
@@ -107,11 +115,3 @@ MIRO_CLIENT_SECRET=
 # https://developers.miro.com/reference/authorization-flow-for-expiring-access-tokens
 MIRO_REDIRECT_URI=
 ```
-
-### About the app
-
-This full-stack sample app shows how to build an integration with GitHub Projects that enables a 2-way sync data flow between GitHub issues and Miro app cards.
-
-This app uses React and [Vite](https://vitejs.dev/), and it's based on the [`create-miro-app`](https://www.npmjs.com/package/create-miro-app) React/Typescript starter.
-
-To modify the `vite.config.js` configuration, see the [Vite documentation](https://vitejs.dev/guide/).

@@ -1,6 +1,6 @@
 {
   "name": "stickynotes-to-shapes",
-  "description": "This sample app shows how to select items on the board, and then click the app icon to change the selected sticky notes to shapes. This app uses Vite.",
+  "description": "Select sticky notes on the board, and then click the app icon to change the selected sticky notes to shapes. This app uses Vite.",
   "version": "0.0.0",
   "scripts": {
     "start": "vite",

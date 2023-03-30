@@ -1,8 +1,10 @@
-# Full-stack Miro app example
+# About the app
 
-This sample app demonstrates the use of the Miro REST API and OAuth authorization. After configuring your project outlined in the Prerequisites section, this app allows you to authenticate yourself with your Miro account, and use the related access tokens to make REST API calls via the Miro Developer Platform.
+This full-stack app shows how to implement the OAuth 2.0 authorization code grant flow from Miro to a client-side application built with Next.js.
 
-This example also stores your access and refresh tokens in your browsers cookies to demonstrate the Miro's REST API. When storing tokens in your own app, you should be consider encrypting or storing your user's tokens in a more secure way.
+This app demonstrates the use of the Miro REST API and OAuth authorization. After configuring your project outlined in the Prerequisites section, this app allows you to authenticate yourself with your Miro account, and use the related access tokens to make REST API calls via the Miro Developer Platform.
+
+This app also stores your access and refresh tokens in your browsers cookies to demonstrate the Miro's REST API. When storing tokens in your own app, you should be consider encrypting or storing your user's tokens in a more secure way.
 
 ## Stack
 
@@ -40,7 +42,7 @@ Then, proceed to configure the app:
     - `boards:read`
     - `boards:write`
 
-Now you can start working directly with the sample app:
+Now you can start working directly with the app:
 
 1. Clone or download the app repository.
 2. `cd` to the project root folder.
@@ -87,7 +89,3 @@ If the project is running successfully, you should see a **Sign in** button in t
 └── styles
 
 ```
-
-## About the app
-
-This sample app shows how to implement the OAuth 2.0 authorization code grant flow from Miro to a client-side application built with Next.js.

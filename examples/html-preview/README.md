@@ -10,7 +10,7 @@
 
 ### How to use the app
 
-This sample app shows how to use the Miro API to generate HTML pages from Miro boards. This enables creating multi-page website mockups quickly.
+This app shows how to use the Miro API to generate HTML pages from Miro boards. This enables creating multi-page website mockups quickly.
 
 The initial screen prompts you to connect your Miro account. After signing in, you can see the list of boards under your team.
 

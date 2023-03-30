@@ -1,7 +1,7 @@
 {
   "name": "node-oauth",
   "version": "1.0.0",
-  "description": "This sample app shows how to implement the OAuth 2.0 authorization code grant flow to make Miro REST API calls. This app uses Node.js, Express.js, and Axios.",
+  "description": "Implement the OAuth 2.0 authorization code grant flow to make Miro REST API calls. This app uses Node.js, Express.js, and Axios.",
   "main": "index.js",
   "scripts": {
     "start": "nodemon index.js"
