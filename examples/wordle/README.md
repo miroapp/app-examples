@@ -14,7 +14,7 @@ This app shows you how to build the famous Wordle game in Miro. \
 The game opens the Library panel allowing you to start a new game and enter your guesses. \
 The game creates sticky notes and colors them the same way Wordle does it.
 
-This app uses React and [Vite](https://vitejs.dev/), and it's based on the [`create-miro-app`](https://www.npmjs.com/package/create-miro-app) React/TypeScript starter.
+This app is bootstrapped using [create-miro-app](https://www.npmjs.com/package/create-miro-app). It uses React, Typescript, and Vite.
 
 To modify the `vite.config.js` configuration, see the [Vite documentation](https://vitejs.dev/guide/).
 
@@ -32,8 +32,8 @@ To modify the `vite.config.js` configuration, see the [Vite documentation](https
      It defines the entry point of the app, and it corresponds to the URL of the server that the app runs on.
    - [`scopes`](https://developers.miro.com/docs/app-manifest#scopes): add the permission scopes that users need to grant the app when they install it. \
      To enable the app to read from and write to the board, add the following permissions:
-     - `boards:write`
      - `boards:read`
+     - `boards:write`
 4. Open a board: you should see your app in the apps toolbar or in the apps panel.
 
 ### How to build the app
@@ -49,7 +49,7 @@ To modify the `vite.config.js` configuration, see the [Vite documentation](https
 │  └── styles
 │      └── style.css <-- CSS styles for the app.
 │  └── App.tsx <-- The main app. Contains structure for the sidebar when launched.
-│      main.tsx <-- Initializes the git app.
+│      main.tsx <-- Initializes app.
 │      └── lib
 │         └── board.ts <-- Methods to create and update content on Miro's board.
 │         └── word.ts <-- Methods to select word for the game and

@@ -48,7 +48,3 @@ img {
 .grid div:last-child {
   margin-top: 10px;
 }
-
-.icon-comment-feedback {
-  cursor: pointer;
-}
