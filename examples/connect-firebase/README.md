@@ -13,7 +13,7 @@ Read through the guide for an in-depth walkthrough on setting this project up fr
 
 ### About the app
 
-This app shows how to connect to a database backend hosted on Firebase to enable persistent data storage. This app uses the Miro Web SDK.
+This sample app shows how to connect to a database backend hosted on Firebase to enable persistent data storage. This app uses the Miro Web SDK.
 
 This app uses [Vite](https://vitejs.dev/). \
 To modify the `vite.config.js` configuration, see the [Vite documentation](https://vitejs.dev/guide/).
