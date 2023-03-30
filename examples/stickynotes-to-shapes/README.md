@@ -46,4 +46,3 @@ To modify the `vite.config.js` configuration, see the [Vite documentation](https
 │  └── index.js <-- The code for the entry point lives here. For this app, all the logic is contained here.
 └── index.html <-- The app entry point. This is the value you assign to 'sdkUri' in the app manifest file.
 ```
-

@@ -5,7 +5,6 @@ It implements the full OAuth2 flow and calls the [Create Miro board API endpoint
 
 This app uses [Flask](https://flask.palletsprojects.com/en/2.1.x/) and [Python](https://www.python.org/).
 
-
 ## How to start
 
 1. Install the project dependenciesAwes: run `pip3 install -r requirements.txt`

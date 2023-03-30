@@ -71,5 +71,3 @@ This should redirect you to your Localtunnel URL, where you will see the JSON AP
 └── .env <-- A file you create, where you store sensitive credentials (client ID, client secret).
 └── node_modules <-- Node.js modules that are installed based on dependencies.
 ```
-
-

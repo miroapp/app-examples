@@ -89,4 +89,3 @@ If the project is running successfully, you should see a **Sign in** button in t
 └── styles
 
 ```
-

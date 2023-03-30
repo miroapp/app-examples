@@ -65,4 +65,3 @@ This app shows how to create dynamic blob SVGs on the fly, which you can then dr
 ├── app.html       // The app itself. It's loaded on the board inside the 'appContainer'.
 └── index.html     // The app entry point. This is the value you assign to 'sdkUri' in the app manifest file.
 ```
-

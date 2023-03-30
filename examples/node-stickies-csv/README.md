@@ -1,8 +1,6 @@
-
 ### About the app
 
 This app shows you how to use the [Miro Node.js client](https://www.npmjs.com/package/@mirohq/miro-api) to interact with the [Miro REST API](https://developers.miro.com/reference/api-reference). The app uses the available CRUD (create, read, update, delete) methods to add and manage sticky notes with tags on a Miro board. This is a backend app built on Node.js and Express.js, with Handlebars.js for rendering.
-
 
 Miro capabilities covered in this app:
 

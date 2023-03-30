@@ -1,10 +1,8 @@
-
 ## About the app
 
 This full-stack app shows how to build a Next.js application that uploads a camera image to a Miro board by using the Miro Web SDK and Miro REST API. This app demonstrates the use of the Miro REST API and Web SDK. After configuring your project outlined in the Prerequisites section, this app allows you to authenticate yourself with your Miro account, and use the related access tokens to make REST API calls via the Miro Developer Platform.
 
 This app also stores your access and refresh tokens in your browsers cookies to demonstrate the Miro's REST API. When storing tokens in your own app, you should be consider encrypting or storing your user's tokens in a more secure way.
-
 
 ## Stack
 
@@ -83,5 +81,3 @@ Once your server is up and running:
 └── node_modules <-- Node.js modules that are installed based on dependencies.
 
 ```
-
-
