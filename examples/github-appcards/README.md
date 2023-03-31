@@ -18,7 +18,6 @@ This full-stack app shows how to build an integration with GitHub Projects that 
 
 This app is bootstrapped using [create-miro-app](https://www.npmjs.com/package/create-miro-app). It uses React, Typescript, and Vite.
 
-
 To modify the `vite.config.js` configuration, see the [Vite documentation](https://vitejs.dev/guide/).
 
 ### How to start locally
