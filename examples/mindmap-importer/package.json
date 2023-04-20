@@ -1,0 +1,27 @@
+{
+  "name": "miro-mindmap-importer",
+  "version": "0.1.0",
+  "license": "MIT",
+  "scripts": {
+    "start": "vite",
+    "build": "vite build",
+    "serve": "vite preview"
+  },
+  "dependencies": {
+    "d3-dsv": "^3.0.1",
+    "mirotone": "4",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-dropzone": "^14.2.3"
+  },
+  "devDependencies": {
+    "@mirohq/websdk-types": "latest",
+    "@types/d3-dsv": "^3.0.1",
+    "@types/node": "^18.8.2",
+    "@types/react": "^18.0.24",
+    "@types/react-dom": "^18.0.8",
+    "@vitejs/plugin-react": "^2.2.0",
+    "typescript": "4.8.4",
+    "vite": "3.0.3"
+  }
+}
