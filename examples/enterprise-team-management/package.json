@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Manage teams and organizations within Miro using Miro's REST API. This app uses Node.js.\nℹ️ This example requires an Enterprise plan subscription and an Enterprise Team account.",
   "main": "index.js",
+  "keywords": ["Miro Rest API", "Node.js"],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
