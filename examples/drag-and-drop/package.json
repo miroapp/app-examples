@@ -2,7 +2,7 @@
   "name": "drag-and-drop",
   "description": "Drag and drop images to a Miro board. This app uses Vite.",
   "version": "0.0.1",
-  "keywords": ["Miro SDK", "Vite", "React", "TypeScript],
+  "keywords": ["Miro SDK", "Vite", "React", "TypeScript"],
   "scripts": {
     "start": "vite",
     "build": "vite build",
