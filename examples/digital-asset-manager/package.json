@@ -2,6 +2,7 @@
   "name": "digital-asset-manager",
   "version": "1.0.0",
   "description": "Digital asset manager to search and filter images retrieved from Bynder. Users can drag and drop selected images to a Miro board.",
+  "keywords": ["Miro SDK", "Netlify", "React", "React Router", "TypeSript", "Vite", "Framer-motion"],
   "scripts": {
     "test-start": "cd client && yarn start",
     "start": "vite",
