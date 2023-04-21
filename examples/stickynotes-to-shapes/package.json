@@ -2,6 +2,7 @@
   "name": "stickynotes-to-shapes",
   "description": "Select sticky notes on the board, and then click the app icon to change the selected sticky notes to shapes. This app uses Vite.",
   "version": "0.0.0",
+  "keywords": ["Miro SDK", "Vite"],
   "scripts": {
     "start": "vite",
     "build": "vite build",
