@@ -2,6 +2,7 @@
   "name": "nextjs-full-stack",
   "version": "0.1.0",
   "description": "(Full-stack app) Build a Next.js application that uploads a camera image to a Miro board by using the Miro Web SDK and Miro REST API.",
+  "keywords": ["Miro Node Client", "Miro SDK", "Next.js", "React", "Axios"],
   "private": true,
   "scripts": {
     "dev": "next dev",
