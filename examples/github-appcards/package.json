@@ -2,6 +2,7 @@
   "name": "github-appcards",
   "description": "(Full-stack app) Build an integration with GitHub Projects that enables a 2-way sync data flow between GitHub issues and Miro app cards. This app uses Vite.",
   "version": "1.0.0",
+  "keywords": ["Miro SDK", "Mirotone", "React", "Supabase", "Framer-motion", "Vite", "TypeScript"],
   "licence": "MIT",
   "scripts": {
     "start": "vite",
