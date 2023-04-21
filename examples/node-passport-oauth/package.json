@@ -2,6 +2,7 @@
   "name": "node-passport-oauth",
   "version": "1.0.0",
   "description": "Implement the OAuth 2.0 authorization code grant flow in Miro and make a Miro REST API request. This app uses Node.js and Passport.js.",
+  "keywords": ["Node.js", "Passport.js", "Express.js"],
   "main": "index.js",
   "scripts": {
     "start": "node index.mjs & sleep 1 && open http://localhost:${PORT:-4000}/auth/miro/callback && wait",
