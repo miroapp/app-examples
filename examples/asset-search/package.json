@@ -2,6 +2,7 @@
   "name": "asset-search",
   "description": "Search and filter assets by name and tags. This app uses Vite.",
   "version": "0.0.1",
+  "keywords": ["Miro SDK", "Vite", "React", "TypeSript"],
   "scripts": {
     "start": "vite",
     "build": "vite build",

@@ -1,6 +1,7 @@
 {
   "name": "youtube-room",
   "description": "Sync multiple YouTube players across different user sessions. This app uses Express.js and Socket.IO.",
+  "keywords": ["Mirotone", "Socket.IO", "Express.js"],
   "version": "0.1.0",
   "licence": "MIT",
   "scripts": {
