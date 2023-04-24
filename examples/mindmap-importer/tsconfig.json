@@ -2,10 +2,7 @@
   "compilerOptions": {
     "target": "esnext",
     "module": "esnext",
-    "lib": [
-      "esnext",
-      "dom"
-    ],
+    "lib": ["esnext", "dom"],
     "jsx": "preserve",
     "moduleResolution": "node",
     "strict": true,
@@ -18,20 +15,11 @@
     "noImplicitReturns": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "typeRoots": [
-      "./node_modules/@types",
-      "./node_modules/@mirohq"
-    ],
+    "typeRoots": ["./node_modules/@types", "./node_modules/@mirohq"],
     "allowJs": true,
     "incremental": true,
     "isolatedModules": true
   },
-  "include": [
-    "src",
-    "pages",
-    "*.ts"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "include": ["src", "pages", "*.ts"],
+  "exclude": ["node_modules"]
 }
