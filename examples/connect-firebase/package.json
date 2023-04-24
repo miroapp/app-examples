@@ -3,6 +3,7 @@
   "description": "Connect to a database backend hosted on Firebase to enable persistent data storage. This app uses the Miro Web SDK and Vite.",
   "version": "0.1.0",
   "licence": "MIT",
+  "keywords": ["Miro SDK", "Vite", "Firebase", "Mirotone"],
   "scripts": {
     "start": "vite",
     "build": "vite build",

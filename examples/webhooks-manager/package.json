@@ -1,6 +1,7 @@
 {
   "name": "webhooks-manager",
   "description": "(Full-stack app) Create webhook subscriptions for boards through a simple UI. The app is deployed on Vercel.",
+  "keywords": ["Miro Node Client", "Next.js", "React", "TypeScript"],
   "version": "0.1.0",
   "license": "MIT",
   "scripts": {

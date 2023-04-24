@@ -2,6 +2,7 @@
   "name": "calendar",
   "description": "Generate a calendar with shapes and text items for a given month and year. This app uses Vite.",
   "version": "0.0.1",
+  "keywords": ["Miro SDK", "Vite", "React", "TypeSript"],
   "scripts": {
     "start": "vite",
     "build": "vite build",
