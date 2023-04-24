@@ -1,7 +1,13 @@
 {
   "name": "miro-mindmap-importer",
   "version": "0.1.0",
-  "keywords": ["Mirotone", "React", "TypeScript", "Miro Web SDK", "Vite"],
+  "keywords": [
+    "Mirotone",
+    "React",
+    "TypeScript",
+    "Miro Web SDK",
+    "Vite"
+  ],
   "license": "MIT",
   "scripts": {
     "start": "vite",
