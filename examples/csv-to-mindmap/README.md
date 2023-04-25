@@ -23,8 +23,8 @@ To modify the `vite.config.js` configuration, see the [Vite documentation](https
    ```
    http://localhost:3000
    ```
-3. Open the [app-manifest.yml file](./app-manifest.yml) and copy the contents. 
-4. On the app settings page, click *Edit in Manifest* to open the [app manifest editor](https://developers.miro.com/docs/manually-create-an-app#step-2-configure-your-app-in-miro). Paste the contents you copied in step 3 into the app manifest editor. \
+3. Open the [app-manifest.yml file](./app-manifest.yml) and copy the contents.
+4. On the app settings page, click _Edit in Manifest_ to open the [app manifest editor](https://developers.miro.com/docs/manually-create-an-app#step-2-configure-your-app-in-miro). Paste the contents you copied in step 3 into the app manifest editor. \
 5. Open a board: you should see your app in the apps toolbar or in the apps panel.
 
 ### How to build the app
@@ -37,7 +37,7 @@ To modify the `vite.config.js` configuration, see the [Vite documentation](https
 ```
 .
 ├── src
-|  ├── example-data // Example CSV data 
+|  ├── example-data // Example CSV data
 │  ├── assets
 │  │  └── style.css
 │  ├── app.tsx     // The code for the app lives here
