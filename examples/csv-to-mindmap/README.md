@@ -1,4 +1,4 @@
-## CSV to mind map importer
+## Import data from CSV and create mind map on a Miro board
 
 **&nbsp;ℹ&nbsp;Note**:
 
@@ -10,7 +10,7 @@
 
 ### About the app
 
-This app shows how to import data from a CSV file and create a mind map in a Miro board.
+This app shows how to import data from a CSV file and create a mind map on a Miro board.
 This app is bootstrapped using [create-miro-app](https://www.npmjs.com/package/create-miro-app). It uses React, Typescript, and Vite.
 
 To modify the `vite.config.js` configuration, see the [Vite documentation](https://vitejs.dev/guide/).
@@ -23,15 +23,9 @@ To modify the `vite.config.js` configuration, see the [Vite documentation](https
    ```
    http://localhost:3000
    ```
-3. Open the [app manifest editor](https://developers.miro.com/docs/manually-create-an-app#step-2-configure-your-app-in-miro) by clicking **Edit in Manifest**. \
-   In the app manifest editor, configure the app as follows:
-   - [`sdkUri`](https://developers.miro.com/docs/app-manifest#sdkuri): assign `http://localhost:3000` as a value for this property. \
-     It defines the entry point of the app, and it corresponds to the URL of the server that the app runs on.
-   - [`scopes`](https://developers.miro.com/docs/app-manifest#scopes): add the permission scopes that users need to grant the app when they install it. \
-     To enable the app to read from and write to the board, add the following permissions:
-     - `boards:read`
-     - `boards:write`
-4. Open a board: you should see your app in the apps toolbar or in the apps panel.
+3. Open the [app-manifest.yml file](https://github.com/miroapp/app-examples/blob/mindmap-app-updates/examples/csv-to-mindmap-importer/app-manifest.yml) and copy the contents. 
+4. On the app settings page, click *Edit in Manifest* to open the [app manifest editor](https://developers.miro.com/docs/manually-create-an-app#step-2-configure-your-app-in-miro). Paste the contents you copied in step 3 into the app manifest editor. \
+5. Open a board: you should see your app in the apps toolbar or in the apps panel.
 
 ### How to build the app
 
