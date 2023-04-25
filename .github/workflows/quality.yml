@@ -1,6 +1,8 @@
 name: Code Quality
 
-on: push
+on:
+  push:
+  pull_request:
 
 jobs:
   run-linters:
