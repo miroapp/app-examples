@@ -1,0 +1,16 @@
+.wrapper {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+img {
+  max-width: 60%;
+  margin: 0 auto;
+  height: auto;
+}
+
+a.button {
+  text-decoration: none;
+  line-height: 48px;
+}
