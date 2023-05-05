@@ -1,5 +1,5 @@
 # See https://developers.miro.com/docs/app-manifest on how to use this
-appName: CSV to sticky notes
+appName: CSV to Sticky Notes
 redirectUris:
   - http://localhost:8000/authorized
 scopes:
