@@ -92,7 +92,7 @@ const App: React.FC = () => {
             onClick={handleCreate}
             className="button button-small button-primary"
           >
-            Create mindmap
+            Create Mind Map
           </button>
         </>
       )}
