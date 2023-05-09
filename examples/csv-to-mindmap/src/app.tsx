@@ -1,70 +1,10 @@
 import * as React from "react";
 import { createRoot } from "react-dom/client";
 import { useDropzone } from "react-dropzone";
-import { parseCsv } from "./utils";
-import { DSVRowArray } from "d3-dsv";
+import { parseCsv } from "./csv-utils";
+import { createMindmap } from "./mindmap";
 
-const createGraph = (contents: DSVRowArray<string>) => {
-  const adjacencyList: Record<string, Set<string>> = {};
-  const root = contents[0][0]!;
-
-  const cols = contents.columns.reverse();
-  for (const row of contents) {
-    // start from leaf
-    let child = undefined;
-    for (const col of cols) {
-      const value = row[col]!;
-
-      if (value === "") continue;
-
-      if (!adjacencyList[value]) {
-        adjacencyList[value] = new Set();
-      }
-
-      if (child) {
-        adjacencyList[value].add(child);
-      }
-
-      child = value;
-    }
-  }
-
-  return { adjacencyList, root };
-};
-
-const createMindmap = async (contents: DSVRowArray<string>) => {
-  const visited: Record<string, any> = [];
-  const graph = createGraph(contents);
-
-  visited[graph.root] = await miro.board.experimental.createMindmapNode({
-    nodeView: { content: graph.root },
-  });
-
-  const nodes = Object.keys(graph.adjacencyList);
-  // Create all nodes
-  for (const node of nodes) {
-    if (!visited[node]) {
-      visited[node] = await miro.board.experimental.createMindmapNode({
-        nodeView: {
-          content: node,
-        },
-      });
-    }
-  }
-
-  const linkItems = async (parent: string) => {
-    const parentItem = visited[parent];
-
-    for (const adjacent of graph.adjacencyList[parent]) {
-      const childItem = visited[adjacent];
-      await parentItem.add(childItem);
-      await linkItems(adjacent);
-    }
-  };
-
-  await linkItems(graph.root);
-};
-
+// UI
 const dropzoneStyles = {
   display: "flex",
   height: "100%",
