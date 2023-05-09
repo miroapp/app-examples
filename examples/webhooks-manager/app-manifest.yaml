@@ -1,5 +1,5 @@
 # See https://developers.miro.com/docs/app-manifest on how to use this
-appName: Webhook manager
+appName: Webhook Manager
 sdkUri: "http://localhost:3000"
 redirectUris:
   - http://localhost:3000/api/redirect/
