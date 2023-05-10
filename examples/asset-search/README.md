@@ -15,6 +15,8 @@ This app is bootstrapped using [create-miro-app](https://www.npmjs.com/package/c
 
 To modify the `vite.config.js` configuration, see the [Vite documentation](https://vitejs.dev/guide/).
 
+![asset-search](https://github.com/miroapp/app-examples/assets/17803164/ecf90982-0e68-464c-aaaf-a6f34b8d7061)
+
 ### How to start locally
 
 1. Run `npm install` to install dependencies.
