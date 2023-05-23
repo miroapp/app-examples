@@ -1,37 +1,44 @@
 import { DSVRowArray } from "d3-dsv";
 
+interface Node {
+  nodeView: { content: string };
+  children: Node[];
+}
+
 /**
  * Create graph from CSV rows
  *
  * @param contents CSV rows
- * @returns Graph representation using adjacency list
+ * @returns Schema that can be directly passed to createMindmapNode
  */
 const createGraph = (contents: DSVRowArray<string>) => {
-  const adjacencyList: Record<string, Set<string>> = {};
-  const root = contents[0][0]!;
+  let root: Node | undefined;
 
-  const cols = contents.columns.reverse();
+  const visited: Record<string, Node> = {};
+
   for (const row of contents) {
-    // start from leaf
-    let child = undefined;
-    for (const col of cols) {
+    let parent = undefined;
+    for (const col of contents.columns) {
       const value = row[col]!;
 
-      if (value === "") continue;
+      const key = `${col}-${value}`;
 
-      if (!adjacencyList[value]) {
-        adjacencyList[value] = new Set();
+      if (!visited[key]) {
+        const node = { nodeView: { content: value }, children: [] };
+        visited[key] = node;
+
+        if (parent) {
+          parent.children.push(visited[key]);
+        } else {
+          root = node;
+        }
       }
 
-      if (child) {
-        adjacencyList[value].add(child);
-      }
-
-      child = value;
+      parent = visited[key];
     }
   }
 
-  return { adjacencyList, root };
+  return root;
 };
 
 /**
@@ -40,35 +47,7 @@ const createGraph = (contents: DSVRowArray<string>) => {
  * @param contents CSV rows
  */
 export const createMindmap = async (contents: DSVRowArray<string>) => {
-  const visited: Record<string, any> = [];
-  const graph = createGraph(contents);
+  const root = createGraph(contents);
 
-  // Create all nodes
-  visited[graph.root] = await miro.board.experimental.createMindmapNode({
-    nodeView: { content: graph.root },
-  });
-
-  const nodes = Object.keys(graph.adjacencyList);
-  for (const node of nodes) {
-    if (!visited[node]) {
-      visited[node] = await miro.board.experimental.createMindmapNode({
-        nodeView: {
-          content: node,
-        },
-      });
-    }
-  }
-
-  // Create parent-child relations
-  const createRelations = async (parent: string) => {
-    const parentItem = visited[parent];
-
-    for (const adjacent of graph.adjacencyList[parent]) {
-      const childItem = visited[adjacent];
-      await parentItem.add(childItem);
-      await createRelations(adjacent);
-    }
-  };
-
-  await createRelations(graph.root);
+  await miro.board.experimental.createMindmapNode(root);
 };
