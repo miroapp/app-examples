@@ -61,11 +61,11 @@ const App: React.FC = () => {
 
   return (
     <div className="dnd-container">
-      <p>Select your CSV file to import it as a mind map</p>
+      <p>Select the CSV file to import and create a mind map</p>
       <div {...dropzone.getRootProps({ style })}>
         <input {...dropzone.getInputProps()} />
         {dropzone.isDragAccept ? (
-          <p className="dnd-text">Drop your CSV file are here</p>
+          <p className="dnd-text">Drop your CSV file here</p>
         ) : (
           <>
             <div>
