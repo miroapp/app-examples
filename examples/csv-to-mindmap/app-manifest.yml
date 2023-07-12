@@ -1,5 +1,5 @@
 # See https://developers.miro.com/docs/app-manifest on how to use this
-appName: CSV to Mind Map 
+appName: CSV to Mind Map
 sdkUri: "http://localhost:3000"
 scopes:
   - boards:read
