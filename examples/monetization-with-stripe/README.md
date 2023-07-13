@@ -18,7 +18,8 @@ This app has a paywall for a payed feature. To enable the payed feature, users n
 
 1. [Create a account](https://dashboard.stripe.com/register) or [login](https://dashboard.stripe.com/login) on Stripe
 2. Create a [payment link](https://dashboard.stripe.com/test/payment-links)
-3. Add your [API keys](https://dashboard.stripe.com/apikeys) to the [.env file](.env)
+3. Update the link in the [PaywallNotice component](./components/PaywallNotice.tsx)
+4. Add your [API keys](https://dashboard.stripe.com/apikeys) to the [.env file](.env)
 
 Run `npm start` to start developing.
 

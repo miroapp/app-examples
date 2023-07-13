@@ -7,6 +7,8 @@ export const PaywallNotice: FC<{ userId: string }> = ({ userId }) => {
     setHasClickedBuy(true);
   };
 
+  const paymentLink = "https://buy.stripe.com/test_abcdefghijkl21347890";
+
   return (
     <>
       <h2>🧱🧱🧱🧱 Paywall 🧱🧱🧱🧱</h2>
@@ -15,7 +17,7 @@ export const PaywallNotice: FC<{ userId: string }> = ({ userId }) => {
         This app has advanced features that are only available for paying users.
       </p>
       <a
-        href={`https://buy.stripe.com/test_fZebLHany4SZePe289?client_reference_id=${userId}&utm_source=miro-app-panel`}
+        href={`${paymentLink}?client_reference_id=${userId}&utm_source=miro-app-panel`}
         target="_blank"
         className={"button button-primary"}
         onClick={handleClickBuy}
