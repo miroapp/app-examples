@@ -11,6 +11,7 @@ This app has a paywall for a payed feature. To enable the payed feature, users n
    - Go to **Redirect URI for OAuth2.0**, click **Options**. for the localhost path. \
      From the drop-down menu select **Use this URI for SDK authorization**.
 
+1. Rename the ['.env.example' file](.env.example) to `.env`
 1. Open the [.env file](.env), and enter the app client ID and client secret that you can find on top of the app settings page
 
 ## On Stripe
