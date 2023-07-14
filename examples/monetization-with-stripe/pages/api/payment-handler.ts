@@ -4,7 +4,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 
 import Stripe from "stripe";
 
-export const PAID_COOKIE_TITLE = "paid-for-[miro-integration-name]";
+export const PAYMENT_STORAGE_KEY = "paid-for-[miro-integration-name]";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 const webhookSecret = process.env.STRIPE_WEBHOOK_ENDPOINT_SECRET;
@@ -34,7 +34,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       /* 🚨 IMPORTANT 🚨 */
       // You probably want to store this in your backend
       // made a simple file based storage for demo purposes
-      storage.set(session.client_reference_id, PAID_COOKIE_TITLE, true);
+      storage.set(session.client_reference_id, PAYMENT_STORAGE_KEY, true);
     }
 
     res.json({ received: true });
