@@ -33,9 +33,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     } catch (err) {
       res
         .status(400)
-        .send(
-          `Webhook Error: ${(err as unknown as { message: string }).message}`
-        );
+        .send(`Webhook Error: ${err instanceof Error ? err.message : err}`);
       return;
     }
 
