@@ -6,7 +6,9 @@ import Stripe from "stripe";
 
 export const PAYMENT_STORAGE_KEY = "paid-for-[miro-integration-name]";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
+  apiVersion: "2022-11-15",
+});
 const webhookSecret = process.env.STRIPE_WEBHOOK_ENDPOINT_SECRET;
 
 export const config = {
