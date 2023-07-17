@@ -30,7 +30,7 @@ This app has a paywall for a payed feature. To enable the payed feature, users n
 _For development only, do **not** use this storage solution in production_:
 
 ```
-touch store.json && echo '{}' > store.json'
+touch store.json && echo '{}' > store.json
 ```
 
 Run `npm start` to start developing.
