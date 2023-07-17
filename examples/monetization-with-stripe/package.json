@@ -1,6 +1,6 @@
 {
   "name": "monetization-with-stripe",
-  "description": "Add a paywall to your app by adding a Stripe integration",
+  "description": "Add monetization to your app by integrating with Stripe",
   "version": "0.1.0",
   "keywords": ["Next.js", "Miro SDK", "Stripe", "TypeScript"],
   "license": "MIT",
