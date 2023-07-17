@@ -3,13 +3,14 @@ import { storage } from "../../utils/storage";
 import { NextApiRequest, NextApiResponse } from "next";
 
 import Stripe from "stripe";
+import { ExternalUserId } from "@mirohq/miro-api";
 
 export const PAYMENT_STORAGE_KEY = "paid-for-[miro-integration-name]";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
   apiVersion: "2022-11-15",
 });
-const webhookSecret = process.env.STRIPE_WEBHOOK_ENDPOINT_SECRET;
+const webhookSecret = process.env.STRIPE_WEBHOOK_ENDPOINT_SECRET as string;
 
 export const config = {
   api: {
@@ -24,9 +25,17 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     let stripeEvent;
     try {
-      stripeEvent = stripe.webhooks.constructEvent(buf, sig, webhookSecret);
+      stripeEvent = stripe.webhooks.constructEvent(
+        buf,
+        sig || "",
+        webhookSecret
+      );
     } catch (err) {
-      res.status(400).send(`Webhook Error: ${err.message}`);
+      res
+        .status(400)
+        .send(
+          `Webhook Error: ${(err as unknown as { message: string }).message}`
+        );
       return;
     }
 
@@ -36,7 +45,12 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       /* 🚨 IMPORTANT 🚨 */
       // You probably want to store this in your backend
       // made a simple file based storage for demo purposes
-      storage.set(session.client_reference_id, PAYMENT_STORAGE_KEY, true);
+      await storage.set(
+        (session as { client_reference_id: ExternalUserId })
+          .client_reference_id,
+        PAYMENT_STORAGE_KEY,
+        "true"
+      );
     }
 
     res.json({ received: true });

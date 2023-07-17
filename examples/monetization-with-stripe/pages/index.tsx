@@ -10,7 +10,7 @@ import { GenerallyAvailableFeature } from "../components/GenerallyAvailableFeatu
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   const { userId, miro } = initMiro(req);
 
-  const hasPaid = (await storage.get(userId))?.[PAYMENT_STORAGE_KEY] || null;
+  const hasPaid = (await storage.get(userId))?.[PAYMENT_STORAGE_KEY] || false;
 
   // redirect to auth url if user has not authorized the app
   if (!(await miro.isAuthorized(userId))) {
@@ -22,7 +22,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     };
   }
 
-  return { props: { userId, hasPaid } };
+  return { props: { userId, hasPaid: hasPaid === "true" } };
 };
 
 export default function Page({
