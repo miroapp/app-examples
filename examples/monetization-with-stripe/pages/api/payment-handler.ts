@@ -1,5 +1,5 @@
 import { buffer } from "micro";
-import { storage } from "utils/storage";
+import { storage } from "../../utils/storage";
 import { NextApiRequest, NextApiResponse } from "next";
 
 import Stripe from "stripe";

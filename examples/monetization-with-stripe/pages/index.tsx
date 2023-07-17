@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
 import initMiro from "../initMiro";
 import { GetServerSideProps } from "next";
-import { storage } from "utils/storage";
-import { PAYMENT_STORAGE_KEY } from "pages/api/payment-handler";
-import { PaidFeature } from "components/PaidFeature";
-import { PaywallNotice } from "components/PaywallNotice";
-import { GenerallyAvailableFeature } from "components/GenerallyAvailableFeature";
+import { storage } from "../utils/storage";
+import { PAYMENT_STORAGE_KEY } from "./api/payment-handler";
+import { PaidFeature } from "../components/PaidFeature";
+import { PaywallNotice } from "../components/PaywallNotice";
+import { GenerallyAvailableFeature } from "../components/GenerallyAvailableFeature";
 
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   const { userId, miro } = initMiro(req);
