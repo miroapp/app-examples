@@ -66,12 +66,13 @@ npx create-miro-app@latest
 
 ### Full-stack apps
 
-|                                                       | Description                                                                                                                               |
-| ----------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| [github-appcards](examples/github-appcards)           | This full-stack example shows how to build an integration with GitHub that syncs data between GitHub issues and Miro app cards.           |
-| [plant-uml](https://github.com/miroapp/miro-plantuml) | This full-stack example shows how to import [Plant UML](https://plantuml.com/) diagrams into Miro as editable board items.                |
-| [nextjs](examples/nextjs-full-stack)                  | This full-stack example shows a Next.js application that uploads a camera image to the Miro board using Web SDK and REST API integration. |
-| [webhooks-manager](examples/webhooks-manager/)        | This full-stack example demonstrates how to interact with the webhooks API, and how to handle the webhooks challenge.                     |
+|                                                               | Description                                                                                                                               |
+| ------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| [monetization-with-stripe](examples/monetization-with-stripe) | This full-stack example shows how use Stripe to add a paywall for certain features in your app.                                           |
+| [github-appcards](examples/github-appcards)                   | This full-stack example shows how to build an integration with GitHub that syncs data between GitHub issues and Miro app cards.           |
+| [plant-uml](https://github.com/miroapp/miro-plantuml)         | This full-stack example shows how to import [Plant UML](https://plantuml.com/) diagrams into Miro as editable board items.                |
+| [nextjs](examples/nextjs-full-stack)                          | This full-stack example shows a Next.js application that uploads a camera image to the Miro board using Web SDK and REST API integration. |
+| [webhooks-manager](examples/webhooks-manager/)                | This full-stack example demonstrates how to interact with the webhooks API, and how to handle the webhooks challenge.                     |
 
 <p>&nbsp;</p>
 
