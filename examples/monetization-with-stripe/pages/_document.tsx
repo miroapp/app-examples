@@ -9,6 +9,7 @@ export default function Document() {
           href="https://unpkg.com/mirotone/dist/styles.css"
         ></link>
         <script src="https://miro.com/app/static/sdk/v2/miro.js" />
+        <title>Monetization with Stripe</title>
       </Head>
       <body>
         <Main />
