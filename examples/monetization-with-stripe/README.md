@@ -20,16 +20,28 @@ This app has a paywall for a payed feature. To enable the payed feature, users n
 2. Create a [payment link](https://dashboard.stripe.com/test/payment-links)
 3. Update the link in the [PaywallNotice component](./components/PaywallNotice.tsx)
 4. Add your [API keys](https://dashboard.stripe.com/apikeys) to the [.env file](.env)
+5. For development, in your terminal:
+   1. `stripe login`
+   2. `stripe listen --forward-to localhost:3000/api/payment-handler`
+   3. Copy the webhook signing secret from console output
+
+### Local development setup
+
+_For development only, do **not** use this storage solution in production_:
+
+```
+touch store.json && echo '{}' > store.json'
+```
 
 Run `npm start` to start developing.
 
-When your server is up and running:
+### When your server is up and running:
 
 - Go to [the dashboard on Miro.com](https://miro.com/app/dashboard).
 - In the left-hand team selector, select your developer team and open any board, or create a new one.
 - To start your app, click the app icon in the app toolbar on the left.
 
-### Stripe test card
+#### Stripe test card
 
 **CC**: `4242 4242 4242 4242`\
 **Date**: Any valid date\
