@@ -1,6 +1,7 @@
 {
   "name": "miro-mindmap-importer",
   "version": "0.1.0",
+  "description": "Import data from CSV and create mind map on a Miro board",
   "keywords": [
     "Mirotone",
     "React",

@@ -36,6 +36,7 @@ npx create-miro-app@latest
 
 |                                                         | Description                                                                                                                                        |
 | ------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [csv-to-mindmap](examples/csv-to-mindmap)               | Import data from CSV and create mind map on a Miro board                                                                                           |
 | [drag-and-drop](examples/drag-and-drop)                 | This example shows you how to drag and drop images from your app onto the board.                                                                   |
 | [asset-search](examples/asset-search)                   | This example shows you how to filter and search through assets by name and/or multiple tags.                                                       |
 | [digital-asset-manager](examples/digital-asset-manager) | This example shows you how to build a digital asset manager using Bynder's API.                                                                    |
@@ -69,6 +70,7 @@ npx create-miro-app@latest
 |                                                               | Description                                                                                                                               |
 | ------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
 | [monetization-with-stripe](examples/monetization-with-stripe) | This full-stack example shows how use Stripe to add a paywall for certain features in your app.                                           |
+| [html-preview](examples/html-preview/)                        | Use the Miro API to generate HTML pages from Miro boards. Each frame on the board produces an HTML page.                                  |
 | [github-appcards](examples/github-appcards)                   | This full-stack example shows how to build an integration with GitHub that syncs data between GitHub issues and Miro app cards.           |
 | [plant-uml](https://github.com/miroapp/miro-plantuml)         | This full-stack example shows how to import [Plant UML](https://plantuml.com/) diagrams into Miro as editable board items.                |
 | [nextjs](examples/nextjs-full-stack)                          | This full-stack example shows a Next.js application that uploads a camera image to the Miro board using Web SDK and REST API integration. |
