@@ -23,7 +23,7 @@ export default function initMiro(
   
   try {
     userId = JSON.parse(request.cookies[tokensCookie] || "null")?.userId
-  } catch {
+  } catch (e) { 
     userId = null
   }
 
