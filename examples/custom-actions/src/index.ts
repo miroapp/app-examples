@@ -127,6 +127,10 @@ export async function init() {
     const voting = await miro.board.experimental.getVotingResults();
     const boardInfo = await miro.board.getInfo();
 
+    if (!voting.length) {
+      await miro.board.notifications.showInfo("No voting results available");
+    }
+
     const votingWithResults = voting.filter((v) => v.results.length > 0);
     const [parent] = props.items as Frame[];
 
