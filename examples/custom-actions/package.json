@@ -2,6 +2,7 @@
   "name": "custom-actions",
   "version": "0.1.0",
   "license": "MIT",
+  "description": "This example shows you how to register custom actions in the item context menu. This app uses the Miro Web SDK and Vite.",
   "scripts": {
     "start": "vite",
     "build": "vite build",
