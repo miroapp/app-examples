@@ -47,6 +47,7 @@ npx create-miro-app@latest
 | [wordle](examples/wordle)                               | This example shows you how to create a Wordle-like game using the Miro Web SDK.                                                                    |
 | [blob-maker](examples/blob-maker)                       | This example shows you how to create a drag and drop blobmaker using Miro's Web SDK.                                                               |
 | [youtube-room](examples/youtube-room)                   | This example shows you how to sync a YouTube player across multiple users through Socket.IO.                                                       |
+| [custom-actions](examples/custom-actions)               | This example shows you how register [custom actions](https://developers.miro.com/docs/add-custom-actions-to-your-app) in the item context menu.    |
 
 <p>&nbsp;</p>
 
