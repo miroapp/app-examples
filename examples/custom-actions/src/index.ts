@@ -7,10 +7,6 @@ const actionHandler = (action: string) => async (props: CustomEvent) => {
 };
 
 export async function init() {
-  miro.board.ui.on("icon:click", async () => {
-    await miro.board.ui.openPanel({ url: "app.html" });
-  });
-
   await miro.board.ui.on(
     "custom:translate-content",
     actionHandler("translate-content")
@@ -36,7 +32,6 @@ export async function init() {
       },
       position: 1,
     },
-    scope: "local",
     predicate: {
       $or: [
         // Matching multiple types
@@ -82,9 +77,6 @@ export async function init() {
         },
       ],
     },
-    contexts: {
-      item: {},
-    },
   };
 
   await miro.board.ui.on("custom:active-action", (props: CustomEvent) => {
@@ -102,7 +94,6 @@ export async function init() {
       description: "Set card to active",
       position: 1,
     },
-    scope: "local",
     predicate: {
       type: "card",
       $or: [
@@ -126,7 +117,6 @@ export async function init() {
       description: "Set card to inactive",
       position: 1,
     },
-    scope: "local",
     predicate: {
       type: "card",
       "metadata.status": "active",
@@ -197,8 +187,8 @@ export async function init() {
 
   await miro.board.experimental.action.register(activeAction);
   await miro.board.experimental.action.register(inactiveAction);
-  // await miro.board.experimental.action.register(translateAction);
-  // await miro.board.experimental.action.register(votingResults);
+  await miro.board.experimental.action.register(translateAction);
+  await miro.board.experimental.action.register(votingResults);
 }
 
 init();
