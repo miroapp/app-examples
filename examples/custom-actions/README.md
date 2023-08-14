@@ -1,13 +1,15 @@
 ## Custom Actions
 
-Custom actions are a quick way to get one or more tasks done with your apps. Users can launch a custom action associated with your app through the context menu of a board item. 
+Custom actions are a quick way to get one or more tasks done with your apps. Users can launch a custom action associated with your app through the context menu of a board item.
 
 View our guide on implementing custom actions to quickly get up to speed on use cases, examples, and prerequisites.
-* [Guide: Add custom actions to your app](https://developers.miro.com/docs/add-custom-actions-to-your-app)
+
+- [Guide: Add custom actions to your app](https://developers.miro.com/docs/add-custom-actions-to-your-app)
 
 **Important**:
 Custom actions are only supported for **non-public apps** that will be distributed privately via a shareable authorization link from your App Settings page. This means that apps built with custom actions will **not** be eligible for distribution via the Miro Marketplace.
-***
+
+---
 
 **&nbsp;ℹ&nbsp;Note**:
 
