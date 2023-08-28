@@ -4,6 +4,8 @@ This app allows you to create a calendar consisting of shapes and text for the g
 
 # 👨🏻‍💻 App Demo
 
+![calendar-app](https://github.com/miroapp/app-examples/assets/10428517/f7de181b-8a28-4fa3-9d99-9b0a37dbef83)
+
 # 📒 Table of Contents
 
 - [Included Features](#features)
