@@ -60,7 +60,7 @@ This app allows you to create a calendar consisting of shapes and text for the g
      - `boards:read`
      - `boards:write`
 
-4. Go back to your app home page, and under the `Permissions` section, you will see a blue button that says `Install app and get OAuth token`. Click that button. Then click on `Add` as shown in the video below.
+4. Go back to your app home page, and under the `Permissions` section, you will see a blue button that says `Install app and get OAuth token`. Click that button. Then click on `Add` as shown in the video below. <b>In the video we install a different app, but the process is the same regardless of the app.</b>
 
 > ⚠️ We recommend to install your app on a [developer team](https://developers.miro.com/docs/create-a-developer-team) while you are developing or testing apps.⚠️
 
@@ -68,7 +68,7 @@ https://github.com/horeaporutiu/app-examples-template/assets/10428517/456108e8-7
 
 5. Go to your developer team, and open your boards. <b>Refresh your browser</b>.
 6. Click on the plus icon from the bottom section of your left sidebar. If you hover over it, it will say `More apps`.
-7. Search for your app `Drag and drop` or whatever you chose to name it. Click on your app to use it, as shown in the video below.
+7. Search for your app `Calendar` or whatever you chose to name it. Click on your app to use it, as shown in the video below. <b>In the video we search for a different app, but the process is the same regardless of the app.</b>
 
 https://github.com/horeaporutiu/app-examples-template/assets/10428517/b23d9c4c-e785-43f9-a72e-fa5d82c7b019
 
