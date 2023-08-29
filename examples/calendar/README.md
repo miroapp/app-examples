@@ -1,4 +1,4 @@
-# Miro calendar app
+# Miro Calendar App
 
 This app allows you to create a calendar consisting of shapes and text for the given month and year you’ve selected.
 
@@ -79,8 +79,9 @@ https://github.com/horeaporutiu/app-examples-template/assets/10428517/b23d9c4c-e
 ├── src
 │  └── styles
 │      └── style.css <-- CSS styles for the app.
-│  └── App.tsx <-- The main app. Contains structure for the sidebar when launched. This file also contains logic for fetching images from [The Noun Project](https://thenounproject.com/).
-│      main.tsx <-- Initializes app, and contains logic for dropping image onto the board.
+│  └── App.tsx <-- The main app. Contains structure for the sidebar when launched.
+│      main.tsx <-- Initializes app.
+│      useCalendar.ts <-- Functions to generate a calendar.
 ├── app.html <-- The app itself. This is loaded on the board inside the 'appContainer'.
 └── index.html <-- The app entry point. This is the value you assign to 'sdkUri' in the app manifest file.
 ```

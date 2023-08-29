@@ -1,4 +1,4 @@
-# Miro Template Builder app
+# Miro Template Builder App
 
 This app shows how you can create a template with shape and text items on the board.
 

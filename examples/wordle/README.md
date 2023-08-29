@@ -1,4 +1,4 @@
-# Miro Wordle app
+# Miro Wordle App
 
 This app shows you how to build Wordle on a Miro board by creating sticky notes with the relevant colors.
 
@@ -75,12 +75,19 @@ https://github.com/horeaporutiu/app-examples-template/assets/10428517/b23d9c4c-e
 ```
 .
 ├── src
-│  ├── assets
-│  │  └── style.css
-│  ├── app.js      // The code for the app lives here.
-│  └── index.js    // The code for the app entry point lives here.
-├── app.html       // The app itself. It's loaded on the board inside the 'appContainer'.
-└── index.html     // The app entry point. This is the value you assign to 'sdkUri' in the app manifest file.
+│  └── styles
+│      └── style.css <-- CSS styles for the app.
+│  └── App.tsx <-- The main app. Contains structure for the sidebar when launched.
+│      main.tsx <-- Initializes the git app.
+│      └── lib
+│         └── board.ts <-- Methods to create and update content on Miro's board.
+│         └── word.ts <-- Methods to select word for the game and
+check game statuses.
+│      └── constants
+│         └── validGuesses.ts <-- List of words that can be guesses in the game.
+│         └── wordList.ts <-- List of words to pick from in the game.
+├── app.html <-- The app itself. This is loaded on the board inside the 'appContainer'.
+└── index.html <-- The app entry point. This is the value you assign to 'sdkUri' in the app manifest file.
 ```
 
 # 🫱🏻‍🫲🏽 Contributing <a name="contributing"></a>

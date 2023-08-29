@@ -1,4 +1,4 @@
-# Miro CSV to Mind Map app
+# Miro CSV to Mind Map App
 
 This app shows how to import data from a CSV file and create a mind map on a Miro board.
 
@@ -77,12 +77,14 @@ https://github.com/horeaporutiu/app-examples-template/assets/10428517/b23d9c4c-e
 ```
 .
 ├── src
-│  └── styles
-│      └── style.css <-- CSS styles for the app.
-│  └── App.tsx <-- The main app. Contains structure for the sidebar when launched. This file also contains logic for fetching images from [The Noun Project](https://thenounproject.com/).
-│      main.tsx <-- Initializes app, and contains logic for dropping image onto the board.
-├── app.html <-- The app itself. This is loaded on the board inside the 'appContainer'.
-└── index.html <-- The app entry point. This is the value you assign to 'sdkUri' in the app manifest file.
+|  ├── example-data // Example CSV data
+│  ├── assets
+│  │  └── style.css
+│  ├── app.tsx     // The code for the app lives here
+│  ├── index.ts    // The code for the app entry point lives here
+│  └── utils.ts    // Utilities for loading CSV files
+├── app.html       // The app itself. It's loaded on the board inside the 'appContainer'
+└── index.html     // The app entry point. This is what you specify in the 'App URL' box in the Miro app settings
 ```
 
 # 🫱🏻‍🫲🏽 Contributing <a name="contributing"></a>

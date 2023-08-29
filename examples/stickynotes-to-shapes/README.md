@@ -1,4 +1,4 @@
-# Miro Sticky notes to Shapes app
+# Miro Sticky Notes to Shapes App
 
 This app shows how you can select items on the board, and then click the app icon to change the selected sticky notes into shapes.
 
@@ -78,11 +78,7 @@ https://github.com/horeaporutiu/app-examples-template/assets/10428517/b23d9c4c-e
 ```
 .
 ├── src
-│  └── styles
-│      └── style.css <-- CSS styles for the app.
-│  └── App.tsx <-- The main app. Contains structure for the sidebar when launched. This file also contains logic for fetching images from [The Noun Project](https://thenounproject.com/).
-│      main.tsx <-- Initializes app, and contains logic for dropping image onto the board.
-├── app.html <-- The app itself. This is loaded on the board inside the 'appContainer'.
+│  └── index.js <-- The code for the entry point lives here. For this app, all the logic is contained here.
 └── index.html <-- The app entry point. This is the value you assign to 'sdkUri' in the app manifest file.
 ```
 

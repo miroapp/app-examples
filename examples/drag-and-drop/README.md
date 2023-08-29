@@ -1,4 +1,4 @@
-# Miro drag and drop app
+# Miro Drag and Drop App
 
 This app shows how to implement image drag and drop to a Miro board.
 
