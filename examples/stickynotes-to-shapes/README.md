@@ -2,9 +2,9 @@
 
 This app shows how you can select items on the board, and then click the app icon to change the selected sticky notes into shapes.
 
-![sticky-notes-to-shapes-demo](https://github.com/miroapp/app-examples/assets/10428517/0cadc9a1-6e17-48ac-aecf-fbfe34e27f0f)
-
 # 👨🏻‍💻 App Demo
+
+![sticky-notes-to-shapes-demo](https://github.com/miroapp/app-examples/assets/10428517/0cadc9a1-6e17-48ac-aecf-fbfe34e27f0f)
 
 # 📒 Table of Contents
 
