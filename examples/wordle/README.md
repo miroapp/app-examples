@@ -4,6 +4,8 @@ This app shows you how to build Wordle on a Miro board by creating sticky notes 
 
 # 👨🏻‍💻 App Demo
 
+https://github.com/miroapp/app-examples/assets/10428517/56fe0932-2608-47ae-9e08-4919c788e90a
+
 # 📒 Table of Contents
 
 - [Included Features](#features)
