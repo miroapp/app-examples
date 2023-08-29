@@ -20,8 +20,8 @@ This app shows how you can select items on the board, and then click the app ico
 # ⚙️ Included Features <a name="features"></a>
 
 - [Miro Web SDK](https://developers.miro.com/docs/web-sdk-reference)
-  - [getSelection()](https://developers.miro.com/docs/experimental_experimental#getselection)
-  - [remove()](https://developers.miro.com/docs/experimental_experimental#remove)
+  - [getSelection()](https://developers.miro.com/docs/board_board#getselection)
+  - [remove()](https://developers.miro.com/docs/board_board#remove)
   - [createShape()](https://developers.miro.com/docs/board_board#createshape)
 
 # 🛠️ Tools and Technologies <a name="tools"></a>
@@ -65,7 +65,7 @@ This app shows how you can select items on the board, and then click the app ico
 
 > ⚠️ We recommend to install your app on a [developer team](https://developers.miro.com/docs/create-a-developer-team) while you are developing or testing apps.⚠️
 
-https://github.com/horeaporutiu/app-examples-template/assets/10428517/456108e8-7d9b-4067-94bb-e5511c736a23
+https://github.com/miroapp/app-examples/assets/10428517/1e6862de-8617-46ef-b265-97ff1cbfe8bf
 
 5. Go to your developer team, and open your boards. <b>Refresh your browser</b>.
 6. Click on the plus icon from the bottom section of your left sidebar. If you hover over it, it will say `More apps`.
