@@ -4,6 +4,8 @@ This app shows how to import data from a CSV file and create a mind map on a Mir
 
 # 👨🏻‍💻 App Demo
 
+![csv-to-mindmap-demo](https://github.com/miroapp/app-examples/assets/10428517/9bc2274f-11f0-4974-973d-eb97da2ddea1)
+
 # 📒 Table of Contents
 
 - [Included Features](#features)
