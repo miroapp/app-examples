@@ -4,6 +4,8 @@ This app shows how you can create a template with shape and text items on the bo
 
 # 👨🏻‍💻 App Demo
 
+https://github.com/miroapp/app-examples/assets/10428517/ed1aeac3-3ce2-4783-a9cc-6ba2d00fafb8
+
 # 📒 Table of Contents
 
 - [Included Features](#features)
