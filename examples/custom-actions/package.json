@@ -9,6 +9,7 @@
     "serve": "vite preview"
   },
   "dependencies": {
+    "@mirohq/websdk-types": "^2.9.3",
     "mirotone": "5"
   },
   "devDependencies": {
