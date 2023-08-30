@@ -455,10 +455,10 @@
   dependencies:
     typescript "4.6.3"
 
-"@mirohq/websdk-types@^2.9.3":
-  version "2.9.3"
-  resolved "https://registry.yarnpkg.com/@mirohq/websdk-types/-/websdk-types-2.9.3.tgz#36fe2402357d3fbdcd1ab5eea5841dc5e776beb1"
-  integrity sha512-hl1b6DvGt3jStP2j3ZSJIuaEPIp4qTmFSHxBwkrvOpsdpjvr7PjYQmJL3rEwIw1LxbOAKxPo3wig9RRQMg7CRA==
+"@mirohq/websdk-types@^2.9.4":
+  version "2.9.4"
+  resolved "https://registry.yarnpkg.com/@mirohq/websdk-types/-/websdk-types-2.9.4.tgz#26b7ae08a291e94dddeab83e6f295f76757485f2"
+  integrity sha512-a+YnL1QitB2E1/qeO8ATKQdq/684e4thhgefM7SI0gxqTUtP2YiQgupnyCO3n2cb072x76xRgdDVTJXKvcVp+A==
   dependencies:
     typescript ">=4.6.3 || ~5"
 
