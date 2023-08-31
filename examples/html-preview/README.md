@@ -50,8 +50,8 @@ https://github.com/miroapp/app-examples/assets/10428517/6b3c90d6-06f0-4dc7-adb3-
    look something like this:
 
 ```
-MIRO_CLIENT_ID=34587644256670555909
-MIRO_CLIENT_SECRET=xZW7TzBpZIabccegACFBTQql9v9YtaM9
+MIRO_CLIENT_ID=12345678910
+MIRO_CLIENT_SECRET=abcdefghizklmnop12345678910
 MIRO_REDIRECT_URL=http://localhost:3000/api/redirect/
 ```
 
