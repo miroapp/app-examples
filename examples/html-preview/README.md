@@ -1,4 +1,4 @@
-# Miro Drag and Drop App
+# Miro HTML Preview App
 
 This app shows how to use the Miro REST API to generate HTML pages from Miro boards. This enables creating multi-page website mockups quickly.
 
