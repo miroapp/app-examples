@@ -7,7 +7,6 @@ This app shows how to use the Miro REST API to generate HTML pages from Miro boa
 https://github.com/miroapp/app-examples/assets/10428517/6b3c90d6-06f0-4dc7-adb3-b7b3c115da84
 
 > The initial screen prompts you to connect your Miro account. After signing in, you can see the list of boards under your team.
-
 > To view a specific frame, use its title in the URL. In the app, URLs are in the following format: /{boardId}/{frameTitle}.
 
 # 📒 Table of Contents
