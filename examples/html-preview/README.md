@@ -1,50 +1,118 @@
-## Render Miro board as HTML
+# Miro HTML Preview App
 
-**&nbsp;ℹ&nbsp;Note**:
+This app shows how to use the Miro REST API to generate HTML pages from Miro boards. This enables creating multi-page website mockups quickly.
 
-- We recommend a Chromium-based web browser for local development with HTTP. \
-  Safari enforces HTTPS; therefore, it doesn't allow localhost through HTTP.
-- All examples use `npm` as a package manager and `npx` as a package runner. \
-  If you prefer, you can install and use equivalent alternatives, such as `yarn` or `pnpm`.
-- For more information, visit our [developer documentation](https://developers.miro.com).
+# 👨🏻‍💻 App Demo
 
-### How to use the app
+https://github.com/miroapp/app-examples/assets/10428517/6b3c90d6-06f0-4dc7-adb3-b7b3c115da84
 
-This app shows how to use the Miro API to generate HTML pages from Miro boards. This enables creating multi-page website mockups quickly.
+> The initial screen prompts you to connect your Miro account. After signing in, you can see the list of boards under your team.
+> To view a specific frame, use its title in the URL. In the app, URLs are in the following format: /{boardId}/{frameTitle}.
 
-The initial screen prompts you to connect your Miro account. After signing in, you can see the list of boards under your team.
+# 📒 Table of Contents
 
-On the board, each frame represents an HTML page. To view a specific frame, use its title in the URL. \
-By default, either a frame named `index`, or the first created frame are used. \
-In the app, URLs are in the following format: `/{boardId}/{frameTitle}`.
+- [Included Features](#features)
+- [Tools and Technologies](#tools)
+- [Prerequisites](#prerequisites)
+- [Run the app locally](#run)
+- [Folder Structure](#folder)
+- [Contributing](#contributing)
+- [License](#license)
 
-You can use [connectors](https://developers.miro.com/docs/connector_intro) to link items from one frame to items in a different frame. This generates HTML links to the page containing the target item.
+# ⚙️ Included Features <a name="features"></a>
 
-### How to start locally
+- [Miro Node.js Client](https://developers.miro.com/docs/web-sdk-reference)
+  - [api.getAllBoards](https://miroapp.github.io/api-clients/classes/index._internal_.Api.html#getAllBoards)
+  - [board.getAllItems()](https://miroapp.github.io/api-clients/classes/index.Board.html#getAllItems)
+  - [board.getAllConnectors()](https://miroapp.github.io/api-clients/classes/index.Board.html#getAllConnectors)
+  - [board.getShapeItem()](https://miroapp.github.io/api-clients/classes/index.Board.html#getShapeItem)
+  - [board.getTextItem](https://miroapp.github.io/api-clients/classes/index.Board.html#getTextItem)
+  - [board.getStickyNoteItem](https://miroapp.github.io/api-clients/classes/index.Board.html#getStickyNoteItem)
+  - [board.getItem](https://miroapp.github.io/api-clients/classes/index.Board.html#getItem)
 
-1. [Sign in](https://miro.com/login/) to Miro, and then create a
-   [Developer team](https://developers.miro.com/docs/create-a-developer-team)
-   under your user account.
-2. [Create and configure an app in Miro](https://developers.miro.com/docs/manually-create-an-app).
-3. Configure the app:
-   - In your account profile, go to **Your apps**, and then select the app you just created to access its configuration page.
-   - On the app configuration page, go to **App Credentials**, and copy the app **Client ID** and **Client secret** values: you'll need to enter these values in step 4 below.
-   - Open the [app manifest editor](https://developers.miro.com/docs/manually-create-an-app#step-2-configure-your-app-in-miro) by clicking **Edit in Manifest**. \
-     In the app manifest editor, configure the app as follows:
-     - [`sdkUri`](https://developers.miro.com/docs/app-manifest#sdkuri): assign `http://localhost:3000` as a value for this property. \
-       It defines the entry point of the app, and it corresponds to the URL of the server that the app runs on.
-     - [`redirectUris`](https://developers.miro.com/docs/app-manifest#redirecturis) and [`redirectUriForSdk`](https://developers.miro.com/docs/app-manifest#redirecturiforsdk): assign `http://localhost:3000/api/redirect/` as a value for these properties. \
-       The [redirect URI](https://developers.miro.com/reference/ne-create-authorization-request-link) points to the page that you intend to load after a successful user authorization.
-     - [`scopes`](https://developers.miro.com/docs/app-manifest#scopes): add the permission scopes that users need to grant the app when they install it. \
-       To enable the app to read from and write to the board, add the following permissions:
-       - `boards:read`
-       - `boards:write`
-4. Open the [`.env`](.env) file, and enter the app client ID and client secret
-   values that you saved at the beginning of step 3 above.
-5. Run `npm start` to start developing.
+# 🛠️ Tools and Technologies <a name="tools"></a>
 
-When your server is up and running:
+- [React](https://react.dev/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Next.js](https://nextjs.org/)
 
-- Go to [Miro.com](https://miro.com).
-- In your developer team, open a board.
-- To start your app, click the app icon in the app toolbar on the left.
+# ✅ Prerequisites <a name="prerequisites"></a>
+
+- You have a [Miro account](https://miro.com/signup/).
+- You're [signed in to Miro](https://miro.com/login/).
+- Your Miro account has a [Developer team](https://developers.miro.com/docs/create-a-developer-team).
+- Your development environment includes [Node.js 14.13](https://nodejs.org/en/download) or a later version.
+- All examples use `npm` as a package manager and `npx` as a package runner.
+
+# 🏃🏽‍♂️ Run the app locally <a name="run"></a>
+
+1. Rename the `.sample.env` file to `.env` and then add in your environmental variables. Once completed your `.env` file should
+   look something like this:
+
+```
+MIRO_CLIENT_ID=12345678910
+MIRO_CLIENT_SECRET=abcdefghizklmnop12345678910
+MIRO_REDIRECT_URL=http://localhost:3000/api/redirect/
+```
+
+2. Run `npm install` to install dependencies.
+3. Run `npm start` to start developing. \
+   Your URL should be similar to this example:
+   ```
+   http://localhost:3000
+   ```
+4. Open the [app manifest editor](https://developers.miro.com/docs/manually-create-an-app#step-2-configure-your-app-in-miro) by clicking **Edit in Manifest**. \
+   In the app manifest editor, configure the app as follows:
+
+   - [`sdkUri`](https://developers.miro.com/docs/app-manifest#sdkuri): assign `http://localhost:3000` as a value for this property. \
+   - [`redirectUris`](https://developers.miro.com/docs/app-manifest?utm_source=app_manifest_editor#redirecturis): assign `http://localhost:3000/api/redirect/` as a value for this property. \
+   - [`redirectUriForSdk`](https://developers.miro.com/docs/app-manifest?utm_source=app_manifest_editor#redirecturiforsdk): assign `http://localhost:3000/api/redirect/` as a value for this property. \
+     It defines the entry point of the app, and it corresponds to the URL of the server that the app runs on.
+   - [`scopes`](https://developers.miro.com/docs/app-manifest#scopes): add the permission scopes that users need to grant the app when they install it. \
+     To enable the app to read from and write to the board, add the following permissions:
+     - `boards:read`
+     - `boards:write`
+
+5. Go back to your app home page, and under the `Permissions` section, you will see a blue button that says `Install app and get OAuth token`. Click that button. Then click on `Add` as shown in the video below.
+
+> ⚠️ We recommend to install your app on a [developer team](https://developers.miro.com/docs/create-a-developer-team) while you are developing or testing apps.⚠️
+
+https://github.com/miroapp/app-examples/assets/10428517/1e6862de-8617-46ef-b265-97ff1cbfe8bf
+
+6. Go to your developer team, and open your boards. <b>Refresh your browser</b>.
+7. Click on the plus icon from the bottom section of your left sidebar. If you hover over it, it will say `More apps`.
+8. Search for your app `HTML Preview App` or whatever you chose to name it. Click on your app to use it, as shown in the video below.
+
+https://github.com/horeaporutiu/app-examples-template/assets/10428517/b23d9c4c-e785-43f9-a72e-fa5d82c7b019
+
+# 🗂️ Folder structure <a name="folder"></a>
+
+```
+.
+│  └── lib
+|      └── components
+|          └── BoardItem.tsx <-- React file with some styling for items.
+|          └── Link.tsx <-- React file for parsing and styling links on a board.
+|      └── data.ts <-- main logic for the app using Node Client methods to get items on the board.
+|      └── item.ts <-- interface used by data.ts.
+│  └── pages
+│      _app.tsx <-- Initializes React app.
+│      _document.tsx <-- Initializes Next.js app.
+│      index.tsx <-- Main logic for React app including authorization + app instructions.
+│      └── api
+│          └── redirect.ts <-- logic to handle redirect URL + OAuth flow.
+│  └── public
+│      └── favicon.ico <-- Icon for the web app.
+│  └── styles
+│      └── globals.css <-- CSS styles for the app.
+│      main.tsx <-- Initializes app, and contains logic for dropping image onto the board.
+└── initMiro.ts <-- This is where the Node Client is initialized.
+```
+
+# 🫱🏻‍🫲🏽 Contributing <a name="contributing"></a>
+
+If you want to contribute to this example, or any other Miro Open Source project, please review [Miro's contributing guide](https://github.com/miroapp/app-examples/blob/main/CONTRIBUTING.md).
+
+# 🪪 License <a name="license"></a>
+
+[MIT License](https://github.com/miroapp/app-examples/blob/main/LICENSE).
