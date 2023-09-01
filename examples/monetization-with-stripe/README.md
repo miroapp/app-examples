@@ -4,6 +4,8 @@ This app shows how to implement monetization using a paywall with Stripe to ask 
 
 # 👨🏻‍💻 App Demo
 
+https://github.com/miroapp/app-examples/assets/10428517/dde1adbc-9b5c-477c-93cb-45a7d5d3696a
+
 # 📒 Table of Contents
 
 - [Included Features](#features)
@@ -43,7 +45,12 @@ This app shows how to implement monetization using a paywall with Stripe to ask 
 2. Create a [payment link](https://dashboard.stripe.com/test/payment-links). From the `Payment links` page, click on `New`
    in the top right corner. Next, under `Product` click on the text input field add a test product, as shown in the screenshot below.
 
+   ![add-new-product-stripe](https://github.com/miroapp/app-examples/assets/10428517/7603235c-c877-4d19-9f33-226c10ce0fb8)
+
+
 Next, add in details such as the name of the product, a description, and the price of the product. When you are done, click on `Add Product` as shown in the screenshot below.
+
+![add-product-details](https://github.com/miroapp/app-examples/assets/10428517/180fa093-31d8-48ba-836f-8b03c68cedec)
 
 > <b>This is all test data, so you don't have to worry too much about the specifics.</b>
 
