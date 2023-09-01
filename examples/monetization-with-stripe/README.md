@@ -78,10 +78,10 @@ Next, add in details such as the name of the product, a description, and the pri
 4. Open the [app manifest editor](https://developers.miro.com/docs/manually-create-an-app#step-2-configure-your-app-in-miro) by clicking **Edit in Manifest**. \
    In the app manifest editor, configure the app as follows:
 
-   - [`sdkUri`](https://developers.miro.com/docs/app-manifest#sdkuri): assign `http://localhost:3000` as a value for this property. \
-   - [`redirectUris`](https://developers.miro.com/docs/app-manifest?utm_source=app_manifest_editor#redirecturis): assign `http://localhost:3000/api/redirect/` as a value for this property. \
+   - [`sdkUri`](https://developers.miro.com/docs/app-manifest#sdkuri): assign `http://localhost:3000` as a value for this property.
+   - [`redirectUris`](https://developers.miro.com/docs/app-manifest?utm_source=app_manifest_editor#redirecturis): assign `http://localhost:3000/api/redirect/` as a value for this property.
      It defines the entry point of the app, and it corresponds to the URL of the server that the app runs on.
-   - [`scopes`](https://developers.miro.com/docs/app-manifest#scopes): add the permission scopes that users need to grant the app when they install it. \
+   - [`scopes`](https://developers.miro.com/docs/app-manifest#scopes): add the permission scopes that users need to grant the app when they install it.
      To enable the app to read from and write to the board, add the following permissions:
      - `boards:read`
      - `boards:write`
@@ -95,7 +95,7 @@ Next, add in details such as the name of the product, a description, and the pri
 
 https://github.com/miroapp/app-examples/assets/10428517/1e6862de-8617-46ef-b265-97ff1cbfe8bf
 
-7. Go to your developer team, and open your boards. <b>Refresh your browser</b>.
+7. Go to your developer team, and open your boards.
 8. Click on the plus icon from the bottom section of your left sidebar. If you hover over it, it will say `More apps`.
 9. Search for your app `Monetization with Stripe` or whatever you chose to name it. Click on your app to use it, as shown in the video below.
 
