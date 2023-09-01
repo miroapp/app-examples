@@ -1,6 +1,6 @@
 # Monetization with Stripe Miro App
 
-This app shows how to implement monetization using a paywall with Stripe to ask users to pay for a feature. To enable the payed feature, users need to pay a one time payment using Stripe.
+This app shows how to implement monetization using a paywall with Stripe to ask users to make a one time payment for a feature.
 
 # 👨🏻‍💻 App Demo
 
