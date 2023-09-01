@@ -60,6 +60,8 @@ Next, add in details such as the name of the product, a description, and the pri
 
 3. Once you click on `Add Product` it will take you back to the `Payment Links` page, and you should have a new `Link URL` as shown in the screenshot below.
 
+<img width="876" alt="payment-link" src="https://github.com/miroapp/app-examples/assets/10428517/77c095a3-93c9-432e-a21b-766e7b29dc61">
+
 Copy that new link and update it in the [Paywall Component file](https://github.com/miroapp/app-examples/blob/main/examples/monetization-with-stripe/components/PaywallNotice.tsx#L10).
 
 4. For development, in your terminal run the following commands (you will need the [Stripe CLI installed](https://stripe.com/docs/stripe-cli)):
