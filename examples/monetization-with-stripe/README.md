@@ -39,6 +39,11 @@ https://github.com/miroapp/app-examples/assets/10428517/dde1adbc-9b5c-477c-93cb-
 - Your development environment includes [Node.js 14.13](https://nodejs.org/en/download) or a later version.
 - All examples use `npm` as a package manager and `npx` as a package runner.
 
+# 📖 Associated Developer Tutorial <a name="tutorial"></a>
+
+> To view a more in depth developer tutorial
+> of this app (including code explanations) see the [Monetization with Miro and Stripe tutorial](https://developers.miro.com/docs/monetization-with-miro-stripe) on Miro's Developer documentation.
+
 # ✅ Stripe Prerequisites <a name="stripeprerequisites"></a>
 
 1. [Create a account](https://dashboard.stripe.com/register) or [login](https://dashboard.stripe.com/login) on Stripe
@@ -46,7 +51,6 @@ https://github.com/miroapp/app-examples/assets/10428517/dde1adbc-9b5c-477c-93cb-
    in the top right corner. Next, under `Product` click on the text input field add a test product, as shown in the screenshot below.
 
    ![add-new-product-stripe](https://github.com/miroapp/app-examples/assets/10428517/7603235c-c877-4d19-9f33-226c10ce0fb8)
-
 
 Next, add in details such as the name of the product, a description, and the price of the product. When you are done, click on `Add Product` as shown in the screenshot below.
 
