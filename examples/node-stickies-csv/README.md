@@ -4,6 +4,8 @@ This web app shows how to manage stickes using CRUD (create, read, update, delet
 
 # 👨🏻‍💻 App Demo
 
+https://github.com/miroapp/app-examples/assets/10428517/d4f1017c-bcea-42a6-9864-7aa01ddfade9
+
 # 📒 Table of Contents
 
 - [Included Features](#features)
@@ -44,10 +46,12 @@ This web app shows how to manage stickes using CRUD (create, read, update, delet
 
 ```
 MIRO_CLIENT_ID=<YOUR_CLIENT_ID>
-MIRO_CLIENT_SECRET=YOUR_CLIENT_SECRET
+MIRO_CLIENT_SECRET=<YOUR_CLIENT_SECRET>
 MIRO_REDIRECT_URL=http://localhost:8000/authorized
-MIRO_BOARD_ID=MIRO_BOARD_ID
+MIRO_BOARD_ID=<YOUR_MIRO_BOARD_ID>
 ```
+
+> MIRO_BOARD_ID can be found [here](https://community.miro.com/developer-platform-and-apis-57/where-can-i-find-board-id-3154).
 
 2. Run `npm install` to install dependencies.
 3. Run `npm start` to start developing. \
@@ -98,6 +102,7 @@ https://github.com/horeaporutiu/app-examples-template/assets/10428517/b23d9c4c-e
       └── home.hbs <-- main Handlebars file to render universal/root rendering
       └── layouts
             └── main.hbs <-- the Handlebars 'app' itself
+node-stickies-csv-demo-data.csv <-- sample CSV data to create stickies
 ```
 
 # 🫱🏻‍🫲🏽 Contributing <a name="contributing"></a>
