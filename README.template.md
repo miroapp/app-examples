@@ -83,7 +83,7 @@ https://github.com/horeaporutiu/app-examples-template/assets/10428517/b23d9c4c-e
 
 <b>Explain your folder structure so a developer can quickly understand the layout of your code.</b>
 
-It should look something like [this](https://github.com/miroapp/app-examples/tree/main/examples/html-preview#%EF%B8%8F-folder-structure-).
+It should look something like [this](https://github.com/miroapp/app-examples/tree/main/examples/html-preview#folder).
 
 ```
 .
