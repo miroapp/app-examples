@@ -99,3 +99,25 @@ Congratulations! The Miro team is happy to have you contribute.
 Once your PR is merged, your contributions will be publicly visible on the relevant repository.
 
 Now that you are part of the Miro community, make sure to join us in our [Discord](https://bit.ly/miro-developers) as well!
+
+## Contributing to App Examples
+
+If you want to add an app into our [App Examples folder](https://github.com/miroapp/app-examples/tree/main/examples) please
+<b>make sure the README it follows the same structure as our other app examples</b>. You can take a look at [Drag and Drop
+README](https://github.com/miroapp/app-examples/tree/main/examples/drag-and-drop) for example. In order for your app
+example and PR to get approved, please make sure you have the following components in your README:
+
+1. [App title section](https://github.com/miroapp/app-examples/tree/main/examples/drag-and-drop#miro-drag-and-drop-app) with simple 1 line description of what you app example does.
+2. 15-60 second [App Demo section](https://github.com/miroapp/app-examples/tree/main/examples/drag-and-drop#-app-demo). The shorter the better.
+3. [Table of contents section](https://github.com/miroapp/app-examples/tree/main/examples/drag-and-drop#-table-of-contents)
+4. [Included Features section](https://github.com/miroapp/app-examples/tree/main/examples/drag-and-drop#%EF%B8%8F-included-features-), which details which Miro SDK or API methods are used in the example.
+5. [Tools and Technologies section](https://github.com/miroapp/app-examples/tree/main/examples/drag-and-drop#%EF%B8%8F-tools-and-technologies-), which details which any technologies you are using, i.e. Node.js, React.
+6. [Prerequisistes section](https://github.com/miroapp/app-examples/tree/main/examples/drag-and-drop#-prerequisites-), which details any dependencies or additional CLIs that may need to be installed before running the app.
+7. [Run the app section](https://github.com/miroapp/app-examples/tree/main/examples/drag-and-drop#%EF%B8%8F-run-the-app-locally-). This section should go over how to run the app locally. Please be as descriptive as possible to ensure the developer can install
+   and configure your app easily, even if it is their first time using these tools and technologies.
+8. [Folder Structure section](https://github.com/miroapp/app-examples/tree/main/examples/drag-and-drop#%EF%B8%8F-folder-structure-). This section outlines what each file is for in the app so a developer can quickly
+   understand the file layout of your app.
+9. [Contributing section](https://github.com/miroapp/app-examples/tree/main/examples/drag-and-drop#-contributing-). Here you
+   can just link to [Miro's contributing guide](https://github.com/miroapp/app-examples/blob/main/CONTRIBUTING.md).
+10. [License section](https://github.com/miroapp/app-examples/tree/main/examples/drag-and-drop#-license-). This should
+    indicate what license you want to use.
