@@ -1,26 +1,27 @@
 # Miro Custom Actions
+
 Custom actions are a quick way to get one or more tasks done with your apps. Users can launch a custom action associated with your app through the context menu of a board item.
 
 ℹ️ **Important**: Custom actions are only supported for non-public apps that will be distributed privately via a shareable authorization link from your App Settings page. This means that apps built with custom actions will not be eligible for distribution via the Miro Marketplace.
 
 # 👨🏻‍💻 App Demo
+
 https://github.com/miroapp/app-examples/assets/10800544/4cd2c24b-877a-4ac0-a512-4b9b3bb35f1f
 
-
 # 📒 Table of Contents
-* [Included Features](#features)
-* [Tools and Technologies](#tools)
-* [Prerequisites](#prerequisites)
-* [Associated Developer Tutorial](#tutorial)
-* [Run the app locally](#run)
-* [Folder Structure](#folder)
-* [License](#license)
+
+- [Included Features](#features)
+- [Tools and Technologies](#tools)
+- [Prerequisites](#prerequisites)
+- [Associated Developer Tutorial](#tutorial)
+- [Run the app locally](#run)
+- [Folder Structure](#folder)
+- [License](#license)
 
 # ⚙️ Included Features <a name="features"></a>
 
 - [Miro Web SDK](https://developers.miro.com/docs/web-sdk-reference)
 - [Custom Actions](https://developers.miro.com/docs/action_customactionmanagement)
-
 
 # 🛠️ Tools and Technologies <a name="tools"></a>
 
@@ -36,7 +37,7 @@ https://github.com/miroapp/app-examples/assets/10800544/4cd2c24b-877a-4ac0-a512-
 - Your development environment includes [Node.js 14.13](https://nodejs.org/en/download) or a later version.
 - All examples use `npm` as a package manager and `npx` as a package runner.
 - Your app is a private app, and it's **not** publicly available on the [Miro Marketplace](https://miro.com/marketplace).
-Currently, custom actions are available only for private apps.
+  Currently, custom actions are available only for private apps.
 
 # 📖 Associated Developer Tutorial <a name="tutorial"></a>
 

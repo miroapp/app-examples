@@ -1,27 +1,28 @@
 # Miro Webhook Manager
+
 This fullstack app allows you to create Miro webhook subscriptions for boards through a simple UI which can be launched directly from a Miro board.
 
 ℹ️ Subscriptions are created per user, per board. For more details on webhook endpoint requirements, see our [Webhooks documentation](https://developers.miro.com/reference/webhooks-overview).
 
 # 👨🏻‍💻 App Demo
+
 https://github.com/miroapp/app-examples/assets/10800544/eb993044-370d-49de-b9a8-0f23267c30f2
 
-
 # 📒 Table of Contents
-* [Included Features](#features)
-* [Tools and Technologies](#tools)
-* [Prerequisites](#prerequisites)
-* [Associated Developer Tutorial](#tutorial)
-* [Run the app locally](#run)
-* [Folder Structure](#folder)
-* [License](#license)
+
+- [Included Features](#features)
+- [Tools and Technologies](#tools)
+- [Prerequisites](#prerequisites)
+- [Associated Developer Tutorial](#tutorial)
+- [Run the app locally](#run)
+- [Folder Structure](#folder)
+- [License](#license)
 
 # ⚙️ Included Features <a name="features"></a>
 
 - [Miro Web SDK](https://developers.miro.com/docs/web-sdk-reference)
 - [Miro Node.js API Client](https://developers.miro.com/docs/miro-nodejs-api-client)
 - [Miro Webhooks](https://developers.miro.com/reference/webhooks-overview)
-
 
 # 🛠️ Tools and Technologies <a name="tools"></a>
 
