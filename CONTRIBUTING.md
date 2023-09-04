@@ -102,6 +102,9 @@ Now that you are part of the Miro community, make sure to join us in our [Discor
 
 ## Contributing to App Examples
 
+<b>Please look at [README.template.md](https://github.com/miroapp/app-examples/README.template.md)<b> for an example of
+how your README should look in order to contribute to App Examples.
+
 If you want to add an app into our [App Examples folder](https://github.com/miroapp/app-examples/tree/main/examples) please
 <b>make sure the README it follows the same structure as our other app examples</b>. You can take a look at [Drag and Drop
 README](https://github.com/miroapp/app-examples/tree/main/examples/drag-and-drop) for example. In order for your app
