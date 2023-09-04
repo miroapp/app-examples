@@ -1,28 +1,30 @@
 <!DOCTYPE html>
 <html>
-<head>
-<link rel="stylesheet" href="https://unpkg.com/mirotone/dist/styles.css">
-<style>
-.button-signin {
-  color: var(--indigo700);
-  border-color: var(--yellow700);
-  background-color: var(--yellow700);
-}
-</style>
-</head>
+  <head>
+    <link rel="stylesheet" href="https://unpkg.com/mirotone/dist/styles.css" />
+    <style>
+      .button-signin {
+        color: var(--indigo700);
+        border-color: var(--yellow700);
+        background-color: var(--yellow700);
+      }
+    </style>
+  </head>
 
-<body>
-
-<div class="grid">
-  <div class="cs1 ce12">
-    <h1>Congrats! You've logged in!</h1>
-    <p>Wanna try an API call now?</p>
-  </div>
-  <div class="cs1 ce6">
-    <button class="button button-primary" onclick="window.location.href='{{ url_for( "create_board") }}'">Make API call</button>
-  </div>
-</div>
-
-</body>
+  <body>
+    <div class="grid">
+      <div class="cs1 ce12">
+        <h1>Congrats! You've logged in!</h1>
+        <p>Wanna try an API call now?</p>
+      </div>
+      <div class="cs1 ce6">
+        <button
+          class="button button-primary"
+          onclick="window.location.href='{{ url_for( &quot;create_board&quot;) }}'"
+        >
+          Make API call
+        </button>
+      </div>
+    </div>
+  </body>
 </html>
-
