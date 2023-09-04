@@ -51,6 +51,15 @@ This app shows how to use a certain Miro SDK or API functionality to accomplish 
 3. Open the [app manifest editor](https://developers.miro.com/docs/manually-create-an-app#step-2-configure-your-app-in-miro) by clicking **Edit in Manifest**. \
    In the app manifest editor, configure the app as follows:
 
+   ```yaml
+   # See https://developers.miro.com/docs/app-manifest on how to use this
+   appName: Example app
+   sdkUri: "http://localhost:3000"
+   scopes:
+     - boards:read
+     - boards:write
+   ```
+
    - [`sdkUri`](https://developers.miro.com/docs/app-manifest#sdkuri): assign `http://localhost:3000` as a value for this property. \
      It defines the entry point of the app, and it corresponds to the URL of the server that the app runs on.
    - [`scopes`](https://developers.miro.com/docs/app-manifest#scopes): add the permission scopes that users need to grant the app when they install it. \
@@ -74,16 +83,12 @@ https://github.com/horeaporutiu/app-examples-template/assets/10428517/b23d9c4c-e
 
 <b>Explain your folder structure so a developer can quickly understand the layout of your code.</b>
 
+It should look something like [this](https://github.com/miroapp/app-examples/tree/main/examples/html-preview#%EF%B8%8F-folder-structure-).
+
 ```
 .
 ├── src
-│  └── styles
-│      └── style.css <-- CSS styles for the app.
-│  └── App.tsx <-- The main app. Contains structure for the sidebar when launched.
-│      main.tsx <-- Initializes app.
-│      useCalendar.ts <-- Functions to generate a calendar.
-├── app.html <-- The app itself. This is loaded on the board inside the 'appContainer'.
-└── index.html <-- The app entry point. This is the value you assign to 'sdkUri' in the app manifest file.
+└── initMiro.ts <-- This is where the Node Client is initialized.
 ```
 
 # 🫱🏻‍🫲🏽 Contributing <a name="contributing"></a>
