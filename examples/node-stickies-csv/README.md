@@ -1,72 +1,87 @@
-### About the app
+# Node.js Stickies to CSV Miro App
 
-This app shows you how to use the [Miro Node.js client](https://www.npmjs.com/package/@mirohq/miro-api) to interact with the [Miro REST API](https://developers.miro.com/reference/api-reference). The app uses the available CRUD (create, read, update, delete) methods to add and manage sticky notes with tags on a Miro board. This is a backend app built on Node.js and Express.js, with Handlebars.js for rendering.
+This web app shows how to manage stickes using CRUD (create, read, update, delete) methods on a Miro board.
 
-Miro capabilities covered in this app:
+# 👨🏻‍💻 App Demo
 
-1. [x] Miro sticky note items
-2. [x] Miro tag items
-3. [x] CSV data to Sticky notes with tags
+https://github.com/miroapp/app-examples/assets/10428517/d4f1017c-bcea-42a6-9864-7aa01ddfade9
 
-### Prerequisites
+# 📒 Table of Contents
 
-1. Create an [app in Miro](https://miro.com/app/settings/user-profile/apps).
-2. Create a board in Miro that you'd like to import / create sticky notes to.
+- [Included Features](#features)
+- [Tools and Technologies](#tools)
+- [Prerequisites](#prerequisites)
+- [Associated Developer Tutorial](#tutorial)
+- [Run the app locally](#run)
+- [Folder Structure](#folder)
+- [Contributing](#contributing)
+- [License](#license)
 
-### Dependencies
+# ⚙️ Included Features <a name="features"></a>
 
-- [Miro Node.js client](https://www.npmjs.com/package/@mirohq/miro-api)
-- [Node.js](https://nodejs.org/en/download/)
-- [Express](https://expressjs.com/en/starter/installing.html)
-- [Axios](https://www.npmjs.com/package/axios)
+- [Miro Node.js Client](https://developers.miro.com/docs/web-sdk-reference)
+  - [MiroApi.getBoard()](https://miroapp.github.io/api-clients/classes/index.MiroApi.html#getBoard)
+  - [Miro.handleAuthorizationCodeRequest()](https://miroapp.github.io/api-clients/classes/index.Miro.html#handleAuthorizationCodeRequest)
+  - [Miro.isAuthorized()](https://miroapp.github.io/api-clients/classes/index.Miro.html#isAuthorized)
+  - [Miro.getAuthUrl()](https://miroapp.github.io/api-clients/classes/index.Miro.html#getAuthUrl)
+  - [board.getAllItems()](https://miroapp.github.io/api-clients/classes/index.Board.html#getAllItems)
+
+# 🛠️ Tools and Technologies <a name="tools"></a>
+
+- [Node.js](https://nodejs.org/en)
 - [Handlebars](https://handlebarsjs.com/)
-- [Fast-CSV](https://www.npmjs.com/package/fast-csv)
-- [Bootstrap](https://www.npmjs.com/package/bootstrap)
-- [Dotenv](https://www.npmjs.com/package/dotenv)
 
-### Setup
+# ✅ Prerequisites <a name="prerequisites"></a>
 
-1. Clone or download the repo.
-2. `cd` to the root repo folder.
-3. `npm install` to install dependencies.
-4. Create a copy of the `.env.example` file in the root folder or rename it to `.env`, and ensure the following variables are set (see [How to run the project](#how-to-run-the-project) for more info):
+- You have a [Miro account](https://miro.com/signup/).
+- You're [signed in to Miro](https://miro.com/login/).
+- Your Miro account has a [Developer team](https://developers.miro.com/docs/create-a-developer-team).
+- Your development environment includes [Node.js 14.13](https://nodejs.org/en/download) or a later version.
+- All examples use `npm` as a package manager and `npx` as a package runner.
+
+# 🏃🏽‍♂️ Run the app locally <a name="run"></a>
+
+1. Rename the `.sample.env` file to `.env` and then add in your environmental variables. Once completed your `.env` file should
+   look something like this:
 
 ```
-clientID="<YOUR_CLIENT_ID>"
-clientSecret="<YOUR_CLIENT_SECRET>"
-redirectURL="http://localhost:8000/authorized"
-boardId="<MIRO_BOARD_ID>"
+MIRO_CLIENT_ID=<YOUR_CLIENT_ID>
+MIRO_CLIENT_SECRET=<YOUR_CLIENT_SECRET>
+MIRO_REDIRECT_URL=http://localhost:8000/authorized
+MIRO_BOARD_ID=<YOUR_MIRO_BOARD_ID>
 ```
 
-### How to start
+> MIRO_BOARD_ID can be found [here](https://community.miro.com/developer-platform-and-apis-57/where-can-i-find-board-id-3154).
 
-1. Open a new terminal in the root folder of the project.
-2. Run `npm run start`
-3. Your console should return `Listening on localhost, port 8000`
-4. In your account profile, go to **Your apps**, and then select the app you just created to access its settings page. \
-   On the app settings page:
-   - Go to **App Credentials**, and copy the app **Client ID** and **Client secret** values. \
-     Paste these details to your `.env` file `clientID` and `clientSecret` variables.
-   - Go to your desired Miro board, copy the board ID from the URL, and paste it to your `.env` file `boardId` variable.
-   - Assign `http://localhost:8000/authorized` as a value for your `.env` file `redirectURL` variable.
-5. Then, open the [app manifest editor](https://developers.miro.com/docs/manually-create-an-app#step-2-configure-your-app-in-miro) by clicking **Edit in Manifest**. \
+2. Run `npm install` to install dependencies.
+3. Run `npm start` to start developing. \
+   Your URL should be similar to this example:
+   ```
+   http://localhost:8000
+   ```
+4. Open the [app manifest editor](https://developers.miro.com/docs/manually-create-an-app#step-2-configure-your-app-in-miro) by clicking **Edit in Manifest**. \
    In the app manifest editor, configure the app as follows:
 
-   - [`redirectUris`](https://developers.miro.com/docs/app-manifest#redirecturis): assign `http://localhost:8000/authorized` as a value for this property. \
-     It defines the redirect URL that starts the OAuth 2.0 code grant flow for the REST API.
-     - [`scopes`](https://developers.miro.com/docs/app-manifest#scopes): add the permission scopes that users need to grant the app when they install it. \
-       To enable the app to read from and write to the board, add the following permissions:
+   - [`sdkUri`](https://developers.miro.com/docs/app-manifest#sdkuri): assign `http://localhost:8000` as a value for this property.
+   - [`redirectUris`](https://developers.miro.com/docs/app-manifest?utm_source=app_manifest_editor#redirecturis): assign `http://localhost:8000/authorized/` as a value for this property. \
+   - [`scopes`](https://developers.miro.com/docs/app-manifest#scopes): add the permission scopes that users need to grant the app when they install it. \
+     To enable the app to read from and write to the board, add the following permissions:
      - `boards:read`
      - `boards:write`
 
-6. To use the app, go to `http://localhost:8000/`.
+5. Go back to your app home page, and under the `Permissions` section, you will see a blue button that says `Install app and get OAuth token`. Click that button. Then click on `Add` as shown in the video below. <b>In the video we install a different app, but the process is the same regardless of the app.</b>
 
-ℹ️ Note:
+> ⚠️ We recommend to install your app on a [developer team](https://developers.miro.com/docs/create-a-developer-team) while you are developing or testing apps.⚠️
 
-- To reinitialize your project's servers, it may be necessary to to restart the server.
-- When the server restarts, your auth token is invalidated, and you have to re-authorize.
+https://github.com/miroapp/app-examples/assets/10428517/1e6862de-8617-46ef-b265-97ff1cbfe8bf
 
-### Folder structure
+6. Go to your developer team, and open your boards.
+7. Click on the plus icon from the bottom section of your left sidebar. If you hover over it, it will say `More apps`.
+8. Search for your app `Node.js Stickies to CSV` or whatever you chose to name it. Click on your app to use it, as shown in the video below.
+
+https://github.com/horeaporutiu/app-examples-template/assets/10428517/b23d9c4c-e785-43f9-a72e-fa5d82c7b019
+
+# 🗂️ Folder structure <a name="folder"></a>
 
 ```
 .
@@ -87,5 +102,13 @@ boardId="<MIRO_BOARD_ID>"
       └── home.hbs <-- main Handlebars file to render universal/root rendering
       └── layouts
             └── main.hbs <-- the Handlebars 'app' itself
-
+node-stickies-csv-demo-data.csv <-- sample CSV data to create stickies
 ```
+
+# 🫱🏻‍🫲🏽 Contributing <a name="contributing"></a>
+
+If you want to contribute to this example, or any other Miro Open Source project, please review [Miro's contributing guide](https://github.com/miroapp/app-examples/blob/main/CONTRIBUTING.md).
+
+# 🪪 License <a name="license"></a>
+
+[MIT License](https://github.com/miroapp/app-examples/blob/main/LICENSE).
