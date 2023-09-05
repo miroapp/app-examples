@@ -4,6 +4,8 @@ This app shows how to implement the OAuth 2.0 authorization code grant flow to m
 
 # 👨🏻‍💻 App Demo
 
+https://github.com/miroapp/app-examples/assets/10428517/66411aa9-c801-4ed5-93ea-a68494285226
+
 # 📒 Table of Contents
 
 - [Included Features](#features)
@@ -80,10 +82,10 @@ scopes:
 5. Run `npm run start` to start the server.
 
 6. Once your server is running, copy the installation URL of your app under `Share App` in the app settings UI and paste it in
-   your browser. This should take you to the Miro OAuth page. Select your dev team, and then click `Add`.
+   your browser. This should take you to the Miro OAuth page. Select your dev team, and then click `Add`. <b>You can see this step done in the App Demo at the top of the README.</b>
 
 7. This should take you to your `redirect URL` now. You should now see `Hello, World!` and `Miro API Response:` in your browser.
-   Great job! You've completed this app example!
+   Great job! You've completed this app example! <b>You can see this step done in the App Demo at the top of the README.</b>
 
 # 🗂️ Folder structure <a name="folder"></a>
 
