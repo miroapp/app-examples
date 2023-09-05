@@ -1,67 +1,66 @@
-# About the app
+# OAuth2.0 and Next.js Miro App Example
 
-This full-stack app shows how to implement the OAuth 2.0 authorization code grant flow from Miro to a client-side application built with Next.js.
+This app shows Miro's OAuth2.0 flow from Miro to a client-side app built iwth Next.js.
 
-This app demonstrates the use of the Miro REST API and OAuth authorization. After configuring your project outlined in the Prerequisites section, this app allows you to authenticate yourself with your Miro account, and use the related access tokens to make REST API calls via the Miro Developer Platform.
+# 👨🏻‍💻 App Demo
 
-This app also stores your access and refresh tokens in your browsers cookies to demonstrate the Miro's REST API. When storing tokens in your own app, you should be consider encrypting or storing your user's tokens in a more secure way.
+# 📒 Table of Contents
 
-## Stack
+- [Included Features](#features)
+- [Tools and Technologies](#tools)
+- [Prerequisites](#prerequisites)
+- [Associated Developer Tutorial](#tutorial)
+- [Run the app locally](#run)
+- [Folder Structure](#folder)
+- [Contributing](#contributing)
+- [License](#license)
 
-- [x] [React](https://reactjs.org/)
-- [x] [Next.js](https://nextjs.org/)
-- [x] [Axios](https://axios-http.com/)
-- [x] [Miro REST API](https://developers.miro.com/reference/api-reference)
-- [x] [Mirotone](https://www.mirotone.xyz/css) (styling)
+# ⚙️ Included Features <a name="features"></a>
 
-## Prerequisites
+- [Miro REST API](https://developers.miro.com/docs/web-sdk-reference)
+  - [POST /oauth/token](https://developers.miro.com/reference/exchange-authorization-code-with-access-token)
 
-1. Create a [developer team in Miro](https://developers.miro.com/docs/create-a-developer-team).
-2. Create an [app in Miro](https://developers.miro.com/docs/build-your-first-hello-world-app#step-1-bootstrap-the-hello-world-app).
-3. Create a board in Miro that you'd like to manipulate with the REST API.
-4. Make a note of the board ID in the URL of the new board: you'll add this ID as a value for `boardId` in [`constants.js`](./constants.js) in step 5 below.
+# 🛠️ Tools and Technologies <a name="tools"></a>
 
-## How to start
+- [React](https://react.dev/)
+- [Next.js](https://nextjs.org/)
 
-First, make sure you handled the [prerequisites](#prerequisites).
+# ✅ Prerequisites <a name="prerequisites"></a>
 
-Then, proceed to configure the app:
+- You have a [Miro account](https://miro.com/signup/).
+- You're [signed in to Miro](https://miro.com/login/).
+- Your Miro account has a [Developer team](https://developers.miro.com/docs/create-a-developer-team).
+- Create a [new app in Miro](https://miro.com/app/settings/user-profile/apps)
+- Your development environment includes [Node.js 14.13](https://nodejs.org/en/download) or a later version.
+- All examples use `npm` as a package manager and `npx` as a package runner.
 
-- In your account profile, go to **Your apps**, and then select the app you just created to access its settings page.
-- On the app settings page:
-  - Go to **App Credentials**, and copy the app **Client ID** and **Client secret** values: you'll need to enter these values
-    in step 4 below.
-  - Then, open the [app manifest editor](https://developers.miro.com/docs/manually-create-an-app#step-2-configure-your-app-in-miro) by clicking **Edit in Manifest**.
-- In the app manifest editor, configure the app as follows:
-  - [`sdkUri`](https://developers.miro.com/docs/app-manifest#sdkuri): assign `http://localhost:3000` as a value for this property. \
-    It defines the entry point of the app, and it corresponds to the URL of the server that the app runs on.
-  - [`redirectUris`](https://developers.miro.com/docs/app-manifest#redirecturis): assign `http://localhost:3000/api/redirect/` as a value for this property. \
-    It defines the redirect URL that starts the OAuth 2.0 code grant flow for the REST API.
-  - [`scopes`](https://developers.miro.com/docs/app-manifest#scopes): add the permission scopes that users need to grant the app when they install it. \
-    To enable the app to read from and write to the board, add the following permissions:
-    - `boards:read`
-    - `boards:write`
+# 🏃🏽‍♂️ Run the app locally <a name="run"></a>
 
-Now you can start working directly with the app:
+1. Run `yarn install` to install dependencies.
 
-1. Clone or download the app repository.
-2. `cd` to the project root folder.
-3. Run `yarn install` to install the dependencies.
-4. Create a `.env` file in the root folder, and set the following variables:
+2. Rename the `.sample.env` file to `.env` and then add in your clientID, client Secret, and keep the redirect URL the same.
 
+3. Open the [app manifest editor](https://developers.miro.com/docs/manually-create-an-app#step-2-configure-your-app-in-miro) by clicking **Edit in Manifest**. \
+   In the app manifest editor, copy and paste the following yaml code:
+
+```yaml
+# See https://developers.miro.com/docs/app-manifest on how to use this
+appName: NextJS OAuth
+sdkUri: "http://localhost:3000"
+redirectUris:
+  - http://localhost:3000/api/redirect/
+scopes:
+  - boards:read
+  - boards:write
 ```
-clientID={YOUR_CLIENT_ID)
-clientSecret={YOUR_CLIENT_SECRET}
-redirectURL=http://localhost:3000/api/redirect/
-```
 
-5. Go to [`constants.js`](./constants.js), and add the `boardId` of the Miro board you'd like to use/modify.
-6. Run `yarn dev` to start the local web server.
+4. Run `yarn dev`.
 
-Once your server is up and running, go to `http://localhost:3000/` in your browser. \
-If the project is running successfully, you should see a **Sign in** button in the UI.
+5. Once your server is up and running, go to http://localhost:3000/ in your browser.
+   If the project is running successfully, you should see a Sign in button in the UI. Then go through the OAuth flow.
+   If all went well, you should see `Signed in Successfully`. Great job!
 
-## Folder structure
+# 🗂️ Folder structure <a name="folder"></a>
 
 ```
 .
@@ -87,5 +86,12 @@ If the project is running successfully, you should see a **Sign in** button in t
     └── index.js <-- Main index.js file for basic UI functions.
 └── public
 └── styles
-
 ```
+
+# 🫱🏻‍🫲🏽 Contributing <a name="contributing"></a>
+
+If you want to contribute to this example, or any other Miro Open Source project, please review [Miro's contributing guide](https://github.com/miroapp/app-examples/blob/main/CONTRIBUTING.md).
+
+# 🪪 License <a name="license"></a>
+
+[MIT License](https://github.com/miroapp/app-examples/blob/main/LICENSE).
