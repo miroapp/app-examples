@@ -96,6 +96,7 @@ scopes:
 └── .env <-- A file you create, where you store sensitive credentials (client ID, client secret).
 └── .sample.env <-- A file you can use as the template for your .env file.
 └── node_modules <-- Node.js modules that are installed based on dependencies.
+└── app-manifest.yaml <-- Yaml code to configure your Miro App. This is used in App Settings -> Manifest.
 ```
 
 # 🫱🏻‍🫲🏽 Contributing <a name="contributing"></a>
