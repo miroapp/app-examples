@@ -73,7 +73,7 @@ This app shows how to use a certain Miro SDK or API functionality to accomplish 
 
 https://github.com/miroapp/app-examples/assets/10428517/1e6862de-8617-46ef-b265-97ff1cbfe8bf
 
-5. Go to your developer team, and open your boards. <b>Refresh your browser</b>.
+5. Go to your developer team, and open your boards.
 6. Click on the plus icon from the bottom section of your left sidebar. If you hover over it, it will say `More apps`.
 7. Search for your app `Calendar` or whatever you chose to name it. Click on your app to use it, as shown in the video below. <b>In the video we search for a different app, but the process is the same regardless of the app.</b>
 
@@ -83,7 +83,7 @@ https://github.com/horeaporutiu/app-examples-template/assets/10428517/b23d9c4c-e
 
 <b>Explain your folder structure so a developer can quickly understand the layout of your code.</b>
 
-It should look something like [this](https://github.com/miroapp/app-examples/tree/main/examples/html-preview#folder).
+It should look something like [this](https://github.com/miroapp/app-examples/tree/main/examples/drag-and-drop#folder).
 
 ```
 .
