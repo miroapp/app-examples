@@ -71,7 +71,7 @@ boardId=abcdefghik=
 # See https://developers.miro.com/docs/app-manifest on how to use this
 appName: OAuth2.0 with NodeJS
 redirectUris:
-  - https://01-11-11-2011-74.ngrok-free.app
+  - https://[YOUR_NGROK_URL].ngrok-free.app
 scopes:
   - boards:read
 ```
