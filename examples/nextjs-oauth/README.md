@@ -1,8 +1,10 @@
 # OAuth2.0 and Next.js Miro App Example
 
-This app shows Miro's OAuth2.0 flow from Miro to a client-side app built iwth Next.js.
+This app shows Miro's OAuth2.0 flow from Miro to a client-side app built with Next.js.
 
 # 👨🏻‍💻 App Demo
+
+https://github.com/miroapp/app-examples/assets/10428517/cdda8f44-bf25-420e-ae84-7ad96dba9f52
 
 # 📒 Table of Contents
 
