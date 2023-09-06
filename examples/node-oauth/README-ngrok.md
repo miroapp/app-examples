@@ -12,7 +12,7 @@ https://github.com/miroapp/app-examples/assets/10428517/66411aa9-c801-4ed5-93ea-
 - [Tools and Technologies](#tools)
 - [Prerequisites](#prerequisites)
 - [Associated Developer Tutorial](#tutorial)
-- [Run the app locally](#run)
+- [Run the app with ngrok](#run)
 - [Folder Structure](#folder)
 - [Contributing](#contributing)
 - [License](#license)
@@ -43,7 +43,7 @@ https://github.com/miroapp/app-examples/assets/10428517/66411aa9-c801-4ed5-93ea-
 > To view a more in depth developer tutorial
 > of this topic see the [OAuth 2.0 Miro tutorial](https://developers.miro.com/docs/getting-started-with-oauth) on Miro's Developer documentation.
 
-# 🏃🏽‍♂️ Run the app locally <a name="run"></a>
+# 🏃🏽‍♂️ Run the app with ngrok <a name="run"></a>
 
 1. Run `npm install` to install dependencies.
 
