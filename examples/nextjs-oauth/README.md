@@ -67,27 +67,21 @@ scopes:
 ```
 .
 ├── package.json <-- The dependencies for the app.
-└── next.config.js <-- Configuration file for Next.js.
-└── constants.js <-- Holds isolated variables (Miro board ID).
 └── .env <-- A file will create, where you store sensitive credentials (client ID, client secret).
+└── .sample.env <-- A file with a template to store store sensitive credentials (client ID, client secret).
 └── node_modules <-- Node.js modules that are installed based on dependencies.
-└── components
-      └── input.js <-- Client component
-      └── MiroItem.js <-- Client component
-      └── Time.server.js <-- Server component
 └── pages
         └── api
             └── authenticate.js <-- Checks user auth status.
-            └── createStickyNote.js <-- Calls the Miro API to create a sticky note.
-            └── getItems.js <-- Calls the Miro API to retrieve board items.
             └── redirect.js <-- Handles redirect after successful authorization to get access token.
             └── signin.js <-- Handles OAuth authorization.
-            └── updateContent.js <-- Calls the Miro API to update sticky note content.
     └── _app.js <-- Main _app.js file for Next.js app.
     └── _document.js <-- Next.js import file.
     └── index.js <-- Main index.js file for basic UI functions.
 └── public
+    └── favicon.ico <-- App icon for the browser tab.
 └── styles
+    └── globals.css <-- CSS styling.
 ```
 
 # 🫱🏻‍🫲🏽 Contributing <a name="contributing"></a>

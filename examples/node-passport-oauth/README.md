@@ -55,6 +55,9 @@ scopes:
   - boards:read
 ```
 
+4. Run `npm start` and your browser should automatically take you to the Miro OAuth page. Once you install the app on a
+   developer team, you should see the API response in your browser. Great job!
+
 # 🗂️ Folder structure <a name="folder"></a>
 
 ```
