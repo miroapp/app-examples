@@ -1,24 +1,25 @@
 # Miro Connect Firebase
+
 This app demonstrates how to connect to a database backend hosted on Firebase to enable persistent data storage. This app uses the Miro Web SDK.
 
 # 👨🏻‍💻 App Demo
+
 https://github.com/miroapp/app-examples/assets/10800544/a0aaea4a-a95c-42f5-abb3-9590032a5b39
 
-
 # 📒 Table of Contents
-* [Included Features](#features)
-* [Tools and Technologies](#tools)
-* [Prerequisites](#prerequisites)
-* [Associated Developer Tutorial](#tutorial)
-* [Run the app locally](#run)
-* [Folder Structure](#folder)
-* [License](#license)
+
+- [Included Features](#features)
+- [Tools and Technologies](#tools)
+- [Prerequisites](#prerequisites)
+- [Associated Developer Tutorial](#tutorial)
+- [Run the app locally](#run)
+- [Folder Structure](#folder)
+- [License](#license)
 
 # ⚙️ Included Features <a name="features"></a>
 
 - [Miro Web SDK](https://developers.miro.com/docs/web-sdk-reference)
 - [Drag and Drop](https://developers.miro.com/docs/add-drag-and-drop-to-your-app)
-
 
 # 🛠️ Tools and Technologies <a name="tools"></a>
 
@@ -38,9 +39,10 @@ https://github.com/miroapp/app-examples/assets/10800544/a0aaea4a-a95c-42f5-abb3-
 # 📖 Associated Developer Tutorial <a name="tutorial"></a>
 
 > To view a developer tutorial
-> that covers the end to end flow for setting up a Firebase instance and connecting it to a Miro app from scratch, see [Connect the Miro Web SDK to a backend (Firebase)](https://developers.miro.com/docs/connect-the-miro-web-sdk-to-a-backend-firebase) tutorial on Miro's Developer documentation. 
+> that covers the end to end flow for setting up a Firebase instance and connecting it to a Miro app from scratch, see [Connect the Miro Web SDK to a backend (Firebase)](https://developers.miro.com/docs/connect-the-miro-web-sdk-to-a-backend-firebase) tutorial on Miro's Developer documentation.
 
 # 🏃🏽‍♂️ Run the app locally <a name="run"></a>
+
 > ⚠️ For an end to end implementation, it's recommended to start with the associated Developer Tutorial: [Connect the Miro Web SDK to a backend (Firebase)](https://developers.miro.com/docs/connect-the-miro-web-sdk-to-a-backend-firebase). Below, find abbreviated steps that assume you've completed the Firebase configuration in the associated Developer Tutorial.
 
 1. Run `npm install` to install dependencies.
@@ -95,7 +97,6 @@ https://github.com/miroapp/app-examples/assets/10428517/1e6862de-8617-46ef-b265-
 ├── app.html <-- The app UI itself. This is loaded on the board inside the 'appContainer'.
 └── index.html <-- The app entry point. This is the value you assign to 'sdkUri' in the app manifest file.
 ```
-
 
 # 🫱🏻‍🫲🏽 Contributing <a name="contributing"></a>
 

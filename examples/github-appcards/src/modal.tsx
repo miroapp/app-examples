@@ -33,7 +33,7 @@ function Modal() {
    * Store information pulled from GitHub API
    */
   const [gitHubProjects, setGitHubProjects] = React.useState<GitHubProject[]>(
-    []
+    [],
   );
   const [gitHubColumns, setGitHubColumns] = React.useState<GitHubColumns[]>([]);
   const [gitHubProjectCards, setGitHubProjectCards] = React.useState<
@@ -73,7 +73,7 @@ function Modal() {
           const gitHubColumns = await fetchGitHubColumns(
             gitHubProjects
               .filter((project) => project.id !== selectedProject.id)[0]
-              .id.toString()
+              .id.toString(),
           );
 
           setGitHubColumns([...gitHubColumns]);
@@ -93,7 +93,7 @@ function Modal() {
         gitHubColumns.map(async (column) => {
           try {
             const gitHubCards = await fetchGitHubProjectCards(
-              column.id.toString()
+              column.id.toString(),
             );
 
             setGitHubProjectCards((previousState) => [
@@ -137,7 +137,7 @@ function Modal() {
       .map((issue) => {
         // Find matching GitHub Project Card for Issue
         const matchingGitHubProjectCard = gitHubProjectCards.find(
-          (card) => card.content_url === issue.url
+          (card) => card.content_url === issue.url,
         );
 
         if (matchingGitHubProjectCard === undefined) {
@@ -151,7 +151,7 @@ function Modal() {
 
         // Find the name of the column
         const status = gitHubColumns.find(
-          (column) => column.id.toString() === columnId
+          (column) => column.id.toString() === columnId,
         );
 
         // Return issue with column and card attached
@@ -173,7 +173,7 @@ function Modal() {
       setSelectedGitHubIssues((previousState) => [...previousState, issue]);
     } else {
       const updatedGitHubIssues = selectedGitHubIssues.filter(
-        (currentIssue) => currentIssue.id !== issue.id
+        (currentIssue) => currentIssue.id !== issue.id,
       );
       setSelectedGitHubIssues([...updatedGitHubIssues]);
     }

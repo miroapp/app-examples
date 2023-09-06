@@ -7,7 +7,7 @@ exports.handler = async (event) => {
   const code = event.queryStringParameters.code;
 
   const encodedData = Buffer.from(
-    process.env.CLIENT_ID + ":" + process.env.CLIENT_SECRET
+    process.env.CLIENT_ID + ":" + process.env.CLIENT_SECRET,
   ).toString("base64");
 
   const details = {
@@ -37,7 +37,7 @@ exports.handler = async (event) => {
           Authorization: `Basic ${encodedData})`,
         },
         body: formBody,
-      }
+      },
     );
 
     const result = await authenticationData.json();
@@ -58,7 +58,7 @@ exports.handler = async (event) => {
         httpOnly: true,
         sameSite: "None",
         path: "/",
-      }
+      },
     );
 
     return {

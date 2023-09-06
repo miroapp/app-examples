@@ -8,7 +8,7 @@ import fetch from "node-fetch";
 
 const supabase = createClient(
   process.env.VITE_DATABASE_URL,
-  process.env.VITE_DATABASE_PUBLIC_KEY
+  process.env.VITE_DATABASE_PUBLIC_KEY,
 );
 
 exports.handler = async function (event) {
@@ -37,7 +37,7 @@ exports.handler = async function (event) {
     {
       method: "GET",
       headers: headers,
-    }
+    },
   )
     .then((response) => response.json())
     .then((result) => {
@@ -52,7 +52,7 @@ exports.handler = async function (event) {
   const { data, error } = await supabase
     .from("card-mapping")
     .select(
-      "id, miroAppCardId::text, gitHubIssueId, miroUserId::text, gitHubUsername, created_at, miroBoardId, gitHubIssueNumber, auth ( access_token )"
+      "id, miroAppCardId::text, gitHubIssueId, miroUserId::text, gitHubUsername, created_at, miroBoardId, gitHubIssueNumber, auth ( access_token )",
     )
     .eq("gitHubIssueNumber", gitHubIssueNumer);
 
@@ -106,7 +106,7 @@ exports.handler = async function (event) {
           try {
             const miroAppCardResponse = fetch(
               `https://api.miro.com/v2/boards/${item.miroBoardId}/app_cards/${item.miroAppCardId}`,
-              options
+              options,
             );
 
             if (miroAppCardResponse.ok) {
@@ -138,7 +138,7 @@ exports.handler = async function (event) {
             });
           }
         });
-      })
+      }),
     );
   }
 

@@ -22,7 +22,7 @@ function App() {
    * Store information pulled from GitHub API
    */
   const [gitHubProjects, setGitHubProjects] = React.useState<GitHubProject[]>(
-    []
+    [],
   );
   const [gitHubColumns, setGitHubColumns] = React.useState<GitHubColumns[]>([
     { name: "", id: 0 },
@@ -58,7 +58,7 @@ function App() {
 
     if (appCardId && appCardTitle && appCardDescription && currentStatus) {
       const status = gitHubColumns.find(
-        (column) => column.name === currentStatus
+        (column) => column.name === currentStatus,
       );
 
       setAppCardId(appCardId);
@@ -94,7 +94,7 @@ function App() {
           const gitHubColumns = await fetchGitHubColumns(
             gitHubProjects
               .filter((project) => project.id !== selectedProject.id)[0]
-              .id.toString()
+              .id.toString(),
           );
 
           setGitHubColumns([...gitHubColumns]);
@@ -111,7 +111,7 @@ function App() {
     const { data, error } = await supabase
       .from("card-mapping")
       .select(
-        "id, miroAppCardId::text, gitHubIssueId, miroUserId::text, gitHubUsername, created_at, miroBoardId, gitHubIssueNumber, gitHubProjectCardId"
+        "id, miroAppCardId::text, gitHubIssueId, miroUserId::text, gitHubUsername, created_at, miroBoardId, gitHubIssueNumber, gitHubProjectCardId",
       )
       .eq("miroAppCardId", appCardId);
 
@@ -157,7 +157,7 @@ function App() {
 
             await miro.board.ui.closeModal();
           }
-        })
+        }),
       );
     }
   };

@@ -88,10 +88,10 @@ app.get("/", (req, res) => {
               let oauthRefreshResponse = await axios.post(refreshUrl);
 
               console.log(
-                `New access_token: ${oauthRefreshResponse.data.access_token}`
+                `New access_token: ${oauthRefreshResponse.data.access_token}`,
               );
               console.log(
-                `New refresh_token: ${oauthRefreshResponse.data.refresh_token}`
+                `New refresh_token: ${oauthRefreshResponse.data.refresh_token}`,
               );
             } catch (err) {
               console.log(`ERROR: ${err}`);
@@ -111,7 +111,7 @@ app.get("/", (req, res) => {
     "https://miro.com/oauth/authorize?response_type=code&client_id=" +
       process.env.clientID +
       "&redirect_uri=" +
-      process.env.redirectURL
+      process.env.redirectURL,
   );
 });
 // Run express server on localhost:3000

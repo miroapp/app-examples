@@ -10,7 +10,7 @@ async function init() {
   const svgBlob = document.getElementById("svg-blob");
 
   const blobSeed = await fetch("/create-blob?edges=3").then((response) =>
-    response.text()
+    response.text(),
   );
 
   svgBlob.src = `/blob?seed=${blobSeed}&colour=3A57FF`;
@@ -25,7 +25,7 @@ async function init() {
     } catch (error) {
       console.log(error);
       window.alert(
-        "Drag and drop does not work served from localhost. Please deploy app."
+        "Drag and drop does not work served from localhost. Please deploy app.",
       );
     }
   });

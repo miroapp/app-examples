@@ -25,7 +25,7 @@ async function callMiroAPI(api, method = "GET", body = undefined) {
   const teamInfo = await callMiroAPI(`v2/teams_settings/${tokenInfo.team.id}`);
   console.log(teamInfo);
   const boards = await callMiroAPI(
-    `v2/boards?sort=alphabetically&limit=20&offset=0`
+    `v2/boards?sort=alphabetically&limit=20&offset=0`,
   );
   console.log(boards);
 
@@ -48,7 +48,7 @@ async function callMiroAPI(api, method = "GET", body = undefined) {
       "POST",
       JSON.stringify({
         name: team.name,
-      })
+      }),
     );
     // Invite members
     team.employees.forEach(async (email) => {
@@ -58,7 +58,7 @@ async function callMiroAPI(api, method = "GET", body = undefined) {
         "POST",
         JSON.stringify({
           userEmail: email,
-        })
+        }),
       );
     });
   });
@@ -83,7 +83,7 @@ async function callMiroAPI(api, method = "GET", body = undefined) {
         },
       },
       description: "Team Todo Tasks Board",
-    })
+    }),
   );
   console.log("Creating a suggestions board");
   const suggestionBoard = await callMiroAPI(
@@ -104,7 +104,7 @@ async function callMiroAPI(api, method = "GET", body = undefined) {
         },
       },
       description: "Company-wide Open Suggestions Board",
-    })
+    }),
   );
   console.log("Creating a welcome note");
   await callMiroAPI(
@@ -120,7 +120,7 @@ async function callMiroAPI(api, method = "GET", body = undefined) {
         textAlign: "left",
         textAlignVertical: "top",
       },
-    })
+    }),
   );
   console.log("Creating a suggestions CTA");
   await callMiroAPI(
@@ -136,20 +136,20 @@ async function callMiroAPI(api, method = "GET", body = undefined) {
         textAlign: "center",
         textAlignVertical: "top",
       },
-    })
+    }),
   );
 
   // 4. Promoting a new team leader
   console.log("Getting the list of teams");
   const teams = await callMiroAPI(
     `v2/orgs/${tokenInfo.organization.id}/teams`,
-    "GET"
+    "GET",
   );
   console.log(teams);
   const devTeam = teams.data.find((x) => x.name === "The Development Team");
   console.log("Getting the product development team member list");
   const members = await callMiroAPI(
-    `v2/orgs/${tokenInfo.organization.id}/teams/${devTeam.id}/members`
+    `v2/orgs/${tokenInfo.organization.id}/teams/${devTeam.id}/members`,
   );
   console.log("Promoting the member to admin");
   const promoted = await callMiroAPI(
@@ -157,13 +157,13 @@ async function callMiroAPI(api, method = "GET", body = undefined) {
     "PATCH",
     JSON.stringify({
       role: "admin",
-    })
+    }),
   );
   console.log(promoted);
   console.log("Deleting previous team admin");
   const deleted = await callMiroAPI(
     `v2/orgs/${tokenInfo.organization.id}/teams/${devTeam.id}/members/${members.data[0].memberId}`,
-    "DELETE"
+    "DELETE",
   );
   console.log(deleted);
 
@@ -171,7 +171,7 @@ async function callMiroAPI(api, method = "GET", body = undefined) {
   const teamsToDelete = ["The Development Team", "The Marketing Team"];
   const teamList = await callMiroAPI(
     `v2/orgs/${tokenInfo.organization.id}/teams`,
-    "GET"
+    "GET",
   );
   if (teamList && teamList.data) {
     console.log("Finding and deleting teams");
@@ -180,7 +180,7 @@ async function callMiroAPI(api, method = "GET", body = undefined) {
         console.log("Deleting: " + team.name);
         await callMiroAPI(
           `v2/orgs/${tokenInfo.organization.id}/teams/${team.id}`,
-          "DELETE"
+          "DELETE",
         );
       }
     });

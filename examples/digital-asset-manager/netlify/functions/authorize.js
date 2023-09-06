@@ -36,7 +36,7 @@ exports.handler = async function (event, context, callback) {
   // Using the refresh token to generate a new token pair.
   if (!access_token) {
     const encodedData = Buffer.from(
-      process.env.CLIENT_ID + ":" + process.env.CLIENT_SECRET
+      process.env.CLIENT_ID + ":" + process.env.CLIENT_SECRET,
     ).toString("base64");
 
     const details = {
@@ -65,7 +65,7 @@ exports.handler = async function (event, context, callback) {
             Authorization: `Basic ${encodedData})`,
           },
           body: formBody,
-        }
+        },
       );
 
       const result = await authenticationData.json();
@@ -79,7 +79,7 @@ exports.handler = async function (event, context, callback) {
           sameSite: "None",
           path: "/",
           maxAge: S_IN_HOUR,
-        }
+        },
       );
 
       return {

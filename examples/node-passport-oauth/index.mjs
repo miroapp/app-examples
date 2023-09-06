@@ -8,7 +8,7 @@ const app = express();
 const port = process.env.PORT || 4000;
 
 app.use(
-  session({ secret: "keyboard cat", resave: true, saveUninitialized: false })
+  session({ secret: "keyboard cat", resave: true, saveUninitialized: false }),
 );
 app.use(passport.initialize());
 app.use(passport.session());
@@ -42,8 +42,8 @@ passport.use(
       users[user.id] = user;
 
       cb(null, user);
-    }
-  )
+    },
+  ),
 );
 
 // configure passport authorentication route (this should match the return URL in App settings)
@@ -53,7 +53,7 @@ app.get(
   passport.authenticate("oauth2", { failureRedirect: "/" }),
   function (req, res) {
     res.redirect("/");
-  }
+  },
 );
 
 app.get("/", async function (req, res) {

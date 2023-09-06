@@ -21,7 +21,7 @@ exports.handler = async function (event, context, callback) {
           "Content-Type": "application/json",
           Authorization: `Bearer ${access_token})`,
         },
-      }
+      },
     );
 
     const result = await collectionsData.json();

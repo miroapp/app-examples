@@ -45,7 +45,7 @@ const Miro = () => {
           note: null,
           content_id: gitHubIssue.id,
           content_type: "Issue",
-        }
+        },
       );
 
       await insertAppCards(item, selectedColor, gitHubProjectCard, gitHubIssue);
@@ -61,7 +61,7 @@ const Miro = () => {
 
       // Filter sticky notes from the selected items
       const stickyNotes = selectedItems.filter(
-        (item) => item.type === "sticky_note"
+        (item) => item.type === "sticky_note",
       );
 
       // Check to see if sticky notes are selected

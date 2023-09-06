@@ -89,7 +89,7 @@ function App() {
               x === letter &&
               (typeof solution[index] == "undefined" ||
                 typeof solution[index].isUsed == "undefined" ||
-                !solution[index].isUsed)
+                !solution[index].isUsed),
           );
         if (charIndex > -1) {
           // Mark the letter as yellow
@@ -192,5 +192,5 @@ ReactDOM.render(
   <StrictMode>
     <App />
   </StrictMode>,
-  document.getElementById("root")
+  document.getElementById("root"),
 );
