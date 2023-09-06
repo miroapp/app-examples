@@ -4,6 +4,8 @@ This app shows Miro's OAuth2.0 flow using the passport library to authenticate u
 
 # 👨🏻‍💻 App Demo
 
+https://github.com/miroapp/app-examples/assets/10428517/e15ef4a0-d110-4e06-8764-52600c087880
+
 # 📒 Table of Contents
 
 - [Included Features](#features)
