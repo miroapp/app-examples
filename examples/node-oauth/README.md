@@ -4,6 +4,8 @@ This app shows how to implement the OAuth 2.0 authorization code grant flow to m
 
 # 👨🏻‍💻 App Demo
 
+https://github.com/miroapp/app-examples/assets/10428517/d50d91d7-ef9d-43d9-bf3d-336e962cac3d
+
 # 📒 Table of Contents
 
 - [Included Features](#features)
