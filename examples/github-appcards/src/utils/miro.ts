@@ -12,7 +12,7 @@ export const insertAppCards = async (
   selection: MiroSelection,
   selectedColor: { background: string },
   gitHubProjectCard: any,
-  issue: any
+  issue: any,
 ) => {
   //  Get current Miro board
   const { id } = await miro.board.getInfo();
@@ -92,6 +92,6 @@ export const insertGitHubAppCards = async (gitHubIssues: any[]) => {
       if (index === 0) {
         await miro.board.viewport.zoomTo(appCard);
       }
-    })
+    }),
   );
 };

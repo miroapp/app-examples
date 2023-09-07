@@ -3,7 +3,7 @@ import { createClient } from "@supabase/supabase-js";
 
 const supabase = createClient(
   process.env.VITE_DATABASE_URL,
-  process.env.VITE_DATABASE_PUBLIC_KEY
+  process.env.VITE_DATABASE_PUBLIC_KEY,
 );
 
 exports.handler = async function (event) {

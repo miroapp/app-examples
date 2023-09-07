@@ -9,11 +9,11 @@ const actionHandler = (action: string) => async (props: CustomEvent) => {
 export async function init() {
   await miro.board.ui.on(
     "custom:translate-content",
-    actionHandler("translate-content")
+    actionHandler("translate-content"),
   );
   await miro.board.ui.on(
     "custom:align-to-grid",
-    actionHandler("align-to-grid")
+    actionHandler("align-to-grid"),
   );
 
   const translateAction: CustomAction = {

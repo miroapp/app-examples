@@ -22,7 +22,7 @@ export const fetchGitHubProjects = async (username: string, repo: string) => {
       {
         method: "GET",
         headers: headers,
-      }
+      },
     );
 
     const result = await gitHubProjects.json();
@@ -50,7 +50,7 @@ export const fetchGitHubColumns = async (project_id: string) => {
       {
         method: "GET",
         headers: headers,
-      }
+      },
     );
 
     const result = await gitHubColumns.json();
@@ -77,7 +77,7 @@ export const fetchGitHubColumn = async (column_id: string) => {
       {
         method: "GET",
         headers: headers,
-      }
+      },
     );
 
     return await gitHubColumn.json();
@@ -97,7 +97,7 @@ export const fetchGitHubProjectCards = async (column_id: string) => {
       {
         method: "GET",
         headers: headers,
-      }
+      },
     );
 
     return await gitHubProjectCards.json();
@@ -117,7 +117,7 @@ export const fetchGitHubProjectCard = async (card_id: string) => {
       {
         method: "GET",
         headers: headers,
-      }
+      },
     );
 
     return await gitHubProjectCard.json();
@@ -137,7 +137,7 @@ export const fetchGitHubIssues = async (username: string, repo: string) => {
       {
         method: "GET",
         headers: headers,
-      }
+      },
     );
 
     return await gitHubProjectCards.json();
@@ -157,7 +157,7 @@ export const fetchGitHubCollaborators = async (project_id: string) => {
       {
         method: "GET",
         headers: headers,
-      }
+      },
     );
 
     return await gitHubCollaborators.json();
@@ -178,7 +178,7 @@ export const createGitHubIssue = async (
     body?: string;
     assignee?: string | null;
     labels?: string[];
-  }
+  },
 ) => {
   try {
     const gitHubIssue = await fetch(
@@ -187,7 +187,7 @@ export const createGitHubIssue = async (
         method: "POST",
         headers: headers,
         body: JSON.stringify(data),
-      }
+      },
     );
 
     return await gitHubIssue.json();
@@ -206,7 +206,7 @@ export const createGitHubProjectCard = async (
     note: string | null;
     content_id: number;
     content_type: string;
-  }
+  },
 ) => {
   try {
     const gitHubProjectCard = await fetch(
@@ -215,7 +215,7 @@ export const createGitHubProjectCard = async (
         method: "POST",
         headers: headers,
         body: JSON.stringify(data),
-      }
+      },
     );
 
     return await gitHubProjectCard.json();
@@ -235,7 +235,7 @@ export const updateGitHubIssue = async (
   data: {
     title: string;
     body: string;
-  }
+  },
 ) => {
   try {
     const gitHubIssue = await fetch(
@@ -244,7 +244,7 @@ export const updateGitHubIssue = async (
         method: "PATCH",
         headers: headers,
         body: JSON.stringify(data),
-      }
+      },
     );
 
     return await gitHubIssue.json();
@@ -263,7 +263,7 @@ export const updateGitHubProjectCard = async (
     columnId: number;
     card_id: string;
     position: string;
-  }
+  },
 ) => {
   try {
     const gitHubProjectCard = await fetch(
@@ -272,7 +272,7 @@ export const updateGitHubProjectCard = async (
         method: "POST",
         headers: headers,
         body: JSON.stringify(data),
-      }
+      },
     );
 
     return await gitHubProjectCard.json();

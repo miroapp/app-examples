@@ -22,7 +22,7 @@ export async function getAllFrames(board: Board): Promise<FrameItem[]> {
 
 export function findFrameByTitle(
   frames: FrameItem[],
-  title: string
+  title: string,
 ): FrameItem {
   return frames.filter((frame) => frame.data?.title == title)[0] || frames[0];
 }
@@ -45,7 +45,7 @@ async function getImage(api: MiroApi, url: string | undefined) {
 export async function enrichItem(
   api: MiroApi,
   board: Board,
-  item: WidgetItem
+  item: WidgetItem,
 ): Promise<Item | undefined> {
   const id = item.id.toString();
   if (
@@ -86,7 +86,7 @@ function isSet(i: Item | undefined): i is Item {
 export async function getItems(
   api: MiroApi,
   board: Board,
-  frame: FrameItem
+  frame: FrameItem,
 ): Promise<Item[]> {
   const items: Array<Promise<Item | undefined>> = [];
   for await (const item of (frame || parent).getAllItems()) {
@@ -98,12 +98,12 @@ export async function getItems(
 export async function getLinks(
   board: Board,
   items: Item[],
-  frames: FrameItem[]
+  frames: FrameItem[],
 ) {
   const links: Record<string, string> = {};
   for await (const connector of board.getAllConnectors()) {
     const matchingItem = items.find(
-      (item) => item.id.toString() === connector.startItem?.id?.toString()
+      (item) => item.id.toString() === connector.startItem?.id?.toString(),
     );
     if (!matchingItem) continue;
     const endItem = connector.endItem;
@@ -111,7 +111,7 @@ export async function getLinks(
     const endItemData = await board.getItem(endItem.id || "");
 
     const matchingFrame = frames.find(
-      (frame) => "parent" in endItemData && frame.id == endItemData.parent?.id
+      (frame) => "parent" in endItemData && frame.id == endItemData.parent?.id,
     );
 
     if (!matchingFrame) continue;

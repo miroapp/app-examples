@@ -4,7 +4,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 // Handle the redirect with code, and exchange it for the access token
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse
+  res: NextApiResponse,
 ) {
   const { miro } = initMiro(req, res);
 
@@ -18,6 +18,6 @@ export default async function handler(
   await miro.exchangeCodeForAccessToken("", req.query.code);
 
   res.redirect(
-    `https://miro.com/app-install-completed/?client_id=${process.env.MIRO_CLIENT_ID}&team_id=${req.query.team_id}`
+    `https://miro.com/app-install-completed/?client_id=${process.env.MIRO_CLIENT_ID}&team_id=${req.query.team_id}`,
   );
 }

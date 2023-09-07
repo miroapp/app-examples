@@ -51,7 +51,7 @@ io.on("connection", (socket) => {
     console.log(`<socket server> ${socketId} requesting ${request}`);
     const rooms = Array.from(socket.rooms);
     rooms.map((room) =>
-      io.to(room).emit("respond", { socketId: socketId, request: request })
+      io.to(room).emit("respond", { socketId: socketId, request: request }),
     );
   });
 });

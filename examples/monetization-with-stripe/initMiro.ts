@@ -14,7 +14,7 @@ export default function initMiro(
   request: { cookies: Record<string, undefined | string> },
   response?: {
     setHeader(name: string, value: string[]): void;
-  }
+  },
 ) {
   const tokensCookie = "miro_tokens";
   const userIdCookie = "miro_user_id";

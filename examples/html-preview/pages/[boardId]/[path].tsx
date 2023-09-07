@@ -24,7 +24,7 @@ export const getServerSideProps: GetServerSideProps = async ({
   // cache for 10 min
   res.setHeader(
     "Cache-Control",
-    "public, s-maxage=600, stale-while-revalidate=59"
+    "public, s-maxage=600, stale-while-revalidate=59",
   );
 
   // redirect to auth url if user has not authorized the app

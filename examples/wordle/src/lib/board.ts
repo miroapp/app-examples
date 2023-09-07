@@ -39,7 +39,7 @@ export const createWordle = async (viewport: Rect) => {
 export const setStickyColorAndText = async (
   id: string,
   newColor: string,
-  newText: string
+  newText: string,
 ) => {
   // Retrieve the sticky note by its id
   const sticky = await board.getById(id);

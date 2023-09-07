@@ -21,7 +21,7 @@ export const getServerSideProps: GetServerSideProps =
     try {
       const { body } = await api._api.call(
         "GET",
-        "v2-experimental/webhooks/subscriptions"
+        "v2-experimental/webhooks/subscriptions",
       );
 
       return {
@@ -86,7 +86,7 @@ export default function Main({
   const [errorMsg, setErrorMsg] = useState<string | { error: string }>("");
 
   const boardWebhooks = webhooks.filter(
-    (hook) => hook.data.boardId === boardId
+    (hook) => hook.data.boardId === boardId,
   );
 
   const isPanel =
@@ -116,7 +116,7 @@ export default function Main({
 
     try {
       setWebhooks(
-        webhooks.concat(await apiCall("POST", "/api/manage", { url, boardId }))
+        webhooks.concat(await apiCall("POST", "/api/manage", { url, boardId })),
       );
     } catch (err: any) {
       let message = err.message;

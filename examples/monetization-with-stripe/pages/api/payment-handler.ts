@@ -28,7 +28,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       stripeEvent = stripe.webhooks.constructEvent(
         buf,
         sig || "",
-        webhookSecret
+        webhookSecret,
       );
     } catch (err) {
       res
@@ -47,7 +47,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         (session as { client_reference_id: ExternalUserId })
           .client_reference_id,
         PAYMENT_STORAGE_KEY,
-        "true"
+        "true",
       );
     }
 

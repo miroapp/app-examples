@@ -28,7 +28,7 @@ app.engine(
   exphbs.engine({
     defaultLayout: "main",
     extname: ".hbs",
-  })
+  }),
 );
 
 // Configure handlebars
@@ -108,7 +108,7 @@ app.post("/create-from-csv", async function (req, res) {
   ];
   const CSV_ROW_LENGTH = CSV_ROW_STRUCTURE.length;
   const NUMBER_OF_TAGS = CSV_ROW_STRUCTURE.filter(
-    (type) => type === "tag"
+    (type) => type === "tag",
   ).length;
   const COLUMN_WIDTH = 400;
   const STICKY_WIDTH = COLUMN_WIDTH - 200;
@@ -117,7 +117,7 @@ app.post("/create-from-csv", async function (req, res) {
 
   const TABLE_HEIGHT = MAX_STICKIES_PER_COLUMN * STICKY_WIDTH + COLUMN_WIDTH;
   const COLUMNS_NEEDED = Math.ceil(
-    content.length / CSV_ROW_LENGTH / MAX_STICKIES_PER_COLUMN
+    content.length / CSV_ROW_LENGTH / MAX_STICKIES_PER_COLUMN,
   );
   const board = await miro.as(USER_ID).getBoard(process.env.MIRO_BOARD_ID);
 
@@ -152,7 +152,7 @@ app.post("/create-from-csv", async function (req, res) {
             x,
             y,
           },
-        })
+        }),
       );
 
       for (let j = 0; j < NUMBER_OF_TAGS; j++) {
@@ -164,7 +164,7 @@ app.post("/create-from-csv", async function (req, res) {
             board.createTag({
               fillColor: TAG_COLORS[j],
               title: `${title} (${randomNumber})`,
-            })
+            }),
           );
         }
       }
@@ -208,7 +208,7 @@ app.post("/create-from-csv", async function (req, res) {
     for (let i = 0; i <= COLUMNS_NEEDED; i++) {
       coordinatesForPoints.push(
         { x: COLUMN_WIDTH * i + 1, y: 0 },
-        { x: COLUMN_WIDTH * i + 1, y: TABLE_HEIGHT }
+        { x: COLUMN_WIDTH * i + 1, y: TABLE_HEIGHT },
       );
     }
     for (let i = 0; i <= COLUMNS_NEEDED * 2 + 1; i += 1) {
@@ -229,12 +229,12 @@ app.post("/create-from-csv", async function (req, res) {
               ],
             },
           ], // top left to right
-          [i + 1, i + 3] // bottom left to right
+          [i + 1, i + 3], // bottom left to right
         );
       }
       if (i <= COLUMNS_NEEDED) {
         pointIndexesToConnectToEachOther.push(
-          [i * 2, i * 2 + 1] // top to bottom
+          [i * 2, i * 2 + 1], // top to bottom
         );
       }
     }
@@ -257,7 +257,7 @@ app.post("/create-from-csv", async function (req, res) {
           x,
           y,
         },
-      })
+      }),
     );
     const points = await Promise.all(promises);
 
@@ -282,7 +282,7 @@ app.post("/create-from-csv", async function (req, res) {
           },
           style,
           ...data,
-        })
+        }),
     );
 
     await Promise.all(connections);
@@ -334,7 +334,7 @@ app.get("/get-sticky", async (req, res) => {
       console.error(
         "error getting all items for board",
         { boardId: process.env.MIRO_BOARD_ID },
-        e
+        e,
       );
     }
 

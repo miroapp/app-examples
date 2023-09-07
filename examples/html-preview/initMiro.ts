@@ -12,7 +12,7 @@ function getSerializedCookie(name: string, value: string) {
 
 export default function initMiro(
   request: { cookies: Record<string, undefined | string> },
-  response?: { setHeader(name: string, value: string[]): void }
+  response?: { setHeader(name: string, value: string[]): void },
 ) {
   const tokensCookie = "miro_tokens";
 
@@ -31,7 +31,7 @@ export default function initMiro(
         set: (_, state) => {
           if (!response)
             throw new Error(
-              "initMiro should be invoked with a response object"
+              "initMiro should be invoked with a response object",
             );
           // store state (tokens) in the cookie
           response.setHeader("Set-Cookie", [

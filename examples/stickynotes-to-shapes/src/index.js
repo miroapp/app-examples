@@ -7,7 +7,7 @@ async function init() {
 
     // Filter sticky notes from selected items
     let stickyNotes = selectedItems.filter(
-      (item) => item.type === "sticky_note"
+      (item) => item.type === "sticky_note",
     );
 
     // Delete selected stickers

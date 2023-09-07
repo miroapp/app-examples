@@ -20,7 +20,7 @@ export const useCalendar = (month: number, year: number) => {
   let currentWeekIndex = 0;
   const dayArray = Array.from(
     { length: numberOfDays + startingIndex },
-    (_, i) => (i < startingIndex ? 0 : i + (1 - startingIndex))
+    (_, i) => (i < startingIndex ? 0 : i + (1 - startingIndex)),
   );
 
   const calendar = new Array(6);

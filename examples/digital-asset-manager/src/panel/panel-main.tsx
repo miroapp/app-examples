@@ -29,7 +29,7 @@ ReactDOM.render(
       <Panel />
     </React.StrictMode>
   </BrowserRouter>,
-  document.getElementById("panel-root")
+  document.getElementById("panel-root"),
 );
 
 // Initialize board

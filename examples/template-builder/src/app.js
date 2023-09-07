@@ -115,6 +115,6 @@ function addRowInput(value) {
 
 function getLabels() {
   return Array.from(rowsContainer.querySelectorAll("input")).map(
-    (el) => el.value
+    (el) => el.value,
   );
 }

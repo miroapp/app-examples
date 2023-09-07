@@ -3,7 +3,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse
+  res: NextApiResponse,
 ) {
   if (typeof req.body.url !== "string") {
     res.status(400);
@@ -19,7 +19,7 @@ export default async function handler(
         .as("")
         ._api.call(
           "DELETE",
-          `/v2-experimental/webhooks/subscriptions/${req.body.url}`
+          `/v2-experimental/webhooks/subscriptions/${req.body.url}`,
         );
       res.send(miroRes.body);
     } catch (err) {
@@ -47,7 +47,7 @@ export default async function handler(
       ._api.call(
         "POST",
         "/v2-experimental/webhooks/board_subscriptions",
-        JSON.stringify(params)
+        JSON.stringify(params),
       );
     res.send(miroRes.body);
   } catch (err) {
