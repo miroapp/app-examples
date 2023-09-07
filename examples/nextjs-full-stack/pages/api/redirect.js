@@ -12,5 +12,7 @@ export default async function handler(req, res) {
   }
 
   await miro.exchangeCodeForAccessToken(userId, req.query.code);
-  res.redirect("/");
+
+  const boardId = req.query.state ?? "";
+  res.redirect(`/panel?boardId=${boardId}`);
 }
