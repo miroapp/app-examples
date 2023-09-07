@@ -36,6 +36,12 @@ https://github.com/miroapp/app-examples/assets/10800544/767dba77-c3dd-40b0-b6d7-
 
 # 🏃🏽‍♂️ Run the app locally <a name="run"></a>
 
+0. Create a new Miro App and make sure to check the box for `Expire user authorization token` as shown in the screenshot below.
+
+   > ⚠️ If you don't check this box, the app will not work! ⚠️
+
+![image](https://github.com/bishopwm/miroFullstackSample/assets/10800544/5fbcc8ae-481b-4dc1-bbff-ef9cf5fb39d9)
+
 1. Install the project dependenciesAwes by running `pip3 install -r requirements.txt`
 2. Create your `.env` file by copying the template, and use it to store your credentials:
    ```
