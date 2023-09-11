@@ -67,7 +67,7 @@ https://github.com/horeaporutiu/app-examples-template/assets/10428517/3e9aa5ea-0
 
 https://github.com/horeaporutiu/app-examples-template/assets/10428517/456108e8-7d9b-4067-94bb-e5511c736a23
 
-5. Go to your developer team, and open your boards. <b>Refresh your browser</b>.
+5. Go to your developer team, and open your boards.
 6. Click on the plus icon from the bottom section of your left sidebar. If you hover over it, it will say `More apps`.
 7. Search for your app `Drag and Drop` or whatever you chose to name it. Click on your app to use it, as shown in the video below.
 
