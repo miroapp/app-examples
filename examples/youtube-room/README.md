@@ -92,7 +92,7 @@ This app can be installed by multiple users. It contains the functionality that 
 
 ## Watch the video below to understand how to run the app
 
-[![how-to-run-youtube-room-app](https://github.com/miroapp/app-examples/assets/10428517/01a41ad7-0dea-412b-8368-64a8988fcd60 "YouTube-Room-App")](https://www.youtube.com/watch?v=_HTZFf8bkNI)
+[![How to Run YouTube Room App](https://github-production-user-asset-6210df.s3.amazonaws.com/10428517/267016534-01a41ad7-0dea-412b-8368-64a8988fcd60.png)](https://www.youtube.com/watch?v=_HTZFf8bkNI)
 
 # 🗂️ Folder structure <a name="folder"></a>
 
