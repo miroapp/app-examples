@@ -23,7 +23,6 @@ service to host your app!</b> ⚠️
 - [Miro Web SDK](https://developers.miro.com/docs/web-sdk-reference)
   - [drop event](https://developers.miro.com/docs/ui_boardui#drop-event)
   - [createImage](https://developers.miro.com/docs/board_board#createimage)
-  - [viewport.zoomTo](https://developers.miro.com/docs/viewport_viewport#zoomto)
   - [openPanel(options)](https://developers.miro.com/docs/ui_boardui#openpanel)
   - [draggable elements](https://developers.miro.com/docs/add-drag-and-drop-to-your-app#add-draggable-elements-to-the-app-panel)
 
