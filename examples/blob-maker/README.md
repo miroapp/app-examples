@@ -7,6 +7,8 @@ service to host your app!</b> ⚠️
 
 # 👨🏻‍💻 App Demo
 
+https://github.com/miroapp/app-examples/assets/10428517/b9d570ce-a0b4-4f2e-a8e6-62a5b68be38f
+
 # 📒 Table of Contents
 
 - [Included Features](#features)
