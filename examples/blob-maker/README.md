@@ -112,7 +112,8 @@ icons:
   outline: ""
 ```
 
-9. Open a board & you should see your app in the main toolbar when you click the three dots.
+9. From the app settings page, make sure to `Install app and get OAuth token` if you haven't.
+10. Open a board & you should see your app in the main toolbar when you click the three dots.
 
 # 🗂️ Folder structure <a name="folder"></a>
 
