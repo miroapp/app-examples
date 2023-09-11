@@ -4,6 +4,8 @@ This app shows how to implement asset searching and filtering by name and tags.
 
 # 👨🏻‍💻 App Demo
 
+![asset-search-demo](https://github.com/miroapp/app-examples/assets/10428517/3a019e8c-60ce-4d61-9181-3109d098e56d)
+
 # 📒 Table of Contents
 
 - [Included Features](#features)
