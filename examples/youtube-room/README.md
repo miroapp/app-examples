@@ -5,6 +5,8 @@ on a Miro board.
 
 # 👨🏻‍💻 App Demo
 
+[![How to Run YouTube Room App](https://github-production-user-asset-6210df.s3.amazonaws.com/10428517/267016534-01a41ad7-0dea-412b-8368-64a8988fcd60.png)](https://www.youtube.com/watch?v=_HTZFf8bkNI)
+
 # 📒 Table of Contents
 
 - [Included Features](#features)
