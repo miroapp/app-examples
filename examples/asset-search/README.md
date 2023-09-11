@@ -52,16 +52,7 @@ This app shows how to implement asset searching and filtering by name and tags.
    http://localhost:3000
    ```
 3. Open the [app manifest editor](https://developers.miro.com/docs/manually-create-an-app#step-2-configure-your-app-in-miro) by clicking **Edit in Manifest**. \
-   In the app manifest editor, configure the app as follows:
-
-   - [`sdkUri`](https://developers.miro.com/docs/app-manifest#sdkuri): assign `http://localhost:3000` as a value for this property. \
-     It defines the entry point of the app, and it corresponds to the URL of the server that the app runs on.
-   - [`scopes`](https://developers.miro.com/docs/app-manifest#scopes): add the permission scopes that users need to grant the app when they install it. \
-     To enable the app to read from and write to the board, add the following permissions:
-     - `boards:read`
-     - `boards:write`
-
-   Your manifest file should look like the following:
+    In the app manifest editor, configure the app as follows:
 
    ```yaml
    appName: Miro Asset Search
@@ -70,6 +61,8 @@ This app shows how to implement asset searching and filtering by name and tags.
      - boards:read
      - boards:write
    ```
+
+   You can read more about Miro's [app manifest on the developer documentation](https://developers.miro.com/docs/app-manifest).
 
 4. Go back to your app home page, and under the `Permissions` section, you will see a blue button that says `Install app and get OAuth token`. Click that button. Then click on `Add` as shown in the video below.
 
