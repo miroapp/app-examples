@@ -2,8 +2,7 @@
 
 This app shows how to create dynamic blob SVGs on the fly, which you can then drag and drop to a Miro board.
 
-⚠️ <b>Note that the drag and drop part of the app only works with a public URL, so you will need to use Glitch or another
-service to host your app!</b> ⚠️
+⚠️ <b>Note that the drag and drop part of the app only works with a public URL, so you will need to use Glitch or another service to host your app!</b> ⚠️
 
 # 👨🏻‍💻 App Demo
 
