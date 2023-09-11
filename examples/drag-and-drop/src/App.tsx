@@ -26,7 +26,7 @@ function App() {
   // Register the drop event handler once.
   useEffect(() => {
     board.ui.on("drop", drop);
-  });
+  }, []);
 
   return (
     <div className="main">
