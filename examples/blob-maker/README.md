@@ -70,7 +70,7 @@ next section below for more details.
      - boards:write
    ```
 
-   You can read more about Miro's [app manifest on the developer documentation](https://developers.miro.com/docs/app-manifest).
+You can read more about Miro's [app manifest on the developer documentation](https://developers.miro.com/docs/app-manifest).
 
 4. Go back to your app home page, and under the `Permissions` section, you will see a blue button that says `Install app and get OAuth token`. Click that button. Then click on `Add` as shown in the video below. <b>In the video we install a different app, but the process is the same regardless of the app.</b>
 
