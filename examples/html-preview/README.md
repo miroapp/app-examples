@@ -79,7 +79,7 @@ MIRO_REDIRECT_URL=http://localhost:3000/api/redirect/
 
 https://github.com/miroapp/app-examples/assets/10428517/1e6862de-8617-46ef-b265-97ff1cbfe8bf
 
-6. Go to your developer team, and open your boards. <b>Refresh your browser</b>.
+6. Go to your developer team, and open your boards.
 7. Click on the plus icon from the bottom section of your left sidebar. If you hover over it, it will say `More apps`.
 8. Search for your app `HTML Preview App` or whatever you chose to name it. Click on your app to use it, as shown in the video below.
 
