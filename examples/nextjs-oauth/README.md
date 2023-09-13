@@ -12,7 +12,7 @@ https://github.com/miroapp/app-examples/assets/10428517/cdda8f44-bf25-420e-ae84-
 - [Tools and Technologies](#tools)
 - [Prerequisites](#prerequisites)
 - [Associated Developer Tutorial](#tutorial)
-- [Deploy the app on AWS](#deploy)
+- [Deploy the app on AWS Amplify](#deploy)
 - [Run the app locally](#run)
 - [Folder Structure](#folder)
 - [Contributing](#contributing)
@@ -37,7 +37,7 @@ https://github.com/miroapp/app-examples/assets/10428517/cdda8f44-bf25-420e-ae84-
 - Your development environment includes [Node.js 14.13](https://nodejs.org/en/download) or a later version.
 - All examples use `npm` as a package manager and `npx` as a package runner.
 
-# ☁️ Deploy the App To AWS Amplify <a name="deploy"></a>
+# ☁️ Deploy the app on AWS Amplify <a name="deploy"></a>
 
 If you want to understand how to deploy the app to AWS Amplify, please watch the video below. Otherwise,
 skip to the next section to see how to run this locally.
