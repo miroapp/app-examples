@@ -44,7 +44,6 @@ skip to the next section to see how to run this locally.
 
 [![Deploy the App to AWS Amplify](https://img.youtube.com/vi/-7pPvRzvYjM/0.jpg)](https://youtu.be/-7pPvRzvYjM)
 
-
 # 🏃🏽‍♂️ Run the app locally <a name="run"></a>
 
 1. Run `yarn install` to install dependencies.
