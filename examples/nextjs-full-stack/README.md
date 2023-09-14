@@ -61,7 +61,9 @@ Once your server is up and running:
 3. To start the app, click the corresponding app icon in the app toolbar on the left.
 
 > ⚠️ In case of error `401` returned by a REST API request, remove the `miro_tokens` cookie for the `localhsot`
-> domain in the browser.
+> domain in the browser:
+>
+> <img alt="Chrome's DevTools cookies delete" src="https://github.com/miroapp/app-examples/raw/main/assets/devtools-cookie-delete.png" />
 >
 > In the example, the access token refresh functionality has not been implemented to keep the implementation
 > simple and focused on the topic.
