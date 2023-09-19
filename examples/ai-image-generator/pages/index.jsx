@@ -122,7 +122,7 @@ export default function Main({ boards, authUrl }) {
     <div className="grid wrapper">
       <div id="promptInput">
         <PromptInput
-          placeholder="A Van Gogh inspired portrait of a canal with tulips..."
+          placeholder={"Van Gogh inspired portrait of a dog"}
           value={inputValue}
           onChange={handleInputChange}
         />
@@ -136,7 +136,12 @@ export default function Main({ boards, authUrl }) {
 
       <div className="spinner"></div>
       <div className="image-container">
-        <img className="miro-draggable" id="image" />
+        <img
+          className="miro-draggable"
+          src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA"
+          id="image"
+          draggable={false}
+        />
       </div>
     </div>
   );

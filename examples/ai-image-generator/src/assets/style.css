@@ -6,6 +6,12 @@
   box-sizing: border-box;
 }
 
+.grid-wrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 10px; /* Optional: Add gap between elements */
+}
+
 body {
   display: flex;
 }
@@ -15,8 +21,8 @@ body {
   padding: var(--space-medium);
 }
 
-#generateImgBtn {
-  width: 30px;
+.button {
+  width: 300px;
 }
 
 /* Style for the container div */
@@ -25,16 +31,17 @@ body {
   max-width: 100%; /* Ensure the container doesn't exceed its parent's width */
   height: 300px; /* Start with a zero height */
   position: relative; /* Establish a positioning context for child elements */
+  border: none;
 }
 
 /* Style for the image */
 .image-container img {
   position: absolute; /* Position the image absolutely within the container */
-  top: 0; /* Align the image to the top of the container */
-  left: 0; /* Align the image to the left of the container */
   width: 100%; /* Make the image as wide as the container */
   height: 100%; /* Make the image as high as the container */
   object-fit: cover; /* Ensure the image covers the entire container while maintaining its aspect ratio */
+  background: url(https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRvF4WdZJSA4MkWJXClae4eCvSdk87c5Ok63fgxBxVyR6aHB2Ju_A)
+    no-repeat center;
 }
 /* Spinner From: https://codepen.io/tbrownvisuals/pen/edGYvx */
 .spinner {

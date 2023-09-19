@@ -8,7 +8,7 @@ const TextInput = ({ label, placeholder, value, onChange }) => {
       <input
         className="input"
         type="text"
-        placeholder="Placeholder"
+        placeholder={placeholder}
         value={value}
         onChange={(e) => onChange(e.target.value)}
         id="example-1"
