@@ -89,6 +89,7 @@ export default function Main({ boards, authUrl }) {
     setResponse("");
 
     // post our prompt to our backend
+try {
     const response = await fetch("/api/openai", {
       method: "POST",
       headers: {
@@ -103,6 +104,9 @@ export default function Main({ boards, authUrl }) {
     console.log(imageUrl);
     setResponse(imageUrl);
     document.querySelector("#image").src = imageUrl;
+} finally {
+    removeSpinner();
+}
     removeSpinner();
   };
 
