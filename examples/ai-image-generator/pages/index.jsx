@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import initMiro from "../initMiro";
-//React components for the prompt and button
 import PromptInput from "../components/PromptInput";
 import Button from "../components/Button";
 
