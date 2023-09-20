@@ -4,6 +4,8 @@ This app implements image generation using AI (OpenAI) and shows how to drag and
 
 # 👨🏻‍💻 App Demo
 
+https://github.com/miroapp/app-examples/assets/10428517/4660d1ab-80b6-4136-9cf6-0b64bed5c019
+
 # 📒 Table of Contents
 
 - [Included Features](#features)
