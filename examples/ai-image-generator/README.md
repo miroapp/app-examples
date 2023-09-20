@@ -1,6 +1,6 @@
-# Miro Drag and Drop App
+# AI Image Generator
 
-This app shows how to implement image drag and drop to a Miro board.
+This app implements image generation using AI (OpenAI) and shows how to drag and drop those images to a Miro Board.
 
 # 👨🏻‍💻 App Demo
 
@@ -9,7 +9,6 @@ This app shows how to implement image drag and drop to a Miro board.
 - [Included Features](#features)
 - [Tools and Technologies](#tools)
 - [Prerequisites](#prerequisites)
-- [Associated Developer Tutorial](#tutorial)
 - [Run the app locally](#run)
 - [Folder Structure](#folder)
 - [Contributing](#contributing)
