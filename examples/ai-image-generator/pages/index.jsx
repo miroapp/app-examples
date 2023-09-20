@@ -19,7 +19,7 @@ export const getServerSideProps = async function getServerSideProps({ req }) {
   };
 };
 
-export default function Main({ boards, authUrl }) {
+export default function Main({ authUrl }) {
   useEffect(() => {
     removeSpinner();
     // Opens the panel for our app UI when we click on icon in the left sidebar
@@ -59,14 +59,14 @@ export default function Main({ boards, authUrl }) {
   };
 
   // Shows spinner while API calls are in progress / image is being dragged & dropped
-  const showSpinner = async () => {
-    let spinner = await document.getElementById("spinner");
+  const showSpinner = () => {
+    const spinner = document.getElementById("spinner");
     spinner.style.visibility = "visible";
   };
 
   // Removes spinner when API calls are finished and data is returned / image has been dropped
-  const removeSpinner = async () => {
-    let spinner = await document.getElementById("spinner");
+  const removeSpinner = () => {
+    const spinner = document.getElementById("spinner");
     spinner.style.visibility = "hidden";
   };
 
