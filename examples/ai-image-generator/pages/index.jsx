@@ -59,16 +59,16 @@ export default function Main({ boards, authUrl }) {
   };
 
   // Shows spinner while API calls are in progress / image is being dragged & dropped
-  async function showSpinner() {
+  const showSpinner = async () => {
     let spinner = await document.getElementById("spinner");
     spinner.style.visibility = "visible";
-  }
+  };
 
   // Removes spinner when API calls are finished and data is returned / image has been dropped
-  async function removeSpinner() {
+  const removeSpinner = async () => {
     let spinner = await document.getElementById("spinner");
     spinner.style.visibility = "hidden";
-  }
+  };
 
   const handleButtonClick = async () => {
     //setting the image source to be a transparent color, otherwise we have a border which looks bad
