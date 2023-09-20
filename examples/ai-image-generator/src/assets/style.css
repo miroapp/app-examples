@@ -6,12 +6,6 @@
   box-sizing: border-box;
 }
 
-.grid-wrapper {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 10px; /* Optional: Add gap between elements */
-}
-
 body {
   display: flex;
 }
