@@ -7,15 +7,11 @@ const openai = new OpenAI({
 export default async (req, res) => {
   // grab prompt from the front end
   let prompt = await req.body.prompt;
-  console.log("hello");
-  console.log(prompt);
 
   try {
     const response = await openai.images.generate({
       prompt: prompt,
     });
-    console.log("response after open.img.generate");
-    console.log(response);
     let image_url = response.data[0].url;
     // send url to front end to display the image
     res.status(200).json({

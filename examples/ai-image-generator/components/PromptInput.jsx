@@ -1,7 +1,3 @@
-// components/TextInput.js
-
-import React, { useState } from "react";
-
 const TextInput = ({ label, placeholder, value, onChange }) => {
   return (
     <div className="form-group">

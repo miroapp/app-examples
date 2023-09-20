@@ -5,7 +5,6 @@ import Button from "../components/Button";
 
 export const getServerSideProps = async function getServerSideProps({ req }) {
   const { miro } = initMiro(req);
-
   // redirect to auth url if user has not authorized the app
   if (!(await miro.isAuthorized(""))) {
     return {
@@ -15,26 +14,15 @@ export const getServerSideProps = async function getServerSideProps({ req }) {
       },
     };
   }
-
-  const api = miro.as("");
-
-  const boards = [];
-
-  for await (const board of api.getAllBoards()) {
-    boards.push(board.name || "");
-  }
-
   return {
-    props: {
-      boards,
-    },
+    props: {},
   };
 };
 
 export default function Main({ boards, authUrl }) {
   useEffect(() => {
+    removeSpinner();
     if (new URLSearchParams(window.location.search).has("panel")) return;
-
     window.miro.board.ui.on("icon:click", async () => {
       window.miro.board.ui.openPanel({
         url: `/?panel=1`,
@@ -45,15 +33,24 @@ export default function Main({ boards, authUrl }) {
   // Register the drop event handler once.
   useEffect(() => {
     window.miro.board.ui.on("drop", drop);
-    console.log("drop event is running");
   }, []);
 
   //drag and drop logic
   const drop = async (e) => {
-    const { x, y, target } = e;
+    showSpinner();
+    const { initialX, initialY, target } = e;
 
     if (target instanceof HTMLImageElement) {
-      console.log("about to create image");
+      let position = await window.miro.board.experimental.findEmptySpace({
+        x: 0,
+        y: 0,
+        width: 200,
+        height: 200,
+      });
+      console.log(position);
+      let x = position.x;
+      let y = position.y;
+
       const image = await window.miro.board.createImage({
         x,
         y,
@@ -61,12 +58,10 @@ export default function Main({ boards, authUrl }) {
       });
       await window.miro.board.viewport.zoomTo(image);
     }
+    removeSpinner();
   };
 
   const [inputValue, setInputValue] = useState("");
-
-  //handles the response being returned from backend (URL of image)
-  const [response, setResponse] = useState("");
 
   //handles the prompt input being typed in
   const handleInputChange = (newValue) => {
@@ -74,40 +69,42 @@ export default function Main({ boards, authUrl }) {
   };
 
   // Shows spinner while API calls are in progress
-  function showSpinner() {
-    document.querySelector(".spinner").classList.add("show");
+  async function showSpinner() {
+    let spinner = await document.getElementById("spinner");
+    spinner.style.visibility = "visible";
   }
 
   // Removes spinner when API calls are finished and data is returned
-  function removeSpinner() {
-    document.querySelector(".spinner").classList.remove("show");
+  async function removeSpinner() {
+    let spinner = await document.getElementById("spinner");
+    spinner.style.visibility = "hidden";
   }
 
   const handleButtonClick = async () => {
-    //spinner should start once the API call is made
+    //setting the image source to be a transparent color, otherwise we have a border which looks bad
+    document.querySelector("#image").src =
+      "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA";
     showSpinner();
-    setResponse("");
 
     // post our prompt to our backend
-try {
-    const response = await fetch("/api/openai", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ prompt: inputValue }),
-    });
+    try {
+      const response = await fetch("/api/openai", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ prompt: inputValue }),
+      });
 
-    const data = await response.json();
-    let imageUrl = data.data;
+      //get the response back from backend, which has the URL which we are looking for
+      const data = await response.json();
+      let imageUrl = data.data;
 
-    console.log(imageUrl);
-    setResponse(imageUrl);
-    document.querySelector("#image").src = imageUrl;
-} finally {
-    removeSpinner();
-}
-    removeSpinner();
+      document.querySelector("#image").src = imageUrl;
+      removeSpinner();
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   if (authUrl) {
@@ -124,6 +121,7 @@ try {
 
   return (
     <div className="grid wrapper">
+      {/* Text input which defines the prompt to the API call to OpenAI */}
       <div id="promptInput">
         <PromptInput
           placeholder={"Van Gogh inspired portrait of a dog"}
@@ -132,14 +130,17 @@ try {
         />
       </div>
 
+      {/* Button which starts the API call to OpenAI */}
       <Button
         label="Generate Image"
         onClick={handleButtonClick}
         id="generateImgBtn"
       />
 
-      <div className="spinner"></div>
+      <div className="spinner" id="spinner"></div>
       <div className="image-container">
+        {/* This image must be draggable. Draggable={false} is syntax needed for Miro image to be
+        draggble. Src is being set to a gif with transparent background to eliminate ugly border */}
         <img
           className="miro-draggable"
           src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA"
