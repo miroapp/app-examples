@@ -1,4 +1,4 @@
-const TextInput = ({ label, placeholder, value, onChange }) => {
+const TextInput = ({ placeholder, value, onChange }) => {
   return (
     <div className="form-group">
       <input
@@ -7,7 +7,6 @@ const TextInput = ({ label, placeholder, value, onChange }) => {
         placeholder={placeholder}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        id="example-1"
       />
     </div>
   );
