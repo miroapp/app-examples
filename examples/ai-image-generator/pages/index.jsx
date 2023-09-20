@@ -108,15 +108,13 @@ export default function Main({ authUrl }) {
   }
 
   return (
-    <div className="grid wrapper">
-      <div id="promptInput">
-        {/* React component which takes the user input and uses that as a prompt for OpenAI image generation */}
-        <PromptInput
-          placeholder={"Van Gogh inspired portrait of a dog"}
-          value={inputValue}
-          onChange={handleInputChange}
-        />
-      </div>
+    <div className="grid">
+      {/* React component which takes the user input and uses that as a prompt for OpenAI image generation */}
+      <PromptInput
+        placeholder={"Van Gogh inspired portrait of a dog"}
+        value={inputValue}
+        onChange={handleInputChange}
+      />
 
       {/* Button which calls the OpenAI backend (pages/api/openai.js) with the prompt */}
       <Button

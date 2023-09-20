@@ -42,9 +42,9 @@ body {
   position: fixed;
   height: 2em;
   width: 2em;
-  border: 3px solid rgba(255, 255, 255, 0.3);
+  border: 3px solid var(--indigo100);
   border-radius: 50%;
-  border-top-color: #121111;
+  border-top-color: var(--blackAlpha80);
   animation: spin 1s ease-in-out infinite;
   -webkit-animation: spin 1s ease-in-out infinite;
   top: 525px;
