@@ -20,8 +20,18 @@ export const getServerSideProps = async function getServerSideProps({ req }) {
 };
 
 export default function Main({ authUrl }) {
+  // Shows spinner while API calls are in progress / image is being dragged & dropped
+  const showSpinner = () => {
+    const spinner = document.getElementById("spinner");
+    spinner.style.visibility = "visible";
+  };
+
+  // Removes spinner when API calls are finished and data is returned / image has been dropped
+  const removeSpinner = () => {
+    const spinner = document.getElementById("spinner");
+    spinner.style.visibility = "hidden";
+  };
   useEffect(() => {
-    removeSpinner();
     // Opens the panel for our app UI when we click on icon in the left sidebar
     if (new URLSearchParams(window.location.search).has("panel")) return;
     window.miro.board.ui.on("icon:click", async () => {
@@ -56,18 +66,6 @@ export default function Main({ authUrl }) {
   //handles the prompt input being typed in
   const handleInputChange = (newValue) => {
     setInputValue(newValue);
-  };
-
-  // Shows spinner while API calls are in progress / image is being dragged & dropped
-  const showSpinner = () => {
-    const spinner = document.getElementById("spinner");
-    spinner.style.visibility = "visible";
-  };
-
-  // Removes spinner when API calls are finished and data is returned / image has been dropped
-  const removeSpinner = () => {
-    const spinner = document.getElementById("spinner");
-    spinner.style.visibility = "hidden";
   };
 
   const handleButtonClick = async () => {
@@ -128,7 +126,12 @@ export default function Main({ authUrl }) {
         id="generateImgBtn"
       />
 
-      <div className="spinner" id="spinner"></div>
+      {/* Spinner needs to be hidden by default, otherwise will spin when opening app first time */}
+      <div
+        className="spinner"
+        id="spinner"
+        style={{ visibility: "hidden" }}
+      ></div>
       <div className="image-container">
         {/* Img which needs to be draggable */}
         <img
