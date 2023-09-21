@@ -1,6 +1,6 @@
 const TextInput = ({ placeholder, value, onChange }) => {
   return (
-    <div className="form-group">
+    <div className="form-group cs1 ce12">
       <input
         className="input"
         type="text"

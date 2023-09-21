@@ -85,18 +85,15 @@ https://github.com/horeaporutiu/app-examples-template/assets/10428517/b23d9c4c-e
 └── .env <-- A file you create, where you store sensitive credentials (client ID, client secret).
 └── .env.sample <-- A template file, where you store sensitive credentials (client ID, client secret).
 └── index.js <-- Main index.js file for basic UI functions.
-└── initMiro.js <-- Module where we configure the Miro authorization helper.
 └── pages
         └── api
             └── openai.js <-- Handles API call to OpenAI using OpenAI library.
-            └── redirect.js <-- Handles redirect after successful authorization to get access token.
     └── _app.jsx <-- Main _app.js file for Next.js app.
     └── _document.jsx <-- Next.js import file.
     └── index.jsx <-- UI for prompt and generate image button, with logic for handling prompt / spinner.
 └── public
 └── styles
 └── node_modules <-- Node.js modules that are installed based on dependencies.
-
 ```
 
 # 🫱🏻‍🫲🏽 Contributing <a name="contributing"></a>

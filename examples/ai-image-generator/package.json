@@ -9,8 +9,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@mirohq/miro-api": "^2.0.0",
-    "cookie": "^0.5.0",
     "dotenv": "^16.0.3",
     "mirotone": "5",
     "next": "^13.0.0",

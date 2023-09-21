@@ -20,25 +20,19 @@ body {
   margin-right: 0;
 }
 
-/* Style for the container div */
 .image-container {
-  height: 300px; /* Start with a zero height */
-  position: relative; /* Establish a positioning context for child elements */
-  border: none;
+  height: 300px;
+  position: relative;
 }
 
-/* Style for the image */
 .image-container img {
-  position: absolute; /* Position the image absolutely within the container */
-  width: 100%; /* Make the image as wide as the container */
-  height: 100%; /* Make the image as high as the container */
-  object-fit: cover; /* Ensure the image covers the entire container while maintaining its aspect ratio */
-  background: url(https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRvF4WdZJSA4MkWJXClae4eCvSdk87c5Ok63fgxBxVyR6aHB2Ju_A)
-    no-repeat center;
+  position: absolute;
+  width: 100%;
 }
 
 .spinner {
-  position: fixed;
+  z-index: 10;
+  position: absolute;
   height: 2em;
   width: 2em;
   border: 3px solid var(--indigo100);
@@ -46,8 +40,8 @@ body {
   border-top-color: var(--blackAlpha80);
   animation: spin 1s ease-in-out infinite;
   -webkit-animation: spin 1s ease-in-out infinite;
-  top: 525px;
-  left: 160px;
+  inset: 50%;
+  margin: -1em;
 }
 
 @keyframes spin {

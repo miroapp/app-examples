@@ -1,31 +1,17 @@
 import React, { useState, useEffect } from "react";
-import initMiro from "../initMiro";
 import PromptInput from "../components/PromptInput";
 import Button from "../components/Button";
 
-export const getServerSideProps = async function getServerSideProps({ req }) {
-  const { miro } = initMiro(req);
-  // redirect to auth url if user has not authorized the app
-  if (!(await miro.isAuthorized(""))) {
-    return {
-      props: {
-        authUrl: miro.getAuthUrl(),
-      },
-    };
-  }
-  return {
-    props: {},
-  };
-};
+export default function Main() {
+  const [inputValue, setInputValue] = useState("");
+  const [image, setImage] = useState("");
+  const [loading, setLoading] = useState(false);
 
-export default function Main({ authUrl }) {
-  // Shows spinner while API calls are in progress / image is being dragged & dropped
   const showSpinner = () => {
     setLoading(true);
   };
 
-  // Removes spinner when API calls are finished and data is returned / image has been dropped
-  const removeSpinner = () => {
+  const hideSpinner = () => {
     setLoading(false);
   };
 
@@ -45,9 +31,9 @@ export default function Main({ authUrl }) {
   }, []);
 
   //drag and drop logic
-  const drop = async (e) => {
+  const drop = async ({ x, y, target }) => {
     showSpinner();
-    const { x, y, target } = e;
+
     if (target instanceof HTMLImageElement) {
       const image = await window.miro.board.createImage({
         x,
@@ -56,12 +42,8 @@ export default function Main({ authUrl }) {
       });
       await window.miro.board.viewport.zoomTo(image);
     }
-    removeSpinner();
+    hideSpinner();
   };
-
-  const [inputValue, setInputValue] = useState("");
-  const [image, setImage] = useState("");
-  const [loading, setLoading] = useState(false);
 
   //handles the prompt input being typed in
   const handleInputChange = (newValue) => {
@@ -84,46 +66,32 @@ export default function Main({ authUrl }) {
       });
 
       //get the response back from backend, which has the URL which we are looking for
-      const data = await response.json();
-      let imageUrl = data.data;
+      const { data: imageUrl } = await response.json();
 
       //set the image src to the URL which is returned by OpenAI call
       setImage(imageUrl);
-      removeSpinner();
     } catch (err) {
       console.log(err);
     }
+    hideSpinner();
   };
-
-  if (authUrl) {
-    return (
-      <div className="grid wrapper">
-        <div className="cs1 ce12">
-          <a className="button button-primary" href={authUrl}>
-            Login
-          </a>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="grid">
-      <div className="cs1 ce12">
-        {/* React component which takes the user input and uses that as a prompt for OpenAI image generation */}
-        <PromptInput
-          placeholder={"Van Gogh inspired portrait of a dog"}
-          value={inputValue}
-          onChange={handleInputChange}
-        />
-      </div>
+      {/* React component which takes the user input and uses that as a prompt for OpenAI image generation */}
+      <PromptInput
+        placeholder={"Van Gogh inspired portrait of a dog"}
+        value={inputValue}
+        onChange={handleInputChange}
+      />
 
       {/* Button which calls the OpenAI backend (pages/api/openai.js) with the prompt */}
       <Button onClick={handleButtonClick}>Generate Image</Button>
 
       {/* Spinner needs to be hidden by default, otherwise will spin when opening app first time */}
-      {Boolean(loading) && <div className="spinner" />}
+
       <div className="image-container cs1 ce12">
+        {Boolean(loading) && <div className="spinner" />}
         {/* Img which needs to be draggable */}
         {Boolean(image) && <img className="miro-draggable" src={image} />}
       </div>
