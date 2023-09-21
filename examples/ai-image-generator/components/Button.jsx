@@ -1,11 +1,11 @@
-const Button = ({ label, onClick }) => {
+const Button = ({ children, onClick }) => {
   return (
     <button
       onClick={onClick}
       className="cs1 ce12 button button-primary"
       type="button"
     >
-      {label}
+      {children}
     </button>
   );
 };

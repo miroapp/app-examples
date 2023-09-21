@@ -21,15 +21,14 @@ export const getServerSideProps = async function getServerSideProps({ req }) {
 export default function Main({ authUrl }) {
   // Shows spinner while API calls are in progress / image is being dragged & dropped
   const showSpinner = () => {
-    const spinner = document.getElementById("spinner");
-    spinner.style.visibility = "visible";
+    setLoading(true);
   };
 
   // Removes spinner when API calls are finished and data is returned / image has been dropped
   const removeSpinner = () => {
-    const spinner = document.getElementById("spinner");
-    spinner.style.visibility = "hidden";
+    setLoading(false);
   };
+
   useEffect(() => {
     // Opens the panel for our app UI when we click on icon in the left sidebar
     if (new URLSearchParams(window.location.search).has("panel")) return;
@@ -61,6 +60,8 @@ export default function Main({ authUrl }) {
   };
 
   const [inputValue, setInputValue] = useState("");
+  const [image, setImage] = useState("");
+  const [loading, setLoading] = useState(false);
 
   //handles the prompt input being typed in
   const handleInputChange = (newValue) => {
@@ -69,8 +70,7 @@ export default function Main({ authUrl }) {
 
   const handleButtonClick = async () => {
     //setting the image source to be a transparent color, otherwise we have a border which looks bad
-    document.querySelector("#image").src =
-      "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA";
+    setImage("");
     showSpinner();
 
     // post our prompt to our backend
@@ -88,7 +88,7 @@ export default function Main({ authUrl }) {
       let imageUrl = data.data;
 
       //set the image src to the URL which is returned by OpenAI call
-      document.querySelector("#image").src = imageUrl;
+      setImage(imageUrl);
       removeSpinner();
     } catch (err) {
       console.log(err);
@@ -109,33 +109,23 @@ export default function Main({ authUrl }) {
 
   return (
     <div className="grid">
-      {/* React component which takes the user input and uses that as a prompt for OpenAI image generation */}
-      <PromptInput
-        placeholder={"Van Gogh inspired portrait of a dog"}
-        value={inputValue}
-        onChange={handleInputChange}
-      />
+      <div className="cs1 ce12">
+        {/* React component which takes the user input and uses that as a prompt for OpenAI image generation */}
+        <PromptInput
+          placeholder={"Van Gogh inspired portrait of a dog"}
+          value={inputValue}
+          onChange={handleInputChange}
+        />
+      </div>
 
       {/* Button which calls the OpenAI backend (pages/api/openai.js) with the prompt */}
-      <Button
-        label="Generate Image"
-        onClick={handleButtonClick}
-        id="generateImgBtn"
-      />
+      <Button onClick={handleButtonClick}>Generate Image</Button>
 
       {/* Spinner needs to be hidden by default, otherwise will spin when opening app first time */}
-      <div
-        className="spinner"
-        id="spinner"
-        style={{ visibility: "hidden" }}
-      ></div>
-      <div className="image-container">
+      {Boolean(loading) && <div className="spinner" />}
+      <div className="image-container cs1 ce12">
         {/* Img which needs to be draggable */}
-        <img
-          className="miro-draggable"
-          src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA"
-          id="image"
-        />
+        {Boolean(image) && <img className="miro-draggable" src={image} />}
       </div>
     </div>
   );

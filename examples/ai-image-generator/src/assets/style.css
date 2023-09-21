@@ -13,16 +13,15 @@ body {
 #root {
   overflow: auto;
   padding: var(--space-medium);
+  width: 100%;
 }
 
-.button {
-  width: 300px;
+.button.button {
+  margin-right: 0;
 }
 
 /* Style for the container div */
 .image-container {
-  width: 300px; /* Make the container div as wide as its parent */
-  max-width: 100%; /* Ensure the container doesn't exceed its parent's width */
   height: 300px; /* Start with a zero height */
   position: relative; /* Establish a positioning context for child elements */
   border: none;
