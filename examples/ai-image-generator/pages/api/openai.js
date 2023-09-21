@@ -12,7 +12,7 @@ export default async (req, res) => {
     const response = await openai.images.generate({
       prompt: prompt,
     });
-    let image_url = response.data[0].url;
+    const image_url = response.data[0].url;
     // send url to front end to display the image
     res.status(200).json({
       success: true,

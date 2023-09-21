@@ -52,28 +52,25 @@ https://github.com/miroapp/app-examples/assets/10428517/4660d1ab-80b6-4136-9cf6-
 appName: AI Image Generator
 sdkVersion: SDK_V2
 sdkUri: http://localhost:3000
-redirectUris:
-  - http://localhost:3000/api/redirect
-redirectUriForSdk: http://localhost:3000/api/redirect
 scopes:
   - boards:read
   - boards:write
 ```
 
-4. Run `npm start`.
+4. Go to your app settings page, all the way down, until you see `Share app`. Copy the URL and paste it in your browser.
+   Go through the OAuth flow and install the app on a [developer team](https://developers.miro.com/docs/create-a-developer-team). It
+   is recommended to install the app on a developer team while you are testing.
+
+5. Run `npm start`.
    Your URL should be similar to this example:
 
    ```
    http://localhost:3000
    ```
 
-   Go to the URL and go through the OAuth flow and install the app on a dev team.
-
-   > ⚠️ We recommend to install your app on a [developer team](https://developers.miro.com/docs/create-a-developer-team) while you are developing or testing apps.⚠️
-
-5. Go to your developer team, and open your boards.
-6. Click on the plus icon from the bottom section of your left sidebar. If you hover over it, it will say `More apps`.
-7. Search for your app `AI Image Generator` or whatever you chose to name it. Click on your app to use it, as shown in the video below.
+6. Go to your developer team, and open your boards.
+7. Click on the plus icon from the bottom section of your left sidebar. If you hover over it, it will say `More apps`.
+8. Search for your app `AI Image Generator` or whatever you chose to name it. Click on your app to use it, as shown in the video below.
 
 https://github.com/horeaporutiu/app-examples-template/assets/10428517/b23d9c4c-e785-43f9-a72e-fa5d82c7b019
 
