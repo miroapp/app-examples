@@ -135,7 +135,6 @@ export default function Main({ authUrl }) {
           className="miro-draggable"
           src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA"
           id="image"
-          draggable={false}
         />
       </div>
     </div>
