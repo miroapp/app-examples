@@ -1,0 +1,19 @@
+{
+  "name": "ai-image-generator",
+  "version": "0.1.0",
+  "license": "MIT",
+  "author": "horea@miro.com",
+  "scripts": {
+    "build": "next build",
+    "start": "next dev",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "mirotone": "5",
+    "next": "^13.0.0",
+    "openai": "^4.8.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  }
+}

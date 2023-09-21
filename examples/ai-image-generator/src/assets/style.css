@@ -1,0 +1,56 @@
+@import "mirotone/dist/styles.css";
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+}
+
+#root {
+  overflow: auto;
+  padding: var(--space-medium);
+  width: 100%;
+}
+
+.button.button {
+  margin-right: 0;
+}
+
+.image-container {
+  height: 300px;
+  position: relative;
+}
+
+.image-container img {
+  position: absolute;
+  width: 100%;
+}
+
+.spinner {
+  z-index: 10;
+  position: absolute;
+  height: 2em;
+  width: 2em;
+  border: 3px solid var(--indigo100);
+  border-radius: 50%;
+  border-top-color: var(--blackAlpha80);
+  animation: spin 1s ease-in-out infinite;
+  -webkit-animation: spin 1s ease-in-out infinite;
+  inset: 50%;
+  margin: -1em;
+}
+
+@keyframes spin {
+  to {
+    -webkit-transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes spin {
+  to {
+    -webkit-transform: rotate(360deg);
+  }
+}
