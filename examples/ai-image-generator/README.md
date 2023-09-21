@@ -41,8 +41,7 @@ https://github.com/miroapp/app-examples/assets/10428517/4660d1ab-80b6-4136-9cf6-
 
 # 🏃🏽‍♂️ Run the app locally <a name="run"></a>
 
-1. Rename the `.env.sample` file to `.env` and add in [OpenAI API key](https://platform.openai.com/account/api-keys),
-   client ID and client secret, and save the file.
+1. Rename the `.env.sample` file to `.env` and add in [OpenAI API key](https://platform.openai.com/account/api-keys) and save the file.
 2. Run `npm install` to install dependencies.
 
 3. Open the [app manifest editor](https://developers.miro.com/docs/manually-create-an-app#step-2-configure-your-app-in-miro) by clicking **Edit in Manifest**. \
