@@ -43,8 +43,12 @@ https://github.com/miroapp/app-examples/assets/10428517/4660d1ab-80b6-4136-9cf6-
 
 1. Rename the `.env.sample` file to `.env` and add in [OpenAI API key](https://platform.openai.com/account/api-keys) and save the file.
 2. Run `npm install` to install dependencies.
-
-3. Open the [app manifest editor](https://developers.miro.com/docs/manually-create-an-app#step-2-configure-your-app-in-miro) by clicking **Edit in Manifest**. \
+3. Run `npm start` to start developing. \
+   Your URL should be similar to this example:
+   ```
+   http://localhost:3000
+   ```
+4. Open the [app manifest editor](https://developers.miro.com/docs/manually-create-an-app#step-2-configure-your-app-in-miro) by clicking **Edit in Manifest**. \
    In the app manifest editor, configure the app as follows and then `click save`.
 
 ```yaml
@@ -56,20 +60,15 @@ scopes:
   - boards:write
 ```
 
-4. Go to your app settings page, all the way down, until you see `Share app`. Copy the URL and paste it in your browser.
-   Go through the OAuth flow and install the app on a [developer team](https://developers.miro.com/docs/create-a-developer-team). It
-   is recommended to install the app on a developer team while you are testing.
+5. Go back to your app home page, and under the `Permissions` section, you will see a blue button that says `Install app and get OAuth token`. Click that button. Then click on `Add` as shown in the video below. <b>In the video we install a different app, but the process is the same regardless of the app.</b>
 
-5. Run `npm start`.
-   Your URL should be similar to this example:
+> ⚠️ We recommend to install your app on a [developer team](https://developers.miro.com/docs/create-a-developer-team) while you are developing or testing apps.⚠️
 
-   ```
-   http://localhost:3000
-   ```
+https://github.com/miroapp/app-examples/assets/10428517/1e6862de-8617-46ef-b265-97ff1cbfe8bf
 
 6. Go to your developer team, and open your boards.
 7. Click on the plus icon from the bottom section of your left sidebar. If you hover over it, it will say `More apps`.
-8. Search for your app `AI Image Generator` or whatever you chose to name it. Click on your app to use it, as shown in the video below.
+8. Search for your app `AI Image Generator` or whatever you chose to name it. Click on your app to use it, as shown in the video below. <b>In the video we search for a different app, but the process is the same regardless of the app.</b>
 
 https://github.com/horeaporutiu/app-examples-template/assets/10428517/b23d9c4c-e785-43f9-a72e-fa5d82c7b019
 
