@@ -6,6 +6,8 @@ The app examples demonstrates how you can leverage Miro SDK to take selfies usin
 
 # 👨🏻‍💻 App Demo
 
+https://github.com/miroapp/app-examples/assets/7162412/46b1708d-fb08-412e-a7b2-31fddf9f4e87
+
 # 📒 Table of Contents
 
 - [Included Features](#features)
