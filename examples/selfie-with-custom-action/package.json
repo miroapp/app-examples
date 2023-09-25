@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "license": "MIT",
   "description": "This example shows you how to take selfies in Miro and update them using custom actions.",
+  "keywords": ["Miro SDK", "Vite", "React", "TypeSript", "Custom actions"],
   "scripts": {
     "start": "vite",
     "build": "vite build",

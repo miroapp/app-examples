@@ -1,6 +1,6 @@
 import type { CustomAction, CustomEvent } from "@mirohq/websdk-types";
 
-const registerAction = async () => {
+export const registerAction = async () => {
   await miro.board.ui.on("custom:add-selfie", async (props: CustomEvent) => {
     const image = props.items.pop()!;
     await miro.board.ui.openModal({
@@ -41,12 +41,3 @@ const registerAction = async () => {
   await miro.board.experimental.action.register(addSelfieAction);
   await miro.board.experimental.action.register(updateSelfieAction);
 };
-
-export async function init() {
-  miro.board.ui.on("icon:click", async () => {
-    await miro.board.ui.openModal({ url: "capture.html" });
-  });
-  registerAction();
-}
-
-init();

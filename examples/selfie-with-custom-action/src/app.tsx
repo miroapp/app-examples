@@ -4,7 +4,7 @@ import { createRoot } from "react-dom/client";
 
 const App: React.FC = () => {
   const videoRef = React.useRef<HTMLVideoElement>(null);
-  const [state, setState] = React.useState<"idle" | "busy">("idle");
+  const [isBusy, setIsBusy] = React.useState(false);
 
   React.useEffect(() => {
     const init = async () => {
@@ -33,7 +33,7 @@ const App: React.FC = () => {
       return;
     }
 
-    setState("busy");
+    setIsBusy(true);
 
     const video = videoRef.current;
     const canvas = document.createElement("canvas");
@@ -81,8 +81,6 @@ const App: React.FC = () => {
     await miro.board.viewport.zoomTo([image]);
     await miro.board.ui.closeModal();
   };
-
-  const isBusy = state === "busy";
 
   return (
     <main>

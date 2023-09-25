@@ -77,6 +77,23 @@ https://github.com/miroapp/app-examples/assets/10428517/1e6862de-8617-46ef-b265-
 10. Select a custom action to either take another selfie or update the existing one in place.
 11. You can select other images in the board that are not created from this app, they should not have the custom actions.
 
+### Example of app yaml
+
+```yaml
+appName: Selfie with custom actions
+sdkVersion: SDK_V2
+sdkUri: http://localhost:3000
+redirectUris: []
+redirectUriForSdk: ""
+scopes:
+  - boards:read
+  - boards:write
+  - webcam:record
+icons:
+  colored: ""
+  outline: ""
+```
+
 # 🗂️ Folder structure <a name="folder"></a>
 
 ```
