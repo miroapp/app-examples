@@ -24,7 +24,7 @@ exports.handler = async function (event) {
   const gitHubProjectCard = body.gitHubProjectCard;
   const gitHubProjectColumnId = gitHubProjectCard.column_id;
   const gitHubIssueNumer = gitHubProjectCard.content_url
-    .split("https: //api.github.com/repos/addisonschultz/github-cards/issues/")
+    .split("https: //api.github.com/repos/bishopwm/github-cards/issues/")
     .pop();
 
   const headers = {
