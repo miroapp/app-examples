@@ -2,7 +2,12 @@
 
 This full-stack example shows how to build an integration with GitHub that syncs data between GitHub issues and Miro app cards.
 
+⚠️ Only deprecated "Classic" GitHub projects work with this app. This means that you cannot connect this app 
+to your own repo unless you have a deprecated "Classic" GitHub project. This is why all of the issues are fetched / stored in this [public Miro classic GitHub project](https://github.com/bishopwm/github-cards/projects/1). ⚠️ 
+
 # 👨🏻‍💻 App Demo
+
+https://github.com/miroapp/app-examples/assets/10428517/e2c7b34a-e97d-453e-b64b-f72d0bda643b
 
 # 📒 Table of Contents
 
