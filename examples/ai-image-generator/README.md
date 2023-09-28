@@ -8,6 +8,7 @@ https://github.com/miroapp/app-examples/assets/10428517/4660d1ab-80b6-4136-9cf6-
 
 # 📒 Table of Contents
 
+- [Associated Video](#video)
 - [Included Features](#features)
 - [Tools and Technologies](#tools)
 - [Prerequisites](#prerequisites)
@@ -15,6 +16,12 @@ https://github.com/miroapp/app-examples/assets/10428517/4660d1ab-80b6-4136-9cf6-
 - [Folder Structure](#folder)
 - [Contributing](#contributing)
 - [License](#license)
+
+# 📹 Associated Video <a name="video"></a>
+
+Watch the video below for a demo, code walkthrough, and to learn how to set up the app.
+
+[![Build an AI Image Generator app with Next.js and Miro](https://img.youtube.com/vi/i0mOEhUJBrE/0.jpg)](https://youtu.be/i0mOEhUJBrE)
 
 # ⚙️ Included Features <a name="features"></a>
 
