@@ -21,7 +21,7 @@ https://github.com/miroapp/app-examples/assets/10428517/4660d1ab-80b6-4136-9cf6-
 
 Watch the video below for a demo, code walkthrough, and to learn how to set up the app.
 
-[![Deploy the App to AWS Amplify](https://img.youtube.com/vi/i0mOEhUJBrE/0.jpg)](https://youtu.be/i0mOEhUJBrE)
+[![Build an AI Image Generator app with Next.js and Miro](https://img.youtube.com/vi/i0mOEhUJBrE/0.jpg)](https://youtu.be/i0mOEhUJBrE)
 
 # ⚙️ Included Features <a name="features"></a>
 
