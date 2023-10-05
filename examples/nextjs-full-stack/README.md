@@ -20,7 +20,7 @@ https://github.com/miroapp/app-examples/assets/10428517/1bc9e8e0-48bd-43c2-8ba2-
 
 # ⚙️ Included Features <a name="features"></a>
 
-- [Miro Node.js Client Library](https://developers.miro.com/docs/web-sdk-reference)
+- [Miro Node.js Client Library](https://miroapp.github.io/api-clients/index.html)
   - [miro.isAuthorized](https://miroapp.github.io/api-clients/classes/index.Miro.html#isAuthorized)
   - [miro.getAuthUrl](https://miroapp.github.io/api-clients/classes/index.Miro.html#getAuthUrl)
   - [miro.exchangeCodeForAccessToken](https://miroapp.github.io/api-clients/classes/index.Miro.html#exchangeCodeForAccessToken)
