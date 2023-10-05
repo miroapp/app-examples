@@ -103,21 +103,20 @@ https://github.com/horeaporutiu/app-examples-template/assets/10428517/b23d9c4c-e
 ```
 .
 ├── package.json <-- The dependencies for the app.
-└── .env <-- A file will create, where you store sensitive credentials (client ID, client secret).
-└── .sample.env <-- A file with a template to store store sensitive credentials (client ID, client secret).
-└── node_modules <-- Node.js modules that are installed based on dependencies.
+└── .env <-- A file you create, where you store sensitive credentials (client ID, client secret).
+└── index.js <-- Main index.js file for basic UI functions.
+└── initMiro.js <-- Module where we configure the Miro authorization helper.
 └── pages
         └── api
-            └── authenticate.js <-- Checks user auth status.
+            └── upload.js <-- API endpoint to upload the image to the Miro API.
             └── redirect.js <-- Handles redirect after successful authorization to get access token.
-            └── signin.js <-- Handles OAuth authorization.
     └── _app.js <-- Main _app.js file for Next.js app.
     └── _document.js <-- Next.js import file.
-    └── index.js <-- Main index.js file for basic UI functions.
+    └── index.js <-- UI for the video preview and popup window.
+    └── trigger.js <-- Page that we use as the app entry point.
 └── public
-    └── favicon.ico <-- App icon for the browser tab.
 └── styles
-    └── globals.css <-- CSS styling.
+└── node_modules <-- Node.js modules that are installed based on dependencies.
 ```
 
 # 🫱🏻‍🫲🏽 Contributing <a name="contributing"></a>
