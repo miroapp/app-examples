@@ -1,64 +1,94 @@
-## About the app
+# Webcam Screenshot Next.js Full Stack App Example
 
-This full-stack app shows how to build a Next.js application that uploads a camera image to a Miro board by using the Miro Web SDK and Miro REST API. This app demonstrates the use of the Miro REST API and Web SDK. After configuring your project outlined in the Prerequisites section, this app allows you to authenticate yourself with your Miro account, and use the related access tokens to make REST API calls via the Miro Developer Platform.
+This full-stack app shows how to build a Next.js application that uploads a camera image to a Miro board by using the Miro Web SDK and Miro REST API.
 
-This app also stores your access and refresh tokens in your browsers cookies to demonstrate the Miro's REST API. When storing tokens in your own app, you should be consider encrypting or storing your user's tokens in a more secure way.
+# 👨🏻‍💻 App Demo
 
-## Stack
+https://github.com/miroapp/app-examples/assets/10428517/1bc9e8e0-48bd-43c2-8ba2-cf181ce58eee
 
-- [x] [React](https://reactjs.org/)
-- [x] [Next.js](https://nextjs.org/)
-- [x] [Miro Node.js API client](https://developers.miro.com/docs/miro-nodejs-readme)
-- [x] [Mirotone](https://www.mirotone.xyz/css) (styling)
+# 📒 Table of Contents
 
-## Prerequisites
+- [Included Features](#features)
+- [Tools and Technologies](#tools)
+- [Prerequisites](#prerequisites)
+- [Associated Developer Tutorial](#tutorial)
+- [Deploy the app on AWS Amplify](#deploy)
+- [Run the app locally](#run)
+- [Folder Structure](#folder)
+- [Contributing](#contributing)
+- [License](#license)
 
-1. Create a [Developer team in Miro](https://developers.miro.com/docs/create-a-developer-team).
-2. Create an [app in Miro](https://developers.miro.com/docs/build-your-first-hello-world-app#step-1-bootstrap-the-hello-world-app).
-3. Create a board in Miro that you'd like to manipulate with the REST API.
+# ⚙️ Included Features <a name="features"></a>
 
-## How to start
+- [Miro Node.js Client Library](https://miroapp.github.io/api-clients/index.html)
+  - [miro.isAuthorized](https://miroapp.github.io/api-clients/classes/index.Miro.html#isAuthorized)
+  - [miro.getAuthUrl](https://miroapp.github.io/api-clients/classes/index.Miro.html#getAuthUrl)
+  - [miro.exchangeCodeForAccessToken](https://miroapp.github.io/api-clients/classes/index.Miro.html#exchangeCodeForAccessToken)
+  - [api.getBoard](https://miroapp.github.io/api-clients/classes/index.MiroApi.html#getBoard)
+  - [board.createImageItem](https://miroapp.github.io/api-clients/classes/index.Board.html#createImageItem)
+- [Miro Web SDK](https://developers.miro.com/docs/web-sdk-reference)
+  - [icon:click event](https://developers.miro.com/docs/ui_boardui#iconclick-event)
+  - [getInfo()](https://developers.miro.com/docs/board_board#getinfo)
+  - [openModal()](https://developers.miro.com/docs/ui_boardui#openmodal)
+  - [openPanel()](https://developers.miro.com/docs/ui_boardui#openpanel)
 
-First, make sure you handled the [prerequisites](#prerequisites).
+# 🛠️ Tools and Technologies <a name="tools"></a>
 
-Then, proceed to configure the app:
+- [React](https://react.dev/)
+- [Next.js](https://nextjs.org/)
 
-- In your account profile, go to **Your apps**, and then select the app you just created to access its settings page.
-- On the app settings page:
-  - Go to **App Credentials**, and copy the app **Client ID** and **Client secret** values: you'll need to enter these values
-    in step 4 below.
-  - Then, open the [app manifest editor](https://developers.miro.com/docs/manually-create-an-app#step-2-configure-your-app-in-miro) by clicking **Edit in Manifest**.
-- In the app manifest editor, configure the app as follows:
-  - [`sdkUri`](https://developers.miro.com/docs/app-manifest#sdkuri): assign `http://localhost:3000` as a value for this property. \
-    It defines the entry point of the app, and it corresponds to the URL of the server that the app runs on.
-  - [`redirectUris`](https://developers.miro.com/docs/app-manifest#redirecturis): assign `http://localhost:3000/api/redirect/` as a value for this property. \
-    It defines the redirect URL that starts the OAuth 2.0 code grant flow for the REST API.
-  - [`scopes`](https://developers.miro.com/docs/app-manifest#scopes): add the permission scopes that users need to grant the app when they install it. \
-    To enable the app to read from and write to the board, and to use the local machine webcam to record video, add the following permissions:
-    - `boards:read`
-    - `boards:write`
-    - `webcam:record`
+# ✅ Prerequisites <a name="prerequisites"></a>
 
-Now you can start working directly with the app:
+- You have a [Miro account](https://miro.com/signup/).
+- You're [signed in to Miro](https://miro.com/login/).
+- Your Miro account has a [Developer team](https://developers.miro.com/docs/create-a-developer-team).
+- Create a [new app in Miro](https://miro.com/app/settings/user-profile/apps)
+- Your development environment includes [Node.js 14.13](https://nodejs.org/en/download) or a later version.
+- All examples use `npm` as a package manager and `npx` as a package runner.
 
-1. Clone or download the app repository.
-2. `cd` to the project root folder.
-3. Run `yarn install` to install the dependencies.
-4. Create a `.env` file in the root folder, and set the following variables:
+# ☁️ Deploy the app on AWS Amplify <a name="deploy"></a>
 
+If you want to understand how to deploy the app to AWS Amplify, please watch the video below. Otherwise,
+skip to the next section to see how to run this locally.
+
+[![Deploy the App to AWS Amplify](https://img.youtube.com/vi/-7pPvRzvYjM/0.jpg)](https://youtu.be/-7pPvRzvYjM)
+
+# 🏃🏽‍♂️ Run the app locally <a name="run"></a>
+
+1. Run `yarn install` to install dependencies.
+
+2. Rename the `.sample.env` file to `.env` and then add in your clientID, client Secret, and keep the redirect URL the same.
+
+3. Open the [app manifest editor](https://developers.miro.com/docs/manually-create-an-app#step-2-configure-your-app-in-miro) by clicking **Edit in Manifest**. \
+   In the app manifest editor, copy and paste the following yaml code:
+
+```yaml
+# See https://developers.miro.com/docs/app-manifest on how to use this
+appName: Webcam Screenshot
+sdkUri: "http://localhost:3000"
+redirectUris:
+  - http://localhost:3000/api/redirect/
+scopes:
+  - boards:read
+  - boards:write
+  - webcam:record
 ```
-MIRO_CLIENT_ID={YOUR_CLIENT_ID)
-MIRO_CLIENT_SECRET={YOUR_CLIENT_SECRET}
-MIRO_REDIRECT_URL=http://localhost:3000/api/redirect/
-```
 
-5. Run `yarn dev` to start the local web server.
+4. Run `yarn dev`.
 
-Once your server is up and running:
+5. Once your server is up and running, go to http://localhost:3000/ in your browser.
 
-1. Go to [Miro.com](https://miro.com).
-2. Open a board in your Developer team.
-3. To start the app, click the corresponding app icon in the app toolbar on the left.
+6. Go back to your app home page, and under the `Permissions` section, you will see a blue button that says `Install app and get OAuth token`. Click that button. Then click on `Add` as shown in the video below. <b>In the video we install a different app, but the process is the same regardless of the app.</b>
+
+> ⚠️ We recommend to install your app on a [developer team](https://developers.miro.com/docs/create-a-developer-team) while you are developing or testing apps.⚠️
+
+https://github.com/miroapp/app-examples/assets/10428517/1e6862de-8617-46ef-b265-97ff1cbfe8bf
+
+7. Go to your developer team, and open your boards.
+8. Click on the plus icon from the bottom section of your left sidebar. If you hover over it, it will say `More apps`.
+9. Search for your app `Webcam Screenshot` or whatever you chose to name it. Click on your app to use it, as shown in the video below. <b>In the video we search for a different app, but the process is the same regardless of the app.</b>
+
+https://github.com/horeaporutiu/app-examples-template/assets/10428517/b23d9c4c-e785-43f9-a72e-fa5d82c7b019
 
 > ⚠️ In case of error `401` returned by a REST API request, remove the `miro_tokens` cookie for the `localhost`
 > domain in the browser:
@@ -68,7 +98,7 @@ Once your server is up and running:
 > In the example, the access token refresh functionality has not been implemented to keep the implementation
 > simple and focused on the topic.
 
-## Folder structure
+# 🗂️ Folder structure <a name="folder"></a>
 
 ```
 .
@@ -87,5 +117,12 @@ Once your server is up and running:
 └── public
 └── styles
 └── node_modules <-- Node.js modules that are installed based on dependencies.
-
 ```
+
+# 🫱🏻‍🫲🏽 Contributing <a name="contributing"></a>
+
+If you want to contribute to this example, or any other Miro Open Source project, please review [Miro's contributing guide](https://github.com/miroapp/app-examples/blob/main/CONTRIBUTING.md).
+
+# 🪪 License <a name="license"></a>
+
+[MIT License](https://github.com/miroapp/app-examples/blob/main/LICENSE).
