@@ -80,18 +80,14 @@ https://github.com/miroapp/app-examples/assets/10428517/1e6862de-8617-46ef-b265-
 ### Example of app yaml
 
 ```yaml
+# See https://developers.miro.com/docs/app-manifest on how to use this
 appName: Selfie with custom actions
 sdkVersion: SDK_V2
 sdkUri: http://localhost:3000
-redirectUris: []
-redirectUriForSdk: ""
 scopes:
   - boards:read
   - boards:write
   - webcam:record
-icons:
-  colored: ""
-  outline: ""
 ```
 
 # 🗂️ Folder structure <a name="folder"></a>
