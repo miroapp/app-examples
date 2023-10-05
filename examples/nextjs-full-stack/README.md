@@ -4,6 +4,8 @@ This full-stack app shows how to build a Next.js application that uploads a came
 
 # 👨🏻‍💻 App Demo
 
+https://github.com/miroapp/app-examples/assets/10428517/1bc9e8e0-48bd-43c2-8ba2-cf181ce58eee
+
 # 📒 Table of Contents
 
 - [Included Features](#features)
