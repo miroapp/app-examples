@@ -102,42 +102,33 @@ exports.handler = async function (event) {
           }),
         };
 
-        return await new Promise((resolve) => {
-          try {
-            const miroAppCardResponse = fetch(
-              `https://api.miro.com/v2/boards/${item.miroBoardId}/app_cards/${item.miroAppCardId}`,
-              options,
-            );
+        try {
+          const miroAppCardResponse = await fetch(
+            `https://api.miro.com/v2/boards/${item.miroBoardId}/app_cards/${item.miroAppCardId}`,
+            options,
+          );
 
-            if (miroAppCardResponse.ok) {
-              const data = miroAppCardResponse.json();
-              const response = {
-                statusCode: 200,
-                headers: { "content-type": "application/json" },
-                body: JSON.stringify(data),
-              };
-              resolve(response);
-            } else {
-              resolve({
-                statusCode: miroAppCardResponse.status || 500,
-                body: miroAppCardResponse.statusText,
-              });
-            }
-
+          if (miroAppCardResponse.ok) {
+            const data = await miroAppCardResponse.json();
             const response = {
               statusCode: 200,
               headers: { "content-type": "application/json" },
               body: JSON.stringify(data),
             };
-            resolve(response);
-          } catch (error) {
-            console.log(error);
-            resolve({
-              statusCode: error.statusCode || 500,
-              body: error.message,
-            });
+            return response;
+          } else {
+            return {
+              statusCode: miroAppCardResponse.status || 500,
+              body: miroAppCardResponse.statusText,
+            };
           }
-        });
+        } catch (error) {
+          console.log(error);
+          return {
+            statusCode: error.statusCode || 500,
+            body: error.message,
+          };
+        }
       }),
     );
   }
