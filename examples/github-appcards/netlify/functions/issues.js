@@ -66,7 +66,7 @@ exports.handler = async function (event) {
           }),
         };
 
-        return new Promise((resolve) => {
+        return await new Promise((resolve) => {
           try {
             const miroAppCardResponse = fetch(
               `https://api.miro.com/v2/boards/${item.miroBoardId}/app_cards/${item.miroAppCardId}`,
