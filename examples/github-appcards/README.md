@@ -70,9 +70,17 @@ https://github.com/miroapp/app-examples/assets/10428517/e2c7b34a-e97d-453e-b64b-
 3. Click on `Create a new table`
 4. Name this table `Auth` and add in the following columns, with the respective `Format` as shown in the screenshot below. This table will hold access_tokens to be able to call the Miro REST API to sync changes which happen in the GitHub project.
 5. Click on `Create a new table` and name this table `card-mapping` and add in the following columns, with the respective `Format` as shown in the screenshot below. This table will hold the app card ID from Miro and the GitHub issue ID along with the MiroUserId.
-6. Click on `Edit column` for the `miroUserId` in the `card-mapping` table, and then add in the following `Foreign Key Relation` as
-   shown in the screenshot below.
+6. Click on `Edit column` for the `miroUserId` in the `card-mapping` table, and then add in the following `Foreign Key Relation` as shown in the screenshot below.
+
+<img width="733" alt="supabase-foreign-key-config" src="https://github.com/miroapp/app-examples/assets/10428517/9af8af58-f2cd-46db-a91f-d6c0d76b016e">
+
 7. Once you save the `Foreign Key Relation` your `miroUserId` from the `card-mapping` table should look something like the screenshot below. Click `Save`. We need this to be able to associate the miroUserId with a access_token so we can invoke the Miro REST API.
+
+<img width="423" alt="supabase-foreign-key-config-2" src="https://github.com/miroapp/app-examples/assets/10428517/1f103542-79b4-47d8-973b-01c32d7a1113">
+
+One you are done, it should look like this:
+
+![supabase-foreign-key-config-summary](https://github.com/miroapp/app-examples/assets/10428517/3670da24-12be-4302-853f-0f24d45063b9)
 
 # ☁️ Netlify Configuration <a name="netlify"></a>
 
@@ -93,6 +101,9 @@ automatically generate those functions since Netlify is looking for serverless f
 
 1. Go to your Netlify account and auth with your GitHub account.
 2. Download the `github-appcards` repo by going to developers.miro.com and then scrolling down to `Create apps using samples`. Then find GitHub App Cards and click on the `Download source code as .zip`. Unzip the files.
+![download-source-code](https://github.com/miroapp/app-examples/assets/10428517/42edc852-3c2d-4f1d-bce7-a2ec4d7c7cb5)
+
+
 3. Create a new GitHub repo, and push up your `github-appcards` project which you just downloaded to it. You can use the following commands to do so:
 
 ```
@@ -113,6 +124,9 @@ git push -u origin main
 6. Once the deploy is complete, you app should be deployed to `<site-name>.netlify.app`. For example, mine was `https://peaceful-fairy-c2e727.netlify.app`
    as shown in the screenshot below. I will use the `https://peaceful-fairy-c2e727.netlify.app` as the example for how to connect your Miro app to the
    Netlify app but just understand that your URL will be different.
+
+   <img width="708" alt="netlify-app-name" src="https://github.com/miroapp/app-examples/assets/10428517/efc7d228-af74-4771-9028-c701ad55efc4">
+
 
 # ☁️ Miro App Configuration <a name="miro"></a>
 
@@ -141,8 +155,11 @@ icons:
 3. From the `Redirect URI for OAuth2.0` section in app settings, click on `Options` and make sure `Use this URI for SDK authorization` is checked,
    as shown in the screenshot below.
 
-4. Rename the `.sample.env` file at the base of the `github-appcards` repo to `.env` and fill in the values as detailed in the comments. Note,
-   your `redirectUriForSdk` on your app settings should be the same as the `MIRO_REDIRECT_URI` in your env variables.
+<img width="812" alt="use-redirect-url-for-sdk-auth" src="https://github.com/miroapp/app-examples/assets/10428517/1bae05ad-f0c6-451c-9373-7c52cae856d2">
+
+5. Rename the `.sample.env` file at the base of the `github-appcards` repo to `.env` and fill in the values as detailed in the comments. Note,
+   your `redirectUriForSdk` on your app settings should be the same as the `MIRO_REDIRECT_URI` in your env variables. Below, I have used the
+   `peaceful-fairy` example to show how you should fill in this env file. Note that you must use your own deployed app base name and then it should end in `.netlify/functions/authorize` for the `MIRO_REDIRECT_URI`.
 
 ```.env
 # Generate an access token in GitHub, and enter the value here.
@@ -167,7 +184,7 @@ VITE_DATABASE_PUBLIC_KEY=
 
 # Enter the base URL of the hosting service your app runs on here.
 # If you're developing locally, it can be 'localhost'.
-VITE_BASE_URL=
+VITE_BASE_URL=https://peaceful-fairy-c2e727.netlify.app/
 
 # Enter the client secret of your app here.
 # To retrieve the client secret, go to https://miro.com/app/settings/user-profile/
@@ -179,7 +196,7 @@ MIRO_CLIENT_SECRET=
 # For more information, see:
 # https://developers.miro.com/docs/getting-started-with-oauth
 # https://developers.miro.com/reference/authorization-flow-for-expiring-access-tokens
-MIRO_REDIRECT_URI=
+MIRO_REDIRECT_URI=https://peaceful-fairy-c2e727.netlify.app/.netlify/functions/authorize
 ```
 
 6. Once you have filled this in, go back to your Netlify deploys and click on `Site configuration` -> then click on `Environment variables` ->
@@ -188,6 +205,7 @@ MIRO_REDIRECT_URI=
 7. Trigger a new deploy.
 
 <b>Make sure your URLs have https:// at the beginning, otherwise the OAuth flow will not work.</b>
+Also make sure that your MIRO_REDIRECT_URI ends in `.netlify/functions/authorize`.
 
 # 🏃🏽‍♂️ Run the app <a name="run"></a>
 
