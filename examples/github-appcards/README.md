@@ -126,9 +126,7 @@ icons:
 3. From the `Redirect URI for OAuth2.0` section in app settings, click on `Options` and make sure `Use this URI for SDK authorization` is checked,
    as shown in the screenshot below.
 
-4. Click on `Install app and get OAuth token`.
-
-5. Rename the `.sample.env` file at the base of the `github-appcards` repo to `.env` and fill in the values as detailed in the comments. Note,
+4. Rename the `.sample.env` file at the base of the `github-appcards` repo to `.env` and fill in the values as detailed in the comments. Note,
    your `redirectUriForSdk` on your app settings should be the same as the `MIRO_REDIRECT_URI` in your env variables.
 
 ```.env
@@ -172,19 +170,7 @@ MIRO_REDIRECT_URI=
 6. Once you have filled this in, go back to your Netlify deploys and click on `Site configuration` -> then click on `Environment variables` ->
    `Add a variable` -> `import from a .env file` and then just copy and paste the content and click on `Import variables`.
 
-7. Go to `.github/workflows/issues.yml` and change the URL to be your base app name. i.e. for mine it looks like
-   `url: "https://peaceful-fairy-c2e727.netlify.app/.netlify/functions/issues"` since my base app name is `https://peaceful-fairy-c2e727.netlify.app`.
-   Then do the same for the `project-cards` file. It should be changed to `url: "https://peaceful-fairy-c2e727.netlify.app/.netlify/functions/project-cards"`.
-
-8. Once you've made these two changes, commit these changes and push them up to the main branch:
-
-```
-git add .
-git commit -m "added netlify functions to GitHub actions"
-git push
-```
-
-9. This will trigger a new deploy automatically.
+7. Trigger a new deploy.
 
 <b>Make sure your URLs have https:// at the beginning, otherwise the OAuth flow will not work.</b>
 
