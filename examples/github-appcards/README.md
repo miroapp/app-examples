@@ -2,8 +2,8 @@
 
 This full-stack example shows how to build an integration with GitHub that syncs data between GitHub issues and Miro app cards.
 
-⚠️ Only deprecated "Classic" GitHub projects work with this app. This means that you cannot connect this app to your own repo unless you have a deprecated "Classic" GitHub project. This is why all of the issues are fetched / stored in this
-[public Miro classic GitHub project](https://github.com/bishopwm/github-cards/projects/1). ⚠️
+⚠️ 🚨 Only deprecated "Classic" GitHub projects work with this app. This means that you cannot connect this app to your own repo unless you have a deprecated "Classic" GitHub project. This is why all of the issues are fetched / stored in this
+[public Miro classic GitHub project](https://github.com/bishopwm/github-cards/projects/1). ⚠️ 🚨
 
 <b>This app is meant to show the basic concepts behind 2-way sync, but is in no way a working solution. This is intended for
 simple demo purposes to show a simple 2-way sync with free services like Netlify, Supabase, and Miro.</b>
@@ -74,14 +74,27 @@ https://github.com/miroapp/app-examples/assets/10428517/e2c7b34a-e97d-453e-b64b-
 
 # ☁️ Netlify Configuration <a name="netlify"></a>
 
+The code in this repo contains three different functions which are meant to be serverless functions:
+
+- netlify/functions/authorize.js
+- netlify/functions/issues.js
+- netlify/functions/project-cards.js
+
+<b>[authorize.js](https://github.com/miroapp/app-examples/blob/main/examples/github-appcards/netlify/functions/authorize.js)</b> is going to run when you share your app with someone and then go through the OAuth flow.
+
+<b>[issues.js](https://github.com/miroapp/app-examples/blob/main/examples/github-appcards/netlify/functions/issues.js)</b> is going to run when you update the title or description of an issue. We have a GitHub action which will do this, defined in `.github/workflows/issues.yml`. You will need to update the [GitHub Action URL](https://github.com/miroapp/app-examples/blob/main/examples/github-appcards/.github/workflows/issues.yml#L11) to point to your deployed Netlify function. It should look something like `https://miro-github.netlify.app/.netlify/functions/issues`.
+
+<b>[project-cards.js](https://github.com/miroapp/app-examples/blob/main/examples/github-appcards/netlify/functions/project-cards.js)</b> is going to run when you move a card to a different column i.e. if you move a card from `To Do` to `Done`. We have a GitHub action which will do this, defined in `.github/workflows/project-cards.yml`. You will need to update the [GitHub Action URL](https://github.com/miroapp/app-examples/blob/main/examples/github-appcards/.github/workflows/project-cards.yml#L13) to point to your deployed Netlify function. It should look something like `https://miro-github.netlify.app/.netlify/functions/project-cards`.
+
+Now we will show you step by step how to set this up for free with Netlify. <i>When you deploy your site with Netlify, it will
+automatically generate those functions since Netlify is looking for serverless functions in the `netlify/functions` directory</i>.
+
 1. Go to your Netlify account and auth with your GitHub account.
-2. Clone the [app-examples GitHub repo](https://github.com/miroapp/app-examples).
-3. Make a new directory to hold your deployed project: `mkdir GitHub-app-cards-deployed`.
-4. Copy and paste this code into a new location by using the following command: `cp -rf app-examples/examples/github-appcards GitHub-app-cards-deployed/`
-5. Create a new GitHub repo, and push up your `GitHub-app-cards-deployed` project to it. You can use the following commands to do so:
+2. Download the `github-appcards` repo by going to developers.miro.com and then scrolling down to `Create apps using samples`. Then find GitHub App Cards and click on the `Download source code as .zip`. Unzip the files.
+3. Create a new GitHub repo, and push up your `github-appcards` project which you just downloaded to it. You can use the following commands to do so:
 
 ```
-cd GitHub-app-cards-deployed/github-appcards
+cd github-appcards
 git init
 git add .
 git commit -m "first commit"
@@ -89,13 +102,13 @@ git remote add origin https://github.com/<your-github-username>/<your-new-github
 git push -u origin main
 ```
 
-6. At this point, you should have a personal repo which has the GitHub-appcards code in it. We will use this repo as a way to
+4. At this point, you should have a personal repo which has the [GitHub-appcards code](https://github.com/miroapp/app-examples/tree/main/examples/github-appcards) in it. We will use this repo as a way to
    deploy this app with Netlify.
 
-7. Go into Netlify, login, and from the `Team overview` section, click on `Add new site` -> `Import an existing project` -> `Deploy with GitHub` and then
+5. Go into Netlify, login, and from the `Team overview` section, click on `Add new site` -> `Import an existing project` -> `Deploy with GitHub` and then
    authenticate into GitHub and select this project which you just created which holds the GitHub app cards code. Select the `main` branch and `Deploy`
 
-8. Once the deploy is complete, you app should be deployed to `<site-name>.netlify.app`. For example, mine was `https://peaceful-fairy-c2e727.netlify.app`
+6. Once the deploy is complete, you app should be deployed to `<site-name>.netlify.app`. For example, mine was `https://peaceful-fairy-c2e727.netlify.app`
    as shown in the screenshot below. I will use the `https://peaceful-fairy-c2e727.netlify.app` as the example for how to connect your Miro app to the
    Netlify app but just understand that your URL will be different.
 
