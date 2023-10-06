@@ -9,13 +9,7 @@ This full-stack example shows how to build an integration with GitHub that syncs
 simple demo purposes to show a simple 2-way sync with free services like Netlify, Supabase, and Miro.</b>
 
 <b>This app involves setting up different tools such as Netlify for deploying your app, Supabase for storing access tokens and
-GitHub for using GitHub actions to detech any changes in your projects. It takes 20-30 minutes to configure.</b>
-
-GitHub App Cards Configuration Summary
-
-1. Configure Database (5-10 min)
-2. Deploy app to Netlify (5-10 min)
-3.
+GitHub for using GitHub actions to detech any changes in your projects. It takes 30-40 minutes to configure.</b>
 
 # 👨🏻‍💻 App Demo
 
@@ -201,6 +195,8 @@ git push
 > ⚠️ We recommend to install your app on a [developer team](https://developers.miro.com/docs/create-a-developer-team) while you are developing or testing apps.⚠️
 
 https://github.com/miroapp/app-examples/assets/10428517/1e6862de-8617-46ef-b265-97ff1cbfe8bf
+
+<b>Make sure your redirect URLs and `VITE_BASE_URL` have https:// at the beginning, otherwise the OAuth flow will not work.</b>
 
 2. Go to your developer team, and open your boards.
 3. Click on the plus icon from the bottom section of your left sidebar. If you hover over it, it will say `More apps`.
