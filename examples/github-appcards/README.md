@@ -207,13 +207,9 @@ Also make sure that your MIRO_REDIRECT_URI ends in `.netlify/functions/authorize
 
 # 🏃🏽‍♂️ Run the app <a name="run"></a>
 
-1. Go back to your app home page, and under the `Share app` section, click on `Copy` and paste the URL in your browser. Install the app on a dev team. <b>In the video we install a different app, but the process is the same regardless of the app.</b>
+1. Go back to your app home page, and under the `Share app` section, click on `Copy` and paste the URL in your browser. Install the app on a dev team.
 
 > ⚠️ We recommend to install your app on a [developer team](https://developers.miro.com/docs/create-a-developer-team) while you are developing or testing apps.⚠️
-
-https://github.com/miroapp/app-examples/assets/10428517/1e6862de-8617-46ef-b265-97ff1cbfe8bf
-
-<b>Make sure your redirect URLs and `VITE_BASE_URL` have https:// at the beginning, otherwise the OAuth flow will not work.</b>
 
 2. Go to your developer team, and open your boards.
 3. Click on the plus icon from the bottom section of your left sidebar. If you hover over it, it will say `More apps`.
