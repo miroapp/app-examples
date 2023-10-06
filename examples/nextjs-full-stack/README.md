@@ -74,19 +74,17 @@ scopes:
   - webcam:record
 ```
 
-4. Run `yarn dev`.
-
-5. Once your server is up and running, go to http://localhost:3000/ in your browser.
-
-6. Go back to your app home page, and under the `Permissions` section, you will see a blue button that says `Install app and get OAuth token`. Click that button. Then click on `Add` as shown in the video below. <b>In the video we install a different app, but the process is the same regardless of the app.</b>
+4. Go back to your app home page, and under the `Permissions` section, you will see a blue button that says `Install app and get OAuth token`. Click that button. Then click on `Add` as shown in the video below. <b>In the video we install a different app, but the process is the same regardless of the app.</b>
 
 > ⚠️ We recommend to install your app on a [developer team](https://developers.miro.com/docs/create-a-developer-team) while you are developing or testing apps.⚠️
 
 https://github.com/miroapp/app-examples/assets/10428517/1e6862de-8617-46ef-b265-97ff1cbfe8bf
 
-7. Go to your developer team, and open your boards.
-8. Click on the plus icon from the bottom section of your left sidebar. If you hover over it, it will say `More apps`.
-9. Search for your app `Webcam Screenshot` or whatever you chose to name it. Click on your app to use it, as shown in the video below. <b>In the video we search for a different app, but the process is the same regardless of the app.</b>
+5. Run `yarn dev`.
+
+6. Go to your developer team, and open your boards.
+7. Click on the plus icon from the bottom section of your left sidebar. If you hover over it, it will say `More apps`.
+8. Search for your app `Webcam Screenshot` or whatever you chose to name it. Click on your app to use it, as shown in the video below. <b>In the video we search for a different app, but the process is the same regardless of the app.</b>
 
 https://github.com/horeaporutiu/app-examples-template/assets/10428517/b23d9c4c-e785-43f9-a72e-fa5d82c7b019
 
