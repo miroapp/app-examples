@@ -96,8 +96,8 @@ git push -u origin main
    authenticate into GitHub and select this project which you just created which holds the GitHub app cards code. Select the `main` branch and `Deploy`
 
 8. Once the deploy is complete, you app should be deployed to `<site-name>.netlify.app`. For example, mine was `https://peaceful-fairy-c2e727.netlify.app`
-   as shown in the screenshot below. <b>I will use the `https://peaceful-fairy-c2e727.netlify.app` as the example for how to connect your Miro app to the
-   Netlify app but just understand that your URL will be different. </b>
+   as shown in the screenshot below. I will use the `https://peaceful-fairy-c2e727.netlify.app` as the example for how to connect your Miro app to the
+   Netlify app but just understand that your URL will be different.
 
 # ☁️ Miro App Configuration <a name="miro"></a>
 
