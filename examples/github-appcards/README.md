@@ -121,7 +121,7 @@ icons:
   outline: ""
 ```
 
-> <b>Make sure to change `sdkUri`, `redirectUris`, and `redirectUriForSdk` with your site name.
+> <b>Make sure to change `sdkUri`, `redirectUris`, and `redirectUriForSdk` with your site name.</b>
 
 3. From the `Redirect URI for OAuth2.0` section in app settings, click on `Options` and make sure `Use this URI for SDK authorization` is checked,
    as shown in the screenshot below.
