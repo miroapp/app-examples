@@ -72,13 +72,13 @@ https://github.com/miroapp/app-examples/assets/10428517/e2c7b34a-e97d-453e-b64b-
 5. Click on `Create a new table` and name this table `card-mapping` and add in the following columns, with the respective `Format` as shown in the screenshot below. This table will hold the app card ID from Miro and the GitHub issue ID along with the MiroUserId.
 6. Click on `Edit column` for the `miroUserId` in the `card-mapping` table, and then add in the following `Foreign Key Relation` as shown in the screenshot below.
 
-<img width="733" alt="supabase-foreign-key-config" src="https://github.com/miroapp/app-examples/assets/10428517/9af8af58-f2cd-46db-a91f-d6c0d76b016e">
+<img width="423" alt="supabase-foreign-key-config-2" src="https://github.com/miroapp/app-examples/assets/10428517/1f103542-79b4-47d8-973b-01c32d7a1113">
 
 7. Once you save the `Foreign Key Relation` your `miroUserId` from the `card-mapping` table should look something like the screenshot below. Click `Save`. We need this to be able to associate the miroUserId with a access_token so we can invoke the Miro REST API.
 
-<img width="423" alt="supabase-foreign-key-config-2" src="https://github.com/miroapp/app-examples/assets/10428517/1f103542-79b4-47d8-973b-01c32d7a1113">
+<img width="733" alt="supabase-foreign-key-config" src="https://github.com/miroapp/app-examples/assets/10428517/9af8af58-f2cd-46db-a91f-d6c0d76b016e">
 
-One you are done, it should look like this:
+One you are done, it should look like this. Click save.
 
 ![supabase-foreign-key-config-summary](https://github.com/miroapp/app-examples/assets/10428517/3670da24-12be-4302-853f-0f24d45063b9)
 
@@ -101,8 +101,7 @@ automatically generate those functions since Netlify is looking for serverless f
 
 1. Go to your Netlify account and auth with your GitHub account.
 2. Download the `github-appcards` repo by going to developers.miro.com and then scrolling down to `Create apps using samples`. Then find GitHub App Cards and click on the `Download source code as .zip`. Unzip the files.
-![download-source-code](https://github.com/miroapp/app-examples/assets/10428517/42edc852-3c2d-4f1d-bce7-a2ec4d7c7cb5)
-
+   ![download-source-code](https://github.com/miroapp/app-examples/assets/10428517/42edc852-3c2d-4f1d-bce7-a2ec4d7c7cb5)
 
 3. Create a new GitHub repo, and push up your `github-appcards` project which you just downloaded to it. You can use the following commands to do so:
 
@@ -126,7 +125,6 @@ git push -u origin main
    Netlify app but just understand that your URL will be different.
 
    <img width="708" alt="netlify-app-name" src="https://github.com/miroapp/app-examples/assets/10428517/efc7d228-af74-4771-9028-c701ad55efc4">
-
 
 # ☁️ Miro App Configuration <a name="miro"></a>
 
