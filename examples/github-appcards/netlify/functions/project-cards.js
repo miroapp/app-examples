@@ -23,7 +23,7 @@ exports.handler = async function (event) {
   const body = JSON.parse(event.body);
   const gitHubProjectCard = body.gitHubProjectCard;
   const gitHubProjectColumnId = gitHubProjectCard.column_id;
-  const gitHubIssueNumer = gitHubProjectCard.content_url
+  const gitHubIssueNumber = gitHubProjectCard.content_url
     .split("https:// api.github.com/repos/bishopwm/github-cards/issues/")
     .pop();
 
@@ -54,7 +54,7 @@ exports.handler = async function (event) {
     .select(
       "id, miroAppCardId::text, gitHubIssueId, miroUserId::text, gitHubUsername, created_at, miroBoardId, gitHubIssueNumber, auth ( access_token )",
     )
-    .eq("gitHubIssueNumber", gitHubIssueNumer);
+    .eq("gitHubIssueNumber", gitHubIssueNumber);
 
   // No Miro App Card Found
   if (error) {

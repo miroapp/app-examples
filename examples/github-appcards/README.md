@@ -87,13 +87,13 @@ The code in this repo contains three different functions which are meant to be s
 
 - netlify/functions/[authorize.js](netlify/functions/authorize.js)
 - netlify/functions/[issues.js](netlify/functions/issues.js)
-- netlify/functions/[project-cards.js](netlify/functions/project-cards.js)		
+- netlify/functions/[project-cards.js](netlify/functions/project-cards.js)
 
-<b>[authorize.js](https://github.com/miroapp/app-examples/blob/main/examples/github-appcards/netlify/functions/authorize.js)</b> is going to run when you share your app with someone and then go through the OAuth flow.
+<b>[authorize.js](netlify/functions/authorize.js)</b> is going to run when you share your app with someone and then go through the OAuth flow.
 
-<b>[issues.js](https://github.com/miroapp/app-examples/blob/main/examples/github-appcards/netlify/functions/issues.js)</b> is going to run when you update the title or description of an issue. We have a GitHub action which will do this, defined in `.github/workflows/issues.yml`. You will need to update the [GitHub Action URL](https://github.com/miroapp/app-examples/blob/main/examples/github-appcards/.github/workflows/issues.yml#L11) to point to your deployed Netlify function. It should look something like `https://miro-github.netlify.app/.netlify/functions/issues`.
+<b>[issues.js](netlify/functions/issues.js)</b> is going to run when you update the title or description of an issue. We have a GitHub action which will do this, defined in `.github/workflows/issues.yml`. You will need to update the [GitHub Action URL](https://github.com/miroapp/app-examples/blob/main/examples/github-appcards/.github/workflows/issues.yml#L11) to point to your deployed Netlify function. It should look something like `https://miro-github.netlify.app/.netlify/functions/issues`.
 
-<b>[project-cards.js](https://github.com/miroapp/app-examples/blob/main/examples/github-appcards/netlify/functions/project-cards.js)</b> is going to run when you move a card to a different column i.e. if you move a card from `To Do` to `Done`. We have a GitHub action which will do this, defined in `.github/workflows/project-cards.yml`. You will need to update the [GitHub Action URL](https://github.com/miroapp/app-examples/blob/main/examples/github-appcards/.github/workflows/project-cards.yml#L13) to point to your deployed Netlify function. It should look something like `https://miro-github.netlify.app/.netlify/functions/project-cards`.
+<b>[project-cards.js](netlify/functions/project-cards.js)</b> is going to run when you move a card to a different column i.e. if you move a card from `To Do` to `Done`. We have a GitHub action which will do this, defined in `.github/workflows/project-cards.yml`. You will need to update the [GitHub Action URL](https://github.com/miroapp/app-examples/blob/main/examples/github-appcards/.github/workflows/project-cards.yml#L13) to point to your deployed Netlify function. It should look something like `https://miro-github.netlify.app/.netlify/functions/project-cards`.
 
 Now we will show you step by step how to set this up for free with Netlify. <i>When you deploy your site with Netlify, it will
 automatically generate those functions since Netlify is looking for serverless functions in the `netlify/functions` directory</i>.
