@@ -2,8 +2,15 @@
 
 This full-stack example shows how to build an integration with GitHub that syncs data between GitHub issues and Miro app cards.
 
-⚠️ Only deprecated "Classic" GitHub projects work with this app. This means that you cannot connect this app to your own repo unless you have a deprecated "Classic" GitHub project. This is why all of the issues are fetched / stored in this
-[public Miro classic GitHub project](https://github.com/bishopwm/github-cards/projects/1). ⚠️
+🚨 🚨 🚨
+Only deprecated "Classic" GitHub projects work with this app. This means that you cannot connect this app to your own repo unless you
+have a deprecated "Classic" GitHub project. This is why all of the issues are fetched / stored in this
+[public Miro classic GitHub project](https://github.com/bishopwm/github-cards/projects/1).
+
+This app is meant to show the basic concepts behind 2-way sync, but is in no way a working solution. This is intended for simple demo purposes to show a simple 2-way sync with free services like Netlify, Supabase, and Miro.
+
+This app involves setting up different tools such as Netlify for deploying your app, Supabase for storing access tokens and
+GitHub for using GitHub actions to detech any changes in your projects. It takes 30-40 minutes to configure.
 
 # 👨🏻‍💻 App Demo
 
@@ -15,6 +22,9 @@ https://github.com/miroapp/app-examples/assets/10428517/e2c7b34a-e97d-453e-b64b-
 - [Tools and Technologies](#tools)
 - [Prerequisites](#prerequisites)
 - [Associated Developer Tutorial](#tutorial)
+- [Database Configuration](#database)
+- [Netlify Configuration](#netlify)
+- [Miro App Configuration](#miro)
 - [Run the app locally](#run)
 - [Folder Structure](#folder)
 - [Contributing](#contributing)
@@ -34,6 +44,7 @@ https://github.com/miroapp/app-examples/assets/10428517/e2c7b34a-e97d-453e-b64b-
 
 - [React](https://react.dev/)
 - [Netlify](https://www.netlify.com/)
+- [Supabase](https://supabase.com/)
 - [Vite](https://vitejs.dev/)
 
 # ✅ Prerequisites <a name="prerequisites"></a>
@@ -44,15 +55,110 @@ https://github.com/miroapp/app-examples/assets/10428517/e2c7b34a-e97d-453e-b64b-
 - Your development environment includes [Node.js 14.13](https://nodejs.org/en/download) or a later version.
 - GitHub Account and [access token](https://github.com/settings/tokens).
 - [Supabase account](https://supabase.com/) and database.
+- [Netlify account](https://www.netlify.com/).
 
 # 📖 Associated Developer Tutorial <a name="tutorial"></a>
 
 > To view a more in depth developer tutorial
 > of this app (including code explanations) see the [GitHub app cards 2-way sync tutorial](https://developers.miro.com/docs/enable-2-way-sync-between-app-cards-and-github-cards) on Miro's Developer documentation.
 
-# 🏃🏽‍♂️ Run the app locally <a name="run"></a>
+# Database Configuration <a name="database"></a>
 
-1. Create a `.env` file and add in the associated env variables as documented below:
+1. Create a database in Supabase. First you may need to create an Org.
+2. Go into your dashboard and into your project and to the `table editor`.
+3. Click on `Create a new table`
+4. Name this table `auth` and add in the following columns, with the respective `Format` as shown in the screenshot below. Note that capitalization is important for the table name. This table will hold access_tokens to be able to call the Miro REST API to sync changes which happen in the GitHub project. Disable Row Level security.
+
+![auth-database-configuration](https://github.com/miroapp/app-examples/assets/10428517/bbbcefcf-0621-4f6f-812d-021ae4aab047)
+
+6. Click on `Create a new table` and name this table `card-mapping` and add in the following columns, with the respective `Format` as shown in the screenshot below. This table will hold the app card ID from Miro and the GitHub issue ID along with the MiroUserId.
+
+![card-mapping-database-configuration](https://github.com/miroapp/app-examples/assets/10428517/8eadeeb0-ab7a-4239-9961-c3dfcc038d1f)
+
+8. Click on `Edit column` for the `miroUserId` in the `card-mapping` table, and then add in the following `Foreign Key Relation` as shown in the screenshot below.
+
+<img width="423" alt="supabase-foreign-key-config-2" src="https://github.com/miroapp/app-examples/assets/10428517/1f103542-79b4-47d8-973b-01c32d7a1113">
+
+7. Once you save the `Foreign Key Relation` your `miroUserId` from the `card-mapping` table should look something like the screenshot below. Click `Save`. We need this to be able to associate the miroUserId with a access_token so we can invoke the Miro REST API.
+
+![supabase-foreign-key-config-summary](https://github.com/miroapp/app-examples/assets/10428517/3670da24-12be-4302-853f-0f24d45063b9)
+
+# ☁️ Netlify Configuration <a name="netlify"></a>
+
+The code in this repo contains three different functions which are meant to be serverless functions:
+
+- netlify/functions/[authorize.js](netlify/functions/authorize.js)
+- netlify/functions/[issues.js](netlify/functions/issues.js)
+- netlify/functions/[project-cards.js](netlify/functions/project-cards.js)
+
+<b>[authorize.js](netlify/functions/authorize.js)</b> is going to run when you share your app with someone and then go through the OAuth flow.
+
+<b>[issues.js](netlify/functions/issues.js)</b> is going to run when you update the title or description of an issue. We have a GitHub action which will do this, defined in `.github/workflows/issues.yml`. You will need to update the [GitHub Action URL](https://github.com/miroapp/app-examples/blob/main/examples/github-appcards/.github/workflows/issues.yml#L11) to point to your deployed Netlify function. It should look something like `https://miro-github.netlify.app/.netlify/functions/issues`.
+
+<b>[project-cards.js](netlify/functions/project-cards.js)</b> is going to run when you move a card to a different column i.e. if you move a card from `To Do` to `Done`. We have a GitHub action which will do this, defined in `.github/workflows/project-cards.yml`. You will need to update the [GitHub Action URL](https://github.com/miroapp/app-examples/blob/main/examples/github-appcards/.github/workflows/project-cards.yml#L13) to point to your deployed Netlify function. It should look something like `https://miro-github.netlify.app/.netlify/functions/project-cards`.
+
+Now we will show you step by step how to set this up for free with Netlify. <i>When you deploy your site with Netlify, it will
+automatically generate those functions since Netlify is looking for serverless functions in the `netlify/functions` directory</i>.
+
+1. Go to your Netlify account and auth with your GitHub account.
+2. Download the `github-appcards` repo by going to developers.miro.com and then scrolling down to `Create apps using samples`. Then find GitHub App Cards and click on the `Download source code as .zip`. Unzip the files.
+   ![download-source-code](https://github.com/miroapp/app-examples/assets/10428517/42edc852-3c2d-4f1d-bce7-a2ec4d7c7cb5)
+
+3. Create a new GitHub repo, and push up your `github-appcards` project which you just downloaded to it. You can use the following commands to do so:
+
+```
+cd github-appcards
+git init
+git add .
+git commit -m "first commit"
+git remote add origin https://github.com/<your-github-username>/<your-new-github-repo-which-will-hold-github-appcards-code>
+git push -u origin main
+```
+
+4. At this point, you should have a personal repo which has the [GitHub-appcards code](https://github.com/miroapp/app-examples/tree/main/examples/github-appcards) in it. We will use this repo as a way to
+   deploy this app with Netlify.
+
+5. Go into Netlify, login, and from the `Team overview` section, click on `Add new site` -> `Import an existing project` -> `Deploy with GitHub` and then
+   authenticate into GitHub and select this project which you just created which holds the GitHub app cards code. Select the `main` branch and `Deploy`
+
+6. Once the deploy is complete, you app should be deployed to `<site-name>.netlify.app`. For example, mine was `https://peaceful-fairy-c2e727.netlify.app`
+   as shown in the screenshot below. I will use the `https://peaceful-fairy-c2e727.netlify.app` as the example for how to connect your Miro app to the
+   Netlify app but just understand that your URL will be different.
+
+   <img width="708" alt="netlify-app-name" src="https://github.com/miroapp/app-examples/assets/10428517/efc7d228-af74-4771-9028-c701ad55efc4">
+
+# ☁️ Miro App Configuration <a name="miro"></a>
+
+1. Now, let's create a new Miro app on `developer.miro.com`.
+2. Once you've created the app, from the app setting page, click on `edit in Manifest` and paste in the following:
+
+```yaml
+appName: GitHub App Cards
+sdkVersion: SDK_V2
+sdkUri: https://peaceful-fairy-c2e727.netlify.app
+boardPicker:
+  allowedDomains: []
+redirectUris:
+  - https://peaceful-fairy-c2e727.netlify.app/.netlify/functions/authorize
+redirectUriForSdk: https://peaceful-fairy-c2e727.netlify.app/.netlify/functions/authorize
+scopes:
+  - boards:write
+  - boards:read
+icons:
+  colored: ""
+  outline: ""
+```
+
+<b> Make sure to change `sdkUri`, `redirectUris`, and `redirectUriForSdk` with your site name. </b>
+
+3. From the `Redirect URI for OAuth2.0` section in app settings, click on `Options` and make sure `Use this URI for SDK authorization` is checked,
+   as shown in the screenshot below.
+
+<img width="812" alt="use-redirect-url-for-sdk-auth" src="https://github.com/miroapp/app-examples/assets/10428517/1bae05ad-f0c6-451c-9373-7c52cae856d2">
+
+5. Rename the `.sample.env` file at the base of the `github-appcards` repo to `.env` and fill in the values as detailed in the comments. Note,
+   your `redirectUriForSdk` on your app settings should be the same as the `MIRO_REDIRECT_URI` in your env variables. Below, I have used the
+   `peaceful-fairy` example to show how you should fill in this env file. Note that you must use your own deployed app base name and then it should end in `.netlify/functions/authorize` for the `MIRO_REDIRECT_URI`.
 
 ```.env
 # Generate an access token in GitHub, and enter the value here.
@@ -77,7 +183,7 @@ VITE_DATABASE_PUBLIC_KEY=
 
 # Enter the base URL of the hosting service your app runs on here.
 # If you're developing locally, it can be 'localhost'.
-VITE_BASE_URL=
+VITE_BASE_URL=https://peaceful-fairy-c2e727.netlify.app/
 
 # Enter the client secret of your app here.
 # To retrieve the client secret, go to https://miro.com/app/settings/user-profile/
@@ -89,38 +195,26 @@ MIRO_CLIENT_SECRET=
 # For more information, see:
 # https://developers.miro.com/docs/getting-started-with-oauth
 # https://developers.miro.com/reference/authorization-flow-for-expiring-access-tokens
-MIRO_REDIRECT_URI=
+MIRO_REDIRECT_URI=https://peaceful-fairy-c2e727.netlify.app/.netlify/functions/authorize
 ```
 
-2. Run `npm install` to install dependencies.
-3. Run `npm start` to start developing. \
-   Your URL should be similar to this example:
-   ```
-   http://localhost:3000
-   ```
-4. Open the [app manifest editor](https://developers.miro.com/docs/manually-create-an-app#step-2-configure-your-app-in-miro) by clicking **Edit in Manifest**. \
-   In the app manifest editor, configure the app as follows and then `click save`.
+6. Once you have filled this in, go back to your Netlify deploys and click on `Site configuration` -> then click on `Environment variables` ->
+   `Add a variable` -> `import from a .env file` and then just copy and paste the content and click on `Import variables`.
 
-```yaml
-# See https://developers.miro.com/docs/app-manifest on how to use this
-appName: GitHub App Cards
-sdkUri: "http://localhost:3000"
-redirectUris:
-  - http://localhost:3000/authorize
-scopes:
-  - boards:read
-  - boards:write
-```
+7. Trigger a new deploy.
 
-5. Go back to your app home page, and under the `Permissions` section, you will see a blue button that says `Install app and get OAuth token`. Click that button. Then click on `Add` as shown in the video below. <b>In the video we install a different app, but the process is the same regardless of the app.</b>
+<b>Make sure your URLs have https:// at the beginning, otherwise the OAuth flow will not work.</b>
+Also make sure that your MIRO_REDIRECT_URI ends in `.netlify/functions/authorize`.
+
+# 🏃🏽‍♂️ Run the app <a name="run"></a>
+
+1. Go back to your app home page, and under the `Share app` section, click on `Copy` and paste the URL in your browser. Install the app on a dev team.
 
 > ⚠️ We recommend to install your app on a [developer team](https://developers.miro.com/docs/create-a-developer-team) while you are developing or testing apps.⚠️
 
-https://github.com/miroapp/app-examples/assets/10428517/1e6862de-8617-46ef-b265-97ff1cbfe8bf
-
-6. Go to your developer team, and open your boards.
-7. Click on the plus icon from the bottom section of your left sidebar. If you hover over it, it will say `More apps`.
-8. Search for your app `GitHub App Cards` or whatever you chose to name it. Click on your app to use it, as shown in the video below. <b>In the video we search for a different app, but the process is the same regardless of the app.</b>
+2. Go to your developer team, and open your boards.
+3. Click on the plus icon from the bottom section of your left sidebar. If you hover over it, it will say `More apps`.
+4. Search for your app `GitHub App Cards` or whatever you chose to name it. Click on your app to use it, as shown in the video below. <b>In the video we search for a different app, but the process is the same regardless of the app.</b>
 
 https://github.com/horeaporutiu/app-examples-template/assets/10428517/b23d9c4c-e785-43f9-a72e-fa5d82c7b019
 

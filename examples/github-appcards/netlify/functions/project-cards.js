@@ -5,7 +5,6 @@
 **/
 import { createClient } from "@supabase/supabase-js";
 import fetch from "node-fetch";
-import username from "../../src/constants.ts";
 
 const supabase = createClient(
   process.env.VITE_DATABASE_URL,
@@ -24,10 +23,8 @@ exports.handler = async function (event) {
   const body = JSON.parse(event.body);
   const gitHubProjectCard = body.gitHubProjectCard;
   const gitHubProjectColumnId = gitHubProjectCard.column_id;
-  const gitHubIssueNumer = gitHubProjectCard.content_url
-    .split(
-      "https:// api.github.com/repos/" + username + "/github-cards/issues/",
-    )
+  const gitHubIssueNumber = gitHubProjectCard.content_url
+    .split("https:// api.github.com/repos/bishopwm/github-cards/issues/")
     .pop();
 
   const headers = {
@@ -57,7 +54,7 @@ exports.handler = async function (event) {
     .select(
       "id, miroAppCardId::text, gitHubIssueId, miroUserId::text, gitHubUsername, created_at, miroBoardId, gitHubIssueNumber, auth ( access_token )",
     )
-    .eq("gitHubIssueNumber", gitHubIssueNumer);
+    .eq("gitHubIssueNumber", gitHubIssueNumber);
 
   // No Miro App Card Found
   if (error) {
@@ -105,42 +102,33 @@ exports.handler = async function (event) {
           }),
         };
 
-        return new Promise((resolve) => {
-          try {
-            const miroAppCardResponse = fetch(
-              `https://api.miro.com/v2/boards/${item.miroBoardId}/app_cards/${item.miroAppCardId}`,
-              options,
-            );
+        try {
+          const miroAppCardResponse = await fetch(
+            `https://api.miro.com/v2/boards/${item.miroBoardId}/app_cards/${item.miroAppCardId}`,
+            options,
+          );
 
-            if (miroAppCardResponse.ok) {
-              const data = miroAppCardResponse.json();
-              const response = {
-                statusCode: 200,
-                headers: { "content-type": "application/json" },
-                body: JSON.stringify(data),
-              };
-              resolve(response);
-            } else {
-              resolve({
-                statusCode: miroAppCardResponse.status || 500,
-                body: miroAppCardResponse.statusText,
-              });
-            }
-
+          if (miroAppCardResponse.ok) {
+            const data = await miroAppCardResponse.json();
             const response = {
               statusCode: 200,
               headers: { "content-type": "application/json" },
               body: JSON.stringify(data),
             };
-            resolve(response);
-          } catch (error) {
-            console.log(error);
-            resolve({
-              statusCode: error.statusCode || 500,
-              body: error.message,
-            });
+            return response;
+          } else {
+            return {
+              statusCode: miroAppCardResponse.status || 500,
+              body: miroAppCardResponse.statusText,
+            };
           }
-        });
+        } catch (error) {
+          console.log(error);
+          return {
+            statusCode: error.statusCode || 500,
+            body: error.message,
+          };
+        }
       }),
     );
   }
