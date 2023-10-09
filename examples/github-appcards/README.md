@@ -24,7 +24,7 @@ https://github.com/miroapp/app-examples/assets/10428517/e2c7b34a-e97d-453e-b64b-
 - [Associated Developer Tutorial](#tutorial)
 - [Database Configuration](#database)
 - [Netlify Configuration](#netlify)
-- [Miro App Configuration](#netlify)
+- [Miro App Configuration](#miro)
 - [Run the app locally](#run)
 - [Folder Structure](#folder)
 - [Contributing](#contributing)
