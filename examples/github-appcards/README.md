@@ -70,20 +70,16 @@ https://github.com/miroapp/app-examples/assets/10428517/e2c7b34a-e97d-453e-b64b-
 4. Name this table `auth` and add in the following columns, with the respective `Format` as shown in the screenshot below. Note that capitalization is important for the table name. This table will hold access_tokens to be able to call the Miro REST API to sync changes which happen in the GitHub project. Disable Row Level security.
 
 ![auth-database-configuration](https://github.com/miroapp/app-examples/assets/10428517/bbbcefcf-0621-4f6f-812d-021ae4aab047)
-   
+
 6. Click on `Create a new table` and name this table `card-mapping` and add in the following columns, with the respective `Format` as shown in the screenshot below. This table will hold the app card ID from Miro and the GitHub issue ID along with the MiroUserId.
 
-![supabase-card-mapping-columns](https://github.com/miroapp/app-examples/assets/10428517/18f78601-3a4a-4851-90e9-dee91e439d4d)
+![card-mapping-database-configuration](https://github.com/miroapp/app-examples/assets/10428517/8eadeeb0-ab7a-4239-9961-c3dfcc038d1f)
 
-7. Click on `Edit column` for the `miroUserId` in the `card-mapping` table, and then add in the following `Foreign Key Relation` as shown in the screenshot below.
+8. Click on `Edit column` for the `miroUserId` in the `card-mapping` table, and then add in the following `Foreign Key Relation` as shown in the screenshot below.
 
 <img width="423" alt="supabase-foreign-key-config-2" src="https://github.com/miroapp/app-examples/assets/10428517/1f103542-79b4-47d8-973b-01c32d7a1113">
 
-8. Once you save the `Foreign Key Relation` your `miroUserId` from the `card-mapping` table should look something like the screenshot below. Click `Save`. We need this to be able to associate the miroUserId with a access_token so we can invoke the Miro REST API.
-
-<img width="733" alt="supabase-foreign-key-config" src="https://github.com/miroapp/app-examples/assets/10428517/9af8af58-f2cd-46db-a91f-d6c0d76b016e">
-
-One you are done, it should look like this. Click save.
+7. Once you save the `Foreign Key Relation` your `miroUserId` from the `card-mapping` table should look something like the screenshot below. Click `Save`. We need this to be able to associate the miroUserId with a access_token so we can invoke the Miro REST API.
 
 ![supabase-foreign-key-config-summary](https://github.com/miroapp/app-examples/assets/10428517/3670da24-12be-4302-853f-0f24d45063b9)
 
