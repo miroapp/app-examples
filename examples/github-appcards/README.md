@@ -85,9 +85,9 @@ One you are done, it should look like this. Click save.
 
 The code in this repo contains three different functions which are meant to be serverless functions:
 
-- netlify/functions/authorize.js
-- netlify/functions/issues.js
-- netlify/functions/project-cards.js
+- netlify/functions/[authorize.js](netlify/functions/authorize.js)
+- netlify/functions/[issues.js](netlify/functions/issues.js)
+- netlify/functions/[project-cards.js](netlify/functions/project-cards.js)		
 
 <b>[authorize.js](https://github.com/miroapp/app-examples/blob/main/examples/github-appcards/netlify/functions/authorize.js)</b> is going to run when you share your app with someone and then go through the OAuth flow.
 
