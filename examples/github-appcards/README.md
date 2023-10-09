@@ -7,8 +7,7 @@ Only deprecated "Classic" GitHub projects work with this app. This means that yo
 have a deprecated "Classic" GitHub project. This is why all of the issues are fetched / stored in this
 [public Miro classic GitHub project](https://github.com/bishopwm/github-cards/projects/1).
 
-This app is meant to show the basic concepts behind 2-way sync, but is in no way a working solution. This is intended for
-simple demo purposes to show a simple 2-way sync with free services like Netlify, Supabase, and Miro.
+This app is meant to show the basic concepts behind 2-way sync, but is in no way a working solution. This is intended for simple demo purposes to show a simple 2-way sync with free services like Netlify, Supabase, and Miro.
 
 This app involves setting up different tools such as Netlify for deploying your app, Supabase for storing access tokens and
 GitHub for using GitHub actions to detech any changes in your projects. It takes 30-40 minutes to configure.
