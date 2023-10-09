@@ -67,7 +67,7 @@ https://github.com/miroapp/app-examples/assets/10428517/e2c7b34a-e97d-453e-b64b-
 1. Create a database in Supabase. First you may need to create an Org.
 2. Go into your dashboard and into your project and to the `table editor`.
 3. Click on `Create a new table`
-4. Name this table `Auth` and add in the following columns, with the respective `Format` as shown in the screenshot below. This table will hold access_tokens to be able to call the Miro REST API to sync changes which happen in the GitHub project.
+4. Name this table `auth` and add in the following columns, with the respective `Format` as shown in the screenshot below. Note that capitalization is important for the table name. This table will hold access_tokens to be able to call the Miro REST API to sync changes which happen in the GitHub project. Disable Row Level security.
 5. Click on `Create a new table` and name this table `card-mapping` and add in the following columns, with the respective `Format` as shown in the screenshot below. This table will hold the app card ID from Miro and the GitHub issue ID along with the MiroUserId.
 6. Click on `Edit column` for the `miroUserId` in the `card-mapping` table, and then add in the following `Foreign Key Relation` as shown in the screenshot below.
 
