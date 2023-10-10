@@ -14,7 +14,7 @@ GitHub for using GitHub actions to detech any changes in your projects. It takes
 
 # 👨🏻‍💻 App Demo
 
-https://github.com/miroapp/app-examples/assets/10428517/e2c7b34a-e97d-453e-b64b-f72d0bda643b
+https://github.com/miroapp/app-examples/assets/10428517/70e7c32e-7206-42f7-b64d-1fc089599330
 
 # 📒 Table of Contents
 
