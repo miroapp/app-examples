@@ -206,7 +206,7 @@ MIRO_REDIRECT_URI=https://peaceful-fairy-c2e727.netlify.app/.netlify/functions/a
 <b>Make sure your URLs have https:// at the beginning, otherwise the OAuth flow will not work.</b>
 Also make sure that your MIRO_REDIRECT_URI ends in `.netlify/functions/authorize`.
 
-8. Lastly, you will need to change the URL in the GitHub action to point to your own deployed serverless functions point your GitHub action for `issues` to point to your `issues` endpoint from your serverless functions. The same should be done for `project-cards`.
+8. Lastly, you will need to change the URL in the GitHub action to point to your own deployed serverless functions. Point your GitHub action for `issues` to point to your `issues` endpoint from your serverless functions. The same should be done for `project-cards`.
    Go to [.github/workflows/issues.yml](.github/workflows/issues.yml) and change the URL on [line 11](.github/workflows/issues.yml#L11).
    Go to [netlify/functions/project-cards.yml](netlify/functions/project-cards.yml) and change the URL [on line 13](.github/workflows/project-cards.yml#L13).
 
