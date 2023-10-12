@@ -111,7 +111,7 @@ Now we will show you step by step how to set this up for free with Netlify. <i>W
 automatically generate those functions since Netlify is looking for serverless functions in the `netlify/functions` directory</i>.
 
 1. Go to your Netlify account and auth with your GitHub account.
-2. Download the `github-appcards` repo by going to developers.miro.com and then scrolling down to `Create apps using samples`. Then find GitHub App Cards and click on the `Download source code as .zip`. Unzip the files.
+2. Download the `github-appcards` repo by going to developers.miro.com and then scrolling down to `Create apps using samples`. Then find GitHub App Cards and click on the `Download source code as .zip`. Unzip the files. Rename the project to `github-appcards`.
    ![download-source-code](https://github.com/miroapp/app-examples/assets/10428517/42edc852-3c2d-4f1d-bce7-a2ec4d7c7cb5)
 
 3. Create a new GitHub repo, and push up your `github-appcards` project which you just downloaded to it. You can use the following commands to do so:
