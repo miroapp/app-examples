@@ -3,9 +3,7 @@
 This full-stack example shows how to build an integration with GitHub that syncs data between GitHub issues and Miro app cards.
 
 🚨 🚨 🚨
-Only deprecated "Classic" GitHub projects work with this app. This means that you cannot connect this app to your own repo unless you
-have a deprecated "Classic" GitHub project.
-🚨 🚨 🚨
+Only deprecated "Classic" GitHub projects work with this app. This means that you cannot connect this app to your own repo unless you have a deprecated "Classic" GitHub project. 🚨 🚨 🚨
 
 This app is meant to show the basic concepts behind 2-way sync, but is in no way a working solution. This is intended for simple demo purposes to show a simple 2-way sync with free services like Netlify, Supabase, and Miro.
 
@@ -69,7 +67,7 @@ https://github.com/miroapp/app-examples/assets/10428517/70e7c32e-7206-42f7-b64d-
 3. Click on `Create a new table`
 4. Name this table `auth` and add in the following columns, with the respective `Format` as shown in the screenshot below. Note that capitalization is important for the table name. This table will hold access_tokens to be able to call the Miro REST API to sync changes which happen in the GitHub project. Disable Row Level security.
 
-This is the schema for the `auth` table - make sure it is exactly the same to ensure this code works. 
+This is the schema for the `auth` table - make sure it is exactly the same to ensure this code works.
 
 ![auth-table-schema](https://github.com/miroapp/app-examples/assets/10428517/d816df58-0208-4fa1-ba1c-08ac82b67aac)
 
@@ -79,7 +77,7 @@ This is what the `auth` table should look like once it's been updated.
 
 6. Click on `Create a new table` and name this table `card-mapping` and add in the following columns, with the respective `Format` as shown in the screenshot below. This table will hold the app card ID from Miro and the GitHub issue ID along with the MiroUserId.
 
-This is the schema for the `card-mapping` table - make sure it is exactly the same to ensure this code works. 
+This is the schema for the `card-mapping` table - make sure it is exactly the same to ensure this code works.
 
 ![card-mapping-table-schema](https://github.com/miroapp/app-examples/assets/10428517/f38bb7b1-8c3c-4f27-ab14-6ba9e2300b4e)
 
