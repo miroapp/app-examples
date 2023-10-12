@@ -184,16 +184,19 @@ VITE_SUPABASE_PASSWORD=
 # Enter the URL of the Supabase database that the app uses for data persistence here.
 # For more information, see:
 # https://supabase.com/docs/guides/database
+# Login to your account, then go down to Project Settings -> API -> URL.
+# Your connection should look like `https://ahnvcdiskdadfgbljsdm.supabase.co
 VITE_DATABASE_URL=
 
 # Enter the API key of the Supabase project with the database that the app uses for data persistence here.
 # For more information, see:
-# https://supabase.com/docs/guides/api#api-url-and-keys
+# Login to your account, then go down to Project Settings -> API -> Project API keys -> anon public.
 VITE_DATABASE_PUBLIC_KEY=
 
 # Enter the base URL of the hosting service your app runs on here.
 # If you're developing locally, it can be 'localhost'.
-VITE_BASE_URL=https://peaceful-fairy-c2e727.netlify.app/
+# Netlify example: https://peaceful-fairy-c2e727.netlify.app/
+VITE_BASE_URL=
 
 # Enter the client secret of your app here.
 # To retrieve the client secret, go to https://miro.com/app/settings/user-profile/
@@ -204,8 +207,8 @@ MIRO_CLIENT_SECRET=
 # Enter the OAuth code grant flow redirect URI for your app here.
 # For more information, see:
 # https://developers.miro.com/docs/getting-started-with-oauth
-# https://developers.miro.com/reference/authorization-flow-for-expiring-access-tokens
-MIRO_REDIRECT_URI=https://peaceful-fairy-c2e727.netlify.app/.netlify/functions/authorize
+# Netlify example: https://peaceful-fairy-c2e727.netlify.app/.netlify/functions/authorize
+MIRO_REDIRECT_URI=
 ```
 
 6. Once you have filled this in, go back to your Netlify deploys and click on `Site configuration` -> then click on `Environment variables` ->
