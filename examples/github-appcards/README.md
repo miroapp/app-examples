@@ -3,9 +3,7 @@
 This full-stack example shows how to build an integration with GitHub that syncs data between GitHub issues and Miro app cards.
 
 🚨 🚨 🚨
-Only deprecated "Classic" GitHub projects work with this app. This means that you cannot connect this app to your own repo unless you
-have a deprecated "Classic" GitHub project. This is why all of the issues are fetched / stored in this
-[public Miro classic GitHub project](https://github.com/bishopwm/github-cards/projects/1).
+Only deprecated "Classic" GitHub projects work with this app. This means that you cannot connect this app to your own repo unless you have a deprecated "Classic" GitHub project. 🚨 🚨 🚨
 
 This app is meant to show the basic concepts behind 2-way sync, but is in no way a working solution. This is intended for simple demo purposes to show a simple 2-way sync with free services like Netlify, Supabase, and Miro.
 
@@ -14,7 +12,7 @@ GitHub for using GitHub actions to detech any changes in your projects. It takes
 
 # 👨🏻‍💻 App Demo
 
-https://github.com/miroapp/app-examples/assets/10428517/e2c7b34a-e97d-453e-b64b-f72d0bda643b
+https://github.com/miroapp/app-examples/assets/10428517/70e7c32e-7206-42f7-b64d-1fc089599330
 
 # 📒 Table of Contents
 
@@ -69,9 +67,21 @@ https://github.com/miroapp/app-examples/assets/10428517/e2c7b34a-e97d-453e-b64b-
 3. Click on `Create a new table`
 4. Name this table `auth` and add in the following columns, with the respective `Format` as shown in the screenshot below. Note that capitalization is important for the table name. This table will hold access_tokens to be able to call the Miro REST API to sync changes which happen in the GitHub project. Disable Row Level security.
 
+This is the schema for the `auth` table - make sure it is exactly the same to ensure this code works.
+
+![auth-table-schema](https://github.com/miroapp/app-examples/assets/10428517/d816df58-0208-4fa1-ba1c-08ac82b67aac)
+
+This is what the `auth` table should look like once it's been updated.
+
 ![auth-database-configuration](https://github.com/miroapp/app-examples/assets/10428517/bbbcefcf-0621-4f6f-812d-021ae4aab047)
 
 6. Click on `Create a new table` and name this table `card-mapping` and add in the following columns, with the respective `Format` as shown in the screenshot below. This table will hold the app card ID from Miro and the GitHub issue ID along with the MiroUserId.
+
+This is the schema for the `card-mapping` table - make sure it is exactly the same to ensure this code works.
+
+![card-mapping-table-schema](https://github.com/miroapp/app-examples/assets/10428517/f38bb7b1-8c3c-4f27-ab14-6ba9e2300b4e)
+
+This is what the `card-mapping` table should look like once it's been updated.
 
 ![card-mapping-database-configuration](https://github.com/miroapp/app-examples/assets/10428517/8eadeeb0-ab7a-4239-9961-c3dfcc038d1f)
 
@@ -101,7 +111,7 @@ Now we will show you step by step how to set this up for free with Netlify. <i>W
 automatically generate those functions since Netlify is looking for serverless functions in the `netlify/functions` directory</i>.
 
 1. Go to your Netlify account and auth with your GitHub account.
-2. Download the `github-appcards` repo by going to developers.miro.com and then scrolling down to `Create apps using samples`. Then find GitHub App Cards and click on the `Download source code as .zip`. Unzip the files.
+2. Download the `github-appcards` repo by going to developers.miro.com and then scrolling down to `Create apps using samples`. Then find GitHub App Cards and click on the `Download source code as .zip`. Unzip the files. Rename the project to `github-appcards`.
    ![download-source-code](https://github.com/miroapp/app-examples/assets/10428517/42edc852-3c2d-4f1d-bce7-a2ec4d7c7cb5)
 
 3. Create a new GitHub repo, and push up your `github-appcards` project which you just downloaded to it. You can use the following commands to do so:
@@ -174,16 +184,19 @@ VITE_SUPABASE_PASSWORD=
 # Enter the URL of the Supabase database that the app uses for data persistence here.
 # For more information, see:
 # https://supabase.com/docs/guides/database
+# Login to your account, then go down to Project Settings -> API -> URL.
+# Your connection should look like `https://ahnvcdiskdadfgbljsdm.supabase.co
 VITE_DATABASE_URL=
 
 # Enter the API key of the Supabase project with the database that the app uses for data persistence here.
 # For more information, see:
-# https://supabase.com/docs/guides/api#api-url-and-keys
+# Login to your account, then go down to Project Settings -> API -> Project API keys -> anon public.
 VITE_DATABASE_PUBLIC_KEY=
 
 # Enter the base URL of the hosting service your app runs on here.
 # If you're developing locally, it can be 'localhost'.
-VITE_BASE_URL=https://peaceful-fairy-c2e727.netlify.app/
+# Netlify example: https://peaceful-fairy-c2e727.netlify.app/
+VITE_BASE_URL=
 
 # Enter the client secret of your app here.
 # To retrieve the client secret, go to https://miro.com/app/settings/user-profile/
@@ -194,8 +207,8 @@ MIRO_CLIENT_SECRET=
 # Enter the OAuth code grant flow redirect URI for your app here.
 # For more information, see:
 # https://developers.miro.com/docs/getting-started-with-oauth
-# https://developers.miro.com/reference/authorization-flow-for-expiring-access-tokens
-MIRO_REDIRECT_URI=https://peaceful-fairy-c2e727.netlify.app/.netlify/functions/authorize
+# Netlify example: https://peaceful-fairy-c2e727.netlify.app/.netlify/functions/authorize
+MIRO_REDIRECT_URI=
 ```
 
 6. Once you have filled this in, go back to your Netlify deploys and click on `Site configuration` -> then click on `Environment variables` ->
