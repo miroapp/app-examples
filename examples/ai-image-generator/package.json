@@ -11,7 +11,7 @@
   "dependencies": {
     "dotenv": "^16.0.3",
     "mirotone": "5",
-    "next": "^13.0.0",
+    "next": "^13.5.0",
     "openai": "^4.8.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
