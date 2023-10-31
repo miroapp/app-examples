@@ -20,6 +20,7 @@ https://github.com/miroapp/app-examples/assets/10428517/70e7c32e-7206-42f7-b64d-
 - [Tools and Technologies](#tools)
 - [Prerequisites](#prerequisites)
 - [Associated Developer Tutorial](#tutorial)
+- [Associated Video Tutorial](#video)
 - [Database Configuration](#database)
 - [Netlify Configuration](#netlify)
 - [Miro App Configuration](#miro)
@@ -59,6 +60,12 @@ https://github.com/miroapp/app-examples/assets/10428517/70e7c32e-7206-42f7-b64d-
 
 > To view a more in depth developer tutorial
 > of this app (including code explanations) see the [GitHub app cards 2-way sync tutorial](https://developers.miro.com/docs/enable-2-way-sync-between-app-cards-and-github-cards) on Miro's Developer documentation.
+
+# 📖 Associated Video Tutorial <a name="video"></a>
+
+> To view a more in depth developer tutorial in video format, you can watch the YouTube video below. This video explains how to build a 2-way data sync integrations with GitHub projects (classic) and Miro. It goes through demo videos, architecture diagrams, and code examples to teach you the fundamentals around building a 2-way data sync integration.
+
+[![Build a 2-way sync with GitHub and Miro using App Cards](https://img.youtube.com/vi/ed_7TzPO0d4/0.jpg)](https://youtu.be/ed_7TzPO0d4)
 
 # Database Configuration <a name="database"></a>
 
