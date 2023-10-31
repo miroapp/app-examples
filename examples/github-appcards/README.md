@@ -63,7 +63,7 @@ https://github.com/miroapp/app-examples/assets/10428517/70e7c32e-7206-42f7-b64d-
 
 # 📖 Associated Video Tutorial <a name="video"></a>
 
-> To view a more in depth developer tutorial in video format, you can watch the YouTube video below.
+> To view a more in depth developer tutorial in video format, you can watch the YouTube video below. This video explains how to build a 2-way data sync integrations with GitHub projects (classic) and Miro. It goes through demo videos, architecture diagrams, and code examples to teach you the fundamentals around building a 2-way data sync integration.
 
 [![Build a 2-way sync with GitHub and Miro using App Cards](https://img.youtube.com/vi/ed_7TzPO0d4/0.jpg)](https://youtu.be/ed_7TzPO0d4)
 
