@@ -1,3 +1,4 @@
-- We don't have capabilitu to enter select mode with the WebSDK.
+- We don't have capability to enter select mode with the WebSDK.
 - We don't return user avatars from the WebSDK.
-- We need to release a new types package
+- We need to release a new types package.
+- We are missing state in the session (if it's already finished)

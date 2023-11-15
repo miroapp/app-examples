@@ -1,7 +1,7 @@
 import { OnlineUserInfo, UserInfo } from "@mirohq/websdk-types";
 import * as React from "react";
 import { generateUniqueId } from "./utils";
-import { BreakoutState, Room, Session } from "./types";
+import { Participant, Room, Breakout } from "./types";
 
 const COLLECTION_NAME = "breakout-rooms";
 
@@ -41,71 +41,85 @@ export const useOnlineUsers = () => {
   return onlineUsers;
 };
 
+const log = (id: string, ...args: unknown[]) =>
+  console.log(id, JSON.stringify(args, null, 2));
+
 export const useBreakout = () => {
-  const [session, setSession] = React.useState<Session>();
-  const [state, setState] = React.useState<BreakoutState>("idle");
+  const [breakout, setBreakout] = React.useState<Breakout>();
   const currentUser = useCurrentUser();
 
   React.useEffect(() => {
-    if (session || !currentUser) {
+    if (breakout || !currentUser) {
       return;
     }
 
     const init = () => {
-      setState("loading");
       const breakoutRooms = miro.board.storage.collection(COLLECTION_NAME);
 
-      breakoutRooms.get<Session>("active").then((activeSession: Session) => {
-        setState("idle");
-        setSession(activeSession);
-      });
-
-      const activeValue = (activeSession: Session) => {
-        console.log("onValue", { activeSession });
-        setSession(activeSession);
+      const activeValue = (activeBreakout: Breakout) => {
+        log("onValue", { activeBreakout });
+        if (activeBreakout.id) {
+          setBreakout(activeBreakout);
+        }
       };
-      breakoutRooms.onValue<Session>("active", activeValue);
+
+      breakoutRooms.get<Breakout>("active").then(activeValue);
+      breakoutRooms.onValue<Breakout>("active", activeValue);
 
       return () => {
-        breakoutRooms.offValue<Session>("active", activeValue);
+        breakoutRooms.offValue<Breakout>("active", activeValue);
       };
     };
 
     return init();
-  }, [session, currentUser]);
+  }, [breakout, currentUser]);
 
-  const saveSession = async (opts: Pick<Session, "rooms">) => {
+  const saveBreakout = async (
+    breakout?: Breakout,
+    opts: Partial<Exclude<Breakout, "id" | "creator">> = {},
+  ) => {
     if (!currentUser) {
       throw new Error("Could not fetch current Miro user");
     }
 
     const breakoutRooms = await miro.board.storage.collection(COLLECTION_NAME);
 
-    if (session) {
-      const payload = {
-        ...session,
-        rooms: opts.rooms,
-      };
-      breakoutRooms.set("active", payload);
+    log("saveBreakout", { breakout, opts });
 
-      console.log("saveSession.update", { payload, opts });
+    if (breakout?.id) {
+      Object.assign(breakout, {
+        sessionId: opts.sessionId ?? breakout.sessionId ?? "",
+        state: opts.state ?? breakout.state ?? "idle",
+        rooms: opts.rooms ?? breakout.rooms ?? [],
+      });
+      breakoutRooms.set("active", breakout);
+      log("saveBreakout.update", { breakout, opts });
+
+      return breakout;
     } else {
-      const newSession: Session = {
+      const newBreakout = {
         id: generateUniqueId(),
         creator: currentUser,
-        rooms: opts.rooms,
+        rooms: opts.rooms ?? [],
+        state: opts.state ?? "idle",
       };
 
-      breakoutRooms.set("active", newSession);
-      console.log("saveSession.new", { newSession, opts });
+      log("saveBreakout.new", { newBreakout, opts });
+      breakoutRooms.set("active", newBreakout);
+
+      return newBreakout;
     }
   };
 
-  const addParticipant = async (room: Room, participant: OnlineUserInfo) => {
-    const sessionRooms = session?.rooms ?? [];
+  const addParticipant = async (room: Room, user: OnlineUserInfo) => {
+    const sessionRooms = breakout?.rooms ?? [];
 
     const rooms = sessionRooms.map((r) => {
       if (r.id === room.id) {
+        const participant = {
+          ...user,
+          state: "Waiting room",
+        };
         const participants = [...r.participants, participant].sort((a, b) =>
           a.name.localeCompare(b.name),
         );
@@ -118,13 +132,13 @@ export const useBreakout = () => {
       return r;
     });
 
-    console.log("addParticipant", { rooms, room, participant });
+    log("addParticipant", { rooms, room, user });
 
-    await saveSession({ rooms });
+    await saveBreakout(breakout, { rooms });
   };
 
-  const removeParticipant = async (room: Room, participant: OnlineUserInfo) => {
-    const sessionRooms = session?.rooms ?? [];
+  const removeParticipant = async (room: Room, participant: Participant) => {
+    const sessionRooms = breakout?.rooms ?? [];
 
     const rooms = sessionRooms.map((r) => {
       if (r.id === room.id) {
@@ -137,22 +151,22 @@ export const useBreakout = () => {
       return r;
     });
 
-    console.log("removeParticipant", { rooms, room, participant });
+    log("removeParticipant", { rooms, room, participant });
 
-    await saveSession({ rooms });
+    await saveBreakout(breakout, { rooms });
   };
 
   const removeRoom = async (room: Room) => {
-    const sessionRooms = session?.rooms ?? [];
+    const sessionRooms = breakout?.rooms ?? [];
 
     const rooms = sessionRooms.filter((r) => r.id !== room.id);
 
-    console.log("removeRoom", { rooms, room });
-    await saveSession({ rooms });
+    log("removeRoom", { rooms, room });
+    await saveBreakout(breakout, { rooms });
   };
 
   const addRoom = async (opts?: Partial<Room>) => {
-    const sessionRooms = session?.rooms ?? [];
+    const sessionRooms = breakout?.rooms ?? [];
 
     const room: Room = {
       id: generateUniqueId(),
@@ -161,38 +175,227 @@ export const useBreakout = () => {
       ...opts,
     };
 
-    console.log("addRoom", { room });
+    log("addRoom", { room });
 
-    await saveSession({ rooms: [...sessionRooms, room] });
+    await saveBreakout(breakout, { rooms: [...sessionRooms, room] });
   };
 
   const setRoomTarget = async (room: Room, targetId: string) => {
-    const sessionRooms = session?.rooms ?? [];
+    const sessionRooms = breakout?.rooms ?? [];
 
     const rooms = sessionRooms.map((r) => ({
       ...r,
-      targetId: r.id === room.id ? targetId : r.targetId,
+      targetId: r.id === room.id ? targetId : r.targetId ?? "",
     }));
 
-    console.log("setRoomTarget", { room, rooms, targetId });
+    log("setRoomTarget", { room, rooms, targetId });
 
-    await saveSession({ rooms });
+    await saveBreakout(breakout, { rooms });
+  };
+
+  const updateParticipant = async (
+    room: Room,
+    participant: Participant,
+    data: Partial<Participant>,
+  ) => {
+    const sessionRooms = breakout?.rooms ?? [];
+
+    const rooms = sessionRooms.map((r) => {
+      if (r.id === room.id) {
+        return {
+          ...r,
+          participants: r.participants.map((p) => {
+            if (p.id === participant.id) {
+              return {
+                ...p,
+                ...data,
+              };
+            }
+
+            return p;
+          }),
+        };
+      }
+
+      return r;
+    });
+
+    log("updateParticipant", { rooms, room, participant, data });
+
+    await saveBreakout(breakout, { rooms });
+  };
+
+  const handleUserJoined = async ({ userId }: { userId: string }) => {
+    log("handleUserJoined", { userId, breakout });
+    if (!breakout) {
+      return;
+    }
+
+    let participant: Participant | undefined;
+    let room: Room | undefined;
+
+    breakout.rooms.some((r) =>
+      r.participants.some((p) => {
+        if (p.id === userId) {
+          participant = p;
+          room = r;
+          return true;
+        }
+
+        return false;
+      }),
+    );
+
+    log("handleUserJoined.participant", { room, participant });
+
+    if (!room || !participant) {
+      await miro.board.notifications.showError(
+        `User ${userId} has joined a session but no room was assigned`,
+      );
+      return;
+    }
+
+    if (!room.targetId) {
+      await miro.board.notifications.showError(
+        `Room ${room.name} has no target assigned`,
+      );
+      return;
+    }
+
+    await updateParticipant(room, participant, { state: "In Session" });
+
+    const frame = await miro.board.get({ type: "frame", id: room.targetId });
+    if (!frame) {
+      await miro.board.notifications.showError(
+        `Could not find target with ID: "${room.targetId}"`,
+      );
+      return;
+    }
+
+    if (participant.id === currentUser?.id) {
+      await miro.board.viewport.zoomTo(frame);
+    } else {
+      await miro.board.collaboration.zoomTo(participant, frame);
+    }
+  };
+
+  const handleUserLeft = async ({ userId }: { userId: string }) => {
+    log("handleUserLeft", { userId, breakout });
+    if (!breakout) {
+      return;
+    }
+
+    let participant: Participant | undefined;
+    let room: Room | undefined;
+
+    breakout.rooms.some((r) =>
+      r.participants.some((p) => {
+        if (p.id === userId) {
+          participant = p;
+          room = r;
+          return true;
+        }
+
+        return false;
+      }),
+    );
+
+    log("handleUserLeft.participant", { room, participant });
+
+    if (!room || !participant) {
+      return;
+    }
+
+    await updateParticipant(room, participant, { state: "Waiting room" });
+  };
+
+  const upsertSession = async (breakout: Breakout) => {
+    let session: Session;
+    if (breakout.sessionId) {
+      const sessions = await miro.board.collaboration.getSessions();
+      session = sessions.find((s) => s.id === breakout.sessionId);
+    }
+
+    if (!session) {
+      session = await miro.board.collaboration.startSession({
+        name: `Breakout room - ${breakout.id} - ${breakout.creator.id}`,
+      });
+
+      await saveBreakout(breakout, {
+        sessionId: session.id,
+      });
+    }
+
+    log("upsertSession", { session, breakout });
+
+    return session;
+  };
+
+  const startSession = async () => {
+    if (!breakout) {
+      throw new Error("Invalid breakout session");
+    }
+
+    log("startSession", breakout);
+    await saveBreakout(breakout, { state: "started" });
+
+    const session = await upsertSession(breakout);
+
+    const allParticipants = breakout.rooms
+      .map((room) => room.participants)
+      .flat();
+
+    await session.invite(allParticipants);
+
+    await Promise.all(
+      breakout.rooms.map((room) =>
+        room.participants.map((participant) =>
+          updateParticipant(room, participant, { state: "Invitation Pending" }),
+        ),
+      ),
+    );
+
+    session.on("user-joined", handleUserJoined);
+    session.on("user-left", handleUserLeft);
+  };
+
+  const endSession = async () => {
+    if (!breakout) {
+      throw new Error("Invalid breakout session");
+    }
+
+    const session = await upsertSession(breakout);
+    if (!session) {
+      throw new Error(`Breakout ${breakout} doesn't have a Miro session`);
+    }
+
+    await session.end();
+    await saveBreakout(breakout, { state: "ended" });
+
+    await Promise.all(
+      breakout.rooms.map((room) =>
+        room.participants.map((participant) =>
+          updateParticipant(room, participant, { state: "Waiting room" }),
+        ),
+      ),
+    );
   };
 
   const isFacilitator =
-    Boolean(session) && session?.creator.id === currentUser?.id;
-  const rooms = session?.rooms ?? [];
+    Boolean(breakout) && breakout?.creator.id === currentUser?.id;
+  const rooms = breakout?.rooms ?? [];
 
   return {
-    session,
-    state,
+    breakout,
     isFacilitator,
     rooms,
-    saveSession,
+    saveBreakout,
     addRoom,
     addParticipant,
     removeParticipant,
     removeRoom,
     setRoomTarget,
+    startSession,
+    endSession,
   };
 };

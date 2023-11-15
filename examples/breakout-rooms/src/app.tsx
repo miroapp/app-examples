@@ -7,13 +7,9 @@ import { WaitingRoom } from "./WaitingRoom";
 import { createRoot } from "react-dom/client";
 
 const App: React.FC = () => {
-  const { isFacilitator, session, state } = useBreakout();
+  const { isFacilitator, breakout } = useBreakout();
 
-  if (state === "loading") {
-    return <h2>Spinneer</h2>;
-  }
-
-  return isFacilitator || !session ? <BreakoutManager /> : <WaitingRoom />;
+  return isFacilitator || !breakout ? <BreakoutManager /> : <WaitingRoom />;
 };
 
 const container = document.getElementById("root")!;

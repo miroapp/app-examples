@@ -6,10 +6,6 @@
   box-sizing: border-box;
 }
 
-/* body {
-  display: flex;
-}
-
 #root {
   overflow: auto;
   padding: var(--space-medium);
@@ -20,17 +16,57 @@ img {
   height: auto;
 }
 
-main {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-} */
-
 .button-selected {
   background-color: var(--blue100);
 }
 
 .button-active {
   background-color: var(--blue300);
+}
+
+.toolbar {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.toolbar .button {
+  justify-content: center;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  align-items: center;
+}
+
+.rooms-container {
+  display: flex;
+  flex-direction: column;
+  max-height: 25em;
+  min-height: 10em;
+  gap: 1em;
+  overflow: auto;
+  width: 100%;
+}
+
+.room-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  justify-items: center;
+  gap: 0.5em;
+  width: 100%;
+}
+
+.room-container :is(h3, button) {
+  margin: 0 !important;
+}
+
+.room-container h3 {
+  flex-basis: 9em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
