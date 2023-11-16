@@ -21,6 +21,7 @@
   "dependencies": {
     "@mirohq/design-system": "^0.17.19",
     "@stitches/react": "^1.2.8",
+    "classnames": "^2.3.2",
     "mirotone": "5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"

@@ -2,3 +2,7 @@
 - We don't return user avatars from the WebSDK.
 - We need to release a new types package.
 - We are missing state in the session (if it's already finished)
+- Constantly getting the following error when working with collections but I have no idea of what it is: "Error: 1# Invalid input - Path: value at responseHandler"
+- When calling session.end() the inviations and current sessions modals are not dismissed
+- Collection.remove does not trigger onValue
+- We don't show the name of the app in the session modals

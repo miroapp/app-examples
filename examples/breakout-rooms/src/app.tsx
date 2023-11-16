@@ -2,8 +2,8 @@
 
 import * as React from "react";
 import { useBreakout } from "./hooks";
-import { BreakoutManager } from "./BreakoutManager";
-import { WaitingRoom } from "./WaitingRoom";
+import { BreakoutManager } from "./components/BreakoutManager";
+import { WaitingRoom } from "./components/WaitingRoom";
 import { createRoot } from "react-dom/client";
 
 const App: React.FC = () => {

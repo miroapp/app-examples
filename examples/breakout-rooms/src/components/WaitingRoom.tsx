@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useCurrentUser } from "./hooks";
+import { useCurrentUser } from "../hooks";
 
 export const WaitingRoom: React.FC = () => {
   const currentUser = useCurrentUser();

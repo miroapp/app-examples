@@ -49,7 +49,7 @@ export const useBreakout = () => {
   const currentUser = useCurrentUser();
 
   React.useEffect(() => {
-    if (breakout || !currentUser) {
+    if (!currentUser) {
       return;
     }
 
@@ -58,11 +58,10 @@ export const useBreakout = () => {
 
       const activeValue = (activeBreakout: Breakout) => {
         log("onValue", { activeBreakout });
-        if (activeBreakout.id) {
-          setBreakout(activeBreakout);
-        }
+        setBreakout(activeBreakout?.id ? activeBreakout : undefined);
       };
 
+      log("subscribing to onValue", { breakoutRooms });
       breakoutRooms.get<Breakout>("active").then(activeValue);
       breakoutRooms.onValue<Breakout>("active", activeValue);
 
@@ -72,7 +71,7 @@ export const useBreakout = () => {
     };
 
     return init();
-  }, [breakout, currentUser]);
+  }, [breakout?.id, currentUser?.id]);
 
   const saveBreakout = async (
     breakout?: Breakout,
@@ -306,7 +305,7 @@ export const useBreakout = () => {
       return;
     }
 
-    await updateParticipant(room, participant, { state: "Waiting room" });
+    await removeParticipant(room, participant);
   };
 
   const upsertSession = async (breakout: Breakout) => {
@@ -318,7 +317,7 @@ export const useBreakout = () => {
 
     if (!session) {
       session = await miro.board.collaboration.startSession({
-        name: `Breakout room - ${breakout.id} - ${breakout.creator.id}`,
+        name: `Breakout room - by ${breakout.creator.name}`,
       });
 
       await saveBreakout(breakout, {
@@ -379,7 +378,25 @@ export const useBreakout = () => {
         ),
       ),
     );
+
+    await releaseSession();
   };
+
+  const releaseSession = async () => {
+    const breakoutRooms = await miro.board.storage.collection(COLLECTION_NAME);
+    const pastBreakoutRooms = (await breakoutRooms.get("past")) ?? [];
+    const historyEntries = [...pastBreakoutRooms, breakout];
+
+    log("releaseSession", { breakoutRooms, pastBreakoutRooms, breakout });
+
+    breakoutRooms.set("past", historyEntries);
+    // Collection.remove does not trigger onValue
+    // breakoutRooms.set("active", {});
+    breakoutRooms.remove("active");
+    setBreakout(undefined);
+  };
+
+  log("Data", { breakout });
 
   const isFacilitator =
     Boolean(breakout) && breakout?.creator.id === currentUser?.id;
@@ -397,5 +414,6 @@ export const useBreakout = () => {
     setRoomTarget,
     startSession,
     endSession,
+    releaseSession,
   };
 };
