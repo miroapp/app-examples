@@ -4,6 +4,7 @@ import { generateUniqueId } from "./utils";
 import { Participant, Room, Breakout } from "./types";
 
 const COLLECTION_NAME = "breakout-rooms";
+const ACTIVE_ITEM = "active";
 
 export const useCurrentUser = () => {
   const [userInfo, setUserInfo] = React.useState<UserInfo>();
@@ -62,11 +63,11 @@ export const useBreakout = () => {
       };
 
       log("subscribing to onValue", { breakoutRooms });
-      breakoutRooms.get<Breakout>("active").then(activeValue);
-      breakoutRooms.onValue<Breakout>("active", activeValue);
+      breakoutRooms.get<Breakout>(ACTIVE_ITEM).then(activeValue);
+      breakoutRooms.onValue<Breakout>(ACTIVE_ITEM, activeValue);
 
       return () => {
-        breakoutRooms.offValue<Breakout>("active", activeValue);
+        breakoutRooms.offValue<Breakout>(ACTIVE_ITEM, activeValue);
       };
     };
 
@@ -91,7 +92,7 @@ export const useBreakout = () => {
         state: opts.state ?? breakout.state ?? "idle",
         rooms: opts.rooms ?? breakout.rooms ?? [],
       });
-      breakoutRooms.set("active", breakout);
+      breakoutRooms.set(ACTIVE_ITEM, breakout);
       log("saveBreakout.update", { breakout, opts });
 
       return breakout;
@@ -104,7 +105,7 @@ export const useBreakout = () => {
       };
 
       log("saveBreakout.new", { newBreakout, opts });
-      breakoutRooms.set("active", newBreakout);
+      breakoutRooms.set(ACTIVE_ITEM, newBreakout);
 
       return newBreakout;
     }
@@ -391,8 +392,8 @@ export const useBreakout = () => {
 
     breakoutRooms.set("past", historyEntries);
     // Collection.remove does not trigger onValue
-    // breakoutRooms.set("active", {});
-    breakoutRooms.remove("active");
+    // breakoutRooms.set(ACTIVE_ITEM, {});
+    breakoutRooms.remove(ACTIVE_ITEM);
     setBreakout(undefined);
   };
 

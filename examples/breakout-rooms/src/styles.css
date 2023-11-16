@@ -1,5 +1,11 @@
 @import "mirotone/dist/styles.css";
 
+/** 
+  TODO: Make main scrollable and toolbar sitcky to the bottom of the viewport
+  TODO: Address typography issues
+  TODO: Do we need alert component to display messages?
+**/
+
 *,
 *:before,
 *:after {
