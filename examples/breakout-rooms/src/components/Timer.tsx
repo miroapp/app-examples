@@ -11,16 +11,26 @@ import {
 
 // in seconds
 const DEFAULT_TIME = 5 * 60;
+// 1 minute
+const DEFAULT_MIN_TIME = 1 * 60;
+// 10 minutes
+const DEFAULT_MAX_TIME = 10 * 60;
+// 15 seconds
+const DEFAULT_STEP = 15;
 
 type Props = {
   defaultTime?: number;
+  minTime?: number;
   maxTime?: number;
+  step?: number;
   onSet: (time: number) => void;
 };
 
 export const Timer: React.FunctionComponent<Props> = ({
   defaultTime = DEFAULT_TIME,
-  maxTime = Infinity,
+  minTime = DEFAULT_MIN_TIME,
+  maxTime = DEFAULT_MAX_TIME,
+  step = DEFAULT_STEP,
   onSet,
 }) => {
   const [time, setTime] = React.useState<number>(defaultTime);
@@ -30,11 +40,11 @@ export const Timer: React.FunctionComponent<Props> = ({
   const seconds = Math.floor(time % 60);
 
   const handleAdd = () => {
-    setTime((time) => (time <= maxTime ? time + 15 : time));
+    setTime((time) => (time <= maxTime ? time + step : time));
   };
 
   const handleDecrease = () => {
-    setTime((time) => (time > 0 ? time - 15 : time));
+    setTime((time) => (time > minTime ? time - step : time));
   };
 
   const handleSetTime = () => {
@@ -55,17 +65,19 @@ export const Timer: React.FunctionComponent<Props> = ({
           </button>
         </DropdownMenu.Trigger>
         <DropdownMenu.Content>
-          <div className="timer-display">
+          <div className="timer-container">
             <div className="timer-control">
               <Button
                 variant="solid-prominent"
                 size="small"
                 rounded
+                disabled={time <= minTime}
                 onClick={() => handleDecrease()}
               >
                 <IconMinus />
               </Button>
-              <div>
+
+              <div className="timer-display">
                 {minutes.toString().padStart(2, "0")}:
                 {seconds.toString().padStart(2, "0")}
               </div>
@@ -74,6 +86,7 @@ export const Timer: React.FunctionComponent<Props> = ({
                 variant="solid-prominent"
                 size="small"
                 rounded
+                disabled={time >= maxTime}
                 onClick={() => handleAdd()}
               >
                 <IconPlus />

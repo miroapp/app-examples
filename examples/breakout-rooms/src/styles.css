@@ -9,6 +9,8 @@
 #root {
   overflow: auto;
   padding: var(--space-medium);
+  /** TODO: Had to hardcode this here since it's not coming from DS for some reason **/
+  --shadows-50: 0 4px 16px #05003812;
 }
 
 img {
@@ -74,14 +76,21 @@ img {
   background-color: var(--blue300);
 }
 
-.timer-display {
+.timer-container {
   display: flex;
+  align-items: center;
   gap: 0.5em;
+  min-height: 4em;
 }
 
 .timer-control {
   display: flex;
+  align-items: center;
   gap: 0.5em;
   padding-right: 0.5em;
-  border-right: 2px solid var(--indigo400);
+  border-right: 1px solid var(--indigo400);
+}
+
+.timer-display {
+  font-size: 2em;
 }
