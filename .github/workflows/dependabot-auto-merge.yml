@@ -12,5 +12,5 @@ jobs:
       - uses: fastify/github-action-merge-dependabot@v3
         with:
           target: minor
-          github-token: ${{ secrets.ghrs_github_api_token }}
+          github-token: ${{ secrets.DEPENDABOT_GITHUB_TOKEN }}
           use-github-auto-merge: true
