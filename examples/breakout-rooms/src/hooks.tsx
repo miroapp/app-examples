@@ -23,7 +23,7 @@ const COLLECTION_NAME = "breakout-rooms";
 const ACTIVE_ITEM = "active";
 
 const log = (id: string, ...args: unknown[]) =>
-  id.includes("TIMER") && console.log(id, JSON.stringify(args, null, 2));
+  console.log(id, JSON.stringify(args, null, 2));
 
 export const useCurrentUser = () => {
   const [userInfo, setUserInfo] = React.useState<UserInfo>();
@@ -549,9 +549,9 @@ export const useTimer = (opts: TimerOpts) => {
     [interval, interval, opts.onStop],
   );
 
-  const handleTimerUpdate = React.useCallback(async ({ timer }: TimerEvent) => {
-    log("[TIMER:UPDATED]", { timer });
-    switch (timer.status) {
+  const handleTimerUpdate = React.useCallback(async (event: TimerEvent) => {
+    log("[TIMER:UPDATED]", { event });
+    switch (event.timer.status) {
       case "STARTED":
         setState("started");
         break;
