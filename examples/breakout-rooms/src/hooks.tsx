@@ -1,10 +1,29 @@
-import { OnlineUserInfo, UserInfo } from "@mirohq/websdk-types";
 import * as React from "react";
-import { generateUniqueId } from "./utils";
-import { Participant, Room, Breakout } from "./types";
+
+import {
+  Item,
+  OnlineUserInfo,
+  SelectionUpdateEvent,
+  TimerEvent,
+  UserInfo,
+} from "@mirohq/websdk-types";
+
+import {
+  Breakout,
+  Participant,
+  Room,
+  SelectItemsOpts,
+  Session,
+  TimerOpts,
+  TimerState,
+} from "./types";
+import { convertTime, formatDisplayTime, generateUniqueId } from "./utils";
 
 const COLLECTION_NAME = "breakout-rooms";
 const ACTIVE_ITEM = "active";
+
+const log = (id: string, ...args: unknown[]) =>
+  id.includes("TIMER") && console.log(id, JSON.stringify(args, null, 2));
 
 export const useCurrentUser = () => {
   const [userInfo, setUserInfo] = React.useState<UserInfo>();
@@ -42,8 +61,33 @@ export const useOnlineUsers = () => {
   return onlineUsers;
 };
 
-const log = (id: string, ...args: unknown[]) =>
-  console.log(id, JSON.stringify(args, null, 2));
+export const useSelectedItems = <T extends Item = Item>(
+  opts?: SelectItemsOpts,
+) => {
+  const [items, setItems] = React.useState<T[]>([]);
+
+  React.useEffect(() => {
+    const subscribe = () => {
+      const handleSelectionUpdate = async (event: SelectionUpdateEvent) => {
+        let items = event.items as T[];
+        if (opts?.predicate) {
+          items = items.filter(opts.predicate);
+        }
+        setItems(items);
+      };
+
+      miro.board.ui.on("selection:update", handleSelectionUpdate);
+
+      return () => {
+        miro.board.ui.off("selection:update", handleSelectionUpdate);
+      };
+    };
+
+    return subscribe();
+  }, []);
+
+  return items;
+};
 
 export const useBreakout = () => {
   const [breakout, setBreakout] = React.useState<Breakout>();
@@ -116,7 +160,7 @@ export const useBreakout = () => {
 
     const rooms = sessionRooms.map((r) => {
       if (r.id === room.id) {
-        const participant = {
+        const participant: Participant = {
           ...user,
           state: "Waiting room",
         };
@@ -310,7 +354,8 @@ export const useBreakout = () => {
   };
 
   const upsertSession = async (breakout: Breakout) => {
-    let session: Session;
+    // TODO replace with actual Session type from @mirohq/websdk-types
+    let session: Session | undefined;
     if (breakout.sessionId) {
       const sessions = await miro.board.collaboration.getSessions();
       session = sessions.find((s) => s.id === breakout.sessionId);
@@ -360,6 +405,7 @@ export const useBreakout = () => {
   };
 
   const endSession = async () => {
+    log("[TIMER:endSession]", { breakout });
     if (!breakout) {
       throw new Error("Invalid breakout session");
     }
@@ -385,7 +431,8 @@ export const useBreakout = () => {
 
   const releaseSession = async () => {
     const breakoutRooms = await miro.board.storage.collection(COLLECTION_NAME);
-    const pastBreakoutRooms = (await breakoutRooms.get("past")) ?? [];
+    const pastBreakoutRooms =
+      (await breakoutRooms.get<Breakout[]>("past")) ?? [];
     const historyEntries = [...pastBreakoutRooms, breakout];
 
     log("releaseSession", { breakoutRooms, pastBreakoutRooms, breakout });
@@ -396,8 +443,6 @@ export const useBreakout = () => {
     breakoutRooms.remove(ACTIVE_ITEM);
     setBreakout(undefined);
   };
-
-  log("Data", { breakout });
 
   const isFacilitator =
     Boolean(breakout) && breakout?.creator.id === currentUser?.id;
@@ -416,5 +461,135 @@ export const useBreakout = () => {
     startSession,
     endSession,
     releaseSession,
+  };
+};
+
+export const useTimer = (opts: TimerOpts) => {
+  const [state, setState] = React.useState<TimerState>("idle");
+  const interval = React.useRef<ReturnType<typeof setInterval>>();
+
+  const tick = convertTime(opts.interval ?? 1_000, "milliseconds");
+
+  const start = React.useCallback(async () => {
+    const isStarted = await miro.board.experimental.timer.isStarted();
+    if (isStarted) {
+      throw new Error("Timer is already running");
+    }
+
+    log("[TIMER:START]", { opts });
+    await miro.board.experimental.timer.start(opts.duration);
+  }, [miro, opts.duration]);
+
+  const pause = React.useCallback(async () => {
+    const isStarted = await miro.board.experimental.timer.isStarted();
+    if (isStarted) {
+      await miro.board.experimental.timer.pause();
+    } else {
+      throw new Error("Timer is not running");
+    }
+  }, [miro]);
+
+  const stop = React.useCallback(async () => {
+    const isStarted = await miro.board.experimental.timer.isStarted();
+    if (isStarted) {
+      await miro.board.experimental.timer.stop();
+    }
+  }, [miro]);
+
+  const handleTimerStart = React.useCallback(
+    async ({ timer }: TimerEvent) => {
+      setState("started");
+      opts.onStart?.();
+
+      let timeStart = timer.startedAt;
+      const timeEnd =
+        timeStart + convertTime(timer.restDuration, "milliseconds");
+
+      log("[TIMER:STARTED]", {
+        timer,
+        timeStart,
+        timeEnd,
+        opts,
+        startFormatted: new Date(timeStart).toTimeString(),
+        endFormatted: new Date(timeEnd).toTimeString(),
+      });
+
+      clearInterval(interval.current);
+      interval.current = setInterval(() => {
+        timeStart += tick;
+        const restDuration = timeEnd - timeStart;
+
+        log("[TIMER:TICK]", {
+          timeStart,
+          tick,
+          restDuration,
+          restFormatted: formatDisplayTime(restDuration),
+          current: new Date(timeStart).toTimeString(),
+        });
+
+        if (timeStart >= timeEnd) {
+          clearInterval(interval.current);
+          stop();
+          return;
+        }
+
+        opts.onTick?.(restDuration);
+      }, tick);
+    },
+    [opts.onStart, opts.onTick, stop],
+  );
+
+  const handleTimerFinish = React.useCallback(
+    async ({ timer }: TimerEvent) => {
+      log("[TIMER:FINISHED]", { timer });
+      clearInterval(interval.current);
+      setState("ended");
+      opts.onStop?.();
+    },
+    [interval, interval, opts.onStop],
+  );
+
+  const handleTimerUpdate = React.useCallback(async ({ timer }: TimerEvent) => {
+    log("[TIMER:UPDATED]", { timer });
+    switch (timer.status) {
+      case "STARTED":
+        setState("started");
+        break;
+      case "PAUSED":
+        setState("paused");
+        break;
+      case "STOPPED":
+        setState("ended");
+        break;
+    }
+  }, []);
+
+  React.useEffect(() => {
+    const fetchCurrent = async () => {
+      const isStarted = await miro.board.experimental.timer.isStarted();
+      log("[TIMER:CURRENT]", { isStarted });
+      setState(isStarted ? "started" : "idle");
+    };
+
+    fetchCurrent();
+  }, []);
+
+  React.useEffect(() => {
+    miro.board.ui.on("experimental:timer:start", handleTimerStart);
+    miro.board.ui.on("experimental:timer:finish", handleTimerFinish);
+    miro.board.ui.on("experimental:timer:update", handleTimerUpdate);
+
+    return () => {
+      miro.board.ui.off("experimental:timer:start", handleTimerStart);
+      miro.board.ui.off("experimental:timer:finish", handleTimerFinish);
+      miro.board.ui.off("experimental:timer:update", handleTimerUpdate);
+    };
+  }, [handleTimerStart, handleTimerFinish, handleTimerUpdate]);
+
+  return {
+    state,
+    start,
+    stop,
+    pause,
   };
 };

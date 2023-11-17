@@ -8,21 +8,45 @@ import {
   IconPlus,
   IconTimer,
 } from "@mirohq/design-system";
+import { convertTime, formatDisplayTime, formatTime } from "../utils";
 
-// in seconds
-const DEFAULT_TIME = 5 * 60;
-// 1 minute
-const DEFAULT_MIN_TIME = 1 * 60;
-// 10 minutes
-const DEFAULT_MAX_TIME = 10 * 60;
-// 15 seconds
-const DEFAULT_STEP = 15;
+/**
+ * 5 mins
+ */
+export const DEFAULT_TIME = convertTime(5, "milliseconds", "minutes");
+/**
+ * 1 min
+ */
+export const DEFAULT_MIN_TIME = convertTime(1, "milliseconds", "minutes");
+/**
+ * 10 mins
+ */
+export const DEFAULT_MAX_TIME = convertTime(10, "milliseconds", "minutes");
+/**
+ * 15 seconds
+ */
+export const DEFAULT_STEP = convertTime(15, "milliseconds", "seconds");
 
 type Props = {
+  /**
+   * Default time in milliseconds
+   */
   defaultTime?: number;
+  /**
+   * Min time in milliseconds
+   */
   minTime?: number;
+  /**
+   * Max time in milliseconds
+   */
   maxTime?: number;
+  /**
+   * Inc/Dec step in milliseconds
+   */
   step?: number;
+  /**
+   * Set chosen time in milliseconds
+   */
   onSet: (time: number) => void;
 };
 
@@ -35,9 +59,6 @@ export const Timer: React.FunctionComponent<Props> = ({
 }) => {
   const [time, setTime] = React.useState<number>(defaultTime);
   const [timeChanged, setTimeChanged] = React.useState<boolean>(false);
-
-  const minutes = Math.floor(time / 60);
-  const seconds = Math.floor(time % 60);
 
   const handleAdd = () => {
     setTime((time) => (time <= maxTime ? time + step : time));
@@ -61,14 +82,14 @@ export const Timer: React.FunctionComponent<Props> = ({
             type="button"
           >
             <IconTimer />
-            {timeChanged ? time : "Set timer"}
+            {timeChanged ? formatTime(time) : "Set timer"}
           </button>
         </DropdownMenu.Trigger>
         <DropdownMenu.Content>
           <div className="timer-container">
             <div className="timer-control">
               <Button
-                variant="solid-prominent"
+                variant="outline-subtle"
                 size="small"
                 rounded
                 disabled={time <= minTime}
@@ -77,13 +98,10 @@ export const Timer: React.FunctionComponent<Props> = ({
                 <IconMinus />
               </Button>
 
-              <div className="timer-display">
-                {minutes.toString().padStart(2, "0")}:
-                {seconds.toString().padStart(2, "0")}
-              </div>
+              <div className="timer-display">{formatDisplayTime(time)}</div>
 
               <Button
-                variant="solid-prominent"
+                variant="outline-subtle"
                 size="small"
                 rounded
                 disabled={time >= maxTime}

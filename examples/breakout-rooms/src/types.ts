@@ -1,4 +1,4 @@
-import { OnlineUserInfo, UserInfo } from "@mirohq/websdk-types";
+import { Item, OnlineUserInfo, UserInfo } from "@mirohq/websdk-types";
 
 export type BreakoutState = "idle" | "started" | "ended";
 
@@ -25,4 +25,31 @@ export type Breakout = {
   sessionId?: string;
   rooms: Room[];
   state: BreakoutState;
+};
+
+export type TimerState = "idle" | "started" | "paused" | "ended";
+export type TimeUnit =
+  | "milliseconds"
+  | "seconds"
+  | "minutes"
+  | "hours"
+  | "days";
+
+export type TimerOpts = {
+  durationUnit?: TimeUnit;
+  duration: number;
+  interval?: number;
+  onTick?: (timestamp: number) => void;
+  onStop?: () => void;
+  onStart?: () => void;
+};
+
+export type SelectItemsOpts = {
+  predicate?: (items: Item) => boolean;
+};
+
+// TODO replace with actual Session type from @mirohq/websdk-types
+export type Session = {
+  id: string;
+  name: string;
 };

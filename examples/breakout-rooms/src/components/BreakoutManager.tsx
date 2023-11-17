@@ -3,22 +3,36 @@
 import * as React from "react";
 
 import { Participant, Room } from "../types";
+import { Frame, Json, OnlineUserInfo } from "@mirohq/websdk-types";
 import {
-  Frame,
-  Json,
-  OnlineUserInfo,
-  SelectionUpdateEvent,
-} from "@mirohq/websdk-types";
-import { useBreakout, useOnlineUsers } from "../hooks";
-import { isUser } from "../utils";
+  useBreakout,
+  useOnlineUsers,
+  useSelectedItems,
+  useTimer,
+} from "../hooks";
+import { formatDisplayTime, isUser } from "../utils";
 import { RoomConfig } from "./RoomConfig";
-import { Timer } from "./Timer";
+import { DEFAULT_TIME, Timer } from "./Timer";
 
 export const BreakoutManager: React.FC = () => {
   const { breakout, rooms, isFacilitator, ...service } = useBreakout();
   const onlineUsers = useOnlineUsers();
+  const selectedItems = useSelectedItems<Frame>({
+    predicate: (item) => item.type === "frame",
+  });
   const [selectedRoom, setSelectedRoom] = React.useState<Room>();
-  const [time, setTime] = React.useState<number>();
+  const [duration, setTimerDuration] = React.useState<number>(DEFAULT_TIME);
+  const [currentTime, setCurrentTime] = React.useState<number>(0);
+
+  const onTimerStop = React.useCallback(() => {
+    service.endSession();
+  }, [breakout?.id]);
+
+  const timer = useTimer({
+    duration,
+    onStop: () => service.endSession(),
+    onTick: (timestamp) => setCurrentTime(timestamp),
+  });
 
   const participantIds = rooms
     .map((room) => room.participants.map((p) => p.id))
@@ -35,13 +49,12 @@ export const BreakoutManager: React.FC = () => {
   }, [onlineUsers, participantIds]);
 
   React.useEffect(() => {
-    const handleSelectionUpdate = async (event: SelectionUpdateEvent) => {
-      console.log("handleSelectionUpdate", { event, selectedRoom });
-      if (!event.items.length || !selectedRoom) {
+    const handleSelectionUpdate = async () => {
+      if (!selectedItems.length || !selectedRoom) {
         return;
       }
 
-      const frame = event.items.find((item) => item.type === "frame") as Frame;
+      const [frame] = selectedItems;
 
       if (frame) {
         await service.setRoomTarget(selectedRoom, frame.id);
@@ -57,16 +70,8 @@ export const BreakoutManager: React.FC = () => {
       }
     };
 
-    const subscribe = () => {
-      miro.board.ui.on("selection:update", handleSelectionUpdate);
-
-      return () => {
-        miro.board.ui.off("selection:update", handleSelectionUpdate);
-      };
-    };
-
-    return subscribe();
-  }, [selectedRoom]);
+    handleSelectionUpdate();
+  }, [selectedRoom, selectedItems]);
 
   React.useEffect(() => {
     const boostrap = () => {
@@ -121,6 +126,9 @@ export const BreakoutManager: React.FC = () => {
 
   const handleStartSession = async () => {
     await service.startSession();
+    if (duration && timer.state !== "started") {
+      await timer.start();
+    }
   };
 
   const handleReleaseFacilitator = async () => {
@@ -129,6 +137,9 @@ export const BreakoutManager: React.FC = () => {
 
   const handleStopSession = async () => {
     await service.endSession();
+    if (timer.state === "started") {
+      await timer.stop();
+    }
   };
 
   const validations: string[] = [];
@@ -157,7 +168,38 @@ export const BreakoutManager: React.FC = () => {
 
   return (
     <main>
-      <Timer onSet={setTime} />
+      <Timer onSet={setTimerDuration} />
+
+      {duration ? <h5>Duration: {formatDisplayTime(duration)}</h5> : null}
+      {currentTime ? <h5>Timer: {formatDisplayTime(currentTime)}</h5> : null}
+
+      <div>
+        <button
+          className="button button-small button-secondary"
+          onClick={() => timer.start()}
+          disabled={timer.state === "started"}
+        >
+          Start timer
+        </button>
+      </div>
+      <div>
+        <button
+          className="button button-small button-secondary"
+          onClick={() => timer.start()}
+          disabled={timer.state !== "started"}
+        >
+          Pause timer
+        </button>
+      </div>
+      <div>
+        <button
+          className="button button-small button-secondary"
+          onClick={() => timer.stop()}
+          disabled={timer.state !== "started"}
+        >
+          Stop timer
+        </button>
+      </div>
 
       <div className="container">
         <section className="rooms-container">
@@ -219,7 +261,7 @@ export const BreakoutManager: React.FC = () => {
             type="button"
             onClick={() => handleStopSession()}
           >
-            Stop session
+            Stop session ({formatDisplayTime(currentTime)})
           </button>
         ) : (
           <React.Fragment>
