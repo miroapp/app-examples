@@ -10,7 +10,7 @@ import {
   useSelectedItems,
   useTimer,
 } from "../hooks";
-import { formatDisplayTime, isUser } from "../utils";
+import { convertTime, formatDisplayTime, isUser } from "../utils";
 import { RoomConfig } from "./RoomConfig";
 import { DEFAULT_TIME, Timer } from "./Timer";
 
@@ -30,7 +30,7 @@ export const BreakoutManager: React.FC = () => {
 
   const timer = useTimer({
     duration,
-    onStop: () => service.endSession(),
+    onStop: onTimerStop,
     onTick: (timestamp) => setCurrentTime(timestamp),
   });
 
@@ -168,38 +168,10 @@ export const BreakoutManager: React.FC = () => {
 
   return (
     <main>
-      <Timer onSet={setTimerDuration} />
-
-      {duration ? <h5>Duration: {formatDisplayTime(duration)}</h5> : null}
-      {currentTime ? <h5>Timer: {formatDisplayTime(currentTime)}</h5> : null}
-
-      <div>
-        <button
-          className="button button-small button-secondary"
-          onClick={() => timer.start()}
-          disabled={timer.state === "started"}
-        >
-          Start timer
-        </button>
-      </div>
-      <div>
-        <button
-          className="button button-small button-secondary"
-          onClick={() => timer.start()}
-          disabled={timer.state !== "started"}
-        >
-          Pause timer
-        </button>
-      </div>
-      <div>
-        <button
-          className="button button-small button-secondary"
-          onClick={() => timer.stop()}
-          disabled={timer.state !== "started"}
-        >
-          Stop timer
-        </button>
-      </div>
+      <Timer
+        onSet={setTimerDuration}
+        step={convertTime(1, "milliseconds", "minutes")}
+      />
 
       <div className="container">
         <section className="rooms-container">
@@ -220,14 +192,16 @@ export const BreakoutManager: React.FC = () => {
           ))}
         </section>
 
-        <button
-          className="button button-medium button-primary button-add"
-          type="button"
-          title="Add room"
-          onClick={handleAddGroup}
-        >
-          <span className="icon-plus"></span>
-        </button>
+        {breakout?.state !== "started" ? (
+          <button
+            className="button button-medium button-primary button-add"
+            type="button"
+            title="Add room"
+            onClick={handleAddGroup}
+          >
+            <span className="icon-plus"></span>
+          </button>
+        ) : null}
       </div>
 
       {unassignedUsers.length ? (

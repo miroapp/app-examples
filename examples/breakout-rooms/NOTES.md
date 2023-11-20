@@ -14,9 +14,8 @@
 
 # TODO
 
-- [ ] Implement timer and control session with it
+- [x] Implement timer and control session with it
 - [ ] The room starting point selector might need more love.
 - [ ] Should a facilitator be able to zoom to starting point or even remove it?
 - [ ] Make main scrollable and toolbar sitcky to the bottom of the viewport
-- [ ] Address typography/styles issues
-- [ ] Do we need alert component to display messages?
+- [x] Address typography/styles issues

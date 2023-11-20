@@ -431,15 +431,6 @@ export const useBreakout = () => {
 
   const releaseSession = async () => {
     const breakoutRooms = await miro.board.storage.collection(COLLECTION_NAME);
-    const pastBreakoutRooms =
-      (await breakoutRooms.get<Breakout[]>("past")) ?? [];
-    const historyEntries = [...pastBreakoutRooms, breakout];
-
-    log("releaseSession", { breakoutRooms, pastBreakoutRooms, breakout });
-
-    breakoutRooms.set("past", historyEntries);
-    // Collection.remove does not trigger onValue
-    // breakoutRooms.set(ACTIVE_ITEM, {});
     breakoutRooms.remove(ACTIVE_ITEM);
     setBreakout(undefined);
   };

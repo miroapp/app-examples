@@ -2,7 +2,6 @@
 
 /** 
   TODO: Make main scrollable and toolbar sitcky to the bottom of the viewport
-  TODO: Address typography issues
   TODO: Do we need alert component to display messages?
 **/
 
@@ -51,6 +50,11 @@ img {
   gap: 0.5em;
   overflow: auto;
   width: 100%;
+  height: 100%;
+}
+
+.rooms-container > p {
+  text-align: center;
 }
 
 .room-container {
