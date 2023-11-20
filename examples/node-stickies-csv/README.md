@@ -75,11 +75,13 @@ MIRO_BOARD_ID=<YOUR_MIRO_BOARD_ID>
 
 https://github.com/miroapp/app-examples/assets/10428517/1e6862de-8617-46ef-b265-97ff1cbfe8bf
 
-6. Go to your developer team, and open your boards.
-7. Click on the plus icon from the bottom section of your left sidebar. If you hover over it, it will say `More apps`.
-8. Search for your app `Node.js Stickies to CSV` or whatever you chose to name it. Click on your app to use it, as shown in the video below.
+6. Go to the developer team which you installed the app on, and open the board with the board ID matching your board from the .env file: `MIRO_BOARD_ID=<YOUR_MIRO_BOARD_ID>`.
 
 https://github.com/horeaporutiu/app-examples-template/assets/10428517/b23d9c4c-e785-43f9-a72e-fa5d82c7b019
+
+7. Next, go to `localhost:8000`, and click on `Authorize App`.
+
+8. Go through the authorization process, then click on `List Stickies` or any of the other buttons at the top to interact with the app.
 
 # 🗂️ Folder structure <a name="folder"></a>
 
