@@ -25,6 +25,7 @@ https://github.com/miroapp/app-examples/assets/7162412/46b1708d-fb08-412e-a7b2-3
 - [Attention Management](TODO)
 - [Real-time events](TODO)
 - [Real-time storage](TODO)
+- [Timer](TODO)
 
 # 🛠️ Tools and Technologies <a name="tools"></a>
 
@@ -91,12 +92,20 @@ scopes:
 ```
 .
 ├── src
-│  └── index.tsx <-- Where the custom actions and icon click handler are defined.
-│  └── app.tsx <-- Where the selfie is taken and the image created/updated
-├── tsconfig.json <-- typescript configuration file
-├── vite.config.ts <-- Vite configuration file
-└── index.html <-- The app entry point. This is the value you assign to 'sdkUri' in the app manifest file.
-└── capture.html <-- The content displayed in the modal to capture your selfie.
+│   ├── components
+│   │   ├── BreakoutManager.tsx <-- Main React component displayed in the panel to facilitators
+│   │   ├── ErrorBoundary.tsx <-- React error Boundary
+│   │   ├── RoomConfig.tsx <-- React component to allow users to configure the rooms.
+│   │   ├── Timer.tsx <-- React component to configure the timer.
+│   │   └── WaitingRoom.tsx <-- React component displayed to other users in the board but the facilitator creating breakout rooms.
+│   ├── app.tsx <-- The app typescript entrypoint used in the panel.
+│   ├── hooks.tsx <-- React hooks used in the app, including useCurrentUser, useBreakout, useTimer and some others.
+│   ├── index.ts <-- The app main typescript entrypoint, rendered inside the headless iframe.
+│   ├── types.ts <-- The app typescript types.
+│   └── utils.ts <-- General code utilities, such as formatting and converting time in different units.
+├── app.html  <-- The app content displayed in the content when user clicks on the app icon on Miro boards.
+├── index.html <-- The app entry point. This is the value you assign to 'sdkUri' in the app manifest file.
+
 ```
 
 # 🫱🏻‍🫲🏽 Contributing <a name="contributing"></a>
