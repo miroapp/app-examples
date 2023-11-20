@@ -6,6 +6,7 @@ import {
   SelectionUpdateEvent,
   TimerEvent,
   UserInfo,
+  Session,
 } from "@mirohq/websdk-types";
 
 import {
@@ -13,9 +14,9 @@ import {
   Participant,
   Room,
   SelectItemsOpts,
-  Session,
   TimerOpts,
   TimerState,
+  UserSessionEvent,
 } from "./types";
 import { convertTime, formatDisplayTime, generateUniqueId } from "./utils";
 
@@ -101,7 +102,7 @@ export const useBreakout = () => {
     const init = () => {
       const breakoutRooms = miro.board.storage.collection(COLLECTION_NAME);
 
-      const activeValue = (activeBreakout: Breakout) => {
+      const activeValue = (activeBreakout?: Breakout) => {
         log("onValue", { activeBreakout });
         setBreakout(activeBreakout?.id ? activeBreakout : undefined);
       };
@@ -269,8 +270,8 @@ export const useBreakout = () => {
     await saveBreakout(breakout, { rooms });
   };
 
-  const handleUserJoined = async ({ userId }: { userId: string }) => {
-    log("handleUserJoined", { userId, breakout });
+  const handleUserJoined = async ({ user }: UserSessionEvent) => {
+    log("handleUserJoined", { user, breakout });
     if (!breakout) {
       return;
     }
@@ -280,7 +281,7 @@ export const useBreakout = () => {
 
     breakout.rooms.some((r) =>
       r.participants.some((p) => {
-        if (p.id === userId) {
+        if (p.id === user) {
           participant = p;
           room = r;
           return true;
@@ -294,7 +295,7 @@ export const useBreakout = () => {
 
     if (!room || !participant) {
       await miro.board.notifications.showError(
-        `User ${userId} has joined a session but no room was assigned`,
+        `User ${user} has joined a session but no room was assigned`,
       );
       return;
     }
@@ -323,8 +324,8 @@ export const useBreakout = () => {
     }
   };
 
-  const handleUserLeft = async ({ userId }: { userId: string }) => {
-    log("handleUserLeft", { userId, breakout });
+  const handleUserLeft = async ({ user }: UserSessionEvent) => {
+    log("handleUserLeft", { user, breakout });
     if (!breakout) {
       return;
     }
@@ -334,7 +335,7 @@ export const useBreakout = () => {
 
     breakout.rooms.some((r) =>
       r.participants.some((p) => {
-        if (p.id === userId) {
+        if (p.id === user) {
           participant = p;
           room = r;
           return true;
@@ -354,7 +355,6 @@ export const useBreakout = () => {
   };
 
   const upsertSession = async (breakout: Breakout) => {
-    // TODO replace with actual Session type from @mirohq/websdk-types
     let session: Session | undefined;
     if (breakout.sessionId) {
       const sessions = await miro.board.collaboration.getSessions();

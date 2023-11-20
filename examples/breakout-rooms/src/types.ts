@@ -48,8 +48,6 @@ export type SelectItemsOpts = {
   predicate?: (items: Item) => boolean;
 };
 
-// TODO replace with actual Session type from @mirohq/websdk-types
-export type Session = {
-  id: string;
-  name: string;
+export type UserSessionEvent = {
+  user: string;
 };
