@@ -16,6 +16,7 @@ export type Room = {
   name: string;
   targetId?: string;
   participants: Participant[];
+  sessionId?: string;
   selected?: boolean;
 };
 
@@ -49,5 +50,6 @@ export type SelectItemsOpts = {
 };
 
 export type UserSessionEvent = {
-  user: string;
+  userId: string;
+  sessionId: string;
 };

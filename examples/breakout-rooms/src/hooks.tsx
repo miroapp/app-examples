@@ -270,8 +270,8 @@ export const useBreakout = () => {
     await saveBreakout(breakout, { rooms });
   };
 
-  const handleUserJoined = async ({ user }: UserSessionEvent) => {
-    log("handleUserJoined", { user, breakout });
+  const handleUserJoined = async ({ userId, sessionId }: UserSessionEvent) => {
+    log("handleUserJoined", { userId, sessionId, breakout });
     if (!breakout) {
       return;
     }
@@ -279,23 +279,27 @@ export const useBreakout = () => {
     let participant: Participant | undefined;
     let room: Room | undefined;
 
-    breakout.rooms.some((r) =>
-      r.participants.some((p) => {
-        if (p.id === user) {
+    breakout.rooms.some((r) => {
+      if (r.sessionId !== sessionId) {
+        return false;
+      }
+
+      return r.participants.some((p) => {
+        if (p.id === userId) {
           participant = p;
           room = r;
           return true;
         }
 
         return false;
-      }),
-    );
+      });
+    });
 
     log("handleUserJoined.participant", { room, participant });
 
     if (!room || !participant) {
       await miro.board.notifications.showError(
-        `User ${user} has joined a session but no room was assigned`,
+        `User ${userId} has joined a session but no room was assigned`,
       );
       return;
     }
@@ -324,8 +328,8 @@ export const useBreakout = () => {
     }
   };
 
-  const handleUserLeft = async ({ user }: UserSessionEvent) => {
-    log("handleUserLeft", { user, breakout });
+  const handleUserLeft = async ({ userId, sessionId }: UserSessionEvent) => {
+    log("handleUserLeft", { userId, sessionId, breakout });
     if (!breakout) {
       return;
     }
@@ -333,17 +337,21 @@ export const useBreakout = () => {
     let participant: Participant | undefined;
     let room: Room | undefined;
 
-    breakout.rooms.some((r) =>
-      r.participants.some((p) => {
-        if (p.id === user) {
+    breakout.rooms.some((r) => {
+      if (r.sessionId !== sessionId) {
+        return false;
+      }
+
+      return r.participants.some((p) => {
+        if (p.id === userId) {
           participant = p;
           room = r;
           return true;
         }
 
         return false;
-      }),
-    );
+      });
+    });
 
     log("handleUserLeft.participant", { room, participant });
 
@@ -354,20 +362,24 @@ export const useBreakout = () => {
     await removeParticipant(room, participant);
   };
 
-  const upsertSession = async (breakout: Breakout) => {
+  const upsertSession = async (room: Room) => {
     let session: Session | undefined;
-    if (breakout.sessionId) {
+    if (room.sessionId) {
       const sessions = await miro.board.collaboration.getSessions();
-      session = sessions.find((s) => s.id === breakout.sessionId);
+      session = sessions.find((s) => s.id === room.sessionId);
     }
 
     if (!session) {
       session = await miro.board.collaboration.startSession({
-        name: `Breakout room - by ${breakout.creator.name}`,
+        name: room.name,
+      });
+
+      const rooms = breakout?.rooms.map((r) => {
+        return room.id === r.id ? { ...r, sessionId: session!.id } : r;
       });
 
       await saveBreakout(breakout, {
-        sessionId: session.id,
+        rooms,
       });
     }
 
@@ -384,24 +396,20 @@ export const useBreakout = () => {
     log("startSession", breakout);
     await saveBreakout(breakout, { state: "started" });
 
-    const session = await upsertSession(breakout);
-
-    const allParticipants = breakout.rooms
-      .map((room) => room.participants)
-      .flat();
-
-    await session.invite(allParticipants);
-
     await Promise.all(
-      breakout.rooms.map((room) =>
+      breakout.rooms.map(async (room) => {
+        const session = await upsertSession(room);
+
+        await session.invite(room.participants);
+
         room.participants.map((participant) =>
           updateParticipant(room, participant, { state: "Invitation Pending" }),
-        ),
-      ),
-    );
+        );
 
-    session.on("user-joined", handleUserJoined);
-    session.on("user-left", handleUserLeft);
+        session.on("user-joined", handleUserJoined);
+        session.on("user-left", handleUserLeft);
+      }),
+    );
   };
 
   const endSession = async () => {
@@ -410,22 +418,22 @@ export const useBreakout = () => {
       throw new Error("Invalid breakout session");
     }
 
-    const session = await upsertSession(breakout);
-    if (!session) {
-      throw new Error(`Breakout ${breakout} doesn't have a Miro session`);
-    }
+    const finishRooms = breakout.rooms.map(async (room) => {
+      const session = await upsertSession(room);
+      if (!session) {
+        throw new Error(`Breakout ${breakout} doesn't have a Miro session`);
+      }
 
-    await session.end();
+      await session.end();
+
+      room.participants.map((participant) =>
+        updateParticipant(room, participant, { state: "Waiting room" }),
+      );
+    });
+
+    await Promise.all(finishRooms);
+
     await saveBreakout(breakout, { state: "ended" });
-
-    await Promise.all(
-      breakout.rooms.map((room) =>
-        room.participants.map((participant) =>
-          updateParticipant(room, participant, { state: "Waiting room" }),
-        ),
-      ),
-    );
-
     await releaseSession();
   };
 
@@ -437,6 +445,7 @@ export const useBreakout = () => {
 
   const isFacilitator =
     Boolean(breakout) && breakout?.creator.id === currentUser?.id;
+
   const rooms = breakout?.rooms ?? [];
 
   return {

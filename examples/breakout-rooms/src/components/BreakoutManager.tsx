@@ -21,7 +21,7 @@ export const BreakoutManager: React.FC = () => {
     predicate: (item) => item.type === "frame",
   });
   const [selectedRoom, setSelectedRoom] = React.useState<Room>();
-  const [duration, setTimerDuration] = React.useState<number>(DEFAULT_TIME);
+  const [duration, setTimerDuration] = React.useState<number>();
   const [currentTime, setCurrentTime] = React.useState<number>(0);
 
   const onTimerStop = React.useCallback(() => {
@@ -29,7 +29,7 @@ export const BreakoutManager: React.FC = () => {
   }, [breakout?.id]);
 
   const timer = useTimer({
-    duration,
+    duration: duration ?? DEFAULT_TIME,
     onStop: onTimerStop,
     onTick: (timestamp) => setCurrentTime(timestamp),
   });
@@ -235,7 +235,10 @@ export const BreakoutManager: React.FC = () => {
             type="button"
             onClick={() => handleStopSession()}
           >
-            Stop session ({formatDisplayTime(currentTime)})
+            Stop session{" "}
+            {timer.state === "started"
+              ? `(${formatDisplayTime(currentTime)})`
+              : null}
           </button>
         ) : (
           <React.Fragment>
