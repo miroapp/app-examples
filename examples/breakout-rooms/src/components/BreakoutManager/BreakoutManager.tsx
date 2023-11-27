@@ -2,17 +2,29 @@
 
 import * as React from "react";
 
-import { Participant, Room } from "../types";
+import { Participant, Room } from "../../types";
 import { Frame, Json, OnlineUserInfo } from "@mirohq/websdk-types";
 import {
   useBreakout,
   useOnlineUsers,
   useSelectedItems,
   useTimer,
-} from "../hooks";
-import { convertTime, formatDisplayTime, isUser } from "../utils";
-import { RoomConfig } from "./RoomConfig";
-import { DEFAULT_TIME, Timer } from "./Timer";
+} from "../../hooks";
+import { convertTime, formatDisplayTime, isUser } from "../../utils";
+import { RoomConfig } from "../RoomConfig/RoomConfig";
+import { DEFAULT_TIME, Timer } from "../Timer/Timer";
+import {
+  DropdownMenu,
+  IconButton,
+  IconPlus,
+  IconHandFilled,
+  IconDotsThreeVertical,
+  Button,
+} from "@mirohq/design-system";
+
+import "./BreakoutManager.css";
+import { BreakoutStarter } from "../BreakoutStarter";
+import { WaitingList } from "../WaitingList";
 
 export const BreakoutManager: React.FC = () => {
   const { breakout, rooms, isFacilitator, ...service } = useBreakout();
@@ -23,6 +35,7 @@ export const BreakoutManager: React.FC = () => {
   const [selectedRoom, setSelectedRoom] = React.useState<Room>();
   const [duration, setTimerDuration] = React.useState<number>();
   const [currentTime, setCurrentTime] = React.useState<number>(0);
+  const [canUseTimer] = React.useState<boolean>(false);
 
   const onTimerStop = React.useCallback(() => {
     service.endSession();
@@ -124,11 +137,19 @@ export const BreakoutManager: React.FC = () => {
     await service.removeRoom(selected);
   };
 
+  const safeTimerHandler = (cb: () => void) => {
+    if (canUseTimer) {
+      cb();
+    }
+  };
+
   const handleStartSession = async () => {
     await service.startSession();
-    if (duration && timer.state !== "started") {
-      await timer.start();
-    }
+    safeTimerHandler(async () => {
+      if (duration && timer.state !== "started") {
+        await timer.start();
+      }
+    });
   };
 
   const handleReleaseFacilitator = async () => {
@@ -137,9 +158,11 @@ export const BreakoutManager: React.FC = () => {
 
   const handleStopSession = async () => {
     await service.endSession();
-    if (timer.state === "started") {
-      await timer.stop();
-    }
+    safeTimerHandler(async () => {
+      if (timer.state === "started") {
+        await timer.stop();
+      }
+    });
   };
 
   const validations: string[] = [];
@@ -168,55 +191,72 @@ export const BreakoutManager: React.FC = () => {
 
   return (
     <main>
-      <Timer
-        onSet={setTimerDuration}
-        step={convertTime(1, "milliseconds", "minutes")}
-      />
+      {breakout?.state !== "started" && rooms.length < 1 ? (
+        <BreakoutStarter onAddGroup={handleAddGroup} />
+      ) : (
+        <div className="container">
+          <section className="rooms-container">
+            {rooms.map((room) => (
+              <RoomConfig
+                key={room.id}
+                room={room}
+                isEditable={isEditabled}
+                isSelected={room.id === selectedRoom?.id}
+                unassignedUsers={unassignedUsers}
+                onAddParticipant={handleAddParticipant}
+                onSelect={handleStartSelectTarget}
+                onRemove={handleRemoveRoom}
+                onRemoveParticipant={handleRemoveParticipant}
+              />
+            ))}
+            <div className="breakout-controls">
+              <div className="rounded-button">
+                <IconButton
+                  label="Add a room"
+                  variant="solid-prominent"
+                  onClick={handleAddGroup}
+                >
+                  <IconPlus />
+                </IconButton>
+              </div>
 
-      <div className="container">
-        <section className="rooms-container">
-          {rooms.length < 1 ? <p>Please create rooms</p> : null}
+              {canUseTimer && (
+                <Timer
+                  onSet={setTimerDuration}
+                  step={convertTime(1, "milliseconds", "minutes")}
+                />
+              )}
 
-          {rooms.map((room) => (
-            <RoomConfig
-              key={room.id}
-              room={room}
-              isEditable={isEditabled}
-              isSelected={room.id === selectedRoom?.id}
-              unassignedUsers={unassignedUsers}
-              onAddParticipant={handleAddParticipant}
-              onSelect={handleStartSelectTarget}
-              onRemove={handleRemoveRoom}
-              onRemoveParticipant={handleRemoveParticipant}
-            />
-          ))}
-        </section>
-
-        {breakout?.state !== "started" ? (
-          <button
-            className="button button-medium button-primary button-add"
-            type="button"
-            title="Add room"
-            onClick={handleAddGroup}
-          >
-            <span className="icon-plus"></span>
-          </button>
-        ) : null}
-      </div>
+              {isFacilitator && (
+                <DropdownMenu>
+                  <DropdownMenu.Trigger asChild>
+                    <IconDotsThreeVertical />
+                  </DropdownMenu.Trigger>
+                  <DropdownMenu.Content>
+                    <>
+                      <DropdownMenu.Item
+                        onClick={() => handleReleaseFacilitator()}
+                      >
+                        <DropdownMenu.IconSlot>
+                          <IconHandFilled />
+                        </DropdownMenu.IconSlot>
+                        Release facilitator role
+                      </DropdownMenu.Item>
+                    </>
+                  </DropdownMenu.Content>
+                </DropdownMenu>
+              )}
+            </div>
+          </section>
+        </div>
+      )}
 
       {unassignedUsers.length ? (
-        <section>
-          <h5>Unassigned users</h5>
-          <ul>
-            {unassignedUsers.map((user) => (
-              <li key={user.id}>{user.name}</li>
-            ))}
-          </ul>
-        </section>
+        <WaitingList unassignedUsers={unassignedUsers} />
       ) : null}
 
       {isEditabled && validations.length > 0 ? (
-        <div>
+        <div className="validation-messages">
           <h5>Before starting the session:</h5>
           <ul>
             {validations.map((message) => (
@@ -224,44 +264,33 @@ export const BreakoutManager: React.FC = () => {
             ))}
           </ul>
         </div>
-      ) : null}
-
-      <hr />
-
-      <div className="toolbar">
-        {breakout?.state === "started" ? (
-          <button
-            className="button button-danger"
-            type="button"
-            onClick={() => handleStopSession()}
-          >
-            Stop session{" "}
-            {timer.state === "started"
-              ? `(${formatDisplayTime(currentTime)})`
-              : null}
-          </button>
-        ) : (
-          <React.Fragment>
-            <button
-              className="button button-primary"
-              type="button"
-              disabled={!canStartSession}
-              onClick={() => handleStartSession()}
+      ) : (
+        <div className="toolbar">
+          {breakout?.state === "started" ? (
+            <Button
+              onClick={() => handleStopSession()}
+              variant="solid-danger"
+              size="large"
             >
-              Start session
-            </button>
-            {isFacilitator && (
-              <button
-                className="button button-secondary"
-                type="button"
-                onClick={() => handleReleaseFacilitator()}
+              Stop session
+              {canUseTimer && timer.state === "started"
+                ? `(${formatDisplayTime(currentTime)})`
+                : null}
+            </Button>
+          ) : (
+            <React.Fragment>
+              <Button
+                disabled={!canStartSession}
+                onClick={() => handleStartSession()}
+                variant="solid-prominent"
+                size="large"
               >
-                Release facilitator role
-              </button>
-            )}
-          </React.Fragment>
-        )}
-      </div>
+                Start session
+              </Button>
+            </React.Fragment>
+          )}
+        </div>
+      )}
     </main>
   );
 };

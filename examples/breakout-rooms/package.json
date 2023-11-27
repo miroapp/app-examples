@@ -19,7 +19,7 @@
     "serve": "vite preview"
   },
   "dependencies": {
-    "@mirohq/design-system": "^0.17.19",
+    "@mirohq/design-system": "^0.18.1",
     "@stitches/react": "^1.2.8",
     "classnames": "^2.3.2",
     "mirotone": "5",

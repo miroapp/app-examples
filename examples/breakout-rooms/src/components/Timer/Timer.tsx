@@ -8,7 +8,9 @@ import {
   IconPlus,
   IconTimer,
 } from "@mirohq/design-system";
-import { convertTime, formatDisplayTime, formatTime } from "../utils";
+import { convertTime, formatDisplayTime, formatTime } from "../../utils";
+
+import "./Timer.css";
 
 /**
  * 5 mins
@@ -77,13 +79,14 @@ export const Timer: React.FunctionComponent<Props> = ({
     <>
       <DropdownMenu>
         <DropdownMenu.Trigger asChild>
-          <button
-            className="button button-secondary button-medium"
-            type="button"
-          >
-            <IconTimer />
-            {timeChanged ? formatTime(time) : "Set timer"}
-          </button>
+          <Button variant="outline-prominent" rounded>
+            <Button.IconSlot>
+              <IconTimer />
+            </Button.IconSlot>
+            <Button.Label>
+              {timeChanged ? formatTime(time) : "Set timer"}
+            </Button.Label>
+          </Button>
         </DropdownMenu.Trigger>
         <DropdownMenu.Content>
           <div className="timer-container">

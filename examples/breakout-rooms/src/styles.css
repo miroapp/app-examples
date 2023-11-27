@@ -1,10 +1,5 @@
 @import "mirotone/dist/styles.css";
 
-/** 
-  TODO: Make main scrollable and toolbar sitcky to the bottom of the viewport
-  TODO: Do we need alert component to display messages?
-**/
-
 *,
 *:before,
 *:after {
@@ -16,91 +11,10 @@
   padding: var(--space-medium);
   /** TODO: Had to hardcode this here since it's not coming from DS for some reason **/
   --shadows-50: 0 4px 16px #05003812;
+  height: 100%;
 }
 
 img {
   max-width: 100%;
   height: auto;
-}
-
-.toolbar {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 1em;
-}
-
-.toolbar .button {
-  justify-content: center;
-  margin: 0;
-}
-
-.container {
-  display: flex;
-  flex-direction: column;
-  gap: 1em;
-  align-items: center;
-}
-
-.rooms-container {
-  display: flex;
-  flex-direction: column;
-  max-height: 25em;
-  min-height: 10em;
-  gap: 0.5em;
-  overflow: auto;
-  width: 100%;
-  height: 100%;
-}
-
-.rooms-container > p {
-  text-align: center;
-}
-
-.room-container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  justify-items: center;
-  gap: 0.5em;
-  padding: 0.5em;
-  width: 100%;
-}
-
-.room-container :is(h3, button) {
-  margin: 0 !important;
-}
-
-.room-container h3 {
-  flex-basis: 9em;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.button-selected {
-  background-color: var(--blue100);
-}
-
-.button-active {
-  background-color: var(--blue300);
-}
-
-.timer-container {
-  display: flex;
-  align-items: center;
-  gap: 0.5em;
-  min-height: 4em;
-}
-
-.timer-control {
-  display: flex;
-  align-items: center;
-  gap: 0.5em;
-  padding-right: 0.5em;
-  border-right: 1px solid var(--indigo400);
-}
-
-.timer-display {
-  font-size: 2em;
 }

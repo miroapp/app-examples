@@ -1,11 +1,18 @@
 "use client";
 
 import * as React from "react";
-import classnames from "classnames";
-import { DropdownMenu, IconUser } from "@mirohq/design-system";
-
-import type { Participant, Room } from "../types";
+import {
+  DropdownMenu,
+  IconButton,
+  IconFrame,
+  IconTrash,
+  IconUser,
+} from "@mirohq/design-system";
 import { OnlineUserInfo } from "@mirohq/websdk-types";
+
+import type { Participant, Room } from "../../types";
+
+import "./RoomConfig.css";
 
 export type Props = {
   room: Room;
@@ -21,7 +28,6 @@ export type Props = {
 export const RoomConfig: React.FunctionComponent<Props> = ({
   room,
   isEditable,
-  isSelected,
   unassignedUsers,
   onSelect,
   onRemove,
@@ -30,19 +36,26 @@ export const RoomConfig: React.FunctionComponent<Props> = ({
 }) => {
   return (
     <div key={room.id} className="room-container">
-      <h3 title={room.name}>{room.name}</h3>
-      <button
-        className={classnames("button button-medium button-tertiary", {
-          "button-selected": isSelected,
-          "button-active": room.targetId,
-        })}
-        type="button"
-        title="Link target"
-        disabled={!isEditable}
-        onClick={() => onSelect(room)}
-      >
-        <span className="icon-link"></span>
-      </button>
+      <div className="room-controls">
+        <h3 title={room.name}>{room.name}</h3>
+        <IconButton
+          label="Select frame"
+          variant="ghost"
+          disabled={!isEditable}
+          onClick={() => onSelect(room)}
+        >
+          <IconFrame />
+        </IconButton>
+
+        <IconButton
+          label="Remove frame"
+          variant="ghost"
+          disabled={!isEditable}
+          onClick={() => onRemove(room)}
+        >
+          <IconTrash />
+        </IconButton>
+      </div>
 
       <DropdownMenu>
         <DropdownMenu.Trigger asChild>
@@ -98,16 +111,6 @@ export const RoomConfig: React.FunctionComponent<Props> = ({
           )}
         </DropdownMenu.Content>
       </DropdownMenu>
-
-      <button
-        className="button button-small button-danger"
-        type="button"
-        title="Remove room"
-        disabled={!isEditable}
-        onClick={() => onRemove(room)}
-      >
-        <span className="icon-close"></span>
-      </button>
     </div>
   );
 };

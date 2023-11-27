@@ -1,0 +1,55 @@
+.breakout-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+main {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  align-items: center;
+  flex: 1;
+}
+
+.rounded-button button {
+  border-radius: 100%;
+}
+
+.validation-messages {
+  background: #f5f5f3;
+  padding: 1em;
+}
+
+.validation-messages h5 {
+  font-size: 1em;
+  font-weight: 600;
+  line-height: 1em;
+  margin: 0;
+  color: #656b81;
+}
+
+.validation-messages ul {
+  font-size: 0.9em;
+}
+
+.toolbar {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1em;
+}
+
+.toolbar button {
+  justify-content: center;
+  margin: 0;
+  width: 100%;
+  padding: 1em;
+}

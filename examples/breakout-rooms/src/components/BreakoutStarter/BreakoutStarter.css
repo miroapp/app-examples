@@ -1,0 +1,30 @@
+.breakout-starter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+}
+
+.starter-action {
+  background: #f2f4fc;
+  border-radius: 0.25em;
+  padding: 1em;
+  display: flex;
+  gap: 1em;
+  align-items: center;
+  align-self: flex-start;
+  width: 100%;
+}
+
+.starter-action h5 {
+  font-size: 1em;
+  font-weight: 600;
+  line-height: 1.5em;
+  text-align: left;
+  color: #3859ff;
+  margin: 0;
+}
+
+.starter-icon {
+  width: 2.5em;
+}

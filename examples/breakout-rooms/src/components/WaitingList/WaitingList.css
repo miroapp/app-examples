@@ -1,0 +1,16 @@
+.waiting-list {
+  border: 1px solid #d4d4d9;
+  padding: 1em;
+  border-radius: 0.25em;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.waiting-list h5 {
+  font-size: 1em;
+  margin: 0;
+  font-weight: 600;
+  line-height: 1.5em;
+  text-align: left;
+}
