@@ -4,8 +4,7 @@ This example shows you how leverage collaborative and real-time features, includ
 
 # 👨🏻‍💻 App Demo
 
-https://github.com/miroapp/app-examples/assets/7162412/1322f541-b513-4ffe-b23e-437fef38c668
-
+https://github.com/miroapp/app-examples/assets/7162412/c4c02dde-6680-4970-a51e-217866203d4a
 
 # 📒 Table of Contents
 
