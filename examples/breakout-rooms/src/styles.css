@@ -18,3 +18,7 @@ img {
   max-width: 100%;
   height: auto;
 }
+
+.waiting-icon {
+  width: 2.5em;
+}

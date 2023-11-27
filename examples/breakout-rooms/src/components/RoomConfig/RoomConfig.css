@@ -48,3 +48,24 @@
 .button-active {
   background-color: var(--blue300);
 }
+
+.users {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+}
+
+.user-avatar {
+  border-radius: 100%;
+  flex-shrink: 0;
+  background: #817f99;
+  border: 2px solid #817f99;
+  width: 32px;
+  height: 32px;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.8em;
+  font-weight: 600;
+}

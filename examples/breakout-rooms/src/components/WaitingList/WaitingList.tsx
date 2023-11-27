@@ -6,13 +6,17 @@ import "./WaitingList.css";
 
 type Props = {
   unassignedUsers: OnlineUserInfo[];
+  onSplitUsers: () => void;
 };
 
-export const WaitingList: React.FC<Props> = ({ unassignedUsers }) => {
+export const WaitingList: React.FC<Props> = ({
+  unassignedUsers,
+  onSplitUsers,
+}) => {
   return (
     <section className="waiting-list">
       <h5>{unassignedUsers.length} user(s) not in rooms</h5>
-      <Button variant="solid-subtle" size="large">
+      <Button variant="solid-subtle" size="large" onClick={onSplitUsers}>
         <Button.IconSlot>
           <IconUserAdd />
         </Button.IconSlot>

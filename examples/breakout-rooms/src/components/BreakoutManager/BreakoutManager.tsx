@@ -91,7 +91,7 @@ export const BreakoutManager: React.FC = () => {
       const handleNudge = async (currentUser?: Json) => {
         if (isUser(currentUser)) {
           await miro.board.notifications.showInfo(
-            `The user "${currentUser?.name}" is waiting for the breakout to start.`,
+            `<strong>${currentUser?.name}</strong> is waiting to start the session`,
           );
         }
       };
@@ -133,6 +133,28 @@ export const BreakoutManager: React.FC = () => {
     await service.removeParticipant(selected, participant);
   };
 
+  const handleSplitUsers = async () => {
+    const count = rooms.length;
+
+    // This needs to be only new users
+    const users = unassignedUsers;
+    const roomSize = Math.max(Math.floor(users.length / count), 1);
+
+    const usersInRooms: OnlineUserInfo[][] = [];
+
+    for (let i = 0; i < users.length; i += roomSize) {
+      usersInRooms.push(users.slice(i, i + roomSize));
+    }
+
+    for (let i = 0; i < count; ++i) {
+      const room = rooms[i];
+      const participants = usersInRooms[i];
+      for (const participant of participants) {
+        await service.addParticipant(room, participant);
+      }
+    }
+  };
+
   const handleRemoveRoom = async (selected: Room) => {
     await service.removeRoom(selected);
   };
@@ -167,7 +189,7 @@ export const BreakoutManager: React.FC = () => {
 
   const validations: string[] = [];
   if (!breakout?.rooms.length) {
-    validations.push("Add rooms to your breakout");
+    validations.push("Add rooms to your session");
   }
 
   const allRoomsWithParticipants = breakout?.rooms.every(
@@ -175,7 +197,7 @@ export const BreakoutManager: React.FC = () => {
   );
 
   if (!allRoomsWithParticipants) {
-    validations.push("Add participants to all of your rooms");
+    validations.push("Add users to each room");
   }
 
   const allRoomsWithTargets = breakout?.rooms.every((room) =>
@@ -183,14 +205,14 @@ export const BreakoutManager: React.FC = () => {
   );
 
   if (!allRoomsWithTargets) {
-    validations.push("Set a starting point to all of your rooms");
+    validations.push("Set a frame to each room");
   }
 
   const canStartSession = validations.length < 1;
   const isEditabled = breakout?.state !== "started";
 
   return (
-    <main>
+    <main className="manager-container">
       {breakout?.state !== "started" && rooms.length < 1 ? (
         <BreakoutStarter onAddGroup={handleAddGroup} />
       ) : (
@@ -251,8 +273,11 @@ export const BreakoutManager: React.FC = () => {
         </div>
       )}
 
-      {unassignedUsers.length ? (
-        <WaitingList unassignedUsers={unassignedUsers} />
+      {rooms.length && unassignedUsers.length ? (
+        <WaitingList
+          unassignedUsers={unassignedUsers}
+          onSplitUsers={handleSplitUsers}
+        />
       ) : null}
 
       {isEditabled && validations.length > 0 ? (

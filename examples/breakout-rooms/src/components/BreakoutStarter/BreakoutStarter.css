@@ -3,6 +3,11 @@
   flex-direction: column;
   align-items: center;
   flex: 1;
+  justify-content: space-between;
+}
+
+.breakout-starter .waiting-icon {
+  margin-bottom: 50%;
 }
 
 .starter-action {
@@ -23,8 +28,4 @@
   text-align: left;
   color: #3859ff;
   margin: 0;
-}
-
-.starter-icon {
-  width: 2.5em;
 }

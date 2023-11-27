@@ -1,10 +1,4 @@
-.breakout-controls {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-main {
+.manager-container {
   display: flex;
   height: 100%;
   flex-direction: column;
@@ -21,6 +15,12 @@ main {
 
 .rounded-button button {
   border-radius: 100%;
+}
+
+.breakout-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .validation-messages {

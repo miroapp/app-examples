@@ -70,3 +70,11 @@ export const formatDisplayTime = (
     .map((unit) => unit.toString().padStart(2, "0"))
     .join(":");
 };
+
+export const initials = (name: string) =>
+  name
+    .trim()
+    .split(" ")
+    .splice(0, 2)
+    .map((n) => n[0])
+    .join("");
