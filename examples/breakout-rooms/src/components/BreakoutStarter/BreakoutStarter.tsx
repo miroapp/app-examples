@@ -11,10 +11,11 @@ type Props = {
 export const BreakoutStarter: React.FC<Props> = ({ onAddGroup }) => {
   return (
     <section className="breakout-starter">
-      <div className="starter-action rounded-button">
+      <div className="starter-action">
         <IconButton
           label="Add a room"
           variant="solid-prominent"
+          css={{ borderRadius: "100%" }}
           onClick={onAddGroup}
         >
           <IconPlus />

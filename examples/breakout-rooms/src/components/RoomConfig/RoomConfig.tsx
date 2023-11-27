@@ -6,7 +6,6 @@ import {
   IconButton,
   IconFrame,
   IconTrash,
-  IconUser,
   IconUserAdd,
 } from "@mirohq/design-system";
 import { OnlineUserInfo } from "@mirohq/websdk-types";
@@ -14,7 +13,7 @@ import { OnlineUserInfo } from "@mirohq/websdk-types";
 import type { Participant, Room } from "../../types";
 
 import "./RoomConfig.css";
-import { initials } from "../../utils";
+import { Avatar } from "../Avatar";
 
 export type Props = {
   room: Room;
@@ -60,58 +59,64 @@ export const RoomConfig: React.FunctionComponent<Props> = ({
       </div>
 
       <div className="users">
-        {room.participants.map((participant) => (
-          <div className="user-avatar" key={participant.id}>
-            {initials(participant.name)}
+        {room.participants.length ? (
+          <div className="avatars">
+            {room.participants.map((participant) => (
+              <Avatar user={participant} />
+            ))}
           </div>
-        ))}
+        ) : null}
         <DropdownMenu>
           <DropdownMenu.Trigger asChild>
-            <IconButton label="Assign participant" variant="outline">
+            <IconButton
+              label="Assign participant"
+              variant="outline"
+              css={{ borderRadius: "100%" }}
+            >
               <IconUserAdd />
             </IconButton>
           </DropdownMenu.Trigger>
           <DropdownMenu.Content>
+            {isEditable && unassignedUsers.length ? (
+              <div className="list">
+                <DropdownMenu.Item disabled>
+                  Users not in the room
+                </DropdownMenu.Item>
+                {unassignedUsers.map((user) => (
+                  <DropdownMenu.Item
+                    key={user.id}
+                    disabled={!isEditable}
+                    onSelect={() => onAddParticipant(room, user)}
+                  >
+                    <div className="item">
+                      <Avatar user={user} />
+                      {user.name}
+                    </div>
+                  </DropdownMenu.Item>
+                ))}
+              </div>
+            ) : null}
+
             {room.participants.length ? (
-              <React.Fragment>
+              <div className="list">
+                {unassignedUsers.length ? <DropdownMenu.Separator /> : null}
                 {room.participants.map((user) => (
                   <DropdownMenu.Item
                     key={user.id}
                     disabled={!isEditable}
                     onSelect={() => onRemoveParticipant(room, user)}
                   >
-                    <DropdownMenu.IconSlot>
-                      <IconUser />
-                    </DropdownMenu.IconSlot>
-                    {user.name}
+                    <div className="item">
+                      <Avatar user={user} />
+                      {user.name}
+                    </div>
                     <DropdownMenu.ItemDescription>
                       {user.state}
                     </DropdownMenu.ItemDescription>
                   </DropdownMenu.Item>
                 ))}
-                <DropdownMenu.Separator />
-              </React.Fragment>
+              </div>
             ) : null}
-            {isEditable && unassignedUsers.length ? (
-              <React.Fragment>
-                <div>
-                  {unassignedUsers.map((user) => (
-                    <DropdownMenu.Item
-                      key={user.id}
-                      disabled={!isEditable}
-                      onSelect={() => onAddParticipant(room, user)}
-                    >
-                      <DropdownMenu.IconSlot>
-                        <IconUser />
-                      </DropdownMenu.IconSlot>
-                      {user.name}
-                    </DropdownMenu.Item>
-                  ))}
-                </div>
-              </React.Fragment>
-            ) : (
-              <p>No unassigned users left</p>
-            )}
           </DropdownMenu.Content>
         </DropdownMenu>
       </div>

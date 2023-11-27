@@ -13,10 +13,6 @@
   flex: 1;
 }
 
-.rounded-button button {
-  border-radius: 100%;
-}
-
 .breakout-controls {
   display: flex;
   justify-content: space-between;

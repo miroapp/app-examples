@@ -232,15 +232,14 @@ export const BreakoutManager: React.FC = () => {
               />
             ))}
             <div className="breakout-controls">
-              <div className="rounded-button">
-                <IconButton
-                  label="Add a room"
-                  variant="solid-prominent"
-                  onClick={handleAddGroup}
-                >
-                  <IconPlus />
-                </IconButton>
-              </div>
+              <IconButton
+                label="Add a room"
+                variant="solid-prominent"
+                css={{ borderRadius: "100%" }}
+                onClick={handleAddGroup}
+              >
+                <IconPlus />
+              </IconButton>
 
               {canUseTimer && (
                 <Timer
