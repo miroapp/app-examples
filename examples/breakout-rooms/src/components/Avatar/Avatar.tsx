@@ -30,7 +30,6 @@ const getNextColor = colorGenerator(colors);
 const userColors = new Map<OnlineUserInfo["id"], string>();
 const getUserColor = (user: OnlineUserInfo): string => {
   let color = userColors.get(user.id);
-  console.log({ userColors, user, color });
   if (!color) {
     color = getNextColor.next().value ?? colors[0];
     userColors.set(user.id, color);

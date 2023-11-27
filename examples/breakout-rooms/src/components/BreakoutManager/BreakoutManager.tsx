@@ -295,7 +295,7 @@ export const BreakoutManager: React.FC = () => {
             <Button
               onClick={() => handleStopSession()}
               variant="solid-danger"
-              size="large"
+              size="x-large"
             >
               Stop session
               {canUseTimer && timer.state === "started"
@@ -308,7 +308,7 @@ export const BreakoutManager: React.FC = () => {
                 disabled={!canStartSession}
                 onClick={() => handleStartSession()}
                 variant="solid-prominent"
-                size="large"
+                size="x-large"
               >
                 Start session
               </Button>
