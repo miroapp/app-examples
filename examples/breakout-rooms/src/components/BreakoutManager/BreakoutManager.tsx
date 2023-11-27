@@ -276,6 +276,7 @@ export const BreakoutManager: React.FC = () => {
         <WaitingList
           unassignedUsers={unassignedUsers}
           onSplitUsers={handleSplitUsers}
+          disabled={!isEditabled}
         />
       ) : null}
 

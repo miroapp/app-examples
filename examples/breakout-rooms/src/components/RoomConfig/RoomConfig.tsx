@@ -66,6 +66,7 @@ export const RoomConfig: React.FunctionComponent<Props> = ({
             ))}
           </div>
         ) : null}
+
         <DropdownMenu>
           <DropdownMenu.Trigger asChild>
             <IconButton
@@ -77,7 +78,7 @@ export const RoomConfig: React.FunctionComponent<Props> = ({
             </IconButton>
           </DropdownMenu.Trigger>
           <DropdownMenu.Content>
-            {isEditable && unassignedUsers.length ? (
+            {unassignedUsers.length ? (
               <div className="list">
                 <DropdownMenu.Item disabled>
                   Users not in the room
