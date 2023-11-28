@@ -21,7 +21,7 @@ https://github.com/miroapp/app-examples/assets/7162412/c4c02dde-6680-4970-a51e-2
 - [Miro Web SDK](https://developers.miro.com/docs/web-sdk-reference)
 - [Collaborative sessions](https://developers.miro.com/docs/websdk-reference-session)
 - [Attention Management](https://developers.miro.com/docs/websdk-reference-collaboration)
-- [Real-time events](TODO)
+- [Real-time events](https://developers.miro.com/docs/websdk-reference-events)
 - [Real-time storage](https://developers.miro.com/docs/websdk-reference-storage)
 
 # 🛠️ Tools and Technologies <a name="tools"></a>
