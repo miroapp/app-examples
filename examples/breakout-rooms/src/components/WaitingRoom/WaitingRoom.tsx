@@ -15,7 +15,7 @@ export const WaitingRoom: React.FC = () => {
       return;
     }
 
-    miro.board.experimental.events.broadcast("nudge-facilitator", currentUser);
+    miro.board.events.broadcast("nudge-facilitator", currentUser);
   };
   return (
     <main className="waiting-room-container">

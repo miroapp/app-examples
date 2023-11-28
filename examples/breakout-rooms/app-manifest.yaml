@@ -1,5 +1,5 @@
 # See https://developers.miro.com/docs/app-manifest on how to use this
-appName: Brekout rooms
+appName: Breakout rooms
 sdkVersion: SDK_V2
 sdkUri: http://localhost:3000
 scopes:

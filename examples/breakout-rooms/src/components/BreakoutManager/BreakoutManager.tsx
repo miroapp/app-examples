@@ -96,10 +96,10 @@ export const BreakoutManager: React.FC = () => {
         }
       };
 
-      miro.board.experimental.events.on("nudge-facilitator", handleNudge);
+      miro.board.events.on("nudge-facilitator", handleNudge);
 
       return () => {
-        miro.board.experimental.events.off("nudge-facilitator", handleNudge);
+        miro.board.events.off("nudge-facilitator", handleNudge);
       };
     };
 

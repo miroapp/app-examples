@@ -75,7 +75,7 @@ https://github.com/miroapp/app-examples/assets/10428517/1e6862de-8617-46ef-b265-
 
 ```yaml
 # See https://developers.miro.com/docs/app-manifest on how to use this
-appName: Brekout rooms
+appName: Breakout rooms
 sdkVersion: SDK_V2
 sdkUri: http://localhost:3000
 scopes:
