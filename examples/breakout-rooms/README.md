@@ -19,11 +19,10 @@ https://github.com/miroapp/app-examples/assets/7162412/c4c02dde-6680-4970-a51e-2
 # ⚙️ Included Features <a name="features"></a>
 
 - [Miro Web SDK](https://developers.miro.com/docs/web-sdk-reference)
-- [Collaborative sessions](TODO)
-- [Attention Management](TODO)
+- [Collaborative sessions](https://developers.miro.com/docs/websdk-reference-session)
+- [Attention Management](https://developers.miro.com/docs/websdk-reference-collaboration)
 - [Real-time events](TODO)
-- [Real-time storage](TODO)
-- [Timer](TODO)
+- [Real-time storage](https://developers.miro.com/docs/websdk-reference-storage)
 
 # 🛠️ Tools and Technologies <a name="tools"></a>
 
@@ -89,13 +88,17 @@ scopes:
 
 ```
 .
-├── src
-│   ├── components
-│   │   ├── BreakoutManager.tsx <-- Main React component displayed in the panel to facilitators
-│   │   ├── ErrorBoundary.tsx <-- React error Boundary
-│   │   ├── RoomConfig.tsx <-- React component to allow users to configure the rooms.
-│   │   ├── Timer.tsx <-- React component to configure the timer.
-│   │   └── WaitingRoom.tsx <-- React component displayed to other users in the board but the facilitator creating breakout rooms.
+├── components
+│   ├── Avatar
+│   │   ├── Avatar.css
+│   │   ├── Avatar.tsx
+│   │   └── index.tsx
+│   ├── BreakoutManager <-- Main React component displayed in the panel to facilitators
+│   ├── BreakoutStarter <-- Component displayed when no rooms were configured
+│   ├── RoomConfig <-- Component displayed for each configured room
+│   ├── Timer <-- Timer controller component
+│   ├── WaitingList <-- Component with unassigned users in the sessiin.
+│   ├── WaitingRoom <-- Page displayed to participants while facilitator prepares the session.
 │   ├── app.tsx <-- The app typescript entrypoint used in the panel.
 │   ├── hooks.tsx <-- React hooks used in the app, including useCurrentUser, useBreakout, useTimer and some others.
 │   ├── index.ts <-- The app main typescript entrypoint, rendered inside the headless iframe.

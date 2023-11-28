@@ -39,12 +39,9 @@ const getUserColor = (user: OnlineUserInfo): string => {
 };
 
 export const Avatar: React.FC<Props> = ({ user }) => {
+  const style = { "--color": getUserColor(user) } as React.CSSProperties;
   return (
-    <div
-      className="avatar"
-      key={user.id}
-      style={{ "--color": getUserColor(user) }}
-    >
+    <div className="avatar" key={user.id} style={style}>
       {initials(user.name)}
     </div>
   );
