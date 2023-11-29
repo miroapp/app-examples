@@ -36,9 +36,11 @@ export const RoomConfig: React.FunctionComponent<Props> = ({
   onRemoveParticipant,
 }) => {
   return (
-    <div key={room.id} className="room-container">
+    <div key={room.id} className="room">
       <div className="room-controls">
-        <h3 title={room.name}>{room.name}</h3>
+        <h3 className="room-controls-title" title={room.name}>
+          {room.name}
+        </h3>
         <IconButton
           label="Select frame"
           variant="ghost"

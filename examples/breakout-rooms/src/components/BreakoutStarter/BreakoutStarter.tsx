@@ -20,7 +20,7 @@ export const BreakoutStarter: React.FC<Props> = ({ onAddGroup }) => {
         >
           <IconPlus />
         </IconButton>
-        <h5>Create a room to get started</h5>
+        <h5 className="starter-action-title">Create a room to get started</h5>
       </div>
 
       <WaitingIcon />

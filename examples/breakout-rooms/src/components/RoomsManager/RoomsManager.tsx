@@ -12,6 +12,8 @@ import {
 import { Timer } from "../Timer";
 import { Room } from "../../types";
 
+import "./RoomsManager.css";
+
 export type Props = {
   rooms: Room[];
   selectedRoom?: Room;
@@ -59,42 +61,42 @@ export const RoomsManager: React.FC<Props> = ({
             onRemoveParticipant={onRemoveParticipant}
           />
         ))}
-        <div className="breakout-controls">
-          <IconButton
-            label="Add a room"
-            variant="solid-prominent"
-            css={{ borderRadius: "100%" }}
-            onClick={onAddGroup}
-          >
-            <IconPlus />
-          </IconButton>
-
-          {canUseTimer && (
-            <Timer
-              onSet={onSetTime}
-              step={convertTime(1, "milliseconds", "minutes")}
-            />
-          )}
-
-          {isFacilitator && (
-            <DropdownMenu>
-              <DropdownMenu.Trigger asChild>
-                <IconDotsThreeVertical />
-              </DropdownMenu.Trigger>
-              <DropdownMenu.Content>
-                <>
-                  <DropdownMenu.Item onClick={() => onReleaseFacilitator()}>
-                    <DropdownMenu.IconSlot>
-                      <IconHandFilled />
-                    </DropdownMenu.IconSlot>
-                    Release facilitator role
-                  </DropdownMenu.Item>
-                </>
-              </DropdownMenu.Content>
-            </DropdownMenu>
-          )}
-        </div>
       </section>
+      <div className="breakout-controls">
+        <IconButton
+          label="Add a room"
+          variant="solid-prominent"
+          css={{ borderRadius: "100%" }}
+          onClick={onAddGroup}
+        >
+          <IconPlus />
+        </IconButton>
+
+        {canUseTimer && (
+          <Timer
+            onSet={onSetTime}
+            step={convertTime(1, "milliseconds", "minutes")}
+          />
+        )}
+
+        {isFacilitator && (
+          <DropdownMenu>
+            <DropdownMenu.Trigger asChild>
+              <IconDotsThreeVertical />
+            </DropdownMenu.Trigger>
+            <DropdownMenu.Content>
+              <>
+                <DropdownMenu.Item onClick={() => onReleaseFacilitator()}>
+                  <DropdownMenu.IconSlot>
+                    <IconHandFilled />
+                  </DropdownMenu.IconSlot>
+                  Release facilitator role
+                </DropdownMenu.Item>
+              </>
+            </DropdownMenu.Content>
+          </DropdownMenu>
+        )}
+      </div>
     </div>
   );
 };
