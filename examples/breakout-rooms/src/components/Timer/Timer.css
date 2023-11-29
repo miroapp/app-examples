@@ -1,0 +1,18 @@
+.timer-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  min-height: 4em;
+}
+
+.timer-control {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  padding-right: 0.5em;
+  border-right: 1px solid var(--indigo400);
+}
+
+.timer-display {
+  font-size: 2em;
+}
