@@ -1064,6 +1064,13 @@
     node-fetch "^2.6.9"
     typedoc "0.23.24"
 
+"@mirohq/websdk-types@2.9.10":
+  version "2.9.10"
+  resolved "https://registry.yarnpkg.com/@mirohq/websdk-types/-/websdk-types-2.9.10.tgz#b85c8097b27aa6885642bb957a2c14faf133690c"
+  integrity sha512-1uLw/SykIoTZf7Pl9eSgzE13puaMtNlVKuB/wRBUEAWAAUkcT3ppSoCHod7EemntDDJhcKEscwRigEmTCJftsw==
+  dependencies:
+    typescript ">=4.6.3 || ~5"
+
 "@mirohq/websdk-types@^2.0.0":
   version "2.3.0"
   resolved "https://registry.npmjs.org/@mirohq/websdk-types/-/websdk-types-2.3.0.tgz"
