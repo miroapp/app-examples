@@ -4,7 +4,9 @@ This example shows you how leverage collaborative and real-time features, includ
 
 # 👨🏻‍💻 App Demo
 
-https://github.com/miroapp/app-examples/assets/7162412/c4c02dde-6680-4970-a51e-217866203d4a
+
+https://github.com/miroapp/app-examples/assets/7162412/e03987e3-f85b-48ab-86b8-f4314c3c5e76
+
 
 # 📒 Table of Contents
 
@@ -29,6 +31,9 @@ https://github.com/miroapp/app-examples/assets/7162412/c4c02dde-6680-4970-a51e-2
 - [React](https://react.dev/)
 - [TypeScript](https://www.typescriptlang.org/)
 - [Vite](https://vitejs.dev/)
+- [Miro Design System](https://www.npmjs.com/package/@mirohq/design-system)
+
+**Note**: Miro Design System can be installed from [npmjs](https://www.npmjs.com/) but it is internally supported only, you can use this example as guidance, but the team is working on public documentation, but with no ETA. Feel free to use [Mirotone](https://www.mirotone.xyz/css) in the meanwhile.
 
 # ✅ Prerequisites <a name="prerequisites"></a>
 
