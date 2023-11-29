@@ -24,7 +24,7 @@ const COLLECTION_NAME = "breakout-rooms";
 const ACTIVE_ITEM = "active";
 
 const log = (id: string, ...args: unknown[]) =>
-  console.log(id, JSON.stringify(args, null, 2));
+  false && console.log(id, JSON.stringify(args, null, 2));
 
 export const useCurrentUser = () => {
   const [userInfo, setUserInfo] = React.useState<UserInfo>();
@@ -400,7 +400,17 @@ export const useBreakout = () => {
       breakout.rooms.map(async (room) => {
         const session = await upsertSession(room);
 
-        await session.invite(room.participants);
+        const myself = room.participants.find(
+          (user) => currentUser?.id === user.id,
+        );
+        const everyoneElse = room.participants.filter(
+          (user) => currentUser?.id !== user.id,
+        );
+
+        if (myself) {
+          await session.join();
+        }
+        await session.invite(everyoneElse);
 
         room.participants.map((participant) =>
           updateParticipant(room, participant, { state: "Invitation Pending" }),
