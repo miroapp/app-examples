@@ -209,7 +209,7 @@ export const BreakoutManager: React.FC = () => {
   }
 
   const canStartSession = validations.length < 1;
-  const isEditabled = breakout?.state !== "started";
+  const isEditable = breakout?.state !== "started";
 
   return (
     <main className="manager-container">
