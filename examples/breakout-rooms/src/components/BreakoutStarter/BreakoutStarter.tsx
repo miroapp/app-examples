@@ -1,8 +1,9 @@
 import { IconButton, IconPlus } from "@mirohq/design-system";
 import React from "react";
 
-import "./BreakoutStarter.css";
 import { WaitingIcon } from "../WaitingIcon";
+
+import "./BreakoutStarter.css";
 
 type Props = {
   onAddGroup: () => void;

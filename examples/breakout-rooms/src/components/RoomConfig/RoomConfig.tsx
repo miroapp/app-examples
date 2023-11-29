@@ -11,9 +11,9 @@ import {
 import { OnlineUserInfo } from "@mirohq/websdk-types";
 
 import type { Participant, Room } from "../../types";
+import { Avatar } from "../Avatar";
 
 import "./RoomConfig.css";
-import { Avatar } from "../Avatar";
 
 export type Props = {
   room: Room;

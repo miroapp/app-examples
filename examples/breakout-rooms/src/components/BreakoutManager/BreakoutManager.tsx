@@ -10,22 +10,15 @@ import {
   useSelectedItems,
   useTimer,
 } from "../../hooks";
-import { convertTime, formatDisplayTime, isUser } from "../../utils";
-import { RoomConfig } from "../RoomConfig/RoomConfig";
-import { DEFAULT_TIME, Timer } from "../Timer/Timer";
-import {
-  DropdownMenu,
-  IconButton,
-  IconPlus,
-  IconHandFilled,
-  IconDotsThreeVertical,
-  Button,
-} from "@mirohq/design-system";
+import { formatDisplayTime, isUser } from "../../utils";
+import { DEFAULT_TIME } from "../Timer/Timer";
+import { Button } from "@mirohq/design-system";
 
-import "./BreakoutManager.css";
 import { BreakoutStarter } from "../BreakoutStarter";
 import { WaitingList } from "../WaitingList";
 import { RoomsManager } from "../RoomsManager";
+
+import "./BreakoutManager.css";
 
 export const BreakoutManager: React.FC = () => {
   const { breakout, rooms, isFacilitator, ...service } = useBreakout();

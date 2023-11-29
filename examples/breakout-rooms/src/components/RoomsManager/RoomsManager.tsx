@@ -9,6 +9,7 @@ import {
   IconHandFilled,
   IconPlus,
 } from "@mirohq/design-system";
+
 import { Timer } from "../Timer";
 import { Room } from "../../types";
 
