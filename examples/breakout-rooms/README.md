@@ -62,16 +62,7 @@ https://github.com/miroapp/app-examples/assets/7162412/c4c02dde-6680-4970-a51e-2
      - `boards:write`
      - `identity:read`
 
-4. Go back to your app home page, and under the `Permissions` section, you will see a blue button that says `Install app and get OAuth token`. Click that button. Then click on `Add` as shown in the video below. <b>In the video we install a different app, but the process is the same regardless of the app.</b>
-
-> ⚠️ We recommend to install your app on a [developer team](https://developers.miro.com/docs/create-a-developer-team) while you are developing or testing apps.⚠️
-
-https://github.com/miroapp/app-examples/assets/10428517/1e6862de-8617-46ef-b265-97ff1cbfe8bf
-
-5. Go to your developer team, and open your boards.
-6. Click on the app icon on the left sidebar.
-
-### Example of app yaml
+#### Example of app yaml
 
 ```yaml
 # See https://developers.miro.com/docs/app-manifest on how to use this
@@ -83,6 +74,15 @@ scopes:
   - boards:write
   - identity:read
 ```
+
+4. Go back to your app home page, and under the `Permissions` section, you will see a blue button that says `Install app and get OAuth token`. Click that button. Then click on `Add` as shown in the video below. <b>In the video we install a different app, but the process is the same regardless of the app.</b>
+
+> ⚠️ We recommend to install your app on a [developer team](https://developers.miro.com/docs/create-a-developer-team) while you are developing or testing apps.⚠️
+
+https://github.com/miroapp/app-examples/assets/10428517/1e6862de-8617-46ef-b265-97ff1cbfe8bf
+
+5. Go to your developer team, and open your boards.
+6. Click on the app icon on the left sidebar.
 
 # 🗂️ Folder structure <a name="folder"></a>
 

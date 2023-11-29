@@ -7,7 +7,7 @@
   gap: 1em;
 }
 
-.waiting-list h5 {
+.waiting-list .waiting-list-title {
   font-size: 1em;
   margin: 0;
   font-weight: 600;

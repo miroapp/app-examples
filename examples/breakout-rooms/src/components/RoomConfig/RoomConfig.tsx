@@ -20,7 +20,7 @@ export type Props = {
   isEditable: boolean;
   isSelected: boolean;
   unassignedUsers: OnlineUserInfo[];
-  onSelect: (room: Room) => void;
+  onSelectTarget: (room: Room) => void;
   onRemove: (room: Room) => void;
   onAddParticipant: (room: Room, user: OnlineUserInfo) => void;
   onRemoveParticipant: (room: Room, participant: Participant) => void;
@@ -30,7 +30,7 @@ export const RoomConfig: React.FunctionComponent<Props> = ({
   room,
   isEditable,
   unassignedUsers,
-  onSelect,
+  onSelectTarget,
   onRemove,
   onAddParticipant,
   onRemoveParticipant,
@@ -43,7 +43,7 @@ export const RoomConfig: React.FunctionComponent<Props> = ({
           label="Select frame"
           variant="ghost"
           disabled={!isEditable}
-          onClick={() => onSelect(room)}
+          onClick={() => onSelectTarget(room)}
         >
           <IconFrame />
         </IconButton>

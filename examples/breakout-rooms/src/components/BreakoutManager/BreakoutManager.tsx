@@ -25,6 +25,7 @@ import {
 import "./BreakoutManager.css";
 import { BreakoutStarter } from "../BreakoutStarter";
 import { WaitingList } from "../WaitingList";
+import { RoomsManager } from "../RoomsManager";
 
 export const BreakoutManager: React.FC = () => {
   const { breakout, rooms, isFacilitator, ...service } = useBreakout();
@@ -216,74 +217,37 @@ export const BreakoutManager: React.FC = () => {
       {breakout?.state !== "started" && rooms.length < 1 ? (
         <BreakoutStarter onAddGroup={handleAddGroup} />
       ) : (
-        <div className="container">
-          <section className="rooms-container">
-            {rooms.map((room) => (
-              <RoomConfig
-                key={room.id}
-                room={room}
-                isEditable={isEditabled}
-                isSelected={room.id === selectedRoom?.id}
-                unassignedUsers={unassignedUsers}
-                onAddParticipant={handleAddParticipant}
-                onSelect={handleStartSelectTarget}
-                onRemove={handleRemoveRoom}
-                onRemoveParticipant={handleRemoveParticipant}
-              />
-            ))}
-            <div className="breakout-controls">
-              <IconButton
-                label="Add a room"
-                variant="solid-prominent"
-                css={{ borderRadius: "100%" }}
-                onClick={handleAddGroup}
-              >
-                <IconPlus />
-              </IconButton>
-
-              {canUseTimer && (
-                <Timer
-                  onSet={setTimerDuration}
-                  step={convertTime(1, "milliseconds", "minutes")}
-                />
-              )}
-
-              {isFacilitator && (
-                <DropdownMenu>
-                  <DropdownMenu.Trigger asChild>
-                    <IconDotsThreeVertical />
-                  </DropdownMenu.Trigger>
-                  <DropdownMenu.Content>
-                    <>
-                      <DropdownMenu.Item
-                        onClick={() => handleReleaseFacilitator()}
-                      >
-                        <DropdownMenu.IconSlot>
-                          <IconHandFilled />
-                        </DropdownMenu.IconSlot>
-                        Release facilitator role
-                      </DropdownMenu.Item>
-                    </>
-                  </DropdownMenu.Content>
-                </DropdownMenu>
-              )}
-            </div>
-          </section>
-        </div>
+        <RoomsManager
+          rooms={rooms}
+          isEditable={isEditable}
+          isFacilitator={isFacilitator}
+          canUseTimer={canUseTimer}
+          selectedRoom={selectedRoom}
+          unassignedUsers={unassignedUsers}
+          onAddParticipant={handleAddParticipant}
+          onSelectTarget={handleStartSelectTarget}
+          onRemove={handleRemoveRoom}
+          onRemoveParticipant={handleRemoveParticipant}
+          onAddGroup={handleAddGroup}
+          onReleaseFacilitator={handleReleaseFacilitator}
+          onSetTime={setTimerDuration}
+        />
       )}
 
       {rooms.length && unassignedUsers.length ? (
         <WaitingList
           unassignedUsers={unassignedUsers}
           onSplitUsers={handleSplitUsers}
-          disabled={!isEditabled}
+          disabled={!isEditable}
         />
       ) : null}
 
-      {isEditabled && validations.length > 0 ? (
+      {isEditable && validations.length > 0 ? (
         <div className="validation-messages">
-          <h5>Before starting the session:</h5>
-          <ul>
+          <h5 className="validatino-messages-title">
+            Before starting the session:
+          </h5>
+          <ul className="validatino-messages-items">
             {validations.map((message) => (
               <li key={message}>{message}</li>
             ))}
