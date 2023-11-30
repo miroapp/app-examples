@@ -7,22 +7,45 @@ on:
   pull_request:
 
 jobs:
-  build-examples:
-    name: Build examples
+  dependencies:
+    name: Install dependencies
     runs-on: ubuntu-latest
 
     steps:
       - name: Check out Git repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Read .nvmrc
         run: echo ::set-output name=NVMRC::$(cat .nvmrc)
         id: nvm
 
       - name: Setup node
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
           node-version: "${{ steps.nvm.outputs.NVMRC }}"
+          cache: "yarn"
+
+      - name: Install dependencies
+        run: yarn
+
+  build-examples:
+    name: Build examples
+    runs-on: ubuntu-latest
+    needs: dependencies
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v4
+
+      - name: Read .nvmrc
+        run: echo ::set-output name=NVMRC::$(cat .nvmrc)
+        id: nvm
+
+      - name: Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "${{ steps.nvm.outputs.NVMRC }}"
+          cache: "yarn"
 
       - name: Install dependencies
         run: yarn
@@ -33,19 +56,21 @@ jobs:
   run-linters:
     name: Run linters
     runs-on: ubuntu-latest
+    needs: dependencies
 
     steps:
       - name: Check out Git repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Read .nvmrc
         run: echo ::set-output name=NVMRC::$(cat .nvmrc)
         id: nvm
 
       - name: Setup node
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
           node-version: "${{ steps.nvm.outputs.NVMRC }}"
+          cache: "yarn"
 
       - name: Install dependencies
         run: yarn
