@@ -13,14 +13,14 @@ jobs:
 
     steps:
       - name: Check out Git repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Read .nvmrc
         run: echo ::set-output name=NVMRC::$(cat .nvmrc)
         id: nvm
 
       - name: Setup node
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
           node-version: "${{ steps.nvm.outputs.NVMRC }}"
 
@@ -32,6 +32,9 @@ jobs:
 
       - name: Check format
         run: yarn prettier --check ./examples
+
+      - name: Check build
+        run: yarn run build
 
       - name: Check python code
         uses: psf/black@stable
