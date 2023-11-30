@@ -1,0 +1,24 @@
+@import "mirotone/dist/styles.css";
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+#root {
+  overflow: auto;
+  padding: var(--space-medium);
+  /** TODO: Had to hardcode this here since it's not coming from DS for some reason **/
+  --shadows-50: 0 4px 16px #05003812;
+  height: 100%;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.waiting-icon {
+  width: 2.5em;
+}

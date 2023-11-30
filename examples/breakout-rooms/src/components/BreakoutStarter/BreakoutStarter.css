@@ -1,0 +1,31 @@
+.breakout-starter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  justify-content: center;
+}
+
+.breakout-starter .waiting-icon {
+  margin: auto;
+}
+
+.starter-action {
+  background: #f2f4fc;
+  border-radius: 0.25em;
+  padding: 1em;
+  display: flex;
+  gap: 1em;
+  align-items: center;
+  align-self: flex-start;
+  width: 100%;
+}
+
+.starter-action .starter-action-title {
+  font-size: 1em;
+  font-weight: 600;
+  line-height: 1.5em;
+  text-align: left;
+  color: #3859ff;
+  margin: 0;
+}

@@ -1,0 +1,38 @@
+{
+  "name": "breakout-rooms",
+  "version": "0.0.1",
+  "license": "MIT",
+  "description": "This example shows you how leverage collaborative and real-time features, including sessions and real-time events and storage.",
+  "keywords": [
+    "Miro SDK",
+    "Vite",
+    "React",
+    "TypeSript",
+    "Collaborative",
+    "Breakout rooms",
+    "Real-time",
+    "Attention Management"
+  ],
+  "scripts": {
+    "start": "vite",
+    "build": "vite build",
+    "serve": "vite preview"
+  },
+  "dependencies": {
+    "@mirohq/design-system": "^0.18.2",
+    "@stitches/react": "^1.2.8",
+    "classnames": "^2.3.2",
+    "mirotone": "5",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@mirohq/websdk-types": "latest",
+    "@types/node": "^18.8.2",
+    "@types/react": "^18.0.24",
+    "@types/react-dom": "^18.0.8",
+    "@vitejs/plugin-react": "^2.2.0",
+    "typescript": "4.9.5",
+    "vite": "3.2.7"
+  }
+}

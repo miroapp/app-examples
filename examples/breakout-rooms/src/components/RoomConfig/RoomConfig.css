@@ -1,0 +1,64 @@
+.room {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: #eeeded;
+  border-radius: 0.25em;
+  gap: 0.5em;
+  padding: 1em;
+  width: 100%;
+  height: 8em;
+}
+
+.room-controls {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.room .room-controls-title {
+  margin: 0;
+  margin-right: auto;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 1em;
+  font-weight: 600;
+}
+
+.button-selected {
+  background-color: var(--blue100);
+}
+
+.button-active {
+  background-color: var(--blue300);
+}
+
+.users {
+  display: flex;
+  align-items: center;
+  gap: 0.8em;
+}
+
+.users .list {
+  /** Overrides DS specific tokens for dropdown **/
+  --space-inset-100: 16px;
+  font-size: 12px;
+}
+
+.users .list .item {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+}
+.users .list .item + div {
+  padding-left: 3.5em;
+}
+
+.avatars {
+  display: flex;
+}
+
+.avatars .avatar:not(:first-child) {
+  margin-left: -0.25em;
+}
