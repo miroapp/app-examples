@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@mirohq/miro-api": "^1.0.1",
-    "axios": "^0.27.2",
+    "axios": "^1.6.0",
     "busboy": "^1.6.0",
     "cookie": "^0.5.0",
     "next": "^13.5.1",
