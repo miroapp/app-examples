@@ -63,8 +63,8 @@ export const formatDisplayTime = (
 ): string => {
   const timestamp = convertTime(time, "seconds", unit);
 
-  const minutes = Math.floor(timestamp / 60);
-  const seconds = Math.floor(timestamp % 60);
+  const minutes = Math.round(timestamp / 60);
+  const seconds = Math.round(timestamp % 60);
 
   return [minutes, seconds]
     .map((unit) => unit.toString().padStart(2, "0"))
