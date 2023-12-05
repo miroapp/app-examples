@@ -262,7 +262,7 @@ export const BreakoutManager: React.FC = () => {
             >
               Stop session{" "}
               {canUseTimer && timer.state === "started"
-                ? `(${formatDisplayTime(currentTime)})`
+                ? `(${formatDisplayTime(timer.restDuration)})`
                 : null}
             </Button>
           ) : (
