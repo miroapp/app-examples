@@ -6,6 +6,7 @@ import { Participant, Room } from "../../types";
 import { Frame, Json, OnlineUserInfo } from "@mirohq/websdk-types";
 import {
   useBreakout,
+  useFeatureCheck,
   useOnlineUsers,
   useSelectedItems,
   useTimer,
@@ -29,16 +30,21 @@ export const BreakoutManager: React.FC = () => {
   const [selectedRoom, setSelectedRoom] = React.useState<Room>();
   const [duration, setTimerDuration] = React.useState<number>();
   const [currentTime, setCurrentTime] = React.useState<number>(0);
-  const [canUseTimer] = React.useState<boolean>(false);
+  const canUseTimer = useFeatureCheck("timer");
 
   const onTimerStop = React.useCallback(() => {
     service.endSession();
   }, [breakout?.id]);
 
+  const onTick = React.useCallback(
+    (timestamp: number) => setCurrentTime(timestamp),
+    [],
+  );
+
   const timer = useTimer({
     duration: duration ?? DEFAULT_TIME,
     onStop: onTimerStop,
-    onTick: (timestamp) => setCurrentTime(timestamp),
+    onTick,
   });
 
   const participantIds = rooms
@@ -254,7 +260,7 @@ export const BreakoutManager: React.FC = () => {
               variant="solid-danger"
               size="x-large"
             >
-              Stop session
+              Stop session{" "}
               {canUseTimer && timer.state === "started"
                 ? `(${formatDisplayTime(currentTime)})`
                 : null}

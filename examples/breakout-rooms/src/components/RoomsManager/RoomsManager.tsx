@@ -81,21 +81,27 @@ export const RoomsManager: React.FC<Props> = ({
         )}
 
         {isFacilitator && (
-          <DropdownMenu>
-            <DropdownMenu.Trigger asChild>
-              <IconDotsThreeVertical />
-            </DropdownMenu.Trigger>
-            <DropdownMenu.Content>
-              <>
+          <div className="facilitator-controls">
+            <DropdownMenu>
+              <DropdownMenu.Trigger asChild>
+                <IconButton
+                  label="Facilitator controls"
+                  variant="outline"
+                  css={{ borderRadius: "100%" }}
+                >
+                  <IconDotsThreeVertical />
+                </IconButton>
+              </DropdownMenu.Trigger>
+              <DropdownMenu.Content>
                 <DropdownMenu.Item onClick={() => onReleaseFacilitator()}>
                   <DropdownMenu.IconSlot>
                     <IconHandFilled />
                   </DropdownMenu.IconSlot>
                   Release facilitator role
                 </DropdownMenu.Item>
-              </>
-            </DropdownMenu.Content>
-          </DropdownMenu>
+              </DropdownMenu.Content>
+            </DropdownMenu>
+          </div>
         )}
       </div>
     </div>

@@ -64,7 +64,7 @@ export const RoomConfig: React.FunctionComponent<Props> = ({
         {room.participants.length ? (
           <div className="avatars">
             {room.participants.map((participant) => (
-              <Avatar user={participant} />
+              <Avatar key={participant.id} user={participant} />
             ))}
           </div>
         ) : null}

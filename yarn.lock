@@ -1064,10 +1064,10 @@
     node-fetch "^2.6.9"
     typedoc "0.23.24"
 
-"@mirohq/websdk-types@2.9.10":
-  version "2.9.10"
-  resolved "https://registry.yarnpkg.com/@mirohq/websdk-types/-/websdk-types-2.9.10.tgz#b85c8097b27aa6885642bb957a2c14faf133690c"
-  integrity sha512-1uLw/SykIoTZf7Pl9eSgzE13puaMtNlVKuB/wRBUEAWAAUkcT3ppSoCHod7EemntDDJhcKEscwRigEmTCJftsw==
+"@mirohq/websdk-types@2.10.0":
+  version "2.10.0"
+  resolved "https://registry.yarnpkg.com/@mirohq/websdk-types/-/websdk-types-2.10.0.tgz#acb7335957be62290ae651ff6c23b29b24608f7f"
+  integrity sha512-JMBxUBZW1Pz/NeOuoXhpPGp7DcmkIOICpoSramhNpx5OFnzLed8ECZjQt13axIRpMqQ6IKcGQGGRmOh9zYIHhw==
   dependencies:
     typescript ">=4.6.3 || ~5"
 
