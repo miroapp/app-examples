@@ -1,5 +1,6 @@
 {
   "name": "ai-image-generator",
+  "description": "This app implements image generation using AI (OpenAI) and shows how to drag and drop those images to a Miro Board.",
   "version": "0.1.0",
   "license": "MIT",
   "author": "horea@miro.com",
