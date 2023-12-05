@@ -17,6 +17,16 @@ This app shows how to import data from a CSV file and create a mind map on a Mir
 - [Contributing](#contributing)
 - [License](#license)
 
+# 📹 Associated Video <a name="video"></a>
+
+Watch the video below for a demo, code walkthrough, and other ways to use use mind maps in Miro.
+
+[![3 ways to use Mind Maps in Miro](https://img.youtube.com/vi/z-kGniEBgZQ/0.jpg)](https://youtu.be/z-kGniEBgZQ)
+
+Watch the short video (48 seconds) below to gain a quick overview of using the app and other ways to use mind maps in Miro.
+
+[![How to use Mind Maps in Miro](https://img.youtube.com/vi/thKZa4zGduc/0.jpg)](https://youtu.be/thKZa4zGduc)
+
 # ⚙️ Included Features <a name="features"></a>
 
 - [Miro Web SDK](https://developers.miro.com/docs/web-sdk-reference)
