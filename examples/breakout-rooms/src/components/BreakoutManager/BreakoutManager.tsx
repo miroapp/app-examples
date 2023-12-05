@@ -260,9 +260,9 @@ export const BreakoutManager: React.FC = () => {
               variant="solid-danger"
               size="x-large"
             >
-              Stop session{" "}
+              Stop session
               {canUseTimer && timer.state === "started"
-                ? `(${formatDisplayTime(timer.restDuration)})`
+                ? ` (${formatDisplayTime(timer.restDuration)})`
                 : null}
             </Button>
           ) : (
