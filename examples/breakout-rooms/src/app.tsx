@@ -1,6 +1,8 @@
 "use client";
 
 import * as React from "react";
+import { MiroProvider } from "@mirohq/websdk-react-hooks";
+
 import { useBreakout } from "./hooks";
 import { BreakoutManager } from "./components/BreakoutManager";
 import { WaitingRoom } from "./components/WaitingRoom/WaitingRoom";
@@ -14,7 +16,9 @@ const App: React.FC = () => {
 
   return (
     <ErrorBoundary>
-      {areYouReady ? <BreakoutManager /> : <WaitingRoom />}
+      <MiroProvider>
+        {areYouReady ? <BreakoutManager /> : <WaitingRoom />}
+      </MiroProvider>
     </ErrorBoundary>
   );
 };

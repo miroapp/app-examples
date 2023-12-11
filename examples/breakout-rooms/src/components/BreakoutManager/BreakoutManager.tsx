@@ -4,13 +4,8 @@ import * as React from "react";
 
 import { Participant, Room } from "../../types";
 import { Frame, Json, OnlineUserInfo } from "@mirohq/websdk-types";
-import {
-  useBreakout,
-  useFeatureCheck,
-  useOnlineUsers,
-  useSelectedItems,
-  useTimer,
-} from "../../hooks";
+import { useSelectedItems, useOnlineUsers } from "@mirohq/websdk-react-hooks";
+import { useBreakout, useFeatureCheck, useTimer } from "../../hooks";
 import { formatDisplayTime, isUser } from "../../utils";
 import { DEFAULT_TIME } from "../Timer/Timer";
 import { Button } from "@mirohq/design-system";
@@ -29,22 +24,15 @@ export const BreakoutManager: React.FC = () => {
   });
   const [selectedRoom, setSelectedRoom] = React.useState<Room>();
   const [duration, setTimerDuration] = React.useState<number>();
-  const [currentTime, setCurrentTime] = React.useState<number>(0);
   const canUseTimer = useFeatureCheck("timer");
 
   const onTimerStop = React.useCallback(() => {
     service.endSession();
   }, [breakout?.id]);
 
-  const onTick = React.useCallback(
-    (timestamp: number) => setCurrentTime(timestamp),
-    [],
-  );
-
   const timer = useTimer({
     duration: duration ?? DEFAULT_TIME,
     onStop: onTimerStop,
-    onTick,
   });
 
   const participantIds = rooms
@@ -54,7 +42,11 @@ export const BreakoutManager: React.FC = () => {
     .join("-");
 
   const unassignedUsers = React.useMemo(() => {
-    return onlineUsers.filter((user) =>
+    if (onlineUsers.status !== "success") {
+      return [];
+    }
+
+    return onlineUsers.result.filter((user) =>
       rooms.every((room) =>
         room.participants.every((participant) => participant.id !== user.id),
       ),
@@ -63,11 +55,15 @@ export const BreakoutManager: React.FC = () => {
 
   React.useEffect(() => {
     const handleSelectionUpdate = async () => {
-      if (!selectedItems.length || !selectedRoom) {
+      if (
+        selectedItems.status !== "success" ||
+        !selectedItems.result.length ||
+        !selectedRoom
+      ) {
         return;
       }
 
-      const [frame] = selectedItems;
+      const [frame] = selectedItems.result;
 
       if (frame) {
         await service.setRoomTarget(selectedRoom, frame.id);

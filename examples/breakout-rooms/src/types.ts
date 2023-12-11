@@ -45,10 +45,6 @@ export type TimerOpts = {
   onStart?: () => void;
 };
 
-export type SelectItemsOpts = {
-  predicate?: (items: Item) => boolean;
-};
-
 export type UserSessionEvent = {
   userId: string;
   sessionId: string;
