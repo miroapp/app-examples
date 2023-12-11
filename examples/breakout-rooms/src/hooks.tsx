@@ -1,9 +1,7 @@
 import * as React from "react";
 
 import {
-  Item,
   OnlineUserInfo,
-  SelectionUpdateEvent,
   TimerEvent,
   UserInfo,
   Session,
@@ -581,7 +579,7 @@ export const useFeatureCheck = (feature: BoardFeature): boolean => {
   React.useEffect(() => {
     const fetch = async () => {
       const canIUse = await miro.board.canUse(feature);
-      setCanUse(!canIUse);
+      setCanUse(canIUse);
     };
     fetch();
   }, [setCanUse, feature]);
