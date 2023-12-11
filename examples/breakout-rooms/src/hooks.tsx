@@ -1,9 +1,7 @@
 import * as React from "react";
 
 import {
-  Item,
   OnlineUserInfo,
-  SelectionUpdateEvent,
   TimerEvent,
   UserInfo,
   Session,
@@ -14,7 +12,6 @@ import {
   Breakout,
   Participant,
   Room,
-  SelectItemsOpts,
   TimerOpts,
   TimerState,
   UserSessionEvent,
@@ -40,55 +37,6 @@ export const useCurrentUser = () => {
   }, []);
 
   return userInfo;
-};
-
-export const useOnlineUsers = () => {
-  const [onlineUsers, setOnlineUsers] = React.useState<OnlineUserInfo[]>([]);
-
-  React.useEffect(() => {
-    const fetch = async () => {
-      const users = await miro.board.getOnlineUsers();
-      setOnlineUsers(users);
-    };
-
-    miro.board.ui.on("online_users:update", fetch);
-
-    fetch();
-
-    return () => {
-      miro.board.ui.off("online_users:update", fetch);
-    };
-  }, []);
-
-  return onlineUsers;
-};
-
-export const useSelectedItems = <T extends Item = Item>(
-  opts?: SelectItemsOpts,
-) => {
-  const [items, setItems] = React.useState<T[]>([]);
-
-  React.useEffect(() => {
-    const subscribe = () => {
-      const handleSelectionUpdate = async (event: SelectionUpdateEvent) => {
-        let items = event.items as T[];
-        if (opts?.predicate) {
-          items = items.filter(opts.predicate);
-        }
-        setItems(items);
-      };
-
-      miro.board.ui.on("selection:update", handleSelectionUpdate);
-
-      return () => {
-        miro.board.ui.off("selection:update", handleSelectionUpdate);
-      };
-    };
-
-    return subscribe();
-  }, []);
-
-  return items;
 };
 
 export const useBreakout = () => {
@@ -322,9 +270,7 @@ export const useBreakout = () => {
       return;
     }
 
-    if (participant.id === currentUser?.id) {
-      await miro.board.viewport.zoomTo(frame);
-    } else {
+    if (participant.id !== currentUser?.id) {
       await miro.board.collaboration.zoomTo(participant, frame);
     }
   };
@@ -410,11 +356,21 @@ export const useBreakout = () => {
 
         if (myself) {
           await session.join();
+          const frame = await miro.board.get({
+            type: "frame",
+            id: room.targetId,
+          });
+          await miro.board.viewport.zoomTo(frame);
         }
         await session.invite(everyoneElse);
 
         room.participants.map((participant) =>
-          updateParticipant(room, participant, { state: "Invitation Pending" }),
+          updateParticipant(room, participant, {
+            state:
+              currentUser?.id !== participant.id
+                ? "Invitation Pending"
+                : "In Session",
+          }),
         );
 
         session.on("user-joined", handleUserJoined);

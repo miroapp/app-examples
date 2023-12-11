@@ -80,6 +80,11 @@ export const RoomConfig: React.FunctionComponent<Props> = ({
             </IconButton>
           </DropdownMenu.Trigger>
           <DropdownMenu.Content>
+            {unassignedUsers.length < 1 && room.participants.length < 1 && (
+              <DropdownMenu.Item disabled>
+                No more users left to assign
+              </DropdownMenu.Item>
+            )}
             {unassignedUsers.length ? (
               <div className="list">
                 <DropdownMenu.Item disabled>

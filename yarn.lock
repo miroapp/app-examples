@@ -1064,10 +1064,17 @@
     node-fetch "^2.6.9"
     typedoc "0.23.24"
 
-"@mirohq/websdk-types@2.10.0":
-  version "2.10.0"
-  resolved "https://registry.yarnpkg.com/@mirohq/websdk-types/-/websdk-types-2.10.0.tgz#acb7335957be62290ae651ff6c23b29b24608f7f"
-  integrity sha512-JMBxUBZW1Pz/NeOuoXhpPGp7DcmkIOICpoSramhNpx5OFnzLed8ECZjQt13axIRpMqQ6IKcGQGGRmOh9zYIHhw==
+"@mirohq/websdk-react-hooks@^0.0.3":
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/@mirohq/websdk-react-hooks/-/websdk-react-hooks-0.0.3.tgz#0a912abc273b78e115872d4dac31b83b54207f2a"
+  integrity sha512-pIambSGRVa+tb9v1hkj6h47ZfqEqS9NXMkvUvO70Rjxkq6s1v0c2equKapkU6JE5YdliYSDzsOjgmyd1cI5FCQ==
+  dependencies:
+    "@react-hookz/web" "^23.1.0"
+
+"@mirohq/websdk-types@2.11.0":
+  version "2.11.0"
+  resolved "https://registry.yarnpkg.com/@mirohq/websdk-types/-/websdk-types-2.11.0.tgz#b72113d71c6f6b3a9fe0dd66ad6bf664a3bbe22e"
+  integrity sha512-LTy8dUJurKL+GwNIl1ba20XbV7yc1t8irhBXUN/vDJR1G1JlMvpqR6UXghUvEAGee9XGLjxGNWtwI8iNbMbPAQ==
   dependencies:
     typescript ">=4.6.3 || ~5"
 
@@ -2254,6 +2261,18 @@
     "@react-aria/utils" "^3.22.0"
     "@react-types/shared" "^3.22.0"
     "@swc/helpers" "^0.5.0"
+
+"@react-hookz/deep-equal@^1.0.4":
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/@react-hookz/deep-equal/-/deep-equal-1.0.4.tgz#68a71f36cbc88724b3ce6f4036183778b6e7f282"
+  integrity sha512-N56fTrAPUDz/R423pag+n6TXWbvlBZDtTehaGFjK0InmN+V2OFWLE/WmORhmn6Ce7dlwH5+tQN1LJFw3ngTJVg==
+
+"@react-hookz/web@^23.1.0":
+  version "23.1.0"
+  resolved "https://registry.yarnpkg.com/@react-hookz/web/-/web-23.1.0.tgz#4e9bf133c56519924b4c2988aca20d09387f5e0a"
+  integrity sha512-fvbURdsa1ukttbLR1ASE/XmqXP09vZ1PiCYppYeR1sNMzCrdkG0iBnjxniFSVjJ8gIw2fRs6nqMTbeBz2uAkuA==
+  dependencies:
+    "@react-hookz/deep-equal" "^1.0.4"
 
 "@react-stately/calendar@^3.4.2":
   version "3.4.2"

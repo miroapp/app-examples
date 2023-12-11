@@ -20,6 +20,8 @@
   },
   "dependencies": {
     "@mirohq/design-system": "^0.18.2",
+    "@mirohq/websdk-react-hooks": "^0.0.3",
+    "@mirohq/websdk-types": "2.11.0",
     "@stitches/react": "^1.2.8",
     "classnames": "^2.3.2",
     "mirotone": "5",
