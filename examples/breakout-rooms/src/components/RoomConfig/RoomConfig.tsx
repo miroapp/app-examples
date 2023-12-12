@@ -83,7 +83,7 @@ export const RoomConfig: React.FunctionComponent<Props> = ({
         <DropdownMenu>
           <DropdownMenu.Trigger asChild>
             <IconButton
-              label="Assign participant"
+              label="Add user"
               variant="outline"
               css={{ borderRadius: "100%" }}
             >
