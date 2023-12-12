@@ -11,21 +11,46 @@
 }
 
 .starter-action {
-  background: #f2f4fc;
-  border-radius: 0.25em;
-  padding: 1em;
+  background: var(--blue200);
+  border: none;
+  border-radius: var(--border-radius-medium);
+  cursor: default;
   display: flex;
+  padding: 1em;
   gap: 1em;
   align-items: center;
   align-self: flex-start;
   width: 100%;
+
+  & .starter-action-title {
+    font-size: 1.25em;
+    font-weight: 600;
+    line-height: 1.5em;
+    text-align: left;
+    color: var(--blue700);
+    margin: 0;
+  }
+
+  &:hover {
+    background: var(--blue300);
+    cursor: pointer;
+
+    & .starter-action-title {
+      color: var(--blue900);
+    }
+
+    & .rounded-plus {
+      background-color: var(--blue900);
+    }
+  }
 }
 
-.starter-action .starter-action-title {
-  font-size: 1em;
-  font-weight: 600;
-  line-height: 1.5em;
-  text-align: left;
-  color: #3859ff;
-  margin: 0;
+.rounded-plus {
+  border-radius: var(--border-radius-circle);
+  background-color: var(--blue700);
+  padding: 8px;
+
+  & svg {
+    color: var(--white);
+  }
 }
