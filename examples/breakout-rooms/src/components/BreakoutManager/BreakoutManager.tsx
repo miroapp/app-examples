@@ -245,10 +245,10 @@ export const BreakoutManager: React.FC = () => {
 
       {isEditable && validations.length > 0 ? (
         <div className="validation-messages">
-          <h5 className="validatino-messages-title">
+          <h5 className="validation-messages-title">
             Before starting the session:
           </h5>
-          <ul className="validatino-messages-items">
+          <ul className="validation-messages-items">
             {validations.map((message) => (
               <li key={message}>{message}</li>
             ))}

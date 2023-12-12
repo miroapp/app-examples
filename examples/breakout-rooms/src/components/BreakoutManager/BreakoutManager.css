@@ -10,7 +10,7 @@
   padding: 1em;
 }
 
-.validation-messages .validatino-messages-title {
+.validation-messages .validation-messages-title {
   font-size: 1em;
   font-weight: 600;
   line-height: 1em;
@@ -18,8 +18,14 @@
   color: #656b81;
 }
 
-.validation-messages .validatino-messages-items {
+.validation-messages .validation-messages-items {
   font-size: 0.9em;
+  padding-left: 1.6em;
+  margin-bottom: 0;
+}
+
+.validation-messages-items li + li {
+  margin-top: var(--space-xsmall);
 }
 
 .toolbar {
