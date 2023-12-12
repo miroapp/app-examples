@@ -42,8 +42,8 @@ export const RoomConfig: React.FunctionComponent<Props> = ({
           {room.name}
         </h3>
         <IconButton
-          label="Select frame"
-          variant="ghost"
+          label="Select frame to room"
+          variant={room.targetId ? "outline" : "ghost"}
           disabled={!isEditable}
           onClick={() => onSelectTarget(room)}
         >
@@ -51,7 +51,7 @@ export const RoomConfig: React.FunctionComponent<Props> = ({
         </IconButton>
 
         <IconButton
-          label="Remove frame"
+          label="Remove room"
           variant="ghost"
           disabled={!isEditable}
           onClick={() => onRemove(room)}
