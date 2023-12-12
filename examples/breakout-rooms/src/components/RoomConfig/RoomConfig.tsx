@@ -8,7 +8,7 @@ import {
   IconTrash,
   IconUserAdd,
 } from "@mirohq/design-system";
-import { OnlineUserInfo } from "@mirohq/websdk-types";
+import { Frame, OnlineUserInfo } from "@mirohq/websdk-types";
 
 import type { Participant, Room } from "../../types";
 import { Avatar } from "../Avatar";
@@ -35,6 +35,17 @@ export const RoomConfig: React.FunctionComponent<Props> = ({
   onAddParticipant,
   onRemoveParticipant,
 }) => {
+  const [title, setName] = React.useState("");
+  React.useEffect(() => {
+    async function FetchFrame(): Promise<void> {
+      if (!room.targetId) {
+        return;
+      }
+      const frame = await miro.board.getById(room.targetId) as Frame;
+      setName(frame?.title);
+    }
+    FetchFrame();
+  }, [room.targetId]);
   return (
     <div key={room.id} className="room">
       <div className="room-controls">
@@ -42,7 +53,7 @@ export const RoomConfig: React.FunctionComponent<Props> = ({
           {room.name}
         </h3>
         <IconButton
-          label="Select frame to room"
+          label={room.targetId ? `Room is set to ${title}` : "Set frame to room"}
           variant={room.targetId ? "outline" : "ghost"}
           disabled={!isEditable}
           onClick={() => onSelectTarget(room)}

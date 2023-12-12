@@ -111,7 +111,7 @@ export const BreakoutManager: React.FC = () => {
     setSelectedRoom(selected);
 
     await miro.board.notifications.showInfo(
-      `Select the frame in the board for ${selected.name}`,
+      `Set a frame to the room by clicking on the frame title`,
     );
   };
 
