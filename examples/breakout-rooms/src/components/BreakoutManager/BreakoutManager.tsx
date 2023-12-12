@@ -183,25 +183,31 @@ export const BreakoutManager: React.FC = () => {
     });
   };
 
+  const valRooms: string = "Add rooms to your session";
+  const valUsers: string = "Add users to each room";
+  const valFrames: string = "Set a frame to each room";
+
   const validations: string[] = [];
   if (!breakout?.rooms.length) {
-    validations.push("Add rooms to your session");
+    validations.push(valRooms);
+    validations.push(valUsers);
+    validations.push(valFrames);
   }
 
   const allRoomsWithParticipants = breakout?.rooms.every(
     (room) => room.participants.length > 0,
   );
 
-  if (!allRoomsWithParticipants) {
-    validations.push("Add users to each room");
+  if (!allRoomsWithParticipants && !validations.includes(valUsers)) {
+    validations.push(valUsers);
   }
 
   const allRoomsWithTargets = breakout?.rooms.every((room) =>
     Boolean(room.targetId),
   );
 
-  if (!allRoomsWithTargets) {
-    validations.push("Set a frame to each room");
+  if (!allRoomsWithTargets && !validations.includes(valFrames)) {
+    validations.push(valFrames);
   }
 
   const canStartSession = validations.length < 1;
