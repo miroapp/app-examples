@@ -142,8 +142,11 @@ export const BreakoutManager: React.FC = () => {
       usersInRooms.push(users.slice(i, i + roomSize));
     }
 
+    // Sort rooms by number of participants in ascending order
+    const sortedRooms = [...rooms].sort((a, b) => a.participants.length - b.participants.length);
+
     for (let i = 0; i < count; ++i) {
-      const room = rooms[i];
+      const room = sortedRooms[i];
       const participants = usersInRooms[i];
       for (const participant of participants) {
         await service.addParticipant(room, participant);
