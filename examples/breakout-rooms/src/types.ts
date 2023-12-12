@@ -3,9 +3,9 @@ import { Item, OnlineUserInfo, UserInfo } from "@mirohq/websdk-types";
 export type BreakoutState = "idle" | "started" | "ended";
 
 export type ParticipantState =
-  | "Waiting room"
-  | "In Session"
-  | "Invitation Pending";
+  | "In room"
+  | "In session"
+  | "Invitation pending";
 
 export type Participant = OnlineUserInfo & {
   state: ParticipantState;
