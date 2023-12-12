@@ -88,7 +88,7 @@ export const RoomConfig: React.FunctionComponent<Props> = ({
             {unassignedUsers.length ? (
               <div className="list">
                 <DropdownMenu.Item disabled>
-                  Users not in the room
+                  Users not in rooms
                 </DropdownMenu.Item>
                 {unassignedUsers.map((user) => (
                   <DropdownMenu.Item
