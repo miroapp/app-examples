@@ -46,6 +46,9 @@ export const RoomConfig: React.FunctionComponent<Props> = ({
     }
     FetchFrame();
   }, [room.targetId]);
+  
+  const renderedTitle = title ? `to ${title}` : 'frame'; 
+  
   return (
     <div key={room.id} className="room">
       <div className="room-controls">
@@ -53,7 +56,7 @@ export const RoomConfig: React.FunctionComponent<Props> = ({
           {room.name}
         </h3>
         <IconButton
-          label={room.targetId && title ? `Room is set to ${title}` : "Set frame to room"}
+          label={room.targetId ? `Room is set to ${renderedTitle}` : "Set frame to room"}
           variant={room.targetId ? "outline" : "ghost"}
           disabled={!isEditable}
           onClick={() => onSelectTarget(room)}
