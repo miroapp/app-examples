@@ -183,7 +183,7 @@ export const BreakoutManager: React.FC = () => {
     });
   };
 
-  const valRooms: string = "Add rooms to your session";
+  const valRooms = "Add rooms to your session";
   const valUsers: string = "Add users to each room";
   const valFrames: string = "Set a frame to each room";
 
