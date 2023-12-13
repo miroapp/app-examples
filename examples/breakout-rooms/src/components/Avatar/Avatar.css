@@ -1,13 +1,13 @@
 .avatar {
   border-radius: 100%;
   flex-shrink: 0;
-  background: #817f99;
+  background: var(--indigo600);
   box-shadow: 0 0 0 6px var(--color, transparent);
-  outline: 4px solid #fff;
+  outline: 4px solid var(--white);
   width: 2.2em;
   height: 2.2em;
   font-size: 14px;
-  color: #fff;
+  color: var(--white);
   display: flex;
   justify-content: center;
   align-items: center;

@@ -11,13 +11,13 @@
 }
 
 .starter-action {
-  background: var(--blue200);
+  background: var(--blue300);
   border: none;
   border-radius: var(--border-radius-medium);
   cursor: default;
   display: flex;
-  padding: 1em;
-  gap: 1em;
+  padding: var(--space-small);
+  gap: var(--space-small);
   align-items: center;
   align-self: flex-start;
   width: 100%;
@@ -33,7 +33,7 @@
 }
 
 .starter-action:hover {
-  background: var(--blue300);
+  background: var(--blue400);
   cursor: pointer;
 }
 
@@ -48,9 +48,9 @@
 .rounded-plus {
   border-radius: var(--border-radius-circle);
   background-color: var(--blue700);
-  padding: 8px;
+  padding: var(--space-xsmall);
+}
 
-  & svg {
-    color: var(--white);
-  }
+.rounded-plus svg {
+  color: var(--white);
 }

@@ -1,7 +1,7 @@
 .container {
   display: flex;
   flex-direction: column;
-  gap: 1em;
+  gap: var(--space-small);
   align-items: center;
   flex: 1;
 }
@@ -18,7 +18,7 @@
   width: 100%;
   display: flex;
   justify-content: flex-start;
-  gap: 1em;
+  gap: var(--space-small);
   align-items: center;
 }
 
