@@ -53,7 +53,7 @@ export const RoomConfig: React.FunctionComponent<Props> = ({
           {room.name}
         </h3>
         <IconButton
-          label={room.targetId ? `Room is set to ${title}` : "Set frame to room"}
+          label={room.targetId && title ? `Room is set to ${title}` : "Set frame to room"}
           variant={room.targetId ? "outline" : "ghost"}
           disabled={!isEditable}
           onClick={() => onSelectTarget(room)}
