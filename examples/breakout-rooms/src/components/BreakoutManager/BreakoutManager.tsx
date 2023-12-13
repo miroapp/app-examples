@@ -68,7 +68,7 @@ export const BreakoutManager: React.FC = () => {
       if (frame) {
         await service.setRoomTarget(selectedRoom, frame.id);
         await miro.board.notifications.showInfo(
-          `Frame "${frame.title}" has been selected as starting point.`,
+          `${frame.title} has been set as starting point for the room.`,
         );
         await miro.board.deselect({ id: frame.id });
         setSelectedRoom(undefined);
