@@ -19,17 +19,17 @@
   color: var(--indigo600);
 }
 
-.validation-messages .validation-messages-items {
+.validation-messages .validation-messages-list {
   font-size: 0.9em;
   padding-left: var(--space-small);
   margin-bottom: 0;
 }
 
-.validation-messages-items li + li {
+.validation-messages-item + .validation-messages-item {
   margin-top: var(--space-xsmall);
 }
 
-.validation-messages-items li::marker {
+.validation-messages-item::marker {
   color: var(--indigo500);
   padding-left: var(--space-small);
 }

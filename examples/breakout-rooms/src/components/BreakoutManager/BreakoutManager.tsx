@@ -248,9 +248,9 @@ export const BreakoutManager: React.FC = () => {
           <h5 className="validation-messages-title">
             Before starting the session:
           </h5>
-          <ul className="validation-messages-items">
+          <ul className="validation-messages-list">
             {validations.map((message) => (
-              <li key={message}>{message}</li>
+              <li className="validation-messages-item" key={message}>{message}</li>
             ))}
           </ul>
         </div>
