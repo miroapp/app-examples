@@ -6,6 +6,7 @@
   border-radius: var(--border-radius-medium);
   gap: 0.5em;
   padding: var(--space-small);
+  padding-top: var(--space-xsmall);
   width: 100%;
 }
 
