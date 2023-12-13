@@ -47,7 +47,7 @@ export const RoomConfig: React.FunctionComponent<Props> = ({
     FetchFrame();
   }, [room.targetId]);
   
-  const renderedTitle = title ? `to ${title}` : 'frame'; 
+  const renderedTitle = title ? `${title}` : 'frame'; 
   const dropdownSeparator = <div className="separator"><DropdownMenu.Separator /></div>
   return (
     <div key={room.id} className="room">
