@@ -98,6 +98,8 @@ export const Timer: React.FunctionComponent<Props> = ({
     setTimeChanged(true);
   };
 
+  const minutes = formatTime(time) > 1 ? "minutes" : "minute";
+
   return (
     <>
       <DropdownMenu onClose={() => handleSetTime()}>
@@ -107,7 +109,7 @@ export const Timer: React.FunctionComponent<Props> = ({
               <IconTimer />
             </Button.IconSlot>
             <Button.Label>
-              {timeChanged ? formatTime(time) : "Set timer"}
+              {timeChanged ? `${formatTime(time)} ${minutes}` : "Set timer"}
             </Button.Label>
           </Button>
         </DropdownMenu.Trigger>

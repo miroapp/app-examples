@@ -68,13 +68,13 @@ export const BreakoutManager: React.FC = () => {
       if (frame) {
         await service.setRoomTarget(selectedRoom, frame.id);
         await miro.board.notifications.showInfo(
-          `${frame.title} has been set as starting point for the room.`,
+          `${frame.title} is set as starting point for the room`,
         );
         await miro.board.deselect({ id: frame.id });
         setSelectedRoom(undefined);
       } else {
         await miro.board.notifications.showError(
-          "We only support frames as starting point for now",
+          "Only frames are supported as starting point for rooms",
         );
       }
     };
@@ -87,7 +87,7 @@ export const BreakoutManager: React.FC = () => {
       const handleNudge = async (currentUser?: Json) => {
         if (isUser(currentUser)) {
           await miro.board.notifications.showInfo(
-            `<strong>${currentUser?.name}</strong> is waiting to start the session`,
+            `<strong>${currentUser?.name}</strong> is waiting for you to start the session`,
           );
         }
       };
@@ -259,10 +259,10 @@ export const BreakoutManager: React.FC = () => {
           {breakout?.state === "started" ? (
             <Button
               onClick={() => handleStopSession()}
-              variant="solid-danger"
+              variant="outline-danger"
               size="x-large"
             >
-              Stop session
+              Finish session
               {canUseTimer && timer.state === "started"
                 ? ` (${formatDisplayTime(timer.restDuration)})`
                 : null}

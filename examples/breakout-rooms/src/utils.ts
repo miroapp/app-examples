@@ -34,7 +34,7 @@ export const formatTime = (
   value: number,
   unit: TimeUnit = "milliseconds",
 ): string => {
-  const formatter = new Intl.RelativeTimeFormat("en", { numeric: "auto" });
+  const formatter = new Intl.NumberFormat("en");
   let formattedValue = value;
   let formattedUnit = unit;
 
