@@ -21,28 +21,28 @@
   align-items: center;
   align-self: flex-start;
   width: 100%;
+}
 
-  & .starter-action-title {
-    font-size: 1.25em;
-    font-weight: 600;
-    line-height: 1.5em;
-    text-align: left;
-    color: var(--blue700);
-    margin: 0;
-  }
+.starter-action .starter-action-title {
+  font-size: 1.25em;
+  font-weight: 600;
+  line-height: 1.5em;
+  text-align: left;
+  color: var(--blue700);
+  margin: 0;
+}
 
-  &:hover {
-    background: var(--blue300);
-    cursor: pointer;
+.starter-action:hover {
+  background: var(--blue300);
+  cursor: pointer;
+}
 
-    & .starter-action-title {
-      color: var(--blue900);
-    }
+.starter-action:hover .starter-action-title {
+  color: var(--blue900);
+}
 
-    & .rounded-plus {
-      background-color: var(--blue900);
-    }
-  }
+.starter-action:hover .rounded-plus {
+  background-color: var(--blue900);
 }
 
 .rounded-plus {
