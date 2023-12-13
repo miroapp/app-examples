@@ -48,7 +48,7 @@ export const RoomConfig: React.FunctionComponent<Props> = ({
   }, [room.targetId]);
   
   const renderedTitle = title ? `to ${title}` : 'frame'; 
-  
+  const dropdownSeparator = <div className="separator"><DropdownMenu.Separator /></div>
   return (
     <div key={room.id} className="room">
       <div className="room-controls">
@@ -121,7 +121,7 @@ export const RoomConfig: React.FunctionComponent<Props> = ({
 
             {room.participants.length ? (
               <div className="list">
-                {unassignedUsers.length ? <DropdownMenu.Separator /> : null}
+                {unassignedUsers.length ? dropdownSeparator : null}
                 {room.participants.map((user) => (
                   <DropdownMenu.Item
                     key={user.id}

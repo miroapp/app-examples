@@ -1,7 +1,7 @@
 .waiting-list {
-  border: 1px solid #d4d4d9;
+  border: 1px solid var(--indigo300);
   padding: var(--space-small);
-  border-radius: 0.25em;
+  border-radius: var(--border-radius-medium);
   display: flex;
   flex-direction: column;
   gap: var(--space-small);

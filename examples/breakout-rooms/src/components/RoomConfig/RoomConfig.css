@@ -42,7 +42,11 @@
 .users .list {
   /** Overrides DS specific tokens for dropdown **/
   --space-inset-100: 16px;
-  font-size: 12px;
+}
+
+
+.users .list .separator {
+  margin: var(--space-xsmall) var(--space-xxsmall);
 }
 
 .users .list .item {
