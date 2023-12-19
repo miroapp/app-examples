@@ -10,7 +10,6 @@
   align-items: center;
   gap: 0.5em;
   padding-right: 0.5em;
-  border-right: 1px solid var(--indigo400);
 }
 
 .timer-display {

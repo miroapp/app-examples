@@ -68,13 +68,13 @@ export const BreakoutManager: React.FC = () => {
       if (frame) {
         await service.setRoomTarget(selectedRoom, frame.id);
         await miro.board.notifications.showInfo(
-          `Frame "${frame.title}" has been selected as starting point.`,
+          `${frame.title} is set as starting point for the room`,
         );
         await miro.board.deselect({ id: frame.id });
         setSelectedRoom(undefined);
       } else {
         await miro.board.notifications.showError(
-          "We only support frames as starting point for now",
+          "Only frames are supported as starting point for rooms",
         );
       }
     };
@@ -87,7 +87,7 @@ export const BreakoutManager: React.FC = () => {
       const handleNudge = async (currentUser?: Json) => {
         if (isUser(currentUser)) {
           await miro.board.notifications.showInfo(
-            `<strong>${currentUser?.name}</strong> is waiting to start the session`,
+            `<strong>${currentUser?.name}</strong> is waiting for you to start the session`,
           );
         }
       };
@@ -111,7 +111,7 @@ export const BreakoutManager: React.FC = () => {
     setSelectedRoom(selected);
 
     await miro.board.notifications.showInfo(
-      `Select the frame in the board for ${selected.name}`,
+      `Set a frame to the room by clicking on the frame title`,
     );
   };
 
@@ -183,25 +183,31 @@ export const BreakoutManager: React.FC = () => {
     });
   };
 
+  const valRooms = "Add rooms to your session";
+  const valUsers = "Add users to each room";
+  const valFrames = "Set a frame to each room";
+
   const validations: string[] = [];
   if (!breakout?.rooms.length) {
-    validations.push("Add rooms to your session");
+    validations.push(valRooms);
+    validations.push(valUsers);
+    validations.push(valFrames);
   }
 
   const allRoomsWithParticipants = breakout?.rooms.every(
     (room) => room.participants.length > 0,
   );
 
-  if (!allRoomsWithParticipants) {
-    validations.push("Add users to each room");
+  if (!allRoomsWithParticipants && !validations.includes(valUsers)) {
+    validations.push(valUsers);
   }
 
   const allRoomsWithTargets = breakout?.rooms.every((room) =>
     Boolean(room.targetId),
   );
 
-  if (!allRoomsWithTargets) {
-    validations.push("Set a frame to each room");
+  if (!allRoomsWithTargets && !validations.includes(valFrames)) {
+    validations.push(valFrames);
   }
 
   const canStartSession = validations.length < 1;
@@ -239,12 +245,14 @@ export const BreakoutManager: React.FC = () => {
 
       {isEditable && validations.length > 0 ? (
         <div className="validation-messages">
-          <h5 className="validatino-messages-title">
+          <h5 className="validation-messages-title">
             Before starting the session:
           </h5>
-          <ul className="validatino-messages-items">
+          <ul className="validation-messages-list">
             {validations.map((message) => (
-              <li key={message}>{message}</li>
+              <li className="validation-messages-item" key={message}>
+                {message}
+              </li>
             ))}
           </ul>
         </div>
@@ -253,10 +261,10 @@ export const BreakoutManager: React.FC = () => {
           {breakout?.state === "started" ? (
             <Button
               onClick={() => handleStopSession()}
-              variant="solid-danger"
+              variant="outline-danger"
               size="x-large"
             >
-              Stop session
+              Finish session
               {canUseTimer && timer.state === "started"
                 ? ` (${formatDisplayTime(timer.restDuration)})`
                 : null}

@@ -21,7 +21,7 @@ export const WaitingRoom: React.FC = () => {
     <main className="waiting-room-container">
       <div className="waiting-room-message">
         <h1>You facilitator is preparing the session</h1>
-        <Button variant="ghost-prominent" size="small" onClick={handleNudge}>
+        <Button variant="ghost-prominent" size="medium" onClick={handleNudge}>
           <Button.IconSlot>
             <IconHandPointing />
           </Button.IconSlot>
