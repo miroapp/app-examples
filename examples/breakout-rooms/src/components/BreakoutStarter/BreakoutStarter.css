@@ -11,21 +11,46 @@
 }
 
 .starter-action {
-  background: #f2f4fc;
-  border-radius: 0.25em;
-  padding: 1em;
+  background: var(--blue300);
+  border: none;
+  border-radius: var(--border-radius-medium);
+  cursor: default;
   display: flex;
-  gap: 1em;
+  padding: var(--space-small);
+  gap: var(--space-small);
   align-items: center;
   align-self: flex-start;
   width: 100%;
 }
 
 .starter-action .starter-action-title {
-  font-size: 1em;
+  font-size: 1.25em;
   font-weight: 600;
   line-height: 1.5em;
   text-align: left;
-  color: #3859ff;
+  color: var(--blue700);
   margin: 0;
+}
+
+.starter-action:hover {
+  background: var(--blue400);
+  cursor: pointer;
+}
+
+.starter-action:hover .starter-action-title {
+  color: var(--blue900);
+}
+
+.starter-action:hover .rounded-plus {
+  background-color: var(--blue900);
+}
+
+.rounded-plus {
+  border-radius: var(--border-radius-circle);
+  background-color: var(--blue700);
+  padding: var(--space-xsmall);
+}
+
+.rounded-plus svg {
+  color: var(--white);
 }

@@ -112,7 +112,7 @@ export const useBreakout = () => {
       if (r.id === room.id) {
         const participant: Participant = {
           ...user,
-          state: "Waiting room",
+          state: "In room",
         };
         const participants = [...r.participants, participant].sort((a, b) =>
           a.name.localeCompare(b.name),
@@ -394,7 +394,7 @@ export const useBreakout = () => {
       await session.end();
 
       room.participants.map((participant) =>
-        updateParticipant(room, participant, { state: "Waiting room" }),
+        updateParticipant(room, participant, { state: "In room" }),
       );
     });
 

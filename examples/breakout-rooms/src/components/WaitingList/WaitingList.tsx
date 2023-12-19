@@ -18,7 +18,8 @@ export const WaitingList: React.FC<Props> = ({
   return (
     <section className="waiting-list">
       <h5 className="waiting-list-title">
-        {unassignedUsers.length} user(s) not in rooms
+        {unassignedUsers.length} {unassignedUsers.length > 1 ? "users" : "user"}{" "}
+        not in rooms
       </h5>
       <Button
         variant="solid-subtle"

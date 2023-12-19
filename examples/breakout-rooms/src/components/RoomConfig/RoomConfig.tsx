@@ -8,7 +8,7 @@ import {
   IconTrash,
   IconUserAdd,
 } from "@mirohq/design-system";
-import { OnlineUserInfo } from "@mirohq/websdk-types";
+import { Frame, OnlineUserInfo } from "@mirohq/websdk-types";
 
 import type { Participant, Room } from "../../types";
 import { Avatar } from "../Avatar";
@@ -35,6 +35,24 @@ export const RoomConfig: React.FunctionComponent<Props> = ({
   onAddParticipant,
   onRemoveParticipant,
 }) => {
+  const [title, setName] = React.useState("");
+  React.useEffect(() => {
+    async function FetchFrame(): Promise<void> {
+      if (!room.targetId) {
+        return;
+      }
+      const frame = (await miro.board.getById(room.targetId)) as Frame;
+      setName(frame?.title);
+    }
+    FetchFrame();
+  }, [room.targetId]);
+
+  const renderedTitle = title ? `${title}` : "frame";
+  const dropdownSeparator = (
+    <div className="separator">
+      <DropdownMenu.Separator />
+    </div>
+  );
   return (
     <div key={room.id} className="room">
       <div className="room-controls">
@@ -42,8 +60,12 @@ export const RoomConfig: React.FunctionComponent<Props> = ({
           {room.name}
         </h3>
         <IconButton
-          label="Select frame"
-          variant="ghost"
+          label={
+            room.targetId
+              ? `Room is set to ${renderedTitle}`
+              : "Set frame to room"
+          }
+          variant={room.targetId ? "outline" : "ghost"}
           disabled={!isEditable}
           onClick={() => onSelectTarget(room)}
         >
@@ -51,7 +73,7 @@ export const RoomConfig: React.FunctionComponent<Props> = ({
         </IconButton>
 
         <IconButton
-          label="Remove frame"
+          label="Remove room"
           variant="ghost"
           disabled={!isEditable}
           onClick={() => onRemove(room)}
@@ -72,7 +94,7 @@ export const RoomConfig: React.FunctionComponent<Props> = ({
         <DropdownMenu>
           <DropdownMenu.Trigger asChild>
             <IconButton
-              label="Assign participant"
+              label="Add user"
               variant="outline"
               css={{ borderRadius: "100%" }}
             >
@@ -88,7 +110,7 @@ export const RoomConfig: React.FunctionComponent<Props> = ({
             {unassignedUsers.length ? (
               <div className="list">
                 <DropdownMenu.Item disabled>
-                  Users not in the room
+                  Users not in rooms
                 </DropdownMenu.Item>
                 {unassignedUsers.map((user) => (
                   <DropdownMenu.Item
@@ -107,7 +129,7 @@ export const RoomConfig: React.FunctionComponent<Props> = ({
 
             {room.participants.length ? (
               <div className="list">
-                {unassignedUsers.length ? <DropdownMenu.Separator /> : null}
+                {unassignedUsers.length ? dropdownSeparator : null}
                 {room.participants.map((user) => (
                   <DropdownMenu.Item
                     key={user.id}
