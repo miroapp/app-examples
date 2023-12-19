@@ -34,7 +34,7 @@ export const formatTime = (
   value: number,
   unit: TimeUnit = "milliseconds",
 ): string => {
-  const formatter = new Intl.RelativeTimeFormat("en", { numeric: "auto" });
+  const formatter = new Intl.NumberFormat("en");
   let formattedValue = value;
   let formattedUnit = unit;
 
@@ -45,14 +45,15 @@ export const formatTime = (
     formattedValue = seconds / 60;
     formattedUnit = "minutes";
   }
-  if (formattedValue >= 60) {
-    formattedValue = formattedValue / 60;
-    formattedUnit = "hours";
-  }
-  if (formattedValue >= 24) {
-    formattedValue = formattedValue / 24;
-    formattedUnit = "days";
-  }
+  // Commented for possible future use
+  // if (formattedValue >= 60) {
+  //   formattedValue = formattedValue / 60;
+  //   formattedUnit = "hours";
+  // }
+  // if (formattedValue >= 24) {
+  //   formattedValue = formattedValue / 24;
+  //   formattedUnit = "days";
+  // }
 
   return formatter.format(formattedValue, formattedUnit);
 };

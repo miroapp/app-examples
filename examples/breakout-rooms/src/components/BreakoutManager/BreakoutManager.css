@@ -2,36 +2,48 @@
   display: flex;
   height: 100%;
   flex-direction: column;
-  gap: 1em;
+  gap: var(--space-small);
 }
 
 .validation-messages {
-  background: #f5f5f3;
-  padding: 1em;
+  background: var(--indigo50);
+  border-radius: var(--border-radius-medium);
+  padding: var(--space-medium);
 }
 
-.validation-messages .validatino-messages-title {
+.validation-messages .validation-messages-title {
   font-size: 1em;
   font-weight: 600;
-  line-height: 1em;
+  line-height: var(--space-small);
   margin: 0;
-  color: #656b81;
+  color: var(--indigo600);
 }
 
-.validation-messages .validatino-messages-items {
+.validation-messages .validation-messages-list {
   font-size: 0.9em;
+  padding-left: var(--space-small);
+  margin-bottom: 0;
+}
+
+.validation-messages-item + .validation-messages-item {
+  margin-top: var(--space-xsmall);
+}
+
+.validation-messages-item::marker {
+  color: var(--indigo500);
+  padding-left: var(--space-small);
 }
 
 .toolbar {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 1em;
+  gap: var(--space-small);
 }
 
 .toolbar button {
   justify-content: center;
   margin: 0;
   width: 100%;
-  padding: 1em;
+  padding: var(--space-small);
 }
