@@ -2,12 +2,12 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  background: #eeeded;
-  border-radius: 0.25em;
+  background: var(--indigo50);
+  border-radius: var(--border-radius-medium);
   gap: 0.5em;
-  padding: 1em;
+  padding: var(--space-small);
+  padding-top: var(--space-xsmall);
   width: 100%;
-  height: 8em;
 }
 
 .room-controls {
@@ -43,13 +43,16 @@
 .users .list {
   /** Overrides DS specific tokens for dropdown **/
   --space-inset-100: 16px;
-  font-size: 12px;
+}
+
+.users .list .separator {
+  margin: var(--space-xsmall) var(--space-xxsmall);
 }
 
 .users .list .item {
   display: flex;
   align-items: center;
-  gap: 1em;
+  gap: var(--space-small);
 }
 .users .list .item + div {
   padding-left: 3.5em;
@@ -57,6 +60,7 @@
 
 .avatars {
   display: flex;
+  padding-left: var(--space-xxsmall);
 }
 
 .avatars .avatar:not(:first-child) {
