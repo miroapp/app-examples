@@ -41,14 +41,18 @@ export const RoomConfig: React.FunctionComponent<Props> = ({
       if (!room.targetId) {
         return;
       }
-      const frame = await miro.board.getById(room.targetId) as Frame;
+      const frame = (await miro.board.getById(room.targetId)) as Frame;
       setName(frame?.title);
     }
     FetchFrame();
   }, [room.targetId]);
-  
-  const renderedTitle = title ? `${title}` : 'frame'; 
-  const dropdownSeparator = <div className="separator"><DropdownMenu.Separator /></div>
+
+  const renderedTitle = title ? `${title}` : "frame";
+  const dropdownSeparator = (
+    <div className="separator">
+      <DropdownMenu.Separator />
+    </div>
+  );
   return (
     <div key={room.id} className="room">
       <div className="room-controls">
@@ -56,7 +60,11 @@ export const RoomConfig: React.FunctionComponent<Props> = ({
           {room.name}
         </h3>
         <IconButton
-          label={room.targetId ? `Room is set to ${renderedTitle}` : "Set frame to room"}
+          label={
+            room.targetId
+              ? `Room is set to ${renderedTitle}`
+              : "Set frame to room"
+          }
           variant={room.targetId ? "outline" : "ghost"}
           disabled={!isEditable}
           onClick={() => onSelectTarget(room)}

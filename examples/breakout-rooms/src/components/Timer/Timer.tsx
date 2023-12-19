@@ -37,7 +37,6 @@ export const BIG_STEP = convertTime(5, "milliseconds", "minutes");
  */
 export const BIG_STEP_MAX_TIME = convertTime(86, "milliseconds", "minutes");
 
-
 type Props = {
   /**
    * Default time in milliseconds
@@ -58,11 +57,11 @@ type Props = {
   /**
    * Inc/Dec step in milliseconds
    */
-  bigStep?: number;  
+  bigStep?: number;
   /**
    * Inc/Dec step in milliseconds
    */
-  bigStepMaxTime?: number;    
+  bigStepMaxTime?: number;
   /**
    * Set chosen time in milliseconds
    */
@@ -145,7 +144,7 @@ export const Timer: React.FunctionComponent<Props> = ({
                 onClick={() => handleBigAdd()}
               >
                 +5m
-              </Button>          
+              </Button>
             </div>
           </div>
         </DropdownMenu.Content>

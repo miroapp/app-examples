@@ -250,7 +250,9 @@ export const BreakoutManager: React.FC = () => {
           </h5>
           <ul className="validation-messages-list">
             {validations.map((message) => (
-              <li className="validation-messages-item" key={message}>{message}</li>
+              <li className="validation-messages-item" key={message}>
+                {message}
+              </li>
             ))}
           </ul>
         </div>
