@@ -19,6 +19,7 @@ https://github.com/miroapp/app-examples/assets/7162412/e03987e3-f85b-48ab-86b8-f
 # ⚙️ Included Features <a name="features"></a>
 
 - [Miro Web SDK](https://developers.miro.com/docs/web-sdk-reference)
+
   - [miro.board.canUse()](https://developers.miro.com/docs/websdk-reference-board#canuse) [in hooks.tsx](https://github.com/miroapp/app-examples/blob/main/examples/breakout-rooms/src/hooks.tsx#L581)
   - [miro.board.getById()](https://developers.miro.com/docs/websdk-reference-board#getbyid) [in RoomConfig Component](https://github.com/miroapp/app-examples/blob/main/examples/breakout-rooms/src/components/RoomConfig/RoomConfig.tsx#L44)
   - [miro.board.get()](https://developers.miro.com/docs/websdk-reference-board#get) [in hooks.tsx](https://github.com/miroapp/app-examples/blob/main/examples/breakout-rooms/src/hooks.tsx#L265)
@@ -35,23 +36,19 @@ https://github.com/miroapp/app-examples/assets/7162412/e03987e3-f85b-48ab-86b8-f
 - [Real-time events](https://developers.miro.com/docs/websdk-reference-events)
   - [miro.board.events.on()](https://developers.miro.com/docs/websdk-reference-events#on) [in BreakoutManager Component](https://github.com/miroapp/app-examples/blob/main/examples/breakout-rooms/src/components/BreakoutManager/BreakoutManager.tsx#L95)
   - [miro.board.events.off()](https://developers.miro.com/docs/websdk-reference-events#off) [in BreakoutManager Component](https://github.com/miroapp/app-examples/blob/main/examples/breakout-rooms/src/components/BreakoutManager/BreakoutManager.tsx#L98)
-  - [miro.board.events.broadcast()](https://developers.miro.com/docs/websdk-reference-events#broadcast) [in WaitingRoom Component](https://github.com/miroapp/app-examples/blob/main/examples/breakout-rooms/src/components/WaitingRoom/WaitingRoom.tsx#L18)     
+  - [miro.board.events.broadcast()](https://developers.miro.com/docs/websdk-reference-events#broadcast) [in WaitingRoom Component](https://github.com/miroapp/app-examples/blob/main/examples/breakout-rooms/src/components/WaitingRoom/WaitingRoom.tsx#L18)
 - [Real-time storage](https://developers.miro.com/docs/websdk-reference-storage)
-  - [miro.board.storage.collection()](https://developers.miro.com/docs/websdk-reference-storage#collection) [in hooks.tsx](https://github.com/miroapp/app-examples/blob/main/examples/breakout-rooms/src/hooks.tsx#L52)  
+
+  - [miro.board.storage.collection()](https://developers.miro.com/docs/websdk-reference-storage#collection) [in hooks.tsx](https://github.com/miroapp/app-examples/blob/main/examples/breakout-rooms/src/hooks.tsx#L52)
 
 - [Timer](https://developers.miro.com/docs/websdk-reference-timer)
   - [miro.board.timer.get()](https://developers.miro.com/docs/websdk-reference-timer#get) [in hooks.tsx](https://github.com/miroapp/app-examples/blob/main/examples/breakout-rooms/src/hooks.tsx#L541)
   - [miro.board.timer.isStarted()](https://developers.miro.com/docs/websdk-reference-timer#isstarted) [in hooks.tsx](https://github.com/miroapp/app-examples/blob/main/examples/breakout-rooms/src/hooks.tsx#L461)
-  - [miro.board.timer.start()](https://developers.miro.com/docs/websdk-reference-timer#start) [in hooks.tsx](https://github.com/miroapp/app-examples/blob/main/examples/breakout-rooms/src/hooks.tsx#L448)  
-  - [miro.board.timer.pause()](https://developers.miro.com/docs/websdk-reference-timer#pause) [in hooks.tsx](https://github.com/miroapp/app-examples/blob/main/examples/breakout-rooms/src/hooks.tsx#L454)  
+  - [miro.board.timer.start()](https://developers.miro.com/docs/websdk-reference-timer#start) [in hooks.tsx](https://github.com/miroapp/app-examples/blob/main/examples/breakout-rooms/src/hooks.tsx#L448)
+  - [miro.board.timer.pause()](https://developers.miro.com/docs/websdk-reference-timer#pause) [in hooks.tsx](https://github.com/miroapp/app-examples/blob/main/examples/breakout-rooms/src/hooks.tsx#L454)
   - [miro.board.timer.stop()](https://developers.miro.com/docs/websdk-reference-timer#stop) [in hooks.tsx](https://github.com/miroapp/app-examples/blob/main/examples/breakout-rooms/src/hooks.tsx#L463)
   - [miro.board.timer.on()](https://developers.miro.com/docs/websdk-reference-timer#on) [in hooks.tsx](https://github.com/miroapp/app-examples/blob/main/examples/breakout-rooms/src/hooks.tsx#L556-L558)
-  - [miro.board.timer.off()](https://developers.miro.com/docs/websdk-reference-timer#off) [in hooks.tsx](https://github.com/miroapp/app-examples/blob/main/examples/breakout-rooms/src/hooks.tsx#L561-L563)  
- 
-
-
-
-
+  - [miro.board.timer.off()](https://developers.miro.com/docs/websdk-reference-timer#off) [in hooks.tsx](https://github.com/miroapp/app-examples/blob/main/examples/breakout-rooms/src/hooks.tsx#L561-L563)
 
 # 🛠️ Tools and Technologies <a name="tools"></a>
 
