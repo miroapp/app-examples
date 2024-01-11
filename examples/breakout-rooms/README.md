@@ -32,7 +32,6 @@ https://github.com/miroapp/app-examples/assets/7162412/e03987e3-f85b-48ab-86b8-f
   - [miro.board.collaboration.startSession()](https://developers.miro.com/docs/websdk-reference-collaboration#startsession) [in hooks.tsx](https://github.com/miroapp/app-examples/blob/main/examples/breakout-rooms/src/hooks.tsx#L320)
   - [miro.board.collaboration.getSessions()](https://developers.miro.com/docs/websdk-reference-collaboration#getsessions) [in hooks.tsx](https://github.com/miroapp/app-examples/blob/main/examples/breakout-rooms/src/hooks.tsx#L315)
   - [miro.board.collaboration.zoomTo()](https://developers.miro.com/docs/websdk-reference-collaboration#zoomto) [in hooks.tsx](https://github.com/miroapp/app-examples/blob/main/examples/breakout-rooms/src/hooks.tsx#L274)
-<!-- - [Attention Management](https://developers.miro.com/docs/websdk-reference-collaboration) -->
 - [Real-time events](https://developers.miro.com/docs/websdk-reference-events)
   - [miro.board.events.on()](https://developers.miro.com/docs/websdk-reference-events#on) [in BreakoutManager Component](https://github.com/miroapp/app-examples/blob/main/examples/breakout-rooms/src/components/BreakoutManager/BreakoutManager.tsx#L95)
   - [miro.board.events.off()](https://developers.miro.com/docs/websdk-reference-events#off) [in BreakoutManager Component](https://github.com/miroapp/app-examples/blob/main/examples/breakout-rooms/src/components/BreakoutManager/BreakoutManager.tsx#L98)
