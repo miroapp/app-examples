@@ -41,6 +41,11 @@ https://github.com/miroapp/app-examples/assets/7162412/e03987e3-f85b-48ab-86b8-f
 - [Real-time storage](https://developers.miro.com/docs/websdk-reference-storage)
 
   - [miro.board.storage.collection()](https://developers.miro.com/docs/websdk-reference-storage#collection) [in hooks.tsx](https://github.com/miroapp/app-examples/blob/main/examples/breakout-rooms/src/hooks.tsx#L52)
+  - [miro.board.storage.collection.set()](https://developers.miro.com/docs/websdk-reference-collection#set) [in hooks.tsx](https://github.com/miroapp/app-examples/blob/main/examples/breakout-rooms/src/hooks.tsx#L89)
+  - [miro.board.storage.collection.get()](https://developers.miro.com/docs/websdk-reference-collection#get) [in hooks.tsx](https://github.com/miroapp/app-examples/blob/main/examples/breakout-rooms/src/hooks.tsx#L60)
+  - [miro.board.storage.collection.remove()](https://developers.miro.com/docs/websdk-reference-collection#remove) [in hooks.tsx](https://github.com/miroapp/app-examples/blob/main/examples/breakout-rooms/src/hooks.tsx#L409)
+  - [miro.board.storage.collection.onValue](https://developers.miro.com/docs/websdk-reference-collection#onvalue) [in hooks.tsx](https://github.com/miroapp/app-examples/blob/main/examples/breakout-rooms/src/hooks.tsx#L61)
+  - [miro.board.storage.collection.offValue](https://developers.miro.com/docs/websdk-reference-collection#offvalue) [in hooks.tsx](https://github.com/miroapp/app-examples/blob/main/examples/breakout-rooms/src/hooks.tsx#L64)
 
 - [Timer](https://developers.miro.com/docs/websdk-reference-timer)
   - [miro.board.timer.get()](https://developers.miro.com/docs/websdk-reference-timer#get) [in hooks.tsx](https://github.com/miroapp/app-examples/blob/main/examples/breakout-rooms/src/hooks.tsx#L541)
@@ -67,6 +72,11 @@ https://github.com/miroapp/app-examples/assets/7162412/e03987e3-f85b-48ab-86b8-f
 - Your Miro account has a [Developer team](https://developers.miro.com/docs/create-a-developer-team).
 - Your development environment includes [Node.js 14.13](https://nodejs.org/en/download) or a later version.
 - All examples use `npm` as a package manager and `npx` as a package runner.
+
+# 📖 Associated Developer Tutorial <a name="tutorial"></a>
+
+> To view a more in depth developer tutorial
+> of this app (including code explanations) see the [custom actions tutorial](https://developers.miro.com/docs/add-custom-actions-to-your-app) on Miro's Developer documentation.
 
 # 🏃🏽‍♂️ Run the app locally <a name="run"></a>
 
