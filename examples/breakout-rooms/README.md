@@ -2,6 +2,8 @@
 
 This example shows you how leverage collaborative and real-time features, including sessions and real-time events and storage.
 
+> Note: To utilize all the functionality for this app, including the timer method, you will need to be on a Starter or higher Miro plan, and authorize the app under a non-developer team.
+
 # 👨🏻‍💻 App Demo
 
 https://github.com/miroapp/app-examples/assets/7162412/e03987e3-f85b-48ab-86b8-f4314c3c5e76
@@ -11,7 +13,6 @@ https://github.com/miroapp/app-examples/assets/7162412/e03987e3-f85b-48ab-86b8-f
 - [Included Features](#features)
 - [Tools and Technologies](#tools)
 - [Prerequisites](#prerequisites)
-- [Associated Developer Tutorial](#tutorial)
 - [Run the app locally](#run)
 - [Folder Structure](#folder)
 - [License](#license)
@@ -66,11 +67,6 @@ https://github.com/miroapp/app-examples/assets/7162412/e03987e3-f85b-48ab-86b8-f
 - Your Miro account has a [Developer team](https://developers.miro.com/docs/create-a-developer-team).
 - Your development environment includes [Node.js 14.13](https://nodejs.org/en/download) or a later version.
 - All examples use `npm` as a package manager and `npx` as a package runner.
-
-# 📖 Associated Developer Tutorial <a name="tutorial"></a>
-
-> To view a more in depth developer tutorial
-> of this app (including code explanations) see the [custom actions tutorial](https://developers.miro.com/docs/add-custom-actions-to-your-app) on Miro's Developer documentation.
 
 # 🏃🏽‍♂️ Run the app locally <a name="run"></a>
 
