@@ -52,14 +52,19 @@ https://github.com/miroapp/app-examples/assets/10800544/767dba77-c3dd-40b0-b6d7-
    - Go to **App Credentials**, and copy the app **Client ID** and **Client secret** values.
    - Paste these details to your `.env` file's `clientID` and `clientSecret` variables.
 4. From your App Settings page, open the [app manifest editor](https://developers.miro.com/docs/manually-create-an-app#step-2-configure-your-app-in-miro) by clicking **Edit in Manifest**. \
-    In the app manifest editor, configure the app as follows:
 
-   - [`redirectUris`](https://developers.miro.com/docs/app-manifest#redirecturis): assign `http://127.0.0.1:5000/callback` as a value for this property. \
-     It defines the redirect URL that starts the OAuth 2.0 code grant flow for the REST API.
-   - [`scopes`](https://developers.miro.com/docs/app-manifest#scopes): add the permission scopes that users need to grant the app when they install it. \
-      To enable the app to read from and write to the board, add the following permissions: - `boards:read` - `boards:write`\
-     \
-     Hit **Save**.
+   In the app manifest editor, configure the app as follows and then click save:
+
+```yaml
+# See https://developers.miro.com/docs/app-manifest on how to use this
+appName: Python Flask Starter with OAuth
+sdkVersion: SDK_V2
+sdkUri: http://127.0.0.1:5000
+redirectUris: http://127.0.0.1:5000/callback
+scopes:
+  - boards:read
+  - boards:write
+```
 
 5. Run the app with `python3 app.py`
 6. Open the page at `http://127.0.0.1:5000`

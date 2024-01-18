@@ -46,19 +46,23 @@ ACCESS_TOKEN="{YOUR_ACCESS_TOKEN}"
 
 3. Run `npm install` to install dependencies.
 4. Open the [app manifest editor](https://developers.miro.com/docs/manually-create-an-app#step-2-configure-your-app-in-miro) by clicking **Edit in Manifest**. \
-   In the app manifest editor, configure the app as follows:
 
-   - [`redirectUris`](https://developers.miro.com/docs/app-manifest#redirectUris): assign `http://localhost:3000` as a value for this property. \
-     It defines the redirect url that the script will use for OAuth2.0.
-   - [`scopes`](https://developers.miro.com/docs/app-manifest#scopes): add the permission scopes that the script will need in order to call each of the included API endpoints. \
-     Add the following permissions:
-     - `boards:read`
-     - `boards:write`
-     - `organizations:read`
-     - `organizations:teams:write`
-     - `organizations:teams:read`
-     - `team:read`
-     - `team:write`
+In the app manifest editor, configure the app as follows and then click save:
+
+```yaml
+# See https://developers.miro.com/docs/app-manifest on how to use this
+appName: Enterprise Team Management
+sdkVersion: SDK_V2
+sdkUri: http://localhost:3000
+scopes:
+  - boards:read
+  - boards:write
+  - organizations:read
+  - organizations:teams:write
+  - organizations:teams:read
+  - team:read
+  - team:write
+```
 
 5. Go back to your app home page, and under the `Permissions` section, you will see a blue button that says `Install app and get OAuth token`. Click that button. Then click on `Add` as shown in the video below. This will generate an access_token.
 
