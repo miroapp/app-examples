@@ -20,11 +20,11 @@ https://github.com/miroapp/app-examples/assets/10428517/56fe0932-2608-47ae-9e08-
 # ⚙️ Included Features <a name="features"></a>
 
 - [Miro Web SDK](https://developers.miro.com/docs/web-sdk-reference)
-  - [createStickyNote()](https://developers.miro.com/docs/board_board#createstickynote)
-  - [getById()](https://developers.miro.com/docs/board_board#getbyid)
+  - [miro.board.createStickyNote()](https://developers.miro.com/docs/board_board#createstickynote)
+  - [miro.board.getById()](https://developers.miro.com/docs/board_board#getbyid)
   - [remove()](https://developers.miro.com/docs/board_board#remove)
-  - [viewport.get()](https://developers.miro.com/docs/viewport_viewport#get)
-  - [openPanel()](https://developers.miro.com/docs/ui_boardui#openpanel)
+  - [miro.board.viewport.get()](https://developers.miro.com/docs/viewport_viewport#get)
+  - [miro.board.ui.openPanel()](https://developers.miro.com/docs/ui_boardui#openpanel)
 
 # 🛠️ Tools and Technologies <a name="tools"></a>
 

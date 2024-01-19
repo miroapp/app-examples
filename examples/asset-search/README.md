@@ -20,10 +20,10 @@ This app shows how to implement asset searching and filtering by name and tags.
 # ⚙️ Included Features <a name="features"></a>
 
 - [Miro Web SDK](https://developers.miro.com/docs/web-sdk-reference)
-  - [drop event](https://developers.miro.com/docs/ui_boardui#drop-event)
-  - [createImage](https://developers.miro.com/docs/board_board#createimage)
-  - [viewport.zoomTo](https://developers.miro.com/docs/viewport_viewport#zoomto)
-  - [openPanel(options)](https://developers.miro.com/docs/ui_boardui#openpanel)
+  - [miro.board.ui.on('drop')](https://developers.miro.com/docs/ui_boardui#drop-event)
+  - [miro.board.createImage](https://developers.miro.com/docs/board_board#createimage)
+  - [miro.board.viewport.zoomTo](https://developers.miro.com/docs/viewport_viewport#zoomto)
+  - [miro.board.ui.openPanel()](https://developers.miro.com/docs/ui_boardui#openpanel)
   - [draggable elements](https://developers.miro.com/docs/add-drag-and-drop-to-your-app#add-draggable-elements-to-the-app-panel)
 
 # 🛠️ Tools and Technologies <a name="tools"></a>

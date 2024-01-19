@@ -19,7 +19,14 @@ https://github.com/miroapp/app-examples/assets/10800544/a0aaea4a-a95c-42f5-abb3-
 # ⚙️ Included Features <a name="features"></a>
 
 - [Miro Web SDK](https://developers.miro.com/docs/web-sdk-reference)
-- [Drag and Drop](https://developers.miro.com/docs/add-drag-and-drop-to-your-app)
+  - [miro.board.createShape()](https://developers.miro.com/docs/board_board#createshape)
+  - [miro.board.createText()](https://developers.miro.com/docs/board_board#createtext)
+  - [miro.board.createStickyNote()](https://developers.miro.com/docs/websdk-reference-board#createstickynote)
+  - [miro.board.createFrame()](https://developers.miro.com/docs/websdk-reference-board#createframe)
+  - [miro.board.createCard()](https://developers.miro.com/docs/websdk-reference-board#createcard)
+  - [miro.board.getUserInfo()](https://developers.miro.com/docs/websdk-reference-board#getuserinfo)
+  - [miro.board.getSelection()](https://developers.miro.com/docs/websdk-reference-board#getselection)
+  - [miro.board.ui.on("drop")](https://developers.miro.com/docs/ui_boardui#drop-event)
 
 # 🛠️ Tools and Technologies <a name="tools"></a>
 

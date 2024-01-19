@@ -30,8 +30,8 @@ Watch the short video (48 seconds) below to gain a quick overview of using the a
 # ⚙️ Included Features <a name="features"></a>
 
 - [Miro Web SDK](https://developers.miro.com/docs/web-sdk-reference)
-  - [openPanel()](https://developers.miro.com/docs/ui_boardui#openpanel)
-  - [createMindMapNode()](https://developers.miro.com/docs/experimental_experimental#createmindmapnode)
+  - [miro.board.ui.openPanel()](https://developers.miro.com/docs/ui_boardui#openpanel)
+  - [miro.board.experimental.createMindmapNode()](https://developers.miro.com/docs/experimental_experimental#createmindmapnode)
 
 # 🛠️ Tools and Technologies <a name="tools"></a>
 
