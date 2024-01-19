@@ -20,8 +20,8 @@ This app allows you to create a calendar consisting of shapes and text for the g
 # ⚙️ Included Features <a name="features"></a>
 
 - [Miro Web SDK](https://developers.miro.com/docs/web-sdk-reference)
-  - [createShape()](https://developers.miro.com/docs/board_board#createshape)
-  - [createText()](https://developers.miro.com/docs/board_board#createtext)
+  - [miro.board.createShape()](https://developers.miro.com/docs/board_board#createshape)
+  - [miro.board.createText()](https://developers.miro.com/docs/board_board#createtext)
 
 # 🛠️ Tools and Technologies <a name="tools"></a>
 

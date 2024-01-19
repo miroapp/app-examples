@@ -22,9 +22,9 @@ https://github.com/miroapp/app-examples/assets/10428517/b9d570ce-a0b4-4f2e-a8e6-
 # ⚙️ Included Features <a name="features"></a>
 
 - [Miro Web SDK](https://developers.miro.com/docs/web-sdk-reference)
-  - [drop event](https://developers.miro.com/docs/ui_boardui#drop-event)
-  - [createImage](https://developers.miro.com/docs/board_board#createimage)
-  - [openPanel(options)](https://developers.miro.com/docs/ui_boardui#openpanel)
+  - [miro.board.ui.on('drop')](https://developers.miro.com/docs/ui_boardui#drop-event)
+  - [miro.board.createImage](https://developers.miro.com/docs/board_board#createimage)
+  - [miro.board.ui.openPanel(options)](https://developers.miro.com/docs/ui_boardui#openpanel)
   - [draggable elements](https://developers.miro.com/docs/add-drag-and-drop-to-your-app#add-draggable-elements-to-the-app-panel)
 
 # 🛠️ Tools and Technologies <a name="tools"></a>

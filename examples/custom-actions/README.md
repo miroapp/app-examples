@@ -21,7 +21,12 @@ https://github.com/miroapp/app-examples/assets/10800544/4cd2c24b-877a-4ac0-a512-
 # ⚙️ Included Features <a name="features"></a>
 
 - [Miro Web SDK](https://developers.miro.com/docs/web-sdk-reference)
-- [Custom Actions](https://developers.miro.com/docs/action_customactionmanagement)
+  - [miro.board.notifications.showInfo()](https://developers.miro.com/docs/websdk-reference-notifications#showinfo)
+  - [miro.board.getInfo()](https://developers.miro.com/docs/websdk-reference-board#getinfo)
+  - [miro.board.createText()](https://developers.miro.com/docs/board_board#createtext)
+  - [miro.board.createStickyNote()](https://developers.miro.com/docs/websdk-reference-board#createstickynote)
+  - [miro.board.viewport.zoomTo()](https://developers.miro.com/docs/websdk-reference-viewport#zoomto)
+  - [Custom Actions](https://developers.miro.com/docs/action_customactionmanagement)
 
 # 🛠️ Tools and Technologies <a name="tools"></a>
 

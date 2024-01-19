@@ -20,9 +20,9 @@ This app shows how you can select items on the board, and then click the app ico
 # ⚙️ Included Features <a name="features"></a>
 
 - [Miro Web SDK](https://developers.miro.com/docs/web-sdk-reference)
-  - [getSelection()](https://developers.miro.com/docs/board_board#getselection)
-  - [remove()](https://developers.miro.com/docs/board_board#remove)
-  - [createShape()](https://developers.miro.com/docs/board_board#createshape)
+  - [miro.board.getSelection()](https://developers.miro.com/docs/board_board#getselection)
+  - [miro.board.remove()](https://developers.miro.com/docs/board_board#remove)
+  - [miro.board.createShape()](https://developers.miro.com/docs/board_board#createshape)
 
 # 🛠️ Tools and Technologies <a name="tools"></a>
 
