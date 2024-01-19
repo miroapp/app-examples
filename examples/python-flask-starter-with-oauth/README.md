@@ -19,7 +19,9 @@ https://github.com/miroapp/app-examples/assets/10800544/767dba77-c3dd-40b0-b6d7-
 # ⚙️ Included Features <a name="features"></a>
 
 - [Miro REST API](https://developers.miro.com/reference/api-reference)
+  - [GET /boards](https://developers.miro.com/reference/get-boards)
 - [Miro OAuth2.0](https://developers.miro.com/docs/getting-started-with-oauth)
+  - [GET https://api.miro.com/v1/oauth-token](https://developers.miro.com/reference/get-access-token-context)
 
 # 🛠️ Tools and Technologies <a name="tools"></a>
 

@@ -20,8 +20,8 @@ https://github.com/horeaporutiu/app-examples-template/assets/10428517/3e9aa5ea-0
 # ⚙️ Included Features <a name="features"></a>
 
 - [Miro Web SDK](https://developers.miro.com/docs/web-sdk-reference)
-  - [drop event](https://developers.miro.com/docs/ui_boardui#drop-event)
-  - [openPanel(options)](https://developers.miro.com/docs/ui_boardui#openpanel)
+  - [miro.board.ui.on('drop')](https://developers.miro.com/docs/ui_boardui#drop-event)
+  - [miro.board.ui.openPanel()](https://developers.miro.com/docs/ui_boardui#openpanel)
   - [draggable elements](https://developers.miro.com/docs/add-drag-and-drop-to-your-app#add-draggable-elements-to-the-app-panel)
 
 # 🛠️ Tools and Technologies <a name="tools"></a>

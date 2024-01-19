@@ -20,9 +20,9 @@ https://github.com/miroapp/app-examples/assets/10428517/24aacae3-5183-4142-bdae-
 # ⚙️ Included Features <a name="features"></a>
 
 - [Miro Web SDK](https://developers.miro.com/docs/web-sdk-reference)
-  - [createText()](https://developers.miro.com/docs/board_board#createtext)
-  - [createShape()](https://developers.miro.com/docs/board_board#createshape)
-  - [openPanel()](https://developers.miro.com/docs/ui_boardui#openpanel)
+  - [miro.board.createText()](https://developers.miro.com/docs/board_board#createtext)
+  - [miro.board.createShape()](https://developers.miro.com/docs/board_board#createshape)
+  - [miro.board.ui.openPanel()](https://developers.miro.com/docs/ui_boardui#openpanel)
 
 # 🛠️ Tools and Technologies <a name="tools"></a>
 
