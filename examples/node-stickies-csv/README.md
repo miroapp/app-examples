@@ -60,14 +60,19 @@ MIRO_BOARD_ID=<YOUR_MIRO_BOARD_ID>
    http://localhost:8000
    ```
 4. Open the [app manifest editor](https://developers.miro.com/docs/manually-create-an-app#step-2-configure-your-app-in-miro) by clicking **Edit in Manifest**. \
-   In the app manifest editor, configure the app as follows:
 
-   - [`sdkUri`](https://developers.miro.com/docs/app-manifest#sdkuri): assign `http://localhost:8000` as a value for this property.
-   - [`redirectUris`](https://developers.miro.com/docs/app-manifest?utm_source=app_manifest_editor#redirecturis): assign `http://localhost:8000/authorized/` as a value for this property. \
-   - [`scopes`](https://developers.miro.com/docs/app-manifest#scopes): add the permission scopes that users need to grant the app when they install it. \
-     To enable the app to read from and write to the board, add the following permissions:
-     - `boards:read`
-     - `boards:write`
+In the app manifest editor, configure the app as follows and click save:
+
+```yaml
+# See https://developers.miro.com/docs/app-manifest on how to use this
+appName: Node Stickes CSV
+sdkVersion: SDK_V2
+sdkUri: http://localhost:8000
+redirectUris: http://localhost:8000/authorized/
+scopes:
+  - boards:read
+  - boards:write
+```
 
 5. Go back to your app home page, and under the `Permissions` section, you will see a blue button that says `Install app and get OAuth token`. Click that button. Then click on `Add` as shown in the video below. <b>In the video we install a different app, but the process is the same regardless of the app.</b>
 
