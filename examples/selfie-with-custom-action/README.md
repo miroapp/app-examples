@@ -21,6 +21,14 @@ https://github.com/miroapp/app-examples/assets/7162412/46b1708d-fb08-412e-a7b2-3
 # ⚙️ Included Features <a name="features"></a>
 
 - [Miro Web SDK](https://developers.miro.com/docs/web-sdk-reference)
+
+  - [miro.board.getById()](https://developers.miro.com/docs/websdk-reference-board#getbyid)
+  - [miro.board.viewport.get()](https://developers.miro.com/docs/websdk-reference-viewport#get)
+  - [miro.board.viewport.zoomTo()](https://developers.miro.com/docs/websdk-reference-viewport#zoomto)
+  - [miro.board.createImage()](https://developers.miro.com/docs/board_board#createimage)
+  - [miro.board.ui.closeModal()](https://developers.miro.com/docs/websdk-reference-ui#closemodal)
+  - [miro.board.ui.openModal()](https://developers.miro.com/docs/websdk-reference-ui#openmodal)
+
 - [Custom Actions](https://developers.miro.com/docs/action_customactionmanagement)
 
 # 🛠️ Tools and Technologies <a name="tools"></a>
@@ -53,15 +61,18 @@ https://github.com/miroapp/app-examples/assets/7162412/46b1708d-fb08-412e-a7b2-3
    http://localhost:3000
    ```
 3. Open the [app manifest editor](https://developers.miro.com/docs/manually-create-an-app#step-2-configure-your-app-in-miro) by clicking **Edit in Manifest**. \
-   In the app manifest editor, configure the app as follows:
+   In the app manifest editor, configure the app as follows and click save:
 
-   - [`sdkUri`](https://developers.miro.com/docs/app-manifest#sdkuri): assign `http://localhost:3000` as a value for this property. \
-     It defines the entry point of the app, and it corresponds to the URL of the server that the app runs on.
-   - [`scopes`](https://developers.miro.com/docs/app-manifest#scopes): add the permission scopes that users need to grant the app when they install it. \
-     To enable the app to read from and write to the board, add the following permissions:
-     - `boards:read`
-     - `boards:write`
-     - `webcam:record`
+```yaml
+# See https://developers.miro.com/docs/app-manifest on how to use this
+appName: Selfie with Custom Actions
+sdkVersion: SDK_V2
+sdkUri: http://localhost:3000
+scopes:
+  - boards:read
+  - boards:write
+  - webcam:record
+```
 
 4. Go back to your app home page, and under the `Permissions` section, you will see a blue button that says `Install app and get OAuth token`. Click that button. Then click on `Add` as shown in the video below. <b>In the video we install a different app, but the process is the same regardless of the app.</b>
 

@@ -2,6 +2,8 @@
 
 This example shows you how leverage collaborative and real-time features, including sessions and real-time events and storage.
 
+> Note: To utilize all the functionality for this app, including the timer method, you will need to be on a Starter or higher Miro plan, and authorize the app under a non-developer team.
+
 # 👨🏻‍💻 App Demo
 
 https://github.com/miroapp/app-examples/assets/7162412/e03987e3-f85b-48ab-86b8-f4314c3c5e76
@@ -11,7 +13,6 @@ https://github.com/miroapp/app-examples/assets/7162412/e03987e3-f85b-48ab-86b8-f
 - [Included Features](#features)
 - [Tools and Technologies](#tools)
 - [Prerequisites](#prerequisites)
-- [Associated Developer Tutorial](#tutorial)
 - [Run the app locally](#run)
 - [Folder Structure](#folder)
 - [License](#license)
@@ -19,10 +20,41 @@ https://github.com/miroapp/app-examples/assets/7162412/e03987e3-f85b-48ab-86b8-f
 # ⚙️ Included Features <a name="features"></a>
 
 - [Miro Web SDK](https://developers.miro.com/docs/web-sdk-reference)
+
+  - [miro.board.canUse()](https://developers.miro.com/docs/websdk-reference-board#canuse) [in hooks.tsx](https://github.com/miroapp/app-examples/blob/main/examples/breakout-rooms/src/hooks.tsx#L581)
+  - [miro.board.getById()](https://developers.miro.com/docs/websdk-reference-board#getbyid) [in RoomConfig Component](https://github.com/miroapp/app-examples/blob/main/examples/breakout-rooms/src/components/RoomConfig/RoomConfig.tsx#L44)
+  - [miro.board.get()](https://developers.miro.com/docs/websdk-reference-board#get) [in hooks.tsx](https://github.com/miroapp/app-examples/blob/main/examples/breakout-rooms/src/hooks.tsx#L265)
+  - [miro.board.getUserInfo()](https://developers.miro.com/docs/websdk-reference-board#getuserinfo) [in hooks.tsx](https://github.com/miroapp/app-examples/blob/main/examples/breakout-rooms/src/hooks.tsx#L32)
+  - [miro.board.viewport.zoomTo()](https://developers.miro.com/docs/websdk-reference-viewport#zoomto) [in hooks.tsx](https://github.com/miroapp/app-examples/blob/main/examples/breakout-rooms/src/hooks.tsx#L363)
+  - [miro.board.deselect()](https://developers.miro.com/docs/websdk-reference-experimental#deselect) [in BreakoutManager Component](https://github.com/miroapp/app-examples/blob/main/examples/breakout-rooms/src/components/BreakoutManager/BreakoutManager.tsx#L110)(_experimental_)
+  - [miro.board.notifications.showError()](https://developers.miro.com/docs/websdk-reference-notifications#showerror) [in BreakoutManager Component](https://github.com/miroapp/app-examples/blob/main/examples/breakout-rooms/src/components/BreakoutManager/BreakoutManager.tsx#L76)
+  - [miro.board.notifications.showInfo()](https://developers.miro.com/docs/websdk-reference-notifications#showinfo) [in BreakoutManager Component](https://github.com/miroapp/app-examples/blob/main/examples/breakout-rooms/src/components/BreakoutManager/BreakoutManager.tsx#L70-L72)
+
 - [Collaborative sessions](https://developers.miro.com/docs/websdk-reference-session)
-- [Attention Management](https://developers.miro.com/docs/websdk-reference-collaboration)
+  - [miro.board.collaboration.startSession()](https://developers.miro.com/docs/websdk-reference-collaboration#startsession) [in hooks.tsx](https://github.com/miroapp/app-examples/blob/main/examples/breakout-rooms/src/hooks.tsx#L320)
+  - [miro.board.collaboration.getSessions()](https://developers.miro.com/docs/websdk-reference-collaboration#getsessions) [in hooks.tsx](https://github.com/miroapp/app-examples/blob/main/examples/breakout-rooms/src/hooks.tsx#L315)
+  - [miro.board.collaboration.zoomTo()](https://developers.miro.com/docs/websdk-reference-collaboration#zoomto) [in hooks.tsx](https://github.com/miroapp/app-examples/blob/main/examples/breakout-rooms/src/hooks.tsx#L274)
 - [Real-time events](https://developers.miro.com/docs/websdk-reference-events)
+  - [miro.board.events.on()](https://developers.miro.com/docs/websdk-reference-events#on) [in BreakoutManager Component](https://github.com/miroapp/app-examples/blob/main/examples/breakout-rooms/src/components/BreakoutManager/BreakoutManager.tsx#L95)
+  - [miro.board.events.off()](https://developers.miro.com/docs/websdk-reference-events#off) [in BreakoutManager Component](https://github.com/miroapp/app-examples/blob/main/examples/breakout-rooms/src/components/BreakoutManager/BreakoutManager.tsx#L98)
+  - [miro.board.events.broadcast()](https://developers.miro.com/docs/websdk-reference-events#broadcast) [in WaitingRoom Component](https://github.com/miroapp/app-examples/blob/main/examples/breakout-rooms/src/components/WaitingRoom/WaitingRoom.tsx#L18)
 - [Real-time storage](https://developers.miro.com/docs/websdk-reference-storage)
+
+  - [miro.board.storage.collection()](https://developers.miro.com/docs/websdk-reference-storage#collection) [in hooks.tsx](https://github.com/miroapp/app-examples/blob/main/examples/breakout-rooms/src/hooks.tsx#L52)
+  - [miro.board.storage.collection.set()](https://developers.miro.com/docs/websdk-reference-collection#set) [in hooks.tsx](https://github.com/miroapp/app-examples/blob/main/examples/breakout-rooms/src/hooks.tsx#L89)
+  - [miro.board.storage.collection.get()](https://developers.miro.com/docs/websdk-reference-collection#get) [in hooks.tsx](https://github.com/miroapp/app-examples/blob/main/examples/breakout-rooms/src/hooks.tsx#L60)
+  - [miro.board.storage.collection.remove()](https://developers.miro.com/docs/websdk-reference-collection#remove) [in hooks.tsx](https://github.com/miroapp/app-examples/blob/main/examples/breakout-rooms/src/hooks.tsx#L409)
+  - [miro.board.storage.collection.onValue](https://developers.miro.com/docs/websdk-reference-collection#onvalue) [in hooks.tsx](https://github.com/miroapp/app-examples/blob/main/examples/breakout-rooms/src/hooks.tsx#L61)
+  - [miro.board.storage.collection.offValue](https://developers.miro.com/docs/websdk-reference-collection#offvalue) [in hooks.tsx](https://github.com/miroapp/app-examples/blob/main/examples/breakout-rooms/src/hooks.tsx#L64)
+
+- [Timer](https://developers.miro.com/docs/websdk-reference-timer)
+  - [miro.board.timer.get()](https://developers.miro.com/docs/websdk-reference-timer#get) [in hooks.tsx](https://github.com/miroapp/app-examples/blob/main/examples/breakout-rooms/src/hooks.tsx#L541)
+  - [miro.board.timer.isStarted()](https://developers.miro.com/docs/websdk-reference-timer#isstarted) [in hooks.tsx](https://github.com/miroapp/app-examples/blob/main/examples/breakout-rooms/src/hooks.tsx#L461)
+  - [miro.board.timer.start()](https://developers.miro.com/docs/websdk-reference-timer#start) [in hooks.tsx](https://github.com/miroapp/app-examples/blob/main/examples/breakout-rooms/src/hooks.tsx#L448)
+  - [miro.board.timer.pause()](https://developers.miro.com/docs/websdk-reference-timer#pause) [in hooks.tsx](https://github.com/miroapp/app-examples/blob/main/examples/breakout-rooms/src/hooks.tsx#L454)
+  - [miro.board.timer.stop()](https://developers.miro.com/docs/websdk-reference-timer#stop) [in hooks.tsx](https://github.com/miroapp/app-examples/blob/main/examples/breakout-rooms/src/hooks.tsx#L463)
+  - [miro.board.timer.on()](https://developers.miro.com/docs/websdk-reference-timer#on) [in hooks.tsx](https://github.com/miroapp/app-examples/blob/main/examples/breakout-rooms/src/hooks.tsx#L556-L558)
+  - [miro.board.timer.off()](https://developers.miro.com/docs/websdk-reference-timer#off) [in hooks.tsx](https://github.com/miroapp/app-examples/blob/main/examples/breakout-rooms/src/hooks.tsx#L561-L563)
 
 # 🛠️ Tools and Technologies <a name="tools"></a>
 
@@ -40,11 +72,6 @@ https://github.com/miroapp/app-examples/assets/7162412/e03987e3-f85b-48ab-86b8-f
 - Your Miro account has a [Developer team](https://developers.miro.com/docs/create-a-developer-team).
 - Your development environment includes [Node.js 14.13](https://nodejs.org/en/download) or a later version.
 - All examples use `npm` as a package manager and `npx` as a package runner.
-
-# 📖 Associated Developer Tutorial <a name="tutorial"></a>
-
-> To view a more in depth developer tutorial
-> of this app (including code explanations) see the [custom actions tutorial](https://developers.miro.com/docs/add-custom-actions-to-your-app) on Miro's Developer documentation.
 
 # 🏃🏽‍♂️ Run the app locally <a name="run"></a>
 

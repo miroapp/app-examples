@@ -19,7 +19,14 @@ https://github.com/miroapp/app-examples/assets/10800544/a0aaea4a-a95c-42f5-abb3-
 # ⚙️ Included Features <a name="features"></a>
 
 - [Miro Web SDK](https://developers.miro.com/docs/web-sdk-reference)
-- [Drag and Drop](https://developers.miro.com/docs/add-drag-and-drop-to-your-app)
+  - [miro.board.createShape()](https://developers.miro.com/docs/board_board#createshape)
+  - [miro.board.createText()](https://developers.miro.com/docs/board_board#createtext)
+  - [miro.board.createStickyNote()](https://developers.miro.com/docs/websdk-reference-board#createstickynote)
+  - [miro.board.createFrame()](https://developers.miro.com/docs/websdk-reference-board#createframe)
+  - [miro.board.createCard()](https://developers.miro.com/docs/websdk-reference-board#createcard)
+  - [miro.board.getUserInfo()](https://developers.miro.com/docs/websdk-reference-board#getuserinfo)
+  - [miro.board.getSelection()](https://developers.miro.com/docs/websdk-reference-board#getselection)
+  - [miro.board.ui.on("drop")](https://developers.miro.com/docs/ui_boardui#drop-event)
 
 # 🛠️ Tools and Technologies <a name="tools"></a>
 
@@ -67,14 +74,17 @@ const firebaseConfig = {
    http://localhost:3000
    ```
 4. Open the [app manifest editor](https://developers.miro.com/docs/manually-create-an-app#step-2-configure-your-app-in-miro) by clicking **Edit in Manifest**. \
-   In the app manifest editor, configure the app as follows:
+   In the app manifest editor, configure the app as follows, and then click save:
 
-   - [`sdkUri`](https://developers.miro.com/docs/app-manifest#sdkuri): assign `http://localhost:3000` as a value for this property. \
-     It defines the entry point of the app, and it corresponds to the URL of the server that the app runs on.
-   - [`scopes`](https://developers.miro.com/docs/app-manifest#scopes): add the permission scopes that users need to grant the app when they install it. \
-     To enable the app to read from and write to the board, add the following permissions:
-     - `boards:read`
-     - `boards:write`
+```yaml
+# See https://developers.miro.com/docs/app-manifest on how to use this
+appName: Connect Firebase
+sdkVersion: SDK_V2
+sdkUri: http://localhost:3000
+scopes:
+  - boards:read
+  - boards:write
+```
 
 5. Go back to your app home page, and under the `Permissions` section, you will see a blue button that says `Install app and get OAuth token`. Click that button. Then click on `Add` as shown in the video below. <b>In the video we install a different app, but the process is the same regardless of the app.</b>
 

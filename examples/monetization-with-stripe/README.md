@@ -79,15 +79,19 @@ Copy that new link and update it in the [Paywall Component file](https://github.
    http://localhost:3000
    ```
 4. Open the [app manifest editor](https://developers.miro.com/docs/manually-create-an-app#step-2-configure-your-app-in-miro) by clicking **Edit in Manifest**. \
-   In the app manifest editor, configure the app as follows:
 
-   - [`sdkUri`](https://developers.miro.com/docs/app-manifest#sdkuri): assign `http://localhost:3000` as a value for this property.
-   - [`redirectUris`](https://developers.miro.com/docs/app-manifest?utm_source=app_manifest_editor#redirecturis): assign `http://localhost:3000/api/redirect/` as a value for this property.
-     It defines the entry point of the app, and it corresponds to the URL of the server that the app runs on.
-   - [`scopes`](https://developers.miro.com/docs/app-manifest#scopes): add the permission scopes that users need to grant the app when they install it.
-     To enable the app to read from and write to the board, add the following permissions:
-     - `boards:read`
-     - `boards:write`
+   In the app manifest editor, configure the app as follows and click save:
+
+```yaml
+# See https://developers.miro.com/docs/app-manifest on how to use this
+appName: Monetization with Stripe
+sdkVersion: SDK_V2
+sdkUri: http://localhost:3000
+redirectUris: http://localhost:3000/api/redirect/
+scopes:
+  - boards:read
+  - boards:write
+```
 
 5. Go to **Redirect URI for OAuth2.0**, click **Options**. for the localhost path. \
    From the drop-down menu select **Use this URI for SDK authorization**.

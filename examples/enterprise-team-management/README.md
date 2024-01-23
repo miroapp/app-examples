@@ -20,7 +20,22 @@ https://github.com/miroapp/app-examples/assets/10800544/6096bd94-b0a2-46bf-a01f-
 # ⚙️ Included Features <a name="features"></a>
 
 - [Miro REST API](https://developers.miro.com/reference/api-reference)
+
+  - /GET [https://api.miro.com/v1/oauth-token](https://developers.miro.com/reference/get-access-token-context)
+
 - [Miro Enterprise REST APIs](https://developers.miro.com/reference/enterprise-create-team)
+  - /GET [https://api.miro.com/v2/orgs/{org_id}](https://developers.miro.com/reference/enterprise-get-organization)
+  <!-- - /GET [https://api.miro.com/v2/teams_settings/{team_id}](https://developers.miro.com/reference/enterprise-get-team-settings) -->
+  - /GET [https://api.miro.com/v2/orgs/{org_id}/teams] i.e. List Teams API (https://developers.miro.com/reference/enterprise-get-teams)
+  - /GET [https://api.miro.com/v2/orgs/{org_id}/teams/{team_id}/members] i.e. List Team Members API (https://developers.miro.com/reference/enterprise-get-team-members)
+  - /POST [https://api.miro.com/v2/orgs/{org_id}/teams] i.e. Create Team API (https://developers.miro.com/reference/enterprise-create-team)
+  - /POST [https://api.miro.com/v2/orgs/{org_id}/teams/{team_id}/members] i.e. Invite Team Members API (https://developers.miro.com/reference/enterprise-invite-team-member)
+  - /PATCH [https://api.miro.com/v2/orgs/{org_id}/teams/{team_id}/members/{member_id}] i.e. Update Team Members API (https://developers.miro.com/reference/enterprise-update-team-member)
+  - /DELETE [https://api.miro.com/v2/orgs/{org_id}/teams/{team_id}/members/{member_id}] i.e. Delete team member from team API (https://developers.miro.com/reference/enterprise-delete-team-member)
+  - /DELETE [https://api.miro.com/v2/orgs/{org_id}/teams/{team_id}] i.e. Delete team API (https://developers.miro.com/reference/enterprise-delete-team)
+  - /POST [https://api.miro.com/v2/boards] i.e. Create Board API (https://developers.miro.com/reference/create-board)
+  - /POST [https://api.miro.com/v2/boards/{board_id}/sticky_notes] i.e. Create Sticky Note API (https://developers.miro.com/reference/create-sticky-note-item)
+  - /GET [https://api.miro.com/v2/orgs/{org_id}/teams] i.e. List Teams API (https://developers.miro.com/reference/enterprise-get-teams)
 
 # 🛠️ Tools and Technologies <a name="tools"></a>
 
@@ -46,19 +61,23 @@ ACCESS_TOKEN="{YOUR_ACCESS_TOKEN}"
 
 3. Run `npm install` to install dependencies.
 4. Open the [app manifest editor](https://developers.miro.com/docs/manually-create-an-app#step-2-configure-your-app-in-miro) by clicking **Edit in Manifest**. \
-   In the app manifest editor, configure the app as follows:
 
-   - [`redirectUris`](https://developers.miro.com/docs/app-manifest#redirectUris): assign `http://localhost:3000` as a value for this property. \
-     It defines the redirect url that the script will use for OAuth2.0.
-   - [`scopes`](https://developers.miro.com/docs/app-manifest#scopes): add the permission scopes that the script will need in order to call each of the included API endpoints. \
-     Add the following permissions:
-     - `boards:read`
-     - `boards:write`
-     - `organizations:read`
-     - `organizations:teams:write`
-     - `organizations:teams:read`
-     - `team:read`
-     - `team:write`
+In the app manifest editor, configure the app as follows and then click save:
+
+```yaml
+# See https://developers.miro.com/docs/app-manifest on how to use this
+appName: Enterprise Team Management
+sdkVersion: SDK_V2
+sdkUri: http://localhost:3000
+scopes:
+  - boards:read
+  - boards:write
+  - organizations:read
+  - organizations:teams:write
+  - organizations:teams:read
+  - team:read
+  - team:write
+```
 
 5. Go back to your app home page, and under the `Permissions` section, you will see a blue button that says `Install app and get OAuth token`. Click that button. Then click on `Add` as shown in the video below. This will generate an access_token.
 

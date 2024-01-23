@@ -21,7 +21,12 @@ https://github.com/miroapp/app-examples/assets/10800544/4cd2c24b-877a-4ac0-a512-
 # ⚙️ Included Features <a name="features"></a>
 
 - [Miro Web SDK](https://developers.miro.com/docs/web-sdk-reference)
-- [Custom Actions](https://developers.miro.com/docs/action_customactionmanagement)
+  - [miro.board.notifications.showInfo()](https://developers.miro.com/docs/websdk-reference-notifications#showinfo)
+  - [miro.board.getInfo()](https://developers.miro.com/docs/websdk-reference-board#getinfo)
+  - [miro.board.createText()](https://developers.miro.com/docs/board_board#createtext)
+  - [miro.board.createStickyNote()](https://developers.miro.com/docs/websdk-reference-board#createstickynote)
+  - [miro.board.viewport.zoomTo()](https://developers.miro.com/docs/websdk-reference-viewport#zoomto)
+  - [Custom Actions](https://developers.miro.com/docs/action_customactionmanagement)
 
 # 🛠️ Tools and Technologies <a name="tools"></a>
 
@@ -53,14 +58,17 @@ https://github.com/miroapp/app-examples/assets/10800544/4cd2c24b-877a-4ac0-a512-
    http://localhost:3000
    ```
 3. Open the [app manifest editor](https://developers.miro.com/docs/manually-create-an-app#step-2-configure-your-app-in-miro) by clicking **Edit in Manifest**. \
-   In the app manifest editor, configure the app as follows:
+   In the app manifest editor, configure the app as follows and then click save:
 
-   - [`sdkUri`](https://developers.miro.com/docs/app-manifest#sdkuri): assign `http://localhost:3000` as a value for this property. \
-     It defines the entry point of the app, and it corresponds to the URL of the server that the app runs on.
-   - [`scopes`](https://developers.miro.com/docs/app-manifest#scopes): add the permission scopes that users need to grant the app when they install it. \
-     To enable the app to read from and write to the board, add the following permissions:
-     - `boards:read`
-     - `boards:write`
+```yaml
+# See https://developers.miro.com/docs/app-manifest on how to use this
+appName: Custom Actions
+sdkVersion: SDK_V2
+sdkUri: http://localhost:3000
+scopes:
+  - boards:read
+  - boards:write
+```
 
 4. Go back to your app home page, and under the `Permissions` section, you will see a blue button that says `Install app and get OAuth token`. Click that button. Then click on `Add` as shown in the video below. <b>In the video we install a different app, but the process is the same regardless of the app.</b>
 
