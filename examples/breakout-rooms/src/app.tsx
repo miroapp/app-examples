@@ -1,5 +1,3 @@
-"use client";
-
 import * as React from "react";
 import { MiroProvider } from "@mirohq/websdk-react-hooks";
 
@@ -12,6 +10,7 @@ import { ErrorBoundary } from "./components/ErrorBoundary";
 const App: React.FC = () => {
   const { isFacilitator, breakout } = useBreakout();
   const [waitingRoomRendered, setWaitingRoomRendered] = React.useState(false);
+  const [BreakoutManagerRendered, setBreakoutManagerRendered] = React.useState(false);
 
   const areYouReady = isFacilitator || !breakout;
 
@@ -20,14 +19,21 @@ const App: React.FC = () => {
       setWaitingRoomRendered(true);
     }
   };
+  
+  const renderBreakoutManager = () => {
+    if (!BreakoutManagerRendered) {
+      setBreakoutManagerRendered(true);
+    }
+  };  
 
+  const hasBreakoutManager = !BreakoutManagerRendered ? <BreakoutManager onRender={renderBreakoutManager} /> : null
+  const haswaitingRoom = !waitingRoomRendered ? <WaitingRoom onRender={renderWaitingRoom} /> : null
+  
+  
   return (
     <ErrorBoundary>
       <MiroProvider>
-        {areYouReady ? <BreakoutManager /> : null}
-        {!areYouReady && !waitingRoomRendered ? (
-          <WaitingRoom onRender={renderWaitingRoom} />
-        ) : null}
+        {areYouReady ? hasBreakoutManager : haswaitingRoom }
       </MiroProvider>
     </ErrorBoundary>
   );
