@@ -22,9 +22,9 @@ on a Miro board.
 
 - [Miro Web SDK](https://developers.miro.com/docs/web-sdk-reference)
   - [icon:click event](https://developers.miro.com/docs/ui_boardui#iconclick-event)
-  - [getInfo()](https://developers.miro.com/docs/board_board#getinfo)
-  - [openModal()](https://developers.miro.com/docs/ui_boardui#openmodal)
-  - [openPanel()](https://developers.miro.com/docs/ui_boardui#openpanel)
+  - [miro.board.getInfo()](https://developers.miro.com/docs/board_board#getinfo)
+  - [miro.board.ui.openModal()](https://developers.miro.com/docs/ui_boardui#openmodal)
+  - [miro.board.ui.openPanel()](https://developers.miro.com/docs/ui_boardui#openpanel)
 
 # 🛠️ Tools and Technologies <a name="tools"></a>
 

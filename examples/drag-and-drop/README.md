@@ -20,8 +20,8 @@ https://github.com/horeaporutiu/app-examples-template/assets/10428517/3e9aa5ea-0
 # ⚙️ Included Features <a name="features"></a>
 
 - [Miro Web SDK](https://developers.miro.com/docs/web-sdk-reference)
-  - [drop event](https://developers.miro.com/docs/ui_boardui#drop-event)
-  - [openPanel(options)](https://developers.miro.com/docs/ui_boardui#openpanel)
+  - [miro.board.ui.on('drop')](https://developers.miro.com/docs/ui_boardui#drop-event)
+  - [miro.board.ui.openPanel()](https://developers.miro.com/docs/ui_boardui#openpanel)
   - [draggable elements](https://developers.miro.com/docs/add-drag-and-drop-to-your-app#add-draggable-elements-to-the-app-panel)
 
 # 🛠️ Tools and Technologies <a name="tools"></a>
@@ -52,14 +52,17 @@ https://github.com/horeaporutiu/app-examples-template/assets/10428517/3e9aa5ea-0
    http://localhost:3000
    ```
 3. Open the [app manifest editor](https://developers.miro.com/docs/manually-create-an-app#step-2-configure-your-app-in-miro) by clicking **Edit in Manifest**. \
-   In the app manifest editor, configure the app as follows:
+   In the app manifest editor, configure the app as follows and then click save:
 
-   - [`sdkUri`](https://developers.miro.com/docs/app-manifest#sdkuri): assign `http://localhost:3000` as a value for this property. \
-     It defines the entry point of the app, and it corresponds to the URL of the server that the app runs on.
-   - [`scopes`](https://developers.miro.com/docs/app-manifest#scopes): add the permission scopes that users need to grant the app when they install it. \
-     To enable the app to read from and write to the board, add the following permissions:
-     - `boards:read`
-     - `boards:write`
+```yaml
+# See https://developers.miro.com/docs/app-manifest on how to use this
+appName: Drag and Drop
+sdkVersion: SDK_V2
+sdkUri: http://localhost:3000
+scopes:
+  - boards:read
+  - boards:write
+```
 
 4. Go back to your app home page, and under the `Permissions` section, you will see a blue button that says `Install app and get OAuth token`. Click that button. Then click on `Add` as shown in the video below.
 

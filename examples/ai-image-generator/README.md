@@ -26,10 +26,11 @@ Watch the video below for a demo, code walkthrough, and to learn how to set up t
 # ⚙️ Included Features <a name="features"></a>
 
 - [Miro Web SDK](https://developers.miro.com/docs/web-sdk-reference)
-  - [drop event](https://developers.miro.com/docs/ui_boardui#drop-event)
-  - [openPanel(options)](https://developers.miro.com/docs/ui_boardui#openpanel)
+  - [miro.board.ui.on('drop')](https://developers.miro.com/docs/ui_boardui#drop-event)
+  - [miro.board.ui.openPanel()](https://developers.miro.com/docs/ui_boardui#openpanel)
+  - [miro.board.createImage](https://developers.miro.com/docs/board_board#createimage)
   - [draggable elements](https://developers.miro.com/docs/add-drag-and-drop-to-your-app#add-draggable-elements-to-the-app-panel)
-  - [zoomTo](https://developers.miro.com/docs/viewport_viewport#zoomto)
+  - [miro.board.viewport.zoomTo()](https://developers.miro.com/docs/viewport_viewport#zoomto)
 
 # 🛠️ Tools and Technologies <a name="tools"></a>
 
