@@ -131,11 +131,10 @@ export const BreakoutManager: React.FC = () => {
 
   const handleSplitUsers = async () => {
     const count = rooms.length;
-
+ 
     // This needs to be only new users
     const users = unassignedUsers;
-    const roomSize = Math.max(Math.floor(users.length / count), 1);
-
+    const roomSize = Math.max(Math.ceil(users.length / count), 1);
     const usersInRooms: OnlineUserInfo[][] = [];
 
     for (let i = 0; i < users.length; i += roomSize) {
