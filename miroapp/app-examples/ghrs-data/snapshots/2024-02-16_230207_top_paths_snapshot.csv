@@ -1,0 +1,11 @@
+url_path,views_total,views_unique
+/miroapp/app-examples,333,250
+/miroapp/app-examples/tree/main/examples,200,57
+/miroapp/app-examples/tree/main/examples/csv-to-mindmap,184,50
+/miroapp/app-examples/tree/main/examples/blob-maker,126,47
+/miroapp/app-examples/tree/main/examples/drag-and-drop,107,35
+/miroapp/app-examples/tree/main/examples/ai-image-generator,91,31
+/miroapp/app-examples/tree/main/examples/template-builder,64,13
+/miroapp/app-examples/tree/main/examples/breakout-rooms,49,21
+/miroapp/app-examples/tree/main/examples/nextjs-oauth,40,13
+/miroapp/app-examples/tree/main/examples/csv-to-mindmap/src,38,9
