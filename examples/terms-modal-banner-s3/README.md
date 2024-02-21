@@ -9,7 +9,7 @@ This app creates a custom modal banner on your Miro boards that you can show to 
 
 # 👨🏻‍💻 App Demo
 
-https://github.com/miroapp/app-examples/assets/10428517/f75d4e56-cc2e-4e39-af40-7881326e99d0
+https://github.com/miroapp/app-examples/assets/10428517/16e009f7-70f2-435b-bd61-f11845ad3197
 
 # 📒 Table of Contents
 
@@ -81,7 +81,7 @@ scopes:
 
 > ⚠️ We recommend to install your app on a [developer team](https://developers.miro.com/docs/create-a-developer-team) while you are developing or testing apps.⚠️
 
-https://github.com/miroapp/app-examples/assets/10428517/1e6862de-8617-46ef-b265-97ff1cbfe8bf
+https://github.com/miroapp/app-examples/assets/10428517/43922ea1-d619-4480-af23-029a1a4e67d8
 
 4. Go to the team in which you installed the app, and open a board.
 5. Once you open the board, the modal should appear within a few seconds.
