@@ -94,9 +94,12 @@ https://github.com/miroapp/app-examples/assets/10428517/1e6862de-8617-46ef-b265-
 
 ```
 .
-├── webassets <-- HTML and JavaScript files for the Miro app
-├── getSignedURL <-- Source code for the serverless backend
-├── samconfig.toml <-- Configuration code for AWS SAM (AWS Serverless Application Model)
+├── getSignedURL <-- Source code for the serverless backend.
+│  └── app.js    // The code to add userID to S3 bucket once user accepts terms.
+├── webassets <-- HTML and JavaScript files for the Miro app.
+│  ├── app.html // The code which uses Miro WebSDK to open the modal for the user.
+│  └── modal.html // The code which serves as the UI for the terms which the user will accept.
+
 ├── template.yaml <-- The yaml code used to generate AWS resources via AWS SAM.
 ```
 
