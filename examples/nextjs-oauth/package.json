@@ -11,7 +11,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "axios": "^0.27.2",
+    "axios": "^0.28.0",
     "cookie": "^0.5.0",
     "next": "^13.5.1",
     "react": "^18.2.0",
