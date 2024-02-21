@@ -32,6 +32,8 @@ If you have any questions or need assistance setting up this application, please
 - [Miro Web SDK](https://developers.miro.com/docs/web-sdk-reference)
   - [miro.board.ui.canOpenModal()](https://developers.miro.com/docs/websdk-reference-ui#canopenmodal)
   - [miro.board.ui.openModal()](https://developers.miro.com/docs/websdk-reference-ui#openmodal)
+  - [miro.board.ui.closeModal()](https://developers.miro.com/docs/websdk-reference-ui#closemodal)
+  - [miro.board.getUserInfo()](https://developers.miro.com/docs/websdk-reference-board#getuserinfo)
 
 # 🛠️ Tools and Technologies <a name="tools"></a>
 
