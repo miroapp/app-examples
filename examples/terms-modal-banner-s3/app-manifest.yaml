@@ -1,8 +1,0 @@
-# See https://developers.miro.com/docs/app-manifest on how to use this
-# make sure to replace the sdkUri with the correct URL (it will be different for each deployment)
-appName: s3-modal-banner
-sdkVersion: SDK_V2
-sdkUri: >-
-  https://s3-miro-terms-banner-12345.s3.amazonaws.com/webassets/app.html
-scopes:
-  - identity:read
