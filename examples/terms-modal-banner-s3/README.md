@@ -40,8 +40,8 @@ If you have any questions or need assistance setting up this application, please
 - [AWS CLI](https://aws.amazon.com/cli/)
 - [AWS SAM CLI](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-install.html)
 - [AWS CloudFormation](https://aws.amazon.com/cloudformation/)
-- [AWS S3](https://react.dev/)
-- [AWS Lambda](https://react.dev/)
+- [AWS S3](https://aws.amazon.com/s3/)
+- [AWS Lambda](https://aws.amazon.com/lambda/)
 - [AWS API Gateway](https://aws.amazon.com/api-gateway/)
 
 # ✅ Prerequisites <a name="prerequisites"></a>
