@@ -41,6 +41,7 @@ If you have any questions or need assistance setting up this application, please
 - [AWS SAM CLI](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-install.html)
 - [AWS CloudFormation](https://aws.amazon.com/cloudformation/)
 - [AWS DynamoDB](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html)
+- [AWS S3](https://docs.aws.amazon.com/s3)
 - [AWS Lambda](https://aws.amazon.com/lambda/)
 - [AWS API Gateway](https://aws.amazon.com/api-gateway/)
 
