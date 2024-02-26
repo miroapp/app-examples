@@ -1,0 +1,192 @@
+<!-- modal.html -->
+<!doctype html>
+<html lang="en">
+  <head>
+    <script
+      id="miro-sdk2"
+      src="https://miro.com/app/static/sdk/v2/miro.js"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/mirotone@^5/dist/styles.css"
+    />
+    <link
+      rel="icon"
+      href="data:image/gif;base64,R0lGODlhAQABAAAAACwAAAAAAQABAAA="
+    />
+    <style type="text/css">
+      body {
+        font-family: Arial, sans-serif, Helvetica;
+        font-size: 15px;
+      }
+      a {
+        text-decoration: none;
+      }
+      button {
+        margin: 0 !important;
+      }
+      .centered-content {
+        box-sizing: border-box;
+        min-width: 520px;
+        top: 50%;
+        left: 50%;
+        position: absolute;
+        transform: translateX(-50%) translateY(-50%);
+        text-align: center;
+      }
+      .modal-company-logo {
+        margin-bottom: 10px;
+      }
+      .centered-text {
+        padding: 16px 0;
+        line-height: 1.5;
+      }
+      .accept-button-bottom {
+        margin-top: 10px;
+      }
+      #processing_button {
+        display: none;
+        width: 76.8px;
+        height: 36px;
+        pointer-events: none;
+      }
+      #success_button {
+        display: none;
+        justify-content: center;
+        width: 76.8px;
+        height: 36px;
+        pointer-events: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="miro_modal_content" class="miro-modal-content">
+      <div class="miro_migration_extension_modal">
+        <div class="centered-content">
+          <div class="modal-company-logo">
+            <img
+              src="https://cdn.glitch.global/4f98c007-803b-4cf7-a2b5-b3588c78f747/test_company_logo.svg?v=1706009413835"
+              alt="Company Logo"
+            />
+          </div>
+          <div class="centered-text">
+            To use Company Inc.'s Miro boards, please accept the
+            <a href="#">Usage Policy</a>.<br />
+            Please reach out to your IT administrator for more information on
+            the security requirements for using Company Inc.'s Miro boards.
+          </div>
+          <div class="accept-button-bottom">
+            <button
+              type="button"
+              id="accept_bottom"
+              class="button button-primary button-small"
+            >
+              Accept
+            </button>
+            <button
+              type="button"
+              class="button button-primary button-medium button-loading"
+              id="processing_button"
+            ></button>
+            <button
+              type="button"
+              class="button button-primary button-medium"
+              id="success_button"
+            >
+              <svg
+                style="width: 16px"
+                enable-background="new 0 0 122.877 101.052"
+                version="1.1"
+                viewBox="0 0 122.88 101.05"
+                xml:space="preserve"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="m4.4299 63.629c-2.869-2.755-4.352-6.42-4.427-10.11-0.074-3.689 1.261-7.412 4.015-10.281 2.752-2.867 6.417-4.351 10.106-4.425 3.691-0.076 7.412 1.255 10.283 4.012l24.787 23.851 49.349-62.688 1.768 1.349-1.77-1.355c0.141-0.183 0.301-0.339 0.479-0.466 2.936-2.543 6.621-3.691 10.223-3.495v-4e-3l0.176 0.016c3.623 0.24 7.162 1.85 9.775 4.766 2.658 2.965 3.863 6.731 3.662 10.412h4e-3l-0.016 0.176c-0.236 3.558-1.791 7.035-4.609 9.632l-59.224 72.09 4e-3 4e-3c-0.111 0.141-0.236 0.262-0.372 0.368-2.773 2.435-6.275 3.629-9.757 3.569-3.511-0.061-7.015-1.396-9.741-4.016z"
+                  fill="#fff"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script id="variables" src="variables.js"></script>
+    <script>
+      var acceptButton = document.getElementById("accept_bottom");
+      var processingButton = document.getElementById("processing_button");
+      var successButton = document.getElementById("success_button");
+
+      function showProcessingButton() {
+        acceptButton.style.display = "none";
+        processingButton.style.display = "unset";
+      }
+
+      function showSuccessButton() {
+        processingButton.style.display = "none";
+        successButton.style.display = "unset";
+      }
+
+      async function callApi(url, method, body, token) {
+        const reqHeaders = {
+          accept: "application/json",
+          "cache-control": "no-cache",
+          //'authorization': token //Uncomment this line if you are using an authorization token
+        };
+
+        const reqOptions = {
+          method: method,
+          headers: reqHeaders,
+          body: body,
+          mode: "cors",
+        };
+
+        const reqResponse = await fetch(url, reqOptions)
+          .then((res) => {
+            return res["json"]().then((data) => ({
+              status: res.status,
+              body: data,
+            }));
+          })
+          .catch((error) => {
+            return error;
+          });
+
+        return reqResponse;
+      }
+
+      async function acceptTerms() {
+        showProcessingButton();
+        const userInfo = await miro.board.getUserInfo();
+        const userId = userInfo.id;
+        const apiUrl = API_ENDPOINT_BASE_URL + "/Prod/w";
+        const payload = `{ "id": "${userId}" }`;
+        const capture = await callApi(apiUrl, "POST", payload);
+        if (capture.status === 200) {
+          showSuccessButton();
+          return "success";
+        } else {
+          return capture.body;
+        }
+      }
+
+      var delay = (ms) => new Promise((res) => setTimeout(res, ms));
+      var holdScriptExecution = async (ms) => {
+        await delay(ms);
+      };
+
+      document
+        .getElementById("accept_bottom")
+        .addEventListener("click", async (e) => {
+          var accept = await acceptTerms();
+          if (accept === "success") {
+            console.log("Terms modal successfully accepted and recorded...");
+            await holdScriptExecution(700);
+            miro.board.ui.closeModal();
+          } else {
+            console.error(accept);
+          }
+        });
+    </script>
+  </body>
+</html>
