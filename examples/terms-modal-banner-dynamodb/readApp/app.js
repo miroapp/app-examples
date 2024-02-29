@@ -15,25 +15,7 @@ exports.handler = async (event) => {
     "Content-Type": "application/json",
   };
 
-  if (
-    event &&
-    !!Object.getOwnPropertyDescriptor(event, "queryStringParameters") &&
-    !event.queryStringParameters
-  ) {
-    /* Returning a 400 error if the URL parameter "u" is not passed in the GET request */
-    return {
-      statusCode: 400,
-      headers: responseHeaders,
-      body: JSON.stringify({ error: "Bad Request" }),
-    };
-  }
-
-  if (
-    event &&
-    !!Object.getOwnPropertyDescriptor(event, "queryStringParameters") &&
-    !!Object.getOwnPropertyDescriptor(event.queryStringParameters, "u") &&
-    event.queryStringParameters.u !== ""
-  ) {
+  if (event?.queryStringParameters?.u) {
     const userId = event.queryStringParameters.u.toString();
     const isValidUserId = onlyLettersAndNumbers(userId);
 

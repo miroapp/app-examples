@@ -53,6 +53,26 @@ Resources:
                     ".amazonaws.com",
                   ],
                 ]
+              - !Join [
+                  "",
+                  [
+                    "https://s3-",
+                    !Join [
+                      "-",
+                      [
+                        "miro-terms-banner-frontend",
+                        !Select [
+                          4,
+                          !Split [
+                            "-",
+                            !Select [2, !Split ["/", !Ref AWS::StackId]],
+                          ],
+                        ],
+                      ],
+                    ],
+                    ".s3.amazonaws.com",
+                  ],
+                ]
       PublicAccessBlockConfiguration:
         BlockPublicAcls: false
         BlockPublicPolicy: false
@@ -255,7 +275,10 @@ Resources:
                       method.response.header.Access-Control-Allow-Origin: !Join
                         - ""
                         - - "'"
-                          - Fn::Sub: "https://${MiroTermsBannerFrontend}.s3.${AWS::Region}.amazonaws.com"
+                          - !If
+                            - IsNotUSEast1
+                            - Fn::Sub: "https://${MiroTermsBannerFrontend}.s3.${AWS::Region}.amazonaws.com"
+                            - Fn::Sub: "https://${MiroTermsBannerFrontend}.s3.amazonaws.com"
                           - "'"
                     responseTemplates:
                       application/json: |
@@ -306,7 +329,10 @@ Resources:
                       method.response.header.Access-Control-Allow-Origin: !Join
                         - ""
                         - - "'"
-                          - Fn::Sub: "https://${MiroTermsBannerFrontend}.s3.${AWS::Region}.amazonaws.com"
+                          - !If
+                            - IsNotUSEast1
+                            - Fn::Sub: "https://${MiroTermsBannerFrontend}.s3.${AWS::Region}.amazonaws.com"
+                            - Fn::Sub: "https://${MiroTermsBannerFrontend}.s3.amazonaws.com"
                           - "'"
                     responseTemplates:
                       application/json: |
@@ -344,7 +370,10 @@ Resources:
 Outputs:
   S3BucketBaseUrl:
     Description: "Base URL of the S3 bucket where the web assets of the Miro app will be hosted"
-    Value: !Sub "https://${MiroTermsBannerFrontend}.s3.${AWS::Region}.amazonaws.com"
+    Value: !If
+      - IsNotUSEast1
+      - Fn::Sub: "https://${MiroTermsBannerFrontend}.s3.${AWS::Region}.amazonaws.com"
+      - Fn::Sub: "https://${MiroTermsBannerFrontend}.s3.amazonaws.com"
   ApiBaseURL:
     Description: "Base URL of HTTP API endpoint to read and write on the MiroBannerTermsAcceptersTable database"
     Value: !Sub "https://${MiroBannerTermsAPI}.execute-api.${AWS::Region}.amazonaws.com"
@@ -354,3 +383,7 @@ Outputs:
   S3BucketName:
     Description: "Name of the S3 bucket where the web assets of the Miro app will be hosted (app.html, modal.html and variables.js)"
     Value: !Ref MiroTermsBannerFrontend
+
+## Condition to adjust URLs based on region (the Default region "us-eat-1" is not added to URLs. For other regions the region is part of the URLs)
+Conditions:
+  IsNotUSEast1: !Not [!Equals [!Ref "AWS::Region", "us-east-1"]]
