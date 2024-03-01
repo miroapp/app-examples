@@ -1,0 +1,15 @@
+{
+  "name": "MiroBannerTermsAcceptersReadApp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Luis Colman, Miro Platform Architecture",
+  "license": "MIT-0",
+  "devDependencies": {
+    "aws-sdk": "^2.749.0"
+  }
+}
