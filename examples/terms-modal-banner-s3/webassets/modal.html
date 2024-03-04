@@ -141,17 +141,11 @@
         };
 
         const reqResponse = await fetch(url, reqOptions)
-          .then((res) => {
-            return res["text"]().then((data) => ({
-              status: res.status,
-              body: data,
-            }));
-          })
-          .catch((error) => {
-            return error;
-          });
-
-        return reqResponse;
+        
+        return {
+          body: await res.text(),
+          status: res.status
+        }
       }
 
       async function acceptTerms() {
