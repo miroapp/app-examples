@@ -140,12 +140,12 @@
           mode: "cors",
         };
 
-        const reqResponse = await fetch(url, reqOptions)
-        
+        const res = await fetch(url, reqOptions);
+
         return {
           body: await res.text(),
-          status: res.status
-        }
+          status: res.status,
+        };
       }
 
       async function acceptTerms() {
