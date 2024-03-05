@@ -9,7 +9,7 @@ This app creates a custom modal banner on your Miro boards that you can show to 
 
 # 👨🏻‍💻 App Demo
 
-https://github.com/miroapp/app-examples/assets/10428517/16e009f7-70f2-435b-bd61-f11845ad3197
+https://github.com/miroapp/app-examples/assets/10428517/6fafc30b-e246-4677-8f5b-cb5396ccdc54
 
 # 📒 Table of Contents
 
@@ -101,7 +101,6 @@ https://github.com/miroapp/app-examples/assets/10428517/43922ea1-d619-4480-af23-
 ├── webassets <-- HTML and JavaScript files for the Miro app.
 │  ├── app.html // The code which uses Miro WebSDK to open the modal for the user.
 │  └── modal.html // The code which serves as the UI for the terms which the user will accept.
-
 ├── template.yaml <-- The yaml code used to generate AWS resources via AWS SAM.
 ```
 
