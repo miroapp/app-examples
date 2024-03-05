@@ -9,7 +9,7 @@ This app creates a custom modal banner on your Miro boards that you can show to 
 
 # 👨🏻‍💻 App Demo
 
-https://github.com/miroapp/app-examples/assets/10428517/7c97412a-b3ac-4811-965b-af992e7ff7f9
+https://github.com/miroapp/app-examples/assets/10428517/6fafc30b-e246-4677-8f5b-cb5396ccdc54
 
 # 📒 Table of Contents
 
