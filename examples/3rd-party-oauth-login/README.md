@@ -39,13 +39,13 @@ https://github.com/miroapp/app-examples/assets/10428517/fef43c9f-d528-4787-8c66-
 # 🏃🏽‍♂️ Run the app locally <a name="run"></a>
 
 1. Run `npm install` to install dependencies.
-2. Run `npm start` to start developing. \
+2. Run `npm run start` to start the front end. We have a separate server for the backend. \
    Your URL should be similar to this example:
    ```
    http://localhost:3000
    ```
-3. Run `npm install` in the `backend` directory.
-4. Run `node app.js` in the `backend` directory.
+3. Run `npm install` in the `src/backend` directory.
+4. Run `node app.js` in the `src/backend` directory.
 5. If you need to use something like Ngrok for your redirectURL (I had to do this to go through the OAuth process for my Slack app) run `ngrok http 4000`.
 6. Your ngrok forwarding address should look something like: `https://bced-81-59-0-206.ngrok-free.app`. Then your <b>redirect URL</b> in the other service (for me it was in the App Settings in Slack) should be:
    `https://bced-81-59-0-206.ngrok-free.app/redirect`
