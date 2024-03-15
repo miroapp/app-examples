@@ -44,13 +44,18 @@ https://github.com/miroapp/app-examples/assets/10428517/fef43c9f-d528-4787-8c66-
    ```
    http://localhost:3000
    ```
-3. Go into `src/backend` and fill in the `.sample.env` file with your OAuthURL, clientId, and clientSecret and
+3. Run `npm install` in the `backend` directory.
+4. Run `node app.js` in the `backend` directory.
+5. If you need to use something like Ngrok for your redirectURL (I had to do this to go through the OAuth process for my Slack app) run `ngrok http 4000`.
+6. Your ngrok forwarding address should look something like: `https://bced-81-59-0-206.ngrok-free.app`. Then your <b>redirect URL</b> in the other service (for me it was in the App Settings in Slack) should be:
+   `https://bced-81-59-0-206.ngrok-free.app/redirect`
+7. Go into `src/backend` and fill in the `.sample.env` file with your OAuthURL, clientId, and clientSecret and
    rename it to `.env` and then save the file.
 
-> For me, I had to go into my Slack App settings -> Basic Settings for the clientId and ClientSecret. I had to go to App Settings -> Manage Distribution and then check all the boxes, and then I was able to find the "Sharable URL" that I used as my "redirectURL". Also this likely requires the app to have some scopes, so you would have to add that in the OAuth and permission page of the app settings. 4. Run `npm install` in the `backend` directory. 5. Run `node app.js` in the `backend` directory. 6. If you need to use something like NGrok for your redirectURL (I had to do
-> this to go through the OAuth process for my Slack app) run `ngrok http 4000`. 7. Your ngrok forwarding address should look something like: `https://bced-81-59-0-206.ngrok-free.app`. Then your redirect URL in the other service (for me it was in the App Settings in Slack) should be:
-> `https://bced-81-59-0-206.ngrok-free.app/redirect` 8. Open the [app manifest editor](https://developers.miro.com/docs/manually-create-an-app#step-2-configure-your-app-in-miro) by clicking **Edit in Manifest**. \
->  In the app manifest editor, configure the app as follows, and then click save:
+> For me, I had to go into my Slack App settings -> Basic Settings for the clientId and ClientSecret. I had to go to App Settings -> Manage Distribution and then check all the boxes, and then I was able to find the "Sharable URL" that I used as my "redirectURL". Also this likely requires the app to have some scopes, so you would have to add that in the OAuth and permission page of the app settings.
+
+8. Open the [app manifest editor](https://developers.miro.com/docs/manually-create-an-app#step-2-configure-your-app-in-miro) by clicking **Edit in Manifest**. \
+   > In the app manifest editor, configure the app as follows, and then click save:
 
 ```yaml
 # See https://developers.miro.com/docs/app-manifest on how to use this
