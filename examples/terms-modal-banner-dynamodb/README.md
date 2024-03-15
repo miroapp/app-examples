@@ -3,7 +3,7 @@
 This app creates a custom modal banner on your Miro boards that you can show to your users/attendees with any desired content and/or call to actions. It is typically used to accept terms and agreements before using a Miro board.
 
 <b> To understand how to set up the app (including AWS resources needed to run the app) see the
-[developer tutorial](https://developers.miro.com/v2.0/docs/terms-modal-banner-aws-dynamodb) on Miro's Developer documentation.</b>
+[developer tutorial](https://developers.miro.com/docs/display-bannermodal-on-a-miro-board-using-dynamodb) on Miro's Developer documentation.</b>
 
 💸 **Important**: this application uses various AWS services and there are costs associated with these services after the Free Tier usage - please see the [AWS Pricing page](https://aws.amazon.com/pricing/) for details. You are responsible for any AWS costs incurred. No warranty is implied in this example. 💸
 
@@ -58,11 +58,11 @@ If you have any questions or need assistance setting up this application, please
 
 Using AWS S3 you can host your html files and serve them as regular web pages so they can load within Miro. In addition, you can also use AWS DynamoDB to add custom functionality to your Miro app to track which users have already accepted the modal, so that the modal does not re-appear again for those users. In this guide we will guide you on how to achieve this functionality using Miro and AWS DynamoDB.
 
-> See the [developer tutorial](https://developers.miro.com/v2.0/docs/terms-modal-banner-aws-dynamodb) on Miro's Developer documentation.
+> See the [developer tutorial](https://developers.miro.com/docs/display-bannermodal-on-a-miro-board-using-dynamodb) on Miro's Developer documentation.
 
 # 🏃🏽‍♂️ Run the app using AWS S3 <a name="run"></a>
 
-Once you have finished all of the steps related to AWS in the [developer tutorial](https://developers.miro.com/v2.0/docs/terms-modal-banner-aws-dynamodb), you can then create the Miro app.
+Once you have finished all of the steps related to AWS in the [developer tutorial](https://developers.miro.com/docs/display-bannermodal-on-a-miro-board-using-dynamodb), you can then create the Miro app.
 
 1. In your new Miro app settings, add in the `App URL`. It should end with `webassets/app.html`.
 2. Open the [app manifest editor](https://developers.miro.com/docs/manually-create-an-app#step-2-configure-your-app-in-miro) by clicking **Edit in Manifest**. \
