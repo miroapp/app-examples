@@ -45,7 +45,7 @@ https://github.com/miroapp/app-examples/assets/10428517/fef43c9f-d528-4787-8c66-
    http://localhost:3000
    ```
 3. Go into `src/backend` and fill in the `.sample.env` file with your OAuthURL, clientId, and clientSecret and
-   rename it to `.env` and then save the file.
+   rename it to `.env` and then save the file. For me, I had to go into my Slack App settings -> Manage Distribution and then check all the boxes, and then I was able to find the "Sharable URL" that I used as my "redirectURL". Also this likely requires the app to have some scopes, so you would have to add that in the OAuth and permission page of the app settings.
 4. Run `npm install` in the `backend` directory.
 5. Run `node app.js` in the `backend` directory.
 6. If you need to use something like NGrok for your redirectURL (I had to do
