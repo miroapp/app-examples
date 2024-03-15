@@ -2,7 +2,7 @@
 
 This app allows you to login to a 3rd party service using (you will need to provide OAuth URL) and tracks the logged in status via local storage.
 
-# 👨🏻‍💻 App Demo
+# 👨🏻‍💻 App Demo 🔊(Sound On)🔊
 
 https://github.com/miroapp/app-examples/assets/10428517/fef43c9f-d528-4787-8c66-c94e0f88a03d
 
