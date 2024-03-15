@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://miro.com/app/static/sdk/v2/miro.js"></script>
+    <title>3rd Party Oauth Login</title>
+  </head>
+  <body>
+    <div id="root">
+      <div class="grid wrapper">
+        <div class="cs1 ce12">
+          <img src="/src/assets/congratulations.png" alt="" />
+        </div>
+        <div class="cs1 ce12">
+          <p>
+            You're about to learn how to go through OAuth of a 3rd party tool
+            and then return back as a logged in user.
+          </p>
+        </div>
+        <div id="loginText" class="cs1 ce12">
+          <h1>Click below to login!</h1>
+        </div>
+        <div id="textHeaderPanel" class="cs1 ce12">
+          <a id="loginButton" class="button button-primary" target="_blank">
+            Login to 3rd party tool
+          </a>
+        </div>
+        <div id="statusContainer" class="cs1 ce12">
+          <h1>User Login Status</h1>
+          <p id="loginStatus"></p>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="/src/app.js"></script>
+  </body>
+</html>
