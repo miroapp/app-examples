@@ -55,7 +55,7 @@ https://github.com/miroapp/app-examples/assets/10428517/fef43c9f-d528-4787-8c66-
 > For me, I had to go into my Slack App settings -> Basic Settings for the clientId and ClientSecret. I had to go to App Settings -> Manage Distribution and then check all the boxes, and then I was able to find the "Sharable URL" that I used as my "redirectURL". Also this likely requires the app to have some scopes, so you would have to add that in the OAuth and permission page of the app settings.
 
 8. Open the [app manifest editor](https://developers.miro.com/docs/manually-create-an-app#step-2-configure-your-app-in-miro) by clicking **Edit in Manifest**. \
-   > In the app manifest editor, configure the app as follows, and then click save:
+   In the app manifest editor, configure the app as follows, and then click save:
 
 ```yaml
 # See https://developers.miro.com/docs/app-manifest on how to use this
