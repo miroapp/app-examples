@@ -60,10 +60,10 @@ app.get("/redirect", async (req, res) => {
       <h3>Access Token: ${tokenResponse.data.access_token}</h3>
       <h3>User marked as logged in in (browser) localStorage. </h3>
       <script>
-      window.opener.postMessage({ redirectSuccess: true}, '*');
-      const timeoutId = setTimeout(() => {
-        window.close();
-      }, 5000);
+        window.opener.postMessage({ redirectSuccess: true}, '*');
+        const timeoutId = setTimeout(() => {
+          window.close();
+        }, 5000);
       </script>
     `);
     } else {
@@ -71,10 +71,10 @@ app.get("/redirect", async (req, res) => {
       <h1>Status Code: ${res.statusCode}</h1>
       <h2>Auth failed! Check your redirect URL. The window will close in 10 seconds.</h2>
       <script>
-      window.opener.postMessage({ redirectSuccess: false}, '*');
-      const timeoutId = setTimeout(() => {
-        window.close();
-      }, 5000);
+        window.opener.postMessage({ redirectSuccess: false}, '*');
+        const timeoutId = setTimeout(() => {
+          window.close();
+        }, 5000);
       </script>
     `);
     }
