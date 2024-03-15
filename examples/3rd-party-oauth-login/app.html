@@ -15,8 +15,15 @@
         <div class="cs1 ce12">
           <p>
             You're about to learn how to go through OAuth of a 3rd party tool
-            and then return back as a logged in user.
+            and then return back as a logged in user. You'll need
+            <b>an app in a 3rd party tool</b> (outside of Miro), with the
+            following:
           </p>
+          <ul>
+            <li><b>clientID</b></li>
+            <li><b>clientSecret</b></li>
+            <li><b>OAuth URL</b></li>
+          </ul>
         </div>
         <div id="loginText" class="cs1 ce12">
           <h1>Click below to login!</h1>
@@ -30,6 +37,9 @@
           <h1>User Login Status</h1>
           <p id="loginStatus"></p>
         </div>
+        <a id="logoutButton" class="button button-primary" target="_blank">
+          Logout from 3rd party tool
+        </a>
       </div>
     </div>
 

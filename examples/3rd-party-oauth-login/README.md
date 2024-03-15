@@ -4,12 +4,13 @@ This app allows you to login to a 3rd party service using (you will need to prov
 
 # 👨🏻‍💻 App Demo
 
+https://github.com/miroapp/app-examples/assets/10428517/fef43c9f-d528-4787-8c66-c94e0f88a03d
+
 # 📒 Table of Contents
 
 - [Included Features](#features)
 - [Tools and Technologies](#tools)
 - [Prerequisites](#prerequisites)
-- [Associated Developer Tutorial](#tutorial)
 - [Run the app locally](#run)
 - [Folder Structure](#folder)
 - [Contributing](#contributing)
@@ -18,6 +19,7 @@ This app allows you to login to a 3rd party service using (you will need to prov
 # ⚙️ Included Features <a name="features"></a>
 
 - [Miro Web SDK](https://developers.miro.com/docs/web-sdk-reference)
+  - [miro.board.ui.openPanel(options)](https://developers.miro.com/docs/ui_boardui#openpanel)
 
 # 🛠️ Tools and Technologies <a name="tools"></a>
 
@@ -34,11 +36,6 @@ This app allows you to login to a 3rd party service using (you will need to prov
 - Your development environment includes [Node.js 14.13](https://nodejs.org/en/download) or a later version.
 - All examples use `npm` as a package manager and `npx` as a package runner.
 
-<!-- # 📖 Associated Developer Tutorial <a name="tutorial"></a>
-
-> To view a more in depth developer tutorial
-> of this app (including code explanations) see the [calendar app tutorial](https://developers.miro.com/docs/building-a-calendar-app-in-miro) on Miro's Developer documentation. -->
-
 # 🏃🏽‍♂️ Run the app locally <a name="run"></a>
 
 1. Run `npm install` to install dependencies.
@@ -47,20 +44,20 @@ This app allows you to login to a 3rd party service using (you will need to prov
    ```
    http://localhost:3000
    ```
-3. Go into `src/backend` and fill in the `.sample.env` file with your OAuthURL,
+3. Go into `src/backend` and fill in the `.sample.env` file with your OAuthURL, clientId, and clientSecret and
    rename it to `.env` and then save the file.
 4. Run `npm install` in the `backend` directory.
 5. Run `node app.js` in the `backend` directory.
 6. If you need to use something like NGrok for your redirectURL (I had to do
    this to go through the OAuth process for my Slack app) run `ngrok http 4000`.
-7. Your ngrok forwarding address should look something like: `https://bced-81-59-0-206.ngrok-free.app`. Then your redirect URL in the other service should be:
+7. Your ngrok forwarding address should look something like: `https://bced-81-59-0-206.ngrok-free.app`. Then your redirect URL in the other service (for me it was in the App Settings in Slack) should be:
    `https://bced-81-59-0-206.ngrok-free.app/redirect`
 8. Open the [app manifest editor](https://developers.miro.com/docs/manually-create-an-app#step-2-configure-your-app-in-miro) by clicking **Edit in Manifest**. \
    In the app manifest editor, configure the app as follows, and then click save:
 
 ```yaml
 # See https://developers.miro.com/docs/app-manifest on how to use this
-appName: 3rd-party-oauth-login
+appName: 3rd Party Oauth Login
 sdkVersion: SDK_V2
 sdkUri: http://localhost:3000
 scopes:

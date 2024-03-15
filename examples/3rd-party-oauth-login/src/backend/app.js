@@ -1,13 +1,7 @@
 //Create express app
 const express = require("express");
 const app = express();
-
-//use fs and path to write to local file (store.json) where we keep our logged in users
-const fs = require("fs");
-const path = require("path");
-
-//use this to decode the JWT token sent from Miro WebSDK front end
-const jwt = require("jsonwebtoken");
+const axios = require("axios");
 
 //Use config dotenv to make enable use of environmental variables
 require("dotenv").config();
@@ -19,26 +13,8 @@ const host = "localhost";
 // Import the cors middleware
 const cors = require("cors");
 
-let currentUser = "";
-
 // Use cors middleware to allow requests from frontend server
 app.use(cors({ origin: "http://localhost:3000" }));
-
-// Function to set the current user from the JWT token
-async function setCurrentUser(authHeader) {
-  try {
-    const token = authHeader.authorization.split(" ")[1];
-    // Secret key is the Miro app client secret found in Miro App Settings page
-    const secretKey = process.env.clientSecret;
-    // Verify and decode the JWT token
-    jwt.verify(token, secretKey, (err, decoded) => {
-      //return currentUser
-      currentUser = decoded.user;
-    });
-  } catch (error) {
-    console.log(error);
-  }
-}
 
 // This route is used to send over the OAuth URL to the front end.
 // When the user clicks on Login button, the front end will initiate the OAuth flow
@@ -46,7 +22,6 @@ async function setCurrentUser(authHeader) {
 app.get("/", async (req, res) => {
   try {
     res.set("Content-Type", "application/json"); //ensure we can parse the response as JSON
-    await setCurrentUser(req.headers);
     res.json(process.env.OAuthURL);
   } catch (error) {
     console.error("An error occurred:", error);
@@ -54,6 +29,7 @@ app.get("/", async (req, res) => {
 });
 
 // This route is used to handle the redirect URL from the 3rd party service
+// Since I used Ngrok in this example, the full route was https://1111-11-11-111-11.ngrok-free.app/redirect in Slack App Settings
 app.get("/redirect", async (req, res) => {
   try {
     //if the status code is 200, the OAuth flow was successful and then we can add this Miro user to the loggedInUserIds array
@@ -61,20 +37,33 @@ app.get("/redirect", async (req, res) => {
       //now you can use this code to go through the OAuth flow
       //exchange it for an access token for the 3rd party of your choice
       const code = req.query.code;
+      //show how to exchange access code for access token. Note this is for demo purposes only. This is the endpoint for a Slack app.
+      //In a production app, it is advised to pass your client id and secret using the HTTP Basic auth scheme.
+      const tokenResponse = await axios.post(
+        "https://slack.com/api/oauth.v2.access",
+        {
+          code: code,
+          client_id: process.env.clientId, // Pass in your client ID in the .env file
+          client_secret: process.env.clientSecret, // Your client Secret in the .env file
+          grant_type: "authorization_code",
+        },
+        {
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        },
+      );
 
-      // Add the user ID to the loggedInUserIds array
-      await addUserId(currentUser);
+      //now you can implement logic to use 3rd party APIs and use the access token for authentication
 
       res.send(`
       <h1>Status Code: ${res.statusCode}</h1>
       <h2>Auth successful! This window will close in 10 seconds.</h2>
-      <h3>Code returned: ${code}</h3>
-      <h3>User marked as logged in in local storage (store.json) file. </h3>
+      <h3>Access Token: ${tokenResponse.data.access_token}</h3>
+      <h3>User marked as logged in in (browser) localStorage. </h3>
       <script>
+      window.opener.postMessage({ redirectSuccess: true}, '*');
       const timeoutId = setTimeout(() => {
-        // window.opener.postMessage({ redirectSuccess: true}, '*');
         window.close();
-      }, 10000);
+      }, 5000);
       </script>
     `);
     } else {
@@ -82,10 +71,10 @@ app.get("/redirect", async (req, res) => {
       <h1>Status Code: ${res.statusCode}</h1>
       <h2>Auth failed! Check your redirect URL. The window will close in 10 seconds.</h2>
       <script>
+      window.opener.postMessage({ redirectSuccess: false}, '*');
       const timeoutId = setTimeout(() => {
-        // window.opener.postMessage({ redirectSuccess: false}, '*');
         window.close();
-      }, 10000);
+      }, 5000);
       </script>
     `);
     }
@@ -94,39 +83,6 @@ app.get("/redirect", async (req, res) => {
     res.status(500).send("Internal server error");
   }
 });
-
-// Route to check if user is logged in
-// app.get('/api/user/isLoggedIn', (req, res) => {
-//   try {
-//     const userId = req.query.userId;
-
-//     if (loggedInUsers.has(userId)) {
-//       res.json({ loggedIn: true });
-//     } else {
-//       res.json({ loggedIn: false });
-//     }
-//   } catch (error) {
-//     console.error('An error occurred:', error);
-//   }
-// });
-
-// Function to add a user ID to the loggedInUserIds array
-async function addUserId(userId) {
-  try {
-    const filePath = path.join(__dirname, "store.json");
-    // Read the existing JSON data from the file
-    const existingData = fs.readFileSync(filePath, "utf8");
-    const jsonData = JSON.parse(existingData);
-
-    // Add the new user ID to the array
-    jsonData.loggedInUserIds.push(userId);
-
-    // Write the updated JSON data back to the file
-    fs.writeFileSync(filePath, JSON.stringify(jsonData, null, 4));
-  } catch (error) {
-    console.error("Error adding user ID to JSON file:", error);
-  }
-}
 
 app.listen(port, host);
 console.log(`Running on http://${host}:${port}`);
