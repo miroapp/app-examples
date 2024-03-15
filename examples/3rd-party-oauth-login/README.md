@@ -18,8 +18,6 @@ This app allows you to login to a 3rd party service using (you will need to prov
 # ⚙️ Included Features <a name="features"></a>
 
 - [Miro Web SDK](https://developers.miro.com/docs/web-sdk-reference)
-  - [miro.board.createStickyNote()](https://developers.miro.com/docs/websdk-reference-board#createstickynote)
-  - [miro.board.viewport.zoomTo()](https://developers.miro.com/docs/viewport_viewport#zoomto)
 
 # 🛠️ Tools and Technologies <a name="tools"></a>
 
@@ -78,7 +76,7 @@ https://github.com/miroapp/app-examples/assets/10428517/1e6862de-8617-46ef-b265-
 
 10. Go to your developer team, and open your boards.
 11. Click on the plus icon from the bottom section of your left sidebar. If you hover over it, it will say `More apps`.
-12. Search for your app `Calendar` or whatever you chose to name it. Click on your app to use it, as shown in the video below. <b>In the video we search for a different app, but the process is the same regardless of the app.</b>
+12. Search for your app `3rd-party-oauth-login` or whatever you chose to name it. Click on your app to use it, as shown in the video below. <b>In the video we search for a different app, but the process is the same regardless of the app.</b>
 
 https://github.com/horeaporutiu/app-examples-template/assets/10428517/b23d9c4c-e785-43f9-a72e-fa5d82c7b019
 
