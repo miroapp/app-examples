@@ -2,9 +2,9 @@
 // check eslint global config
 import "./assets/style.css";
 
-var loginBtn = document.getElementById("loginButton");
-var logoutBtn = document.getElementById("logoutButton");
-var loginText = document.getElementById("loginText");
+const loginBtn = document.getElementById("loginButton");
+const logoutBtn = document.getElementById("logoutButton");
+const loginText = document.getElementById("loginText");
 
 // Attach click event listeners
 loginBtn.addEventListener("click", startOAuthFlow);
@@ -25,7 +25,7 @@ async function initialize() {
 // This function displays the user login status on the UI
 async function displayLoginStatus(loggedIn) {
   try {
-    var statusParagraph = document.getElementById("loginStatus");
+    const statusParagraph = document.getElementById("loginStatus");
 
     if (loggedIn) {
       statusParagraph.textContent =
@@ -51,7 +51,7 @@ async function displayLoginStatus(loggedIn) {
 async function isLoggedIn() {
   try {
     // Check if the user is logged in by checking the local storage on the browser
-    const loggedIn = localStorage.isLoggedIn;
+    const loggedIn = localStorage.getItem("isLoggedIn") === "true";
 
     // Check if the currentId exists in the loggedInUserIds array
     await displayLoginStatus(loggedIn);
@@ -67,7 +67,7 @@ async function isLoggedIn() {
 async function startOAuthFlow() {
   try {
     const response = await fetch("http://localhost:4000");
-    let OAuthURL = await response.json();
+    const OAuthURL = await response.json();
     window.open(OAuthURL, "_blank");
 
     // Add an event listener to receive messages from the backend, it will be called after the OAuth flow is completed

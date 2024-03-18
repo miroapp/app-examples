@@ -1,6 +1,6 @@
 # 3rd Party OAuth Login
 
-This app allows you to login to a 3rd party service using (you will need to provide OAuth URL) and tracks the logged in status via local storage.
+This app allows you to login to a 3rd party service using OAuth (you will need to provide an OAuth URL) and tracks the logged in status via local storage.
 
 # 👨🏻‍💻 App Demo 🔊(Sound On)🔊
 
@@ -44,17 +44,17 @@ https://github.com/miroapp/app-examples/assets/10428517/fef43c9f-d528-4787-8c66-
    ```
    http://localhost:3000
    ```
-3. Run `npm install` in the `src/backend` directory.
-4. Run `node app.js` in the `src/backend` directory.
-5. If you need to use something like Ngrok for your redirectURL (I had to do this to go through the OAuth process for my Slack app) run `ngrok http 4000`.
-6. Your ngrok forwarding address should look something like: `https://bced-81-59-0-206.ngrok-free.app`. Then your <b>redirect URL</b> in the other service (for me it was in the App Settings in Slack) should be:
+3. Run `cd src/backend`.
+4. Run `npm install`.
+5. Run `node app.js`.
+6. If you need to use something like ngrok for your redirectURL (I had to do this to go through the OAuth process for my Slack app) run `ngrok http 4000`.
+7. Your ngrok forwarding address should look something like: `https://bced-81-59-0-206.ngrok-free.app`. Then your <b>redirect URL</b> in the other service (for me it was in the App Settings in Slack) should be:
    `https://bced-81-59-0-206.ngrok-free.app/redirect`
-7. Go into `src/backend` and fill in the `.sample.env` file with your OAuthURL, clientId, and clientSecret and
-   rename it to `.env` and then save the file.
+8. Go into `src/backend` and fill in the `.sample.env` file with your OAuthURL, clientId, and clientSecret and rename it to `.env` and then save the file.
 
 > For me, I had to go into my Slack App settings -> Basic Settings for the clientId and ClientSecret. I had to go to App Settings -> Manage Distribution and then check all the boxes, and then I was able to find the "Sharable URL" that I used as my "redirectURL". Also this likely requires the app to have some scopes, so you would have to add that in the OAuth and permission page of the app settings.
 
-8. Open the [app manifest editor](https://developers.miro.com/docs/manually-create-an-app#step-2-configure-your-app-in-miro) by clicking **Edit in Manifest**. \
+9. Open the [app manifest editor](https://developers.miro.com/docs/manually-create-an-app#step-2-configure-your-app-in-miro) by clicking **Edit in Manifest**. \
    In the app manifest editor, configure the app as follows, and then click save:
 
 ```yaml
@@ -67,15 +67,15 @@ scopes:
   - boards:write
 ```
 
-9. Go back to your app home page, and under the `Permissions` section, you will see a blue button that says `Install app and get OAuth token`. Click that button. Then click on `Add` as shown in the video below. <b>In the video we install a different app, but the process is the same regardless of the app.</b>
+10. Go back to your app home page, and under the `Permissions` section, you will see a blue button that says `Install app and get OAuth token`. Click that button. Then click on `Add` as shown in the video below. <b>In the video we install a different app, but the process is the same regardless of the app.</b>
 
 > ⚠️ We recommend to install your app on a [developer team](https://developers.miro.com/docs/create-a-developer-team) while you are developing or testing apps.⚠️
 
 https://github.com/miroapp/app-examples/assets/10428517/1e6862de-8617-46ef-b265-97ff1cbfe8bf
 
-10. Go to your developer team, and open your boards.
-11. Click on the plus icon from the bottom section of your left sidebar. If you hover over it, it will say `More apps`.
-12. Search for your app `3rd Party OAuth Login` or whatever you chose to name it. Click on your app to use it, as shown in the video below. <b>In the video we search for a different app, but the process is the same regardless of the app.</b>
+11. Go to your developer team, and open your boards.
+12. Click on the plus icon from the bottom section of your left sidebar. If you hover over it, it will say `More apps`.
+13. Search for your app `3rd Party OAuth Login` or whatever you chose to name it. Click on your app to use it, as shown in the video below. <b>In the video we search for a different app, but the process is the same regardless of the app.</b>
 
 https://github.com/horeaporutiu/app-examples-template/assets/10428517/b23d9c4c-e785-43f9-a72e-fa5d82c7b019
 
