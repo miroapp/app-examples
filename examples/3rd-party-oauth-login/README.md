@@ -1,6 +1,7 @@
 # 3rd Party OAuth Login (Slack example)
 
-This app allows you to login to a 3rd party service using OAuth (you will need to provide an OAuth URL) and tracks the logged in status via local storage.
+This app allows you to login to a 3rd party service using OAuth (you will need to provide an OAuth URL). The app tracks if the user
+has logged in or not via [localStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage).
 
 # 👨🏻‍💻 App Demo 🔊(Sound On)🔊
 
