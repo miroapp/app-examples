@@ -1,4 +1,4 @@
-# 3rd Party OAuth Login
+# 3rd Party OAuth Login (Slack example)
 
 This app allows you to login to a 3rd party service using OAuth (you will need to provide an OAuth URL) and tracks the logged in status via local storage.
 
