@@ -1,0 +1,7 @@
+# See https://developers.miro.com/docs/app-manifest on how to use this
+appName: dynamodb-modal-banner
+sdkVersion: SDK_V2
+sdkUri: >-
+  https://s3-miro-terms-banner-12345.s3.amazonaws.com/webassets/app.html
+scopes:
+  - identity:read
