@@ -1,4 +1,5 @@
 # See https://developers.miro.com/docs/app-manifest on how to use this
+# make sure to replace the sdkUri with the correct URL (it will be different for each deployment)
 appName: dynamodb-modal-banner
 sdkVersion: SDK_V2
 sdkUri: >-
