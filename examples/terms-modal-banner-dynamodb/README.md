@@ -66,11 +66,11 @@ Once you have finished all of the steps related to AWS in the [developer tutoria
 
 1. In your new Miro app settings, add in the `App URL`. It should end with `webassets/app.html`.
 2. Open the [app manifest editor](https://developers.miro.com/docs/manually-create-an-app#step-2-configure-your-app-in-miro) by clicking **Edit in Manifest**. \
-   In the app manifest editor, configure the app as follows <b> ⚠️ Note: you will need to change your sdkUri to be your app.html which is hosted in the `webassets` folder of your S3 bucket. Mine is just shown as an example </b> and then click save:
+   In the app manifest editor, configure the app as follows <b> ⚠️ Note: you will need to change your sdkUri to be your app.html which is hosted in the `webassets` folder of your S3 bucket. Your `sdkUri` will be the public endpoint to your app.html file. Mine is just shown as an example </b> so make sure to change it to point to your `app.html file` and then click save:
 
 ```yaml
 # See https://developers.miro.com/docs/app-manifest on how to use this
-appName: s3-modal-banner
+appName: dynamodb-modal-banner
 sdkVersion: SDK_V2
 sdkUri: >-
   https://s3-miro-terms-banner-12345.s3.amazonaws.com/webassets/app.html
