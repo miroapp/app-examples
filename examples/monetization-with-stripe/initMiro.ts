@@ -19,6 +19,14 @@ export default function initMiro(
   const tokensCookie = "miro_tokens";
   const userIdCookie = "miro_user_id";
 
+  let userId;
+  
+  try {
+    userId = JSON.parse(request.cookies[tokensCookie] || "null")?.userId
+  } catch (e) { 
+    userId = null
+  }
+
   // setup a Miro instance that loads tokens from cookies
   return {
     miro: new Miro({
@@ -42,6 +50,6 @@ export default function initMiro(
         },
       },
     }),
-    userId: JSON.parse(request.cookies[tokensCookie] || "null")?.userId,
+    userId,
   };
 }
