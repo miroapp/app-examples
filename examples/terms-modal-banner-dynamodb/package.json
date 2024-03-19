@@ -1,0 +1,6 @@
+{
+  "name": "terms-modal-banner-dynamodb",
+  "description": "This app uses DynamoDB and AWS Lambda functions to create a custom modal banner on your Miro boards that you can show to your users/attendees with any desired content and/or call to actions. It is typically used to accept terms and agreements before using a Miro board.",
+  "version": "0.1.0",
+  "license": "MIT"
+}

@@ -1,5 +1,6 @@
 {
   "name": "3rd-party-oauth-login",
+  "description": "This app allows you to login to a 3rd party service (Slack) using OAuth (you will need to provide an OAuth URL). The app tracks if the user has logged in or not via localStorage.",
   "version": "0.1.0",
   "license": "MIT",
   "scripts": {
