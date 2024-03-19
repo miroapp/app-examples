@@ -1,0 +1,20 @@
+{
+  "name": "3rd-Party-OAuth-Login-Server",
+  "version": "1.0.0",
+  "description": "Node.js server to handle redirect URL from OAuth2.0 flow",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "node.js"
+  ],
+  "author": "Horea Porutiu",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.6.7",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.18.3"
+  }
+}
