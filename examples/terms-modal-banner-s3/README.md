@@ -69,7 +69,7 @@ Once you have finished all of the steps related to AWS in the [developer tutoria
 
 ```yaml
 # See https://developers.miro.com/docs/app-manifest on how to use this
-appName: s3-modal-banner
+appName: Terms Modal Banner S3
 sdkVersion: SDK_V2
 sdkUri: >-
   https://s3-miro-terms-banner-12345.s3.amazonaws.com/webassets/app.html

@@ -70,7 +70,7 @@ Once you have finished all of the steps related to AWS in the [developer tutoria
 
 ```yaml
 # See https://developers.miro.com/docs/app-manifest on how to use this
-appName: dynamodb-modal-banner
+appName: Terms Modal Banner DynamoDB
 sdkVersion: SDK_V2
 sdkUri: >-
   https://dynamodb-miro-terms-banner-12345.s3.amazonaws.com/webassets/app.html
