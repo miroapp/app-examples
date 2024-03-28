@@ -11,6 +11,7 @@ https://github.com/miroapp/app-examples/assets/10428517/fef43c9f-d528-4787-8c66-
 - [Included Features](#features)
 - [Tools and Technologies](#tools)
 - [Prerequisites](#prerequisites)
+- [Associated Developer Tutorial](#tutorial)
 - [Run the app locally](#run)
 - [Folder Structure](#folder)
 - [Contributing](#contributing)
@@ -35,6 +36,10 @@ https://github.com/miroapp/app-examples/assets/10428517/fef43c9f-d528-4787-8c66-
 - Your Miro account has a [Developer team](https://developers.miro.com/docs/create-a-developer-team).
 - Your development environment includes [Node.js 14.13](https://nodejs.org/en/download) or a later version.
 - All examples use `npm` as a package manager and `npx` as a package runner.
+
+# 📖 Associated Developer Tutorial <a name="tutorial"></a>
+
+> See the full [developer tutorial](https://developers.miro.com/docs/log-in-to-a-third-party-service-using-oauth) on Miro's Developer documentation for a code analysis and more detailed walkthrough of the app logic.
 
 # 🏃🏽‍♂️ Run the app locally <a name="run"></a>
 
