@@ -1,11 +1,11 @@
 # JWT Authentication with Miro
 
 This app shows how to add Miro user's signature to API requests using JWT token.
-Whenever a server endpoint needs to verify the user's identity, it can use the user ID JWT token provided by Miro.
+The app uses the Miro Web SDK method `getIdToken` to identify a user on server side to read and update user's recent GIFs.
 
 # 👨🏻‍💻 App Demo
 
-...
+https://github.com/miroapp/app-examples/assets/1961590/08a7b976-f195-45ee-ac17-7a00d084bbd2
 
 # 📒 Table of Contents
 
