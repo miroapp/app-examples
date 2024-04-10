@@ -5,7 +5,7 @@ The app uses the Miro Web SDK method `getIdToken` to identify a user on server s
 
 # 👨🏻‍💻 App Demo
 
-https://github.com/miroapp/app-examples/assets/1961590/08a7b976-f195-45ee-ac17-7a00d084bbd2
+https://github.com/miroapp/app-examples/assets/1961590/8505a68e-829d-42e9-b487-c42cebe30cee
 
 # 📒 Table of Contents
 
