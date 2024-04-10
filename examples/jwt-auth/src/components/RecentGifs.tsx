@@ -56,7 +56,7 @@ export function RecentGifs() {
       </div>
 
       <div className="cs1 ce12">
-        <h4>Search for more gifs:</h4>
+        <h4>Search for a GIF and click on it to add to the board:</h4>
         <Search onSelect={handleSelectedGif} />
       </div>
     </div>

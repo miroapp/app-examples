@@ -2,6 +2,8 @@
 
 This app shows how to add Miro user's signature to API requests using JWT token.
 The app uses the Miro Web SDK method `getIdToken` to identify a user on server side to read and update user's recent GIFs.
+The app sends the token form client-side (see [fetch-api.ts](./src/utils/fetch-api.ts)) to and
+decodes it on server-side with `jsonwebtoken` npm package (see [user.ts](./src/utils/user.ts)).
 
 # 👨🏻‍💻 App Demo
 
@@ -58,7 +60,7 @@ https://github.com/miroapp/app-examples/assets/1961590/8505a68e-829d-42e9-b487-c
    - [`sdkUri`](https://developers.miro.com/docs/app-manifest#sdkuri): assign `http://localhost:3000` as a value for this property.
    - [`scopes`](https://developers.miro.com/docs/app-manifest#scopes): add the permission scopes that users need to grant the app when they install it.
      To enable the app to write to the board, add the following permissions:
-     - `boards:read`
+     - `boards:write`
 
 5. Go back to your app home page, and under the `Permissions` section, you will see a blue button that says `Install app and get OAuth token`. Click that button. Then click on `Add` as shown in the video below.
 
@@ -89,7 +91,7 @@ https://github.com/horeaporutiu/app-examples-template/assets/10428517/b23d9c4c-e
 │          └── recent
 │              └── route.ts <-- Route controller to get and update recent gifs for a user.
 │          └── panel
-│              └── page.ts <-- a page to render the app's panel.
+│              └── page.ts <-- A page to render the app's panel.
 │  └── public
 │      └── favicon.ico <-- Icon for the web app.
 │  └── assets
@@ -97,7 +99,7 @@ https://github.com/horeaporutiu/app-examples-template/assets/10428517/b23d9c4c-e
 │  └── hooks
 │      └── useRecent.ts <-- Custom hook to read and update recent gifs.
 │  └── utils
-│      │── api.ts <-- API utility to make requests to the app's server with Miro's user JWT header.
+│      │── fetch-api.ts <-- API utility to make requests to the app's server with Miro's user JWT header.
 │      │── miro.ts <-- Miro utility to interact with the Miro Web SDK.
 │      │── user.ts <-- User utility to get the user's ID from the JWT token.
 │      └── storage.ts <-- Implementation of storage logic. Will create a file `store.json` with userID and recent gifs.

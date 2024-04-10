@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { GiphyFetch } from "@giphy/js-fetch-api";
 import { IGif } from "@giphy/js-types";
-import { fetchApi } from "../utils/api";
+import { fetchApi } from "../utils/fetch-api";
 
 async function putToRecent(gif: IGif) {
   const response = await fetchApi("/api/recent", {
