@@ -2,10 +2,7 @@
   "compilerOptions": {
     "target": "esnext",
     "module": "es2020",
-    "lib": [
-      "esnext",
-      "dom"
-    ],
+    "lib": ["esnext", "dom"],
     "jsx": "preserve",
     "moduleResolution": "node",
     "strict": true,
@@ -18,10 +15,7 @@
     "noImplicitReturns": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "typeRoots": [
-      "./node_modules/@types",
-      "./node_modules/@mirohq"
-    ],
+    "typeRoots": ["./node_modules/@types", "./node_modules/@mirohq"],
     "allowJs": true,
     "incremental": true,
     "isolatedModules": true,
@@ -31,13 +25,6 @@
       }
     ]
   },
-  "include": [
-    "src",
-    "app",
-    "*.ts",
-    ".next/types/**/*.ts"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "include": ["src", "app", "*.ts", ".next/types/**/*.ts"],
+  "exclude": ["node_modules"]
 }
