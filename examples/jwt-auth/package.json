@@ -1,0 +1,31 @@
+{
+  "name": "jwt-auth",
+  "version": "0.1.0",
+  "license": "MIT",
+  "scripts": {
+    "build": "next build",
+    "start": "next dev",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@giphy/react-components": "^9.3.0",
+    "@mirohq/miro-api": "^2.0.0",
+    "cookie": "^0.5.0",
+    "dotenv": "^16.0.3",
+    "jsonwebtoken": "9.0.2",
+    "mirotone": "5",
+    "next": "14.0.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-resize-observer": "1.1.1",
+    "styled-components": "6.1.8"
+  },
+  "devDependencies": {
+    "@mirohq/websdk-types": "latest",
+    "@types/cookie": "^0.5.1",
+    "@types/jsonwebtoken": "9.0.6",
+    "@types/node": "^18.8.2",
+    "@types/react": "^18.0.24",
+    "typescript": "4.9.5"
+  }
+}
