@@ -1,0 +1,15 @@
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+
+metadata:
+  name: miro-app-examples
+  title: Miro App Examples
+  description: >
+    In this repository you can find examples of apps built on top of the Miro Developer Platform 2.0.
+
+spec:
+  type: library
+  lifecycle: production
+  criticality: low
+  owner: partner-enablement
