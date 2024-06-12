@@ -131,19 +131,21 @@ export const BreakoutManager: React.FC = () => {
 
   const handleSplitUsers = async () => {
     const count = rooms.length;
-
+ 
     // This needs to be only new users
     const users = unassignedUsers;
-    const roomSize = Math.max(Math.floor(users.length / count), 1);
-
+    const roomSize = Math.max(Math.ceil(users.length / count), 1);
     const usersInRooms: OnlineUserInfo[][] = [];
 
     for (let i = 0; i < users.length; i += roomSize) {
       usersInRooms.push(users.slice(i, i + roomSize));
     }
 
+    // Sort rooms by number of participants in ascending order
+    const sortedRooms = [...rooms].sort((a, b) => a.participants.length - b.participants.length);
+
     for (let i = 0; i < count; ++i) {
-      const room = rooms[i];
+      const room = sortedRooms[i];
       const participants = usersInRooms[i];
       for (const participant of participants) {
         await service.addParticipant(room, participant);
