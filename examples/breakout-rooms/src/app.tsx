@@ -11,13 +11,23 @@ import { ErrorBoundary } from "./components/ErrorBoundary";
 
 const App: React.FC = () => {
   const { isFacilitator, breakout } = useBreakout();
+  const [waitingRoomRendered, setWaitingRoomRendered] = React.useState(false);
 
   const areYouReady = isFacilitator || !breakout;
+
+  const renderWaitingRoom = () => {
+    if (!waitingRoomRendered) {
+      setWaitingRoomRendered(true);
+    }
+  };
 
   return (
     <ErrorBoundary>
       <MiroProvider>
-        {areYouReady ? <BreakoutManager /> : <WaitingRoom />}
+        {areYouReady ? <BreakoutManager /> : null}
+        {!areYouReady && !waitingRoomRendered ? (
+          <WaitingRoom onRender={renderWaitingRoom} />
+        ) : null}
       </MiroProvider>
     </ErrorBoundary>
   );
