@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "license": "MIT",
   "scripts": {
-    "build": "next build",
+    "build-temp-disabled": "next build",
     "start": "next dev",
     "lint": "next lint"
   },
