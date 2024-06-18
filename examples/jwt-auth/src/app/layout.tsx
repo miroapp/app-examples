@@ -2,7 +2,7 @@ import React, { PropsWithChildren } from "react";
 import Script from "next/script";
 import "../assets/style.css";
 
-import { MiroSDKInit } from "../components/SDKInit";
+import { MiroSDKInit } from "../components/SdkInit"; // Corrected the casing of the file name
 
 export default function RootLayout({ children }: PropsWithChildren) {
   return (

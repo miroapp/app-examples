@@ -106,7 +106,9 @@ export default function Main({
       });
 
     window.miro.board.ui.on("icon:click", openPanel);
-    return () => window.miro.board.ui.off("icon:click", openPanel);
+    return () => {
+      window.miro.board.ui.off("icon:click", openPanel);
+    };
   }, []);
 
   async function createWebhook(e: FormEvent<HTMLFormElement>) {
