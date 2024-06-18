@@ -73,7 +73,7 @@ Once you have finished all of the steps related to AWS in the [developer tutoria
 appName: Terms Modal Banner DynamoDB
 sdkVersion: SDK_V2
 sdkUri: >-
-  https://dynamodb-miro-terms-banner-12345.s3.amazonaws.com/webassets/app.html
+  https://<your-s3-bucket>/webassets/app.html
 scopes:
   - identity:read
 ```
