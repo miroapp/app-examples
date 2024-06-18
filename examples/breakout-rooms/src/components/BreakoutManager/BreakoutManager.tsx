@@ -153,6 +153,10 @@ export const BreakoutManager: React.FC = () => {
 
   const handleRemoveRoom = async (selected: Room) => {
     await service.removeRoom(selected);
+    console.log(rooms.length);
+    if (rooms.length < 2) {
+      await handleReleaseFacilitator();
+    }
   };
 
   const safeTimerHandler = (cb: () => void) => {
