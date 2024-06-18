@@ -72,7 +72,7 @@ Once you have finished all of the steps related to AWS in the [developer tutoria
 appName: Terms Modal Banner S3
 sdkVersion: SDK_V2
 sdkUri: >-
-  https://<your-s3-bucket>/webassets/app.html
+  https://<your-s3-bucket-url>/webassets/app.html
 scopes:
   - identity:read
 ```
