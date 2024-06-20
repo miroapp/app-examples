@@ -3,6 +3,6 @@
 appName: Terms Modal Banner DynamoDB
 sdkVersion: SDK_V2
 sdkUri: >-
-  https://dynamodb-miro-terms-banner-12345.s3.amazonaws.com/webassets/app.html
+  https://<your-s3-url>.s3.amazonaws.com/webassets/app.html
 scopes:
   - identity:read
