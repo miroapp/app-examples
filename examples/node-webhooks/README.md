@@ -79,7 +79,7 @@ The `https:<your-ngrok-url>` is your `MIRO_REDIRECT_URL` to be used in the `.env
 >
 > **boardId:** Get the board ID of the board you want to receive notifications for. This board should be in the same team where you installed the app. You can find board ID in the URL when you go to your board: https://miro.com/app/board/{boardID}.
 >
-> **callbackUrl:** This is the URL where you will receive events. It needs to be publicly accessible - something like "<your-ngrok-app>"
+> **callbackUrl:** This is the URL where you will receive events. It should be the same as `MIRO_REDIRECT_URL` in `.env`.
 
 9. Select Try It! to run the API request right from the browser. If you get a 201 response, you are ready to receive events!
 
