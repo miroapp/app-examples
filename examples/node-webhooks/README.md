@@ -45,12 +45,7 @@ This app shows how to get webhook events on your Miro board using Node.js and Ex
 # 🏃🏽‍♂️ Run the app locally <a name="run"></a>
 
 1. Run `npm i` to install dependencies.
-2. Run `npm start` to start developing. \
-   Your URL should be similar to this example:
-
-   ```
-   http://localhost:3000
-   ```
+2. Run `npm start` to start the dev server.
 
 3. In a separate terminal, run:
 
@@ -58,7 +53,7 @@ This app shows how to get webhook events on your Miro board using Node.js and Ex
 ngrok http 3000
 ```
 
-This will give you a `forwarding URL`.
+This will give you your MIRO_REDIRECT_URL to be used in the `.env` file and then later when calling the API to create a webhook subscription.
 
 5. Create a new Miro app [developers.miro.com](https://developers.miro.com/). This will take you to the app settings page. There you will find the `MIRO_CLIENT_ID` and `MIRO_CLIENT_SECRET` to be added to your `.env` file. Ensure that `boards:read` scope is checked, and then go ahead and install the app on your developer team. You will get an access token which you will need later to authenticate the creation of your webhook subscription.
 
