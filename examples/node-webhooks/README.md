@@ -44,11 +44,12 @@ This app shows how to get webhook events on your Miro board using Node.js and Ex
 
 # 🏃🏽‍♂️ Run the app locally <a name="run"></a>
 
-1. Run `npm i` to install dependencies.
+1. Create a new Miro app [developers.miro.com](https://developers.miro.com/). This will take you to the app settings page. There you
+   will find the `MIRO_CLIENT_ID` and `MIRO_CLIENT_SECRET` to be added to your `.env` file. Ensure that `boards:read` scope is checked,
+   and then go ahead and install the app on your developer team. You will get an **access token** which you will need later to
+   authenticate the creation of your webhook subscription.
 
-2. Run `npm start` to start the dev server.
-
-3. In a separate terminal, run:
+2. In a new terminal session, run:
 
 ```
 ngrok http 3000
@@ -60,15 +61,13 @@ This will output something like this:
 Forwarding https:<your-ngrok-url> -> http://localhost:3000
 ```
 
-The `https:<your-ngrok-url>` is your MIRO_REDIRECT_URL to be used in the `.env` file and then later when calling the API to create a webhook subscription.
+The `https:<your-ngrok-url>` is your `MIRO_REDIRECT_URL` to be used in the `.env` file and then later when calling the API to create a webhook subscription.
 
-4. Create a new Miro app [developers.miro.com](https://developers.miro.com/). This will take you to the app settings page. There you will find the
-   `MIRO_CLIENT_ID` and `MIRO_CLIENT_SECRET` to be added to your `.env` file. Ensure that `boards:read` scope is checked, and then go ahead and install the
-   app on your developer team. You will get an **access token** which you will need later to authenticate the creation of your webhook subscription.
+3. Rename the `.sample.env` file to `.env` and then add in your `MIRO_CLIENT_ID` and `MIRO_CLIENT_SECRET` from your [developers.miro.com](https://developers.miro.com/) app settings page. Use the `forwarding URL` from the previous step for the `MIRO_REDIRECT_URL` in the .env file. Save the file as `.env` with your new variables.
 
-5. Rename the `.sample.env` file to `.env` and then add in your `MIRO_CLIENT_ID` and `MIRO_CLIENT_SECRET` from your [developers.miro.com](https://
-   developers.miro.com/) app settings page. Use the `forwarding URL` from the previous step to replace the `<YOUR_DOMAIN.COM>` section of the
-   `MIRO_REDIRECT_URL` in the .env file. Save the file as `.env` with your new variables.
+4. Run `npm i` to install dependencies.
+
+5. Run `npm start` to start the dev server.
 
 6. Go to your developer team, and open the board you want to receive webhook events for.
 
