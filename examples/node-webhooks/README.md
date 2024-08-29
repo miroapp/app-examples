@@ -1,0 +1,101 @@
+# Node Webhooks
+
+This app shows how to get webhook events on your Miro board using Node.js and Express.js.
+
+# 👨🏻‍💻 App Demo
+
+# 📒 Table of Contents
+
+- [Included Features](#features)
+- [Tools and Technologies](#tools)
+- [Prerequisites](#prerequisites)
+- [Associated Developer Tutorial](#tutorial)
+- [Run the app locally](#run)
+- [Folder Structure](#folder)
+- [Contributing](#contributing)
+- [License](#license)
+
+# ⚙️ Included Features <a name="features"></a>
+
+- [Miro Node Client Library with Express SDK](https://miroapp.github.io/api-clients/node/index.html)
+  - [miro.exchangeCodeForAccessToken()](https://miroapp.github.io/api-clients/node/classes/index.Miro.html#exchangeCodeForAccessToken)
+  - [miro.isAuthorized()](https://miroapp.github.io/api-clients/node/classes/index.Miro.html#isAuthorized)
+  - [miro.getAuthUrl()](https://miroapp.github.io/api-clients/node/classes/index.Miro.html#getAuthUrl)
+  - [miro.as()](https://miroapp.github.io/api-clients/node/classes/index.Miro.html#as)
+  - [api.getAllBoards()](https://miroapp.github.io/api-clients/node/classes/index.MiroApi.html#getAllBoards)
+
+# 🛠️ Tools and Technologies <a name="tools"></a>
+
+- [Node.js](https://nodejs.org/en)
+- [Express.js](https://expressjs.com/)
+
+# ✅ Prerequisites <a name="prerequisites"></a>
+
+- You have a [Miro account](https://miro.com/signup/).
+- You're [signed in to Miro](https://miro.com/login/).
+- Your Miro account has a [Developer team](https://developers.miro.com/docs/create-a-developer-team).
+- Your development environment includes [Node.js 14.13](https://nodejs.org/en/download) or a later version, and npm.
+- Your development environment includes [ngrok](https://ngrok.com/) or something similar.
+
+# 📖 Associated Developer Tutorial <a name="tutorial"></a>
+
+> To view a more in depth developer tutorial
+> of this app (including code explanations) see the [Getting started with webhooks tutorial](https://developers.miro.com/docs/getting-started-with-webhooks) on Miro's Developer documentation.
+
+# 🏃🏽‍♂️ Run the app locally <a name="run"></a>
+
+1. Run `npm i` to install dependencies.
+2. Run `npm start` to start developing. \
+   Your URL should be similar to this example:
+
+   ```
+   http://localhost:3000
+   ```
+
+3. In a separate terminal, run:
+
+```
+ngrok http 3000
+```
+
+This will give you a `forwarding URL`.
+
+5. Create a new Miro app [developers.miro.com](https://developers.miro.com/). This will take you to the app settings page. There you will find the `MIRO_CLIENT_ID` and `MIRO_CLIENT_SECRET` to be added to your `.env` file. Ensure that `boards:read` scope is checked, and then go ahead and install the app on your developer team. You will get an access token which you will need later to authenticate the creation of your webhook subscription.
+
+on Rename the `.sample.env` file to `.env` and then add in your `MIRO_CLIENT_ID` and `MIRO_CLIENT_SECRET` from your [developers.miro.com](https://developers.miro.com/) app settings page. Use the `forwarding URL` from the previous step to replace the `<YOUR_DOMAIN.COM>` section of the `MIRO_REDIRECT_URL` in the .env file. Save the file as `.env` with your new variables.
+
+6. Go to your developer team, and open the board you want to receive webhook events for.
+
+7. In a separate browser tab, open up the API Exporer for the [Create Webhook Subscription endpoint](https://developers.miro.com/reference/create-board-subscription).
+
+8. Provide the following information in the API Explorer:
+
+**Access Token**: Once you get the access token after installing your app on a developer team, you can add the access token to the Authorization section of the API reference page.
+
+**boardId:** Get the board ID of the board you want to receive notifications for. This board should be in the same team where you installed the app. You can find board ID in the URL when you go to your board: https://miro.com/app/board/{boardID}.
+
+**callbackUrl:** This is the URL where you will receive events. It needs to be publicly accessible - something like "<YOUR_DOMAIN.COM>/auth/miro/callback/"
+
+9. Select Try It! to run the API request right from the browser. If you get a 201 response, you are ready to receive events!
+
+10. Next, go to to the same board which you referenced in the request above, and create a sticky. You should now receive a webhook event! To learn more about the events you can expect to receive,
+
+https://github.com/horeaporutiu/app-examples-template/assets/10428517/b23d9c4c-e785-43f9-a72e-fa5d82c7b019
+
+# 🗂️ Folder structure <a name="folder"></a>
+
+```
+.
+├── src
+│  └── app.js - main logic to receive webhooks and start the server
+│  └── miroMiddleware.css <-- Middleware file to setup OAuth
+├── .sample.env <-- File with sample env variables. Need to rename to .env and then add in your variables.
+```
+
+# 🫱🏻‍🫲🏽 Contributing <a name="contributing"></a>
+
+If you want to contribute to this example, or any other Miro Open Source project, please review [Miro's contributing guide](https://github.com/miroapp/app-examples/blob/main/CONTRIBUTING.md).
+
+# 🪪 License <a name="license"></a>
+
+[MIT License](https://github.com/miroapp/app-examples/blob/main/LICENSE).
