@@ -4,6 +4,8 @@ This app shows how to get webhook events on your Miro board using Node.js and Ex
 
 # 👨🏻‍💻 App Demo
 
+https://github.com/user-attachments/assets/1448b658-9e6f-4652-8300-6cebbf081f7a
+
 # 📒 Table of Contents
 
 - [Included Features](#features)
