@@ -81,9 +81,9 @@ The `https:<your-ngrok-url>` is your `MIRO_REDIRECT_URL` to be used in the `.env
 >
 > **callbackUrl:** This is the URL where you will receive events. It needs to be publicly accessible - something like "<your-ngrok-app>"
 
-8. Select Try It! to run the API request right from the browser. If you get a 201 response, you are ready to receive events!
+9. Select Try It! to run the API request right from the browser. If you get a 201 response, you are ready to receive events!
 
-9. Next, go to to the same board which you referenced in the request above, and create a sticky. You should now receive a webhook event! To learn more about the events you can expect to receive,
+10. Next, go to to the same board which you referenced in the request above, and create a sticky. You should now receive a webhook event! To learn more about the events you can expect to receive,
 
 # 🗂️ Folder structure <a name="folder"></a>
 
