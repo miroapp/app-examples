@@ -54,21 +54,27 @@ This app shows how to get webhook events on your Miro board using Node.js and Ex
 ngrok http 3000
 ```
 
-This will give you your MIRO_REDIRECT_URL to be used in the `.env` file and then later when calling the API to create a webhook subscription.
+This will output something like this:
+
+```
+Forwarding https:<your-ngrok-url> -> http://localhost:3000
+```
+
+The `https:<your-ngrok-url>` is your MIRO_REDIRECT_URL to be used in the `.env` file and then later when calling the API to create a webhook subscription.
 
 4. Create a new Miro app [developers.miro.com](https://developers.miro.com/). This will take you to the app settings page. There you will find the
    `MIRO_CLIENT_ID` and `MIRO_CLIENT_SECRET` to be added to your `.env` file. Ensure that `boards:read` scope is checked, and then go ahead and install the
    app on your developer team. You will get an **access token** which you will need later to authenticate the creation of your webhook subscription.
 
-Rename the `.sample.env` file to `.env` and then add in your `MIRO_CLIENT_ID` and `MIRO_CLIENT_SECRET` from your [developers.miro.com](https://
-developers.miro.com/) app settings page. Use the `forwarding URL` from the previous step to replace the `<YOUR_DOMAIN.COM>` section of the
-`MIRO_REDIRECT_URL` in the .env file. Save the file as `.env` with your new variables.
+5. Rename the `.sample.env` file to `.env` and then add in your `MIRO_CLIENT_ID` and `MIRO_CLIENT_SECRET` from your [developers.miro.com](https://
+   developers.miro.com/) app settings page. Use the `forwarding URL` from the previous step to replace the `<YOUR_DOMAIN.COM>` section of the
+   `MIRO_REDIRECT_URL` in the .env file. Save the file as `.env` with your new variables.
 
-5. Go to your developer team, and open the board you want to receive webhook events for.
+6. Go to your developer team, and open the board you want to receive webhook events for.
 
-6. In a separate browser tab, open up the API Exporer for the [Create Webhook Subscription endpoint](https://developers.miro.com/reference/create-board-subscription).
+7. In a separate browser tab, open up the API Exporer for the [Create Webhook Subscription endpoint](https://developers.miro.com/reference/create-board-subscription).
 
-7. Provide the following information in the API Explorer:
+8. Provide the following information in the API Explorer:
 
 > **Access Token**: Once you get the access token after installing your app on a developer team (from step 4 above), you can add the access token to the Authorization section of the API reference page.
 >
