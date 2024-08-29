@@ -44,7 +44,7 @@ This app shows how to get webhook events on your Miro board using Node.js and Ex
 
 # 🏃🏽‍♂️ Run the app locally <a name="run"></a>
 
-1. Create a new Miro app [developers.miro.com](https://developers.miro.com/). This will take you to the app settings page. There you
+1. Create a new Miro app on [developers.miro.com](https://developers.miro.com/). This will take you to the app settings page. There you
    will find the `MIRO_CLIENT_ID` and `MIRO_CLIENT_SECRET` to be added to your `.env` file. Ensure that `boards:read` scope is checked,
    and then go ahead and install the app on your developer team. You will get an **access token** which you will need later to
    authenticate the creation of your webhook subscription.
