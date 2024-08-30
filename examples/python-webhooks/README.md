@@ -4,7 +4,7 @@ This app shows how to get webhook events on your Miro board using Python and Fla
 
 # 👨🏻‍💻 App Demo
 
-https://github.com/user-attachments/assets/1448b658-9e6f-4652-8300-6cebbf081f7a
+https://github.com/user-attachments/assets/0ccffb46-daab-4fc9-8ff8-f5720237f75a
 
 # 📒 Table of Contents
 
@@ -50,7 +50,7 @@ https://github.com/user-attachments/assets/1448b658-9e6f-4652-8300-6cebbf081f7a
    `source ./bin/activate` command. Read more about venvs [here](https://docs.python.org/3/library/venv.html).
 
 1. Create a new Miro app on [developers.miro.com](https://developers.miro.com/). This will take you to the app settings page. There you
-   will find the `MIRO_CLIENT_ID` and `MIRO_CLIENT_SECRET` to be added to your `.env` file.Ensure that your app URL is `http://localhost:5000` since that is what port Flask will be running on. Ensure that `boards:read` scope is checked,
+   will find the `MIRO_CLIENT_ID` and `MIRO_CLIENT_SECRET` to be added to your `.env` file. Ensure that your app URL is `http://localhost:5000` since that is what port Flask will be running on. Ensure that `boards:read` scope is checked,
    and then go ahead and install the app on your developer team. You will get an **access token** which you will need later to
    authenticate the creation of your webhook subscription.
 
@@ -72,7 +72,7 @@ The `https:<your-ngrok-url>` is your `MIRO_REDIRECT_URL` to be used in the `.env
 
 4. Run `pip install -r requirements.txt` to install dependencies.
 
-5. Run `flask --app app run` to start the server. Your server should be running on port 5000.
+5. In a separate terminal from the ngrok terminal (leave ngrok running) go to `app-examples/examples/python-webhooks` directiory. Run `flask --app app run` to start the server. Your server should be running on port 5000.
 
 6. Go to your developer team, and open the board you want to receive webhook events for.
 
