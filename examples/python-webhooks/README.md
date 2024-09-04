@@ -48,12 +48,11 @@ https://github.com/user-attachments/assets/0ccffb46-daab-4fc9-8ff8-f5720237f75a
 > It is recommended to use a virtual environment to run this app example. Go to where you `.venv` is located and then run `source ./bin/activate` command. Read more about venvs [here](https://docs.python.org/3/library/venv.html).
 
 1. Create a new Miro app on [developers.miro.com](https://developers.miro.com/). This will take you to the app settings page. There you will find the `MIRO_CLIENT_ID` and `MIRO_CLIENT_SECRET` to be added to your `.env` file. Ensure that your app URL is `http://localhost:5000` since that is what port Flask will be running on.
-   
+
    - Ensure the `boards:read` scope is selected.
    - Install the app on your developer team. You will get an **access token** which you will need later to authenticate the creation of your webhook subscription.
 
 2. In a new terminal window, run:
-
 
 # 🗂️ Folder structure <a name="folder"></a>
 
