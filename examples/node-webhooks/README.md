@@ -39,10 +39,9 @@ https://github.com/user-attachments/assets/1448b658-9e6f-4652-8300-6cebbf081f7a
 - Your development environment includes [Node.js 14.13](https://nodejs.org/en/download) or a later version, and npm.
 - Your development environment includes [ngrok](https://ngrok.com/) or something similar.
 
-# 📖 Associated Developer Tutorial <a name="tutorial"></a>
+# 📖 Associated developer tutorial <a name="tutorial"></a>
 
-> To view a more in depth developer tutorial
-> of this app (including code explanations) see the [Getting started with webhooks tutorial](https://developers.miro.com/docs/getting-started-with-webhooks) on Miro's Developer documentation.
+> To view a more in depth developer tutorial of this app including code explanations, see [Getting started with webhooks](https://developers.miro.com/docs/getting-started-with-webhooks) on Miro's developer portal.
 
 # 🏃🏽‍♂️ Run the app locally <a name="run"></a>
 
