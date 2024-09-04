@@ -1,0 +1,21 @@
+{
+  "name": "node-webhooks",
+  "version": "0.1.0",
+  "license": "MIT",
+  "scripts": {
+    "start": "vite",
+    "build": "vite build",
+    "serve": "vite preview"
+  },
+  "dependencies": {
+    "express": "^4.18.1",
+    "@mirohq/miro-api": "^2.0.0",
+    "cookie-parser": "^1.4.6",
+    "dotenv": "^16.0.3"
+  },
+  "devDependencies": {
+    "vite": "3.0.3",
+    "vite-plugin-node": "^2.0.0"
+  },
+  "type": "module"
+}
