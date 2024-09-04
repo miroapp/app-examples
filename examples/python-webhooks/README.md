@@ -39,10 +39,9 @@ https://github.com/user-attachments/assets/0ccffb46-daab-4fc9-8ff8-f5720237f75a
 - Your development environment includes [pip](https://www.python.org/) 24.0 or a later version.
 - Your development environment includes [ngrok](https://ngrok.com/) or something similar.
 
-# 📖 Associated Developer Tutorial <a name="tutorial"></a>
+# 📖 Associated developer tutorial <a name="tutorial"></a>
 
-> To view a more in depth developer tutorial
-> of this app (including code explanations) see the [Getting started with Miro webhooks using Python tutorial](https://developers.miro.com/docs/getting-started-with-webhooks-python) on Miro's Developer documentation.
+> To view a more in depth developer tutorial of this app including code explanations, see [Getting started with Miro webhooks using Python](https://developers.miro.com/docs/getting-started-with-webhooks-python) on Miro's Developer documentation.
 
 # 🏃🏽‍♂️ Run the app locally <a name="run"></a>
 
