@@ -1,6 +1,6 @@
 # Python Webhooks
 
-This app shows how to get webhook events on your Miro board using Python and Flask.
+This app demonstrates how to receive webhook events from your Miro board using Python and Flask. By following this guide, you will set up a local environment, create a webhook subscription, and test receiving events when changes are made on your Miro board.
 
 # 👨🏻‍💻 App Demo
 
