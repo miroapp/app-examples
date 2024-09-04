@@ -84,7 +84,7 @@ The `https:<your-ngrok-url>` is your `MIRO_REDIRECT_URL` to be used in the `.env
 >
 > **callbackUrl:** This is the URL where you will receive events. It should be the same as `MIRO_REDIRECT_URL` in `.env`. 9. Select Try It! to run the API request right from the browser. If you get a 201 response, you are ready to receive events!
 
-10. Next, go to to the same board which you referenced in the request above, and create a sticky. You should now receive a webhook event! Great job! You've just learned how to get started with Miro's webhooks with Python 🎉.
+9. Next, go to to the same board which you referenced in the request above, and create a sticky. You should now receive a webhook event! Great job! You've just learned how to get started with Miro's webhooks with Python 🎉.
 
 # 🗂️ Folder structure <a name="folder"></a>
 
