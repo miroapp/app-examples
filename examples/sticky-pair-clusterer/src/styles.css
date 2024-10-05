@@ -1,0 +1,34 @@
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.scrollable-container {
+  height: 100%;
+  overflow-y: auto;
+  padding-top: 30px;
+  padding-left: 23px;
+  padding-bottom: 20px;
+  box-sizing: border-box;
+}
+
+.scrollable-content {
+  height: 2000px;
+  background-color: #2a79ff;
+}
+
+.create-pair-button {
+  display: block;
+  background: none;
+  border: 1px solid #4262ff;
+  color: #4262ff;
+  height: 30px;
+  box-sizing: border-box;
+  border-radius: 4px;
+  text-align: center;
+  font-size: 14px;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
