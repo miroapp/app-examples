@@ -4,6 +4,8 @@ Custom actions are a quick way to get one or more tasks done with your apps. Use
 
 ℹ️ **Important**: Custom actions are only supported for non-public apps that will be distributed privately via a shareable authorization link from your App Settings page. This means that apps built with custom actions will not be eligible for distribution via the Miro Marketplace.
 
+🚧 To ensure you can see the custom action in a dropdown from your app, you **will need to register a minimum of two custom actions**. If only one single custom action was registered, no drop down will appear and instead the custom action will fire directly by clicking on its icon.
+
 # 👨🏻‍💻 App Demo
 
 https://github.com/miroapp/app-examples/assets/10800544/4cd2c24b-877a-4ac0-a512-4b9b3bb35f1f
