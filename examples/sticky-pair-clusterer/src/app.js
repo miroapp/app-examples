@@ -1,4 +1,88 @@
+/**
+ * Feature List:
+ * -------------
+ * 1. Matrix Creation and Management
+ *    - Create matrix with specified rows and columns
+ *    - Set and update cell values
+ *    - Link columns to frames
+ *    - Map rows to sticky notes
+ *
+ * 2. UI Interactions
+ *    - Detect selected sticky note and double its size
+ *    - Detect deselected sticky note and change its size to normal
+ *    - Detect content changes in sticky notes and update correspoding cell values and sticky notes that their content should be the same
+ *    - Detect selected sticky note and double the size of its corresponding sticky notes in all other frames
+ *    - Detect deselected sticky note and change the updated sticky notes to their normal size
+ *
+ * 3. Benefit-Trait Matrix Generation
+ *    - Create benefit-trait matrix with specified dimensions
+ *    - Calculate and populate matrix values
+ *
+ * 4. Visualization
+ *    - Create visual representation of matrix on Miro board
+ *    - Position squares within frames
+ *
+ * 5. Debug and Testing
+ *    - Debug button to test matrix creation
+ *    - Console logging for various operations
+ *
+ * 6. Event Handling
+ *    - Listen for selection updates
+ *    - Listen for content updates
+ *
+ * TODO: Implement clustering algorithm for sticky note pairs
+ * TODO: Add functionality to save and load matrix state
+ * TODO: Implement undo/redo functionality for matrix operations
+ */
+
 const { board } = window.miro;
+// Global definitions
+let g_matrix = null;
+
+// Function to save the matrix to the board
+async function saveMatrixToBoard(matrix) {
+  const matrixData = JSON.stringify({
+    rows: matrix.rows,
+    columns: matrix.columns,
+    data: matrix.matrix,
+    columnToFrameMap: Object.fromEntries(matrix.columnToFrameMap),
+    rowToStickyNotesMap: Object.fromEntries(matrix.rowToStickyNotesMap),
+    rowNames: matrix.rowNames ? Object.fromEntries(matrix.rowNames) : undefined,
+    columnNames: matrix.columnNames
+      ? Object.fromEntries(matrix.columnNames)
+      : undefined,
+  });
+  await board.setAppData("benefitTraitMatrix", matrixData);
+  console.log("Matrix saved to board:", matrixData);
+}
+
+// Function to load the matrix from the board
+async function loadMatrixFromBoard() {
+  const storedMatrixData = await board.getAppData("benefitTraitMatrix");
+  if (storedMatrixData) {
+    const storedMatrix = JSON.parse(storedMatrixData);
+    const matrix = new Matrix(storedMatrix.rows, storedMatrix.columns);
+    matrix.matrix = storedMatrix.data;
+    matrix.columnToFrameMap = new Map(
+      Object.entries(storedMatrix.columnToFrameMap),
+    );
+    matrix.rowToStickyNotesMap = new Map(
+      Object.entries(storedMatrix.rowToStickyNotesMap),
+    );
+    if (storedMatrix.rowNames) {
+      matrix.rowNames = new Map(Object.entries(storedMatrix.rowNames));
+    }
+    if (storedMatrix.columnNames) {
+      matrix.columnNames = new Map(Object.entries(storedMatrix.columnNames));
+    }
+    return matrix;
+  }
+  return null;
+}
+
+// Call this function when the board is loaded
+loadMatrixFromBoard();
+
 //////////////////////////////////////////////////////////////////////////////////////////////////
 class MatrixCell {
   constructor(value, stickyNoteId) {
@@ -214,6 +298,23 @@ class Matrix {
   }
 
   // Additional methods to manage the matrix, rows, and columns can be added here
+  findCellByStickyNoteId(stickyNoteId) {
+    console.log("Finding cell by sticky note id: __line 261__", stickyNoteId);
+    console.log(
+      "Finding cell by sticky note id: __line 262__",
+      this.matrix.matrix,
+    );
+
+    for (let row = 0; row < this.rows; row++) {
+      for (let col = 0; col < this.columns; col++) {
+        const cell = this.matrix[row][col];
+        if (cell && cell.value.stickyNotesIds.includes(stickyNoteId)) {
+          return cell;
+        }
+      }
+    }
+    return null;
+  }
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
@@ -345,8 +446,7 @@ async function createMatrix() {
     return;
   }
 
-  // Create the matrix
-  const matrix = new Matrix(rowsCount, columnsCount);
+  g_matrix = new Matrix(rowsCount, columnsCount);
 
   // Create frames for each column
   for (let j = 0; j < columnsCount; j++) {
@@ -360,13 +460,13 @@ async function createMatrix() {
         fillColor: "#ffffff", // Set background color to white
       },
     });
-    matrix.linkColumnToFrame(j, frame.id);
+    g_matrix.linkColumnToFrame(j, frame.id);
   }
-  console.log("Matrix created: 366", matrix);
+  console.log("Matrix created: 366", g_matrix);
 
   // Create sticky notes for each cell in each column
   for (let j = 0; j < columnsCount; j++) {
-    const frameId = matrix.getFrameForColumn(j);
+    const frameId = g_matrix.getFrameForColumn(j);
     const frame = await board.getById(frameId);
     //safa here
     const squarePositions = calculateBestSquaresInRectangle(
@@ -380,29 +480,6 @@ async function createMatrix() {
     //   // Calculate the upper-left corner of the frame
     const frameLeft = frame.x - frame.width / 2;
     const frameTop = frame.y - frame.height / 2;
-    //
-    //
-    //   // Create sticky notes
-    //   const createdNotes = [];
-    //   for (let i = 0; i < noOfSquares; i++) {
-    //     const row = Math.floor(i / squarePositions.gridInfo.columns);
-    //     const col = i % squarePositions.gridInfo.columns;
-    //     const position = squarePositions.placement.getSquarePosition(row, col);
-    //
-    //     const stickyNote = await board.createStickyNote({
-    //       x : frameLeft + position.x + squarePositions.gridInfo.effectiveSquareSize / 2,
-    //       y: frameTop + position.y + squarePositions.gridInfo.effectiveSquareSize / 2,
-    //       width: squarePositions.gridInfo.effectiveSquareSize,
-    //       style: {
-    //         fillColor: "light_yellow",
-    //       }
-    //     });
-
-    // safa here
-
-    // Calculate optimal sticky note size
-    // const stickyNoteSize = calculateStickyNoteSize(frame.width, frame.height, rowsCount, columnsCount);
-    // const offsetSize = stickyNoteSize * 0.15;
 
     for (let i = 0; i < rowsCount; i++) {
       const row = Math.floor(i / squarePositions.gridInfo.columns);
@@ -424,15 +501,9 @@ async function createMatrix() {
           fillColor: "light_yellow",
         },
       });
-      // const stickyNote = await miro.board.createStickyNote({
-      //   content: `Cell ${i + 1},${j + 1}`,
-      //   x: frame.x + (j * (stickyNoteSize + offsetSize)) + stickyNoteSize / 2,
-      //   y: frame.y + (i * (stickyNoteSize + offsetSize)) + stickyNoteSize / 2,
-      //   width: stickyNoteSize,
-      // });
       await frame.add(stickyNote);
 
-      matrix.setCell(
+      g_matrix.setCell(
         i,
         j,
         new Trait([stickyNote.id], `Cell ${i + 1},${j + 1}`),
@@ -440,9 +511,142 @@ async function createMatrix() {
     }
   }
 
-  console.log("Matrix created:", matrix);
-  return matrix;
+  console.log("Matrix created: 421", g_matrix);
+  // Save the matrix to the board after creation
+  await saveMatrixToBoard(g_matrix);
+
+  console.log("Matrix created and saved:", g_matrix);
 }
+
+// Function to check if content of selected sticky note has changed
+// async function checkStickyNoteContentChange(item) {
+//   if (item.type === "sticky_note") {
+//     const currentContent = item.content;
+//
+//     if (!item.originalContent) {
+//       // If it's newly selected, store the original content and print it
+//       item.originalContent = currentContent;
+//       console.log(`Sticky note ${item.id} selected. Content:`, currentContent);
+//     } else {
+//       // If it's already selected, check for changes
+//       if (currentContent !== item.originalContent) {
+//         console.log(`Content changed for sticky note ${item.id}`);
+//         console.log(`Original: ${item.originalContent}`);
+//         console.log(`New: ${currentContent}`);
+//
+//         // Update the original content
+//         item.originalContent = currentContent;
+//       }
+//     }
+//   }
+// }
+
+// Update the selection:update event listener
+let previouslySelectedItems = [];
+let currentlySelectedItems = [];
+board.ui.on("selection:update", async (event) => {
+  if (!g_matrix) {
+    await loadMatrix(); // todo: either this or loadmatrixfromboard
+  }
+
+  // Store the previously selected items for comparison
+  // Get the currently selected items
+  currentlySelectedItems = event.items;
+
+  // Check if only one item is selected and it's a sticky note
+  if (
+    currentlySelectedItems.length === 1 &&
+    currentlySelectedItems[0].type === "sticky_note"
+  ) {
+    const selectedStickyNote = currentlySelectedItems[0];
+
+    // Check if the sticky note's id exists in the matrix
+    console.log("Selected Sticky Note:", selectedStickyNote);
+    console.log("Matrix:", g_matrix);
+    if (g_matrix == null) {
+      g_matrix = await loadMatrixFromBoard(); // todo: either this or loadmatrixfromboard
+      console.log("Matrix was null and is now loaded from the board");
+    }
+    if (g_matrix.findCellByStickyNoteId(selectedStickyNote.id)) {
+      // Double the size of the sticky note
+      selectedStickyNote.width = selectedStickyNote.width * 2;
+      previouslySelectedItems.push(selectedStickyNote);
+      // Find the row and column of the selected sticky note
+      let selectedRow, selectedCol;
+      for (let row = 0; row < g_matrix.rows; row++) {
+        for (let col = 0; col < g_matrix.columns; col++) {
+          const cell = g_matrix.getCell(row, col);
+          if (
+            cell &&
+            cell.value.stickyNotesIds.includes(selectedStickyNote.id)
+          ) {
+            selectedRow = row;
+            selectedCol = col;
+            break;
+          }
+        }
+        if (selectedRow !== undefined) break;
+      }
+
+      // If we found the selected sticky note in the matrix
+      if (selectedRow !== undefined && selectedCol !== undefined) {
+        // Double the size of corresponding sticky notes in other columns
+        for (let col = 0; col < g_matrix.columns; col++) {
+          if (col !== selectedCol) {
+            const cell = g_matrix.getCell(selectedRow, col);
+            if (cell && cell.value.stickyNotesIds.length > 0) {
+              const correspondingStickyNote = await board.getById(
+                cell.value.stickyNotesIds[0],
+              );
+              if (correspondingStickyNote) {
+                correspondingStickyNote.width *= 2;
+                // Add the corresponding sticky note to the previously selected items
+                previouslySelectedItems.push(correspondingStickyNote);
+                await correspondingStickyNote.sync();
+              }
+            }
+          }
+        }
+      }
+      await selectedStickyNote.sync();
+    }
+  } else {
+    // User has either deselected everything or selected something else
+    // Restore the size of all previously selected sticky notes
+    for (const prevSelectedItem of previouslySelectedItems) {
+      prevSelectedItem.width /= 2;
+      await prevSelectedItem.sync();
+    }
+
+    // Clear the previouslySelectedItems array
+    previouslySelectedItems = [];
+
+    // If a new sticky note is selected (that's not in the matrix), update previouslySelectedItems
+    if (
+      currentlySelectedItems.length === 1 &&
+      currentlySelectedItems[0].type === "sticky_note"
+    ) {
+      const newSelectedStickyNote = currentlySelectedItems[0];
+      if (
+        g_matrix &&
+        !g_matrix.findCellByStickyNoteId(newSelectedStickyNote.id)
+      ) {
+        previouslySelectedItems.push(newSelectedStickyNote);
+      }
+    }
+  }
+
+  // if the selected item is a sticky note, and its id exists in the matrix, then double its size
+  // if previously sticky note is not selected anymore then restore its original size
+});
+
+// Example usage:
+// const selectedStickyNote = await detectSelectedStickyNote();
+// if (selectedStickyNote) {
+//   // Do something with the selected sticky note
+// }
+
+//safa here
 
 document.getElementById("createMatrix").addEventListener("click", createMatrix);
 
@@ -530,93 +734,6 @@ document.getElementById("debugButton").addEventListener("click", async () => {
 // });
 
 // Add this listener after your existing code
-board.ui.on("selection:update", async (event) => {
-  const selectedItems = event.items;
-
-  for (const item of selectedItems) {
-    if (item.type === "sticky_note") {
-      const metadata = await item.getMetadata("myApp");
-      console.log(`Metadata for sticky note ${item.id}:`, metadata);
-      console.log(`Tags for sticky note ${item.id}:`, item.tagIds);
-    }
-  }
-});
-
-// ... rest of your code ...
-
-// const originalSizes = new Map(); // Store original sizes for each sticky note
-// const resizedStickyNotes = new Set(); // Store the IDs of resized sticky notes
-
-// // Function to double the size of a sticky note
-// async function doubleSize(stickyNote) {
-//   const { width, height } = stickyNote;
-//
-//   // Save the original size if not already saved
-//   if (!originalSizes.has(stickyNote.id)) {
-//     originalSizes.set(stickyNote.id, { width, height });
-//   }
-//   stickyNote.width = width * 2;
-//   stickyNote.sync();
-//
-//   resizedStickyNotes.add(stickyNote.id); // Track resized sticky note
-// }
-
-// // Function to reset the sticky note size to its original size
-// async function resetSize(stickyNote) {
-//   const originalSize = originalSizes.get(stickyNote.id);
-//   if (originalSize) {
-//
-//   stickyNote.width = originalSize.width;
-//   stickyNote.sync();
-//   //stickyNote.height= originalSize.height;
-//   //stickyNote.sync();
-//
-//     // Remove from the resized sticky notes set and the original size map
-//     resizedStickyNotes.delete(stickyNote.id);
-//     originalSizes.delete(stickyNote.id);
-//   }
-// }
-
-// Event listener for selection changes
-// miro.board.ui.on('selection:update', async (event) => {
-//   const selectedWidgets = event.items;
-//
-//   for (const widget of selectedWidgets) {
-//     if (widget.type === 'sticky_note') {
-//       // Get the metadata of the selected sticky note
-//       const metadata = await widget.getMetadata('myApp');
-//
-//       // Check if the sticky note has a pairId
-//       if (metadata && metadata.pairId && metadata.pairedNoteId) {
-//         const pairedNoteId = metadata.pairedNoteId;
-//
-//         // Double the size of the selected sticky note
-//         await doubleSize(widget);
-//
-//         // Find the paired sticky note and double its size
-//         const [pairedNote] = await miro.board.widgets.get({ id: pairedNoteId });
-//         if (pairedNote) {
-//           await doubleSize(pairedNote);
-//         }
-//       } else {
-//         // If the sticky note doesn't have a pair, just resize the selected one
-//         await doubleSize(widget);
-//       }
-//     }
-//   }
-//
-//   // Handle unselected sticky notes by restoring their original size
-//   const allStickyNotes = await miro.board.widgets.get({ type: 'sticky_note' });
-//   const unselectedStickyNotes = allStickyNotes.filter(
-//     (stickyNote) => !selectedWidgets.some((selected) => selected.id === stickyNote.id)
-//   );
-//
-//   for (const stickyNote of unselectedStickyNotes) {
-//     if (resizedStickyNotes.has(stickyNote.id)) {
-//       await resetSize(stickyNote);
-//     }
-//   }
-// });
 
 function calculateBestSquaresInRectangle(
   rectangleWidth,
@@ -753,4 +870,21 @@ function calculateBestSquaresInRectangle(
 //     }
 
 //     // Rest of your function...
+// }
+
+// Add a function to load the matrix when needed
+async function loadMatrix() {
+  g_matrix = await loadMatrixFromBoard();
+  if (g_matrix) {
+    console.log("Matrix loaded from board:", g_matrix);
+  } else {
+    console.log("No matrix found on the board");
+  }
+}
+
+// // Add a function to clear the matrix data if needed
+// async function clearMatrixData() {
+//   await board.setAppData('benefitTraitMatrix', null);
+//   g_matrix = null;
+//   console.log("Matrix data cleared from board");
 // }
