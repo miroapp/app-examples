@@ -85,23 +85,22 @@ loadMatrixFromBoard();
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
 class MatrixCell {
-  constructor(value, stickyNoteId) {
-    this.value = value; // Integer value between 1-8
+  constructor(stickyNoteId) {
     this.stickyNoteId = stickyNoteId; // Reference to a sticky note
   }
 }
 
 class Matrix {
   constructor(rows, columns) {
-    this.rows = rows;
-    this.columns = columns;
+    this.rows = rows; // traits
+    this.columns = columns; // benefits
     this.matrix = Array.from({ length: rows }, () => Array(columns).fill(null));
     this.columnToFrameMap = new Map(); // Maps column index to frame ID
     this.rowToStickyNotesMap = new Map(); // Maps row index to an array of sticky note IDs
   }
 
-  setCell(row, col, value, stickyNoteId) {
-    const cell = new MatrixCell(value, stickyNoteId);
+  setCell(row, col, stickyNoteId) {
+    const cell = new MatrixCell(stickyNoteId);
     this.matrix[row][col] = cell;
 
     // Add sticky note ID to the row map
@@ -128,29 +127,9 @@ class Matrix {
     return this.matrix[row][col];
   }
 
-  updateCell(row, col, value, stickyNoteId) {
+  updateCell(row, col, stickyNoteId) {
     if (row >= 0 && row < this.rows && col >= 0 && col < this.columns) {
-      this.setCell(row, col, value, stickyNoteId);
-      return true;
-    }
-    return false;
-  }
-
-  deleteCell(row, col) {
-    if (row >= 0 && row < this.rows && col >= 0 && col < this.columns) {
-      this.matrix[row][col] = null;
-
-      // Remove sticky note ID from the row map
-      const stickyNotes = this.rowToStickyNotesMap.get(row);
-      if (stickyNotes) {
-        const index = stickyNotes.findIndex(
-          (id) => id === this.matrix[row][col]?.stickyNoteId,
-        );
-        if (index !== -1) {
-          stickyNotes.splice(index, 1);
-        }
-      }
-
+      this.setCell(row, col, stickyNoteId);
       return true;
     }
     return false;
@@ -299,17 +278,11 @@ class Matrix {
 
   // Additional methods to manage the matrix, rows, and columns can be added here
   findCellByStickyNoteId(stickyNoteId) {
-    console.log("Finding cell by sticky note id: __line 261__", stickyNoteId);
-    console.log(
-      "Finding cell by sticky note id: __line 262__",
-      this.matrix.matrix,
-    );
-
     for (let row = 0; row < this.rows; row++) {
       for (let col = 0; col < this.columns; col++) {
         const cell = this.matrix[row][col];
-        if (cell && cell.value.stickyNotesIds.includes(stickyNoteId)) {
-          return cell;
+        if (cell && cell.stickyNoteId === stickyNoteId) {
+          return { cell, row, col };
         }
       }
     }
@@ -360,71 +333,7 @@ class Matrix {
 // console.log(matrix.getFrameForColumn(0)); // 'frame1'
 //////////////////////////////////////////////////////////////////////////////////////////////////
 
-class Trait {
-  constructor(stickyNotesIds, content = "", tags = []) {
-    this.stickyNotesIds = stickyNotesIds;
-    this.content = content;
-    this.tags = tags;
-  }
-
-  addTag(tag) {
-    if (!this.tags.includes(tag)) {
-      this.tags.push(tag);
-    }
-  }
-
-  removeTag(tag) {
-    const index = this.tags.indexOf(tag);
-    if (index !== -1) {
-      this.tags.splice(index, 1);
-    }
-  }
-
-  setContent(content) {
-    this.content = content;
-  }
-}
-
-async function createBenefitTraitMatrix(benefits, traits) {
-  const matrix = [];
-
-  // Create rows for each benefit
-  for (let i = 0; i < benefits; i++) {
-    // Create a new frame with 1080 16:9 aspect ratio
-    const newFrame = await board.createFrame({
-      title: `Benefit ${i + 1}`,
-      x: i * 1100, // Offset each frame horizontally
-      y: 0,
-      width: 1080,
-      height: 608,
-    });
-    console.log(`Created frame ${newFrame.id}`);
-    const row = [];
-
-    // Create cells for each trait
-    for (let j = 0; j < traits; j++) {
-      // create a new sticky note and place it in the new frame
-      const newStickyNote = await board.createStickyNote({
-        x: 0,
-        y: 0,
-        width: 100,
-        height: 100,
-        content: `Trait ${j + 1}`,
-        frameId: newFrame.id,
-      });
-      // create a new trait from the new sticky note and place it in the row
-      const newTrait = new Trait([newStickyNote.id], `Trait ${j + 1}`);
-      row.push(newTrait);
-    }
-
-    matrix.push(row);
-  }
-
-  return matrix;
-}
-
 // Example usage:
-// const benefitTraitMatrix = createBenefitTraitMatrix(benefits, traits);
 async function createMatrix() {
   console.log("Create Matrix button clicked");
 
@@ -462,22 +371,17 @@ async function createMatrix() {
     });
     g_matrix.linkColumnToFrame(j, frame.id);
   }
-  console.log("Matrix created: 366", g_matrix);
 
   // Create sticky notes for each cell in each column
   for (let j = 0; j < columnsCount; j++) {
     const frameId = g_matrix.getFrameForColumn(j);
     const frame = await board.getById(frameId);
-    //safa here
     const squarePositions = calculateBestSquaresInRectangle(
       frame.width,
       frame.height,
       rowsCount,
     );
 
-    console.log("Square Positions:", squarePositions);
-    //
-    //   // Calculate the upper-left corner of the frame
     const frameLeft = frame.x - frame.width / 2;
     const frameTop = frame.y - frame.height / 2;
 
@@ -503,16 +407,9 @@ async function createMatrix() {
       });
       await frame.add(stickyNote);
 
-      g_matrix.setCell(
-        i,
-        j,
-        new Trait([stickyNote.id], `Cell ${i + 1},${j + 1}`),
-      );
+      g_matrix.setCell(i, j, stickyNote.id);
     }
   }
-
-  console.log("Matrix created: 421", g_matrix);
-  // Save the matrix to the board after creation
   await saveMatrixToBoard(g_matrix);
 
   console.log("Matrix created and saved:", g_matrix);
@@ -543,197 +440,50 @@ async function createMatrix() {
 
 // Update the selection:update event listener
 let previouslySelectedItems = [];
-let currentlySelectedItems = [];
 board.ui.on("selection:update", async (event) => {
   if (!g_matrix) {
-    await loadMatrix(); // todo: either this or loadmatrixfromboard
+    await loadMatrixFromBoard(); // todo: either this or loadmatrixfromboard
   }
 
   // Store the previously selected items for comparison
   // Get the currently selected items
-  currentlySelectedItems = event.items;
 
   // Check if only one item is selected and it's a sticky note
-  if (
-    currentlySelectedItems.length === 1 &&
-    currentlySelectedItems[0].type === "sticky_note"
-  ) {
-    const selectedStickyNote = currentlySelectedItems[0];
-
-    // Check if the sticky note's id exists in the matrix
-    console.log("Selected Sticky Note:", selectedStickyNote);
-    console.log("Matrix:", g_matrix);
-    if (g_matrix == null) {
-      g_matrix = await loadMatrixFromBoard(); // todo: either this or loadmatrixfromboard
-      console.log("Matrix was null and is now loaded from the board");
+  if (event.items.length === 1 && event.items[0].type === "sticky_note") {
+    const result = g_matrix.findCellByStickyNoteId(event.items[0].id);
+    if (null == result) {
+      return;
     }
-    if (g_matrix.findCellByStickyNoteId(selectedStickyNote.id)) {
-      // Double the size of the sticky note
-      selectedStickyNote.width = selectedStickyNote.width * 2;
-      previouslySelectedItems.push(selectedStickyNote);
-      // Find the row and column of the selected sticky note
-      let selectedRow, selectedCol;
-      for (let row = 0; row < g_matrix.rows; row++) {
-        for (let col = 0; col < g_matrix.columns; col++) {
-          const cell = g_matrix.getCell(row, col);
-          if (
-            cell &&
-            cell.value.stickyNotesIds.includes(selectedStickyNote.id)
-          ) {
-            selectedRow = row;
-            selectedCol = col;
-            break;
-          }
-        }
-        if (selectedRow !== undefined) break;
-      }
-
-      // If we found the selected sticky note in the matrix
-      if (selectedRow !== undefined && selectedCol !== undefined) {
-        // Double the size of corresponding sticky notes in other columns
-        for (let col = 0; col < g_matrix.columns; col++) {
-          if (col !== selectedCol) {
-            const cell = g_matrix.getCell(selectedRow, col);
-            if (cell && cell.value.stickyNotesIds.length > 0) {
-              const correspondingStickyNote = await board.getById(
-                cell.value.stickyNotesIds[0],
-              );
-              if (correspondingStickyNote) {
-                correspondingStickyNote.width *= 2;
-                // Add the corresponding sticky note to the previously selected items
-                previouslySelectedItems.push(correspondingStickyNote);
-                await correspondingStickyNote.sync();
-              }
-            }
-          }
+    // Double the size of all sticky notes in the same row
+    for (let col = 0; col < g_matrix.columns; col++) {
+      const cell = g_matrix.matrix[result.row][col];
+      if (cell && cell.stickyNoteId) {
+        let stickyNote = await board.getById(cell.stickyNoteId);
+        // Add the sticky note to the previously selected items
+        if (stickyNote) {
+          previouslySelectedItems.push(stickyNote.id);
+          stickyNote.width *= 2;
+          await stickyNote.sync();
         }
       }
-      await selectedStickyNote.sync();
     }
   } else {
     // User has either deselected everything or selected something else
     // Restore the size of all previously selected sticky notes
-    for (const prevSelectedItem of previouslySelectedItems) {
-      prevSelectedItem.width /= 2;
-      await prevSelectedItem.sync();
+    for (const prevSelectedItemId of previouslySelectedItems) {
+      const prevSelectedItem = await board.getById(prevSelectedItemId);
+      if (prevSelectedItem) {
+        prevSelectedItem.width /= 2;
+        await prevSelectedItem.sync();
+      }
     }
 
     // Clear the previouslySelectedItems array
     previouslySelectedItems = [];
-
-    // If a new sticky note is selected (that's not in the matrix), update previouslySelectedItems
-    if (
-      currentlySelectedItems.length === 1 &&
-      currentlySelectedItems[0].type === "sticky_note"
-    ) {
-      const newSelectedStickyNote = currentlySelectedItems[0];
-      if (
-        g_matrix &&
-        !g_matrix.findCellByStickyNoteId(newSelectedStickyNote.id)
-      ) {
-        previouslySelectedItems.push(newSelectedStickyNote);
-      }
-    }
   }
-
-  // if the selected item is a sticky note, and its id exists in the matrix, then double its size
-  // if previously sticky note is not selected anymore then restore its original size
 });
-
-// Example usage:
-// const selectedStickyNote = await detectSelectedStickyNote();
-// if (selectedStickyNote) {
-//   // Do something with the selected sticky note
-// }
-
-//safa here
 
 document.getElementById("createMatrix").addEventListener("click", createMatrix);
-
-document.getElementById("debugButton").addEventListener("click", async () => {
-  console.log("Debug button clicked");
-  //call the createBenefitTraitMatrix function with 10 benefits and 10 traits
-  const benefitTraitMatrix = await createBenefitTraitMatrix(10, 10);
-  console.log(benefitTraitMatrix);
-});
-//
-// document.getElementById("createPair").addEventListener("click", async () => {
-//
-//   const pairId = `pair_${Date.now()}`; // Unique pair identifier based on timestamp
-//
-//   const frames = await board.get({ type: "frame" });
-//   if (frames.length === 0) {
-//     alert("No frames found on the board. Please create a frame first.");
-//     return;
-//   }
-//
-//   // Read the number of squares from the input field
-//   let noOfSquares = parseInt(
-//     document.getElementById("traitsCount").value,
-//     10,
-//   );
-//
-//   // Validate the input
-//   if (isNaN(noOfSquares) || noOfSquares < 1 || noOfSquares > 200) {
-//     alert("Please enter a valid number of squares between 1 and 200.");
-//     return;
-//   }
-//
-//   noOfSquares = noOfSquares * 2;
-//   const frame = await findFrameByName("Benefit Template");
-//   const targetFrame = frame;
-//   const frameDimensions = await getFrameDimensions(frame);
-//   const squarePositions = calculateBestSquaresInRectangle(
-//     frameDimensions.width,
-//     frameDimensions.height,
-//     noOfSquares,
-//   );
-//   console.log("Square Positions:", squarePositions);
-//
-//   // Calculate the upper-left corner of the frame
-//   const frameLeft = targetFrame.x - targetFrame.width / 2;
-//   const frameTop = targetFrame.y - targetFrame.height / 2;
-//
-//
-//   // Create sticky notes
-//   const createdNotes = [];
-//   for (let i = 0; i < noOfSquares; i++) {
-//     const row = Math.floor(i / squarePositions.gridInfo.columns);
-//     const col = i % squarePositions.gridInfo.columns;
-//     const position = squarePositions.placement.getSquarePosition(row, col);
-//
-//     const stickyNote = await board.createStickyNote({
-//       x : frameLeft + position.x + squarePositions.gridInfo.effectiveSquareSize / 2,
-//       y: frameTop + position.y + squarePositions.gridInfo.effectiveSquareSize / 2,
-//       width: squarePositions.gridInfo.effectiveSquareSize,
-//       style: {
-//         fillColor: "light_yellow",
-//       }
-//     });
-//
-//     createdNotes.push(stickyNote);
-//   }
-//
-//   // Link sticky notes in pairs and update content
-//   for (let i = 0; i < createdNotes.length; i += 2) {
-//     const sticky1 = createdNotes[i];
-//     const sticky2 = createdNotes[i + 1];
-//
-//     await sticky1.setMetadata('myApp', { itsPair: sticky2.id });
-//     await sticky2.setMetadata('myApp', { itsPair: sticky1.id });
-//
-//
-//     sticky1.content = `ID: ${sticky1.id}\nPair ID: ${sticky2.id}\nPair: ${Math.floor(i/2) + 1} of ${noOfSquares/2}`;
-//     await sticky1.sync();
-//
-//     sticky2.content = `ID: ${sticky2.id}\nPair ID: ${sticky1.id}\nPair: ${Math.floor(i/2) + 1} of ${noOfSquares/2}`;
-//     await sticky2.sync();
-//   }
-//
-//   console.log(`Created ${noOfSquares} sticky notes for pair ${pairId}`);
-// });
-
-// Add this listener after your existing code
 
 function calculateBestSquaresInRectangle(
   rectangleWidth,
@@ -814,77 +564,3 @@ function calculateBestSquaresInRectangle(
     totalSquares: nrows * ncols,
   };
 }
-
-// function calculateOptimalLayout(frameWidth, frameHeight, totalSquares) {
-//     let bestSize = 0;
-//     let bestRows = 0;
-//     let bestColumns = 0;
-
-//     // Try different column counts (must be even)
-//     for (let columns = 2; columns <= Math.sqrt(totalSquares) * 2; columns += 2) {
-//         const rows = Math.ceil(totalSquares / columns);
-//         const sizeByWidth = frameWidth / (columns * 1.15);
-//         const sizeByHeight = frameHeight / (rows * 1.15);
-//         const size = Math.min(sizeByWidth, sizeByHeight);
-
-//         if (size > bestSize) {
-//             bestSize = size;
-//             bestRows = rows;
-//             bestColumns = columns;
-//         }
-//     }
-
-//     return {
-//         stickyNoteSize: bestSize,
-//         rows: bestRows,
-//         columns: bestColumns
-//     };
-// }
-
-// Usage in your main function
-// async function createPairMatrix(rowsCount, columnsCount) {
-//     const frame = await board.createFrame({
-//         title: 'Pair Matrix',
-//         width: 1920,
-//         height: 1080
-//     });
-
-//     const totalSquares = rowsCount * columnsCount;
-//     const layout = calculateOptimalLayout(frame.width, frame.height, totalSquares);
-
-//     const matrix = new Matrix(rowsCount, columnsCount);
-//     const offsetSize = layout.stickyNoteSize * 0.15;
-
-//     for (let i = 0; i < rowsCount; i++) {
-//         for (let j = 0; j < columnsCount; j++) {
-//             const stickyNote = await board.createStickyNote({
-//                 content: `Cell ${i + 1},${j + 1}`,
-//                 x: frame.x + (j % layout.columns) * (layout.stickyNoteSize + offsetSize) + layout.stickyNoteSize / 2,
-//                 y: frame.y + Math.floor(j / layout.columns) * (layout.stickyNoteSize + offsetSize) + layout.stickyNoteSize / 2,
-//                 width: layout.stickyNoteSize,
-//             });
-//             await frame.add(stickyNote);
-
-//             matrix.setCell(i, j, 0, stickyNote.id);
-//         }
-//     }
-
-//     // Rest of your function...
-// }
-
-// Add a function to load the matrix when needed
-async function loadMatrix() {
-  g_matrix = await loadMatrixFromBoard();
-  if (g_matrix) {
-    console.log("Matrix loaded from board:", g_matrix);
-  } else {
-    console.log("No matrix found on the board");
-  }
-}
-
-// // Add a function to clear the matrix data if needed
-// async function clearMatrixData() {
-//   await board.setAppData('benefitTraitMatrix', null);
-//   g_matrix = null;
-//   console.log("Matrix data cleared from board");
-// }
