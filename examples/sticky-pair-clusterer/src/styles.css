@@ -45,6 +45,25 @@ body {
   vertical-align: middle;
 }
 
+.update-benefits-button {
+  display: inline-block;
+  width: 200px;
+  background: none;
+  border: 1px solid #4262ff;
+  color: #4262ff;
+  height: 30px;
+  box-sizing: border-box;
+  border-radius: 4px;
+  text-align: center;
+  font-size: 14px;
+  cursor: pointer;
+  vertical-align: middle;
+}
+
+.update-benefits-button:hover {
+  background-color: #45a049;
+}
+
 .create-pair-button:hover {
   background-color: #45a049;
 }
