@@ -440,6 +440,7 @@ async function createMatrix() {
 
 // Update the selection:update event listener
 let previouslySelectedItems = [];
+let previouslySelectedContent = { id: null, content: null };
 board.ui.on("selection:update", async (event) => {
   if (g_matrix === null) {
     await loadMatrixFromBoard(); // todo: either this or loadmatrixfromboard
@@ -472,6 +473,10 @@ board.ui.on("selection:update", async (event) => {
         }
       }
     }
+    previouslySelectedContent = {
+      id: event.items[0].id,
+      content: event.items[0].content,
+    };
   } else {
     // User has either deselected everything or selected something else
     // Restore the size of all previously selected sticky notes
@@ -482,7 +487,32 @@ board.ui.on("selection:update", async (event) => {
         await prevSelectedItem.sync();
       }
     }
-
+    if (
+      previouslySelectedContent.content !==
+      (await board.getById(previouslySelectedContent.id)).content
+    ) {
+      console.log(
+        "Content changed for sticky note:",
+        previouslySelectedContent.id,
+      );
+      const result = g_matrix.findCellByStickyNoteId(
+        previouslySelectedContent.id,
+      );
+      if (result) {
+        const newContent = (await board.getById(previouslySelectedContent.id))
+          .content;
+        for (let col = 0; col < g_matrix.columns; col++) {
+          const cell = g_matrix.matrix[result.row][col];
+          if (cell && cell.stickyNoteId) {
+            let stickyNote = await board.getById(cell.stickyNoteId);
+            if (stickyNote) {
+              stickyNote.content = newContent;
+              await stickyNote.sync();
+            }
+          }
+        }
+      }
+    }
     // Clear the previouslySelectedItems array
     previouslySelectedItems = [];
   }
