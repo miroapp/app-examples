@@ -53,6 +53,8 @@ async function saveMatrixToBoard(matrix) {
       : undefined,
   });
   await board.setAppData("benefitTraitMatrix", matrixData);
+  let matrixStoredData = await board.getAppData("benefitTraitMatrix");
+  console.log("Matrix read back from board:", matrixStoredData);
   console.log("Matrix saved to board:", matrixData);
 }
 
@@ -75,13 +77,11 @@ async function loadMatrixFromBoard() {
     if (storedMatrix.columnNames) {
       matrix.columnNames = new Map(Object.entries(storedMatrix.columnNames));
     }
+    g_matrix = matrix;
     return matrix;
   }
   return null;
 }
-
-// Call this function when the board is loaded
-loadMatrixFromBoard();
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
 class MatrixCell {
@@ -441,8 +441,13 @@ async function createMatrix() {
 // Update the selection:update event listener
 let previouslySelectedItems = [];
 board.ui.on("selection:update", async (event) => {
-  if (!g_matrix) {
+  if (g_matrix === null) {
     await loadMatrixFromBoard(); // todo: either this or loadmatrixfromboard
+    if (g_matrix === null) {
+      console.log("Matrix not found");
+      return;
+    }
+    console.log("Matrix loaded from board:", g_matrix);
   }
 
   // Store the previously selected items for comparison
