@@ -38,8 +38,18 @@
 const { board } = window.miro;
 // Global definitions
 let g_matrix = null;
+let g_tagDefinitions = [
+  { title: "Very Important", color: "red", id: null },
+  { title: "Highly Important", color: "yellow", id: null },
+  { title: "Moderately Important", color: "light_green", id: null },
+  { title: "Low Importance", color: "cyan", id: null },
+  { title: "Not Important", color: "blue", id: null },
+];
 // let g_tags = null;
 // Function to save the matrix to the board
+// app setup on load functions should be called in this order
+loadMatrixFromBoard();
+getSetPredefinedTagsFromBoard();
 async function saveMatrixToBoard(matrix) {
   const matrixData = JSON.stringify({
     rows: matrix.rows,
@@ -87,6 +97,8 @@ async function loadMatrixFromBoard() {
 class MatrixCell {
   constructor(stickyNoteId) {
     this.stickyNoteId = stickyNoteId; // Reference to a sticky note
+    this.tagIds = [];
+    this.tagTitles = [];
   }
 }
 
@@ -485,8 +497,18 @@ board.ui.on("selection:update", async (event) => {
       if (prevSelectedItem) {
         prevSelectedItem.width /= 2;
         await prevSelectedItem.sync();
+        // potentially the tags have changed, so we need to update the tags for the cell
+        const result = g_matrix.findCellByStickyNoteId(prevSelectedItemId);
+        if (result) {
+          updateCellTags(result.row, result.col, prevSelectedItem.tagIds);
+          console.log(
+            `Updated tagIds for cell at row ${result.row}, col ${result.col}:`,
+            prevSelectedItem.tagIds,
+          );
+        }
       }
     }
+    console.log(g_matrix);
     if (
       previouslySelectedContent !== null &&
       previouslySelectedContent.content !==
@@ -518,6 +540,91 @@ board.ui.on("selection:update", async (event) => {
     previouslySelectedItems = [];
   }
 });
+
+async function assignRandomTagsToSelection() {
+  console.log("Assign Random Tags To Selection button clicked");
+  g_tagDefinitions = await getSetPredefinedTagsFromBoard();
+
+  async function assignRandomTags() {
+    // Get currently selected items
+    const selectedItems = await board.getSelection();
+    const stickyNotes = selectedItems.filter(
+      (item) => item.type === "sticky_note",
+    );
+
+    // Randomly assign or not assign tags to selected sticky notes
+    const chanceToNotAssign = 1 / (g_tagDefinitions.length + 1);
+    for (const stickyNote of stickyNotes) {
+      if (Math.random() >= chanceToNotAssign) {
+        const randomTag =
+          g_tagDefinitions[Math.floor(Math.random() * g_tagDefinitions.length)];
+        stickyNote.tagIds = [randomTag.id];
+        stickyNote.sync();
+        const result = g_matrix.findCellByStickyNoteId(stickyNote.id);
+        if (result) {
+          updateCellTags(result.row, result.col, stickyNote.tagIds);
+          console.log(
+            `Updated tagIds for cell at row ${result.row}, col ${result.col}:`,
+            stickyNote.tagIds,
+          );
+        }
+      }
+    }
+  }
+
+  // Call the function to update matrix tags
+  await assignRandomTags();
+  console.log("line no. 601, assigned random tags");
+  console.log("line no. 604, g_matrix:", g_matrix);
+}
+
+async function getSetPredefinedTagsFromBoard() {
+  // Define tagDefinitions if not already defined
+
+  // Fetch all tags from the board
+  const boardTags = await board.get({ type: ["tag"] });
+
+  // Create a map for quick lookup
+  const boardTagMap = new Map(boardTags.map((tag) => [tag.title, tag]));
+
+  // Update or create tags
+  for (const tagDef of g_tagDefinitions) {
+    const existingTag = boardTagMap.get(tagDef.title);
+    if (existingTag) {
+      tagDef.id = existingTag.id;
+    } else {
+      try {
+        const newTag = await board.createTag({
+          title: tagDef.title,
+          color: tagDef.color,
+        });
+        tagDef.id = newTag.id;
+      } catch (error) {
+        console.error(`Error creating tag "${tagDef.title}":`, error);
+      }
+    }
+  }
+  return g_tagDefinitions;
+}
+function getTagTitleById(tagId) {
+  console.log("g_tagDefinitions:", g_tagDefinitions);
+  const tag = g_tagDefinitions.find((t) => t.id === tagId);
+  return tag ? tag.title : "";
+}
+
+function updateCellTags(row, col, newTagIds) {
+  if (g_matrix && g_matrix.matrix[row][col]) {
+    g_matrix.matrix[row][col].tagIds = newTagIds;
+    for (const tagId of newTagIds) {
+      const tagTitle = getTagTitleById(tagId);
+      g_matrix.matrix[row][col].tagTitles.push(tagTitle);
+    }
+  } else {
+    console.error(
+      `Cell at row ${row}, col ${col} is not a MatrixCell instance`,
+    );
+  }
+}
 
 function calculateBestSquaresInRectangle(
   rectangleWidth,
@@ -599,160 +706,7 @@ function calculateBestSquaresInRectangle(
   };
 }
 
-async function assignRandomTagsToSelection() {
-  console.log("Assign Random Tags To Selection button clicked");
-
-  async function assignRandomTags() {
-    const validTags = await createRandomTags();
-    console.log("Valid tags:", validTags);
-    // Get currently selected items
-    const selectedItems = await board.getSelection();
-    const stickyNotes = selectedItems.filter(
-      (item) => item.type === "sticky_note",
-    );
-
-    if (stickyNotes.length === 0) {
-      console.log("No sticky notes selected");
-      return;
-    }
-
-    // Randomly assign or not assign tags to selected sticky notes
-    const chanceToNotAssign = 1 / (validTags.length + 1);
-    for (const stickyNote of stickyNotes) {
-      if (Math.random() >= chanceToNotAssign) {
-        const randomTag =
-          validTags[Math.floor(Math.random() * validTags.length)];
-        stickyNote.tagIds = [randomTag.id];
-        stickyNote.sync();
-        console.log(
-          `Assigned tag "${randomTag.title}" to sticky note ${stickyNote.id}`,
-        );
-      } else {
-        console.log(`No tag assigned to sticky note ${stickyNote.id}`);
-      }
-    }
-  }
-
-  await assignRandomTags();
-}
-
-// async function createTags() {
-//   console.log("Create Tags button clicked");
-
-//   try {
-//     const tags = await getOrCreateTags();
-//     console.log("Tags created or retrieved:", tags);
-
-//     // Display a confirmation message to the user
-//     await board.notifications.showInfo('Tags have been created or updated successfully.');
-//   } catch (error) {
-//     console.error("Error creating tags:", error);
-
-//     // Display an error message to the user
-//     await board.notifications.showError('An error occurred while creating tags. Please try again.');
-//   }
-// }
-async function createRandomTags() {
-  console.log("Creating random tags");
-
-  let tagDefinitions = [
-    { title: "Very Important", color: "red" },
-    { title: "Highly Important", color: "yellow" },
-    { title: "Moderately Important", color: "light_green" },
-    { title: "Somewhat Important", color: "cyan" },
-    { title: "Low Importance", color: "blue" },
-  ];
-
-  try {
-    const createdTags = [];
-    // Function to generate a random postfix
-    const generateRandomPostfix = () => {
-      return Math.floor(Math.random() * 1000)
-        .toString()
-        .padStart(3, "0");
-    };
-
-    // Modify tagDefinitions to include random postfix
-    tagDefinitions = tagDefinitions.map((tagDef) => ({
-      ...tagDef,
-      title: `${tagDef.title} #${generateRandomPostfix()}`,
-    }));
-
-    for (const tagDef of tagDefinitions) {
-      const newTag = await board.createTag({
-        title: tagDef.title,
-        color: tagDef.color,
-      });
-
-      createdTags.push(newTag);
-      console.log(`Created tag: ${tagDef.title} with color ${tagDef.color}`);
-    }
-
-    console.log("Tags created:", createdTags);
-    await board.notifications.showInfo("Tags have been created successfully.");
-    return createdTags;
-  } catch (error) {
-    console.error("Error creating tags:", error);
-    await board.notifications.showError(
-      "An error occurred while creating tags. Please try again.",
-    );
-    throw error;
-  }
-}
-
-// Add event listener for a new button to create random tags
-
 document.getElementById("createMatrix").addEventListener("click", createMatrix);
-//document.getElementById("createTags").addEventListener("click", createTags);
 document
   .getElementById("assignRandomTagsToSelection")
   .addEventListener("click", assignRandomTagsToSelection);
-
-// async function getOrCreateTags() {
-//   // Check if g_tags is available in appdata
-//   console.log("getOrCreateTags, g_tags:", g_tags);
-//   if (g_tags === null) {
-//     try {
-//       const storedTags = await board.getAppData('g_tags');
-//       g_tags = JSON.parse(storedTags);
-//       if (g_tags !== null && g_tags.length > 0) {
-//         console.log('Tags retrieved from appdata:', g_tags);
-//         return g_tags;
-//       } else {
-//         console.log('Stored tags array is empty');
-//       }
-//     } catch (error) {
-//       console.error('Error parsing stored tags:', error);
-//     }
-//   }
-
-//   const tagDefinitions = [
-//     { title: "Very Important", color: "red" },
-//     { title: "Highly Important", color: "yellow" },
-//     { title: "Moderately Important", color: "light_green" },
-//     { title: "Somewhat Important", color: "cyan" },
-//     { title: "Low Importance", color: "blue" }
-//   ];
-//   const validTags = [];
-//   for (const tagDef of tagDefinitions) {
-//     try {
-//       const boardTag = await board.createTag({
-//         title: tagDef.title,
-//         color: tagDef.color,
-//       });
-//       validTags.push(boardTag);
-//     } catch (error) {
-//       if (error.message.includes("The title must be unique")) {
-//         console.log(`Tag "${tagDef.title}" already exists. Skipping creation.`);
-//       } else {
-//         throw error;
-//       }
-//     }
-//   }
-//   g_tags = validTags;
-//   console.log('g_tags: line no. 645', g_tags);
-//   await board.setAppData('g_tags', JSON.stringify(g_tags));
-//   const readBack = await board.getAppData('g_tags')
-//   console.log('Tags stored in appdata:', readBack);
-//   return validTags;
-// }
