@@ -36,6 +36,48 @@
  */
 
 const { board } = window.miro;
+
+// // Throttle function with queue
+// function throttleWithQueue(func, limit) {
+//   let lastRan;
+//   const queue = [];
+//   let isRunning = false;
+
+//   const processQueue = async () => {
+//     if (queue.length === 0 || isRunning) return;
+//     isRunning = true;
+//     const { context, args, resolve } = queue.shift();
+//     lastRan = Date.now();
+//     const result = await func.apply(context, args);
+//     resolve(result);
+//     isRunning = false;
+//     if (queue.length > 0) {
+//       setTimeout(processQueue, Math.max(0, limit - (Date.now() - lastRan)));
+//     }
+//   };
+
+//   return function(...args) {
+//     const context = this;
+//     return new Promise((resolve) => {
+//       queue.push({ context, args, resolve });
+//       if (!isRunning) {
+//         processQueue();
+//       }
+//     });
+//   };
+// }
+
+// // Wrap the board object
+// Object.keys(board).forEach(key => {
+//   if (typeof board[key] === 'function') {
+//     const originalMethod = board[key];
+//     board[key] = throttleWithQueue(async function(...args) {
+//       console.log(`Calling board.${key} with arguments:`, args);
+//       return await originalMethod.apply(this, args);
+//     }, 1); // 1 millisecond throttle for all methods
+//   }
+// });
+
 // Global definitions
 let g_matrix = null;
 let g_tagDefinitions = [
@@ -397,34 +439,85 @@ async function createMatrix() {
     const frameLeft = frame.x - frame.width / 2;
     const frameTop = frame.y - frame.height / 2;
 
+    let stickyNotePromises = [];
     for (let i = 0; i < rowsCount; i++) {
       const row = Math.floor(i / squarePositions.gridInfo.columns);
       const col = i % squarePositions.gridInfo.columns;
       const position = squarePositions.placement.getSquarePosition(row, col);
+      const stickyNotePromise = ((currentI, currentJ) => {
+        return board
+          .createStickyNote({
+            content: `Cell ${currentI + 1},${currentJ + 1}`,
+            x:
+              frameLeft +
+              position.x +
+              squarePositions.gridInfo.effectiveSquareSize / 2,
+            y:
+              frameTop +
+              position.y +
+              squarePositions.gridInfo.effectiveSquareSize / 2,
+            width: squarePositions.gridInfo.effectiveSquareSize,
+            style: {
+              fillColor: "light_yellow",
+            },
+          })
+          .then((stickyNote) => {
+            // instead of adding to frame, we just slightly resize the frame and that's enough
+            g_matrix.setCell(currentI, currentJ, stickyNote.id);
+            return stickyNote;
+          });
+      })(i, j);
 
-      const stickyNote = await board.createStickyNote({
-        content: `Cell ${i + 1},${j + 1}`,
-        x:
-          frameLeft +
-          position.x +
-          squarePositions.gridInfo.effectiveSquareSize / 2,
-        y:
-          frameTop +
-          position.y +
-          squarePositions.gridInfo.effectiveSquareSize / 2,
-        width: squarePositions.gridInfo.effectiveSquareSize,
-        style: {
-          fillColor: "light_yellow",
-        },
-      });
-      await frame.add(stickyNote);
-
-      g_matrix.setCell(i, j, stickyNote.id);
+      stickyNotePromises.push(stickyNotePromise);
+    }
+    // Wait for all sticky notes to be created
+    await Promise.all(stickyNotePromises);
+  }
+  // Notify user that sticky notes are being added to frames
+  await board.notifications.showInfo("Attaching sticky notes to frames...");
+  // Add all sticky notes to their respective frames
+  for (let j = 0; j < g_matrix.columns; j++) {
+    try {
+      const frameId = g_matrix.getFrameForColumn(j);
+      if (frameId) {
+        const frame = await board.getById(frameId);
+        if (frame) {
+          for (let i = 0; i < g_matrix.rows; i++) {
+            try {
+              const cell = g_matrix.getCell(i, j);
+              if (cell && cell.stickyNoteId) {
+                const stickyNote = await board.getById(cell.stickyNoteId);
+                if (stickyNote) {
+                  await frame.add(stickyNote);
+                } else {
+                  console.error(
+                    `Sticky note with ID ${cell.stickyNoteId} not found for cell (${i}, ${j})`,
+                  );
+                }
+              }
+            } catch (error) {
+              console.error(`Error processing cell (${i}, ${j}):`, error);
+            }
+          }
+        } else {
+          console.error(`Frame with ID ${frameId} not found for column ${j}`);
+        }
+      } else {
+        console.error(`No frame ID found for column ${j}`);
+      }
+    } catch (error) {
+      console.error(`Error processing column ${j}:`, error);
     }
   }
-  await saveMatrixToBoard(g_matrix);
+  await board.notifications.showInfo(
+    "Sticky notes attached to frames successfully!",
+  );
+
+  saveMatrixToBoard(g_matrix);
 
   console.log("Matrix created and saved:", g_matrix);
+  // Display message on board, matrix creation completed
+  await board.notifications.showInfo("Matrix creation completed successfully!");
 }
 
 // Function to check if content of selected sticky note has changed
@@ -460,7 +553,6 @@ board.ui.on("selection:update", async (event) => {
       console.log("Matrix not found");
       return;
     }
-    console.log("Matrix loaded from board:", g_matrix);
   }
 
   // Store the previously selected items for comparison
@@ -489,8 +581,8 @@ board.ui.on("selection:update", async (event) => {
       id: event.items[0].id,
       content: event.items[0].content,
     };
-  } else {
-    // User has either deselected everything or selected something else
+  } else if (event.items.length === 0 && previouslySelectedItems.length > 0) {
+    // User has deselected everything
     // Restore the size of all previously selected sticky notes
     for (const prevSelectedItemId of previouslySelectedItems) {
       const prevSelectedItem = await board.getById(prevSelectedItemId);
@@ -501,23 +593,14 @@ board.ui.on("selection:update", async (event) => {
         const result = g_matrix.findCellByStickyNoteId(prevSelectedItemId);
         if (result) {
           updateCellTags(result.row, result.col, prevSelectedItem.tagIds);
-          console.log(
-            `Updated tagIds for cell at row ${result.row}, col ${result.col}:`,
-            prevSelectedItem.tagIds,
-          );
         }
       }
     }
-    console.log(g_matrix);
     if (
       previouslySelectedContent !== null &&
       previouslySelectedContent.content !==
         (await board.getById(previouslySelectedContent.id)).content
     ) {
-      console.log(
-        "Content changed for sticky note:",
-        previouslySelectedContent.id,
-      );
       const result = g_matrix.findCellByStickyNoteId(
         previouslySelectedContent.id,
       );
@@ -534,6 +617,18 @@ board.ui.on("selection:update", async (event) => {
             }
           }
         }
+      }
+    }
+    // Clear the previouslySelectedItems array
+    previouslySelectedItems = [];
+  } else {
+    // User has selected something else (multiple items or non-sticky note)
+    // Restore the size of all previously selected sticky notes
+    for (const prevSelectedItemId of previouslySelectedItems) {
+      const prevSelectedItem = await board.getById(prevSelectedItemId);
+      if (prevSelectedItem) {
+        prevSelectedItem.width /= 2;
+        await prevSelectedItem.sync();
       }
     }
     // Clear the previouslySelectedItems array
