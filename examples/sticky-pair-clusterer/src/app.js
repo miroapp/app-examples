@@ -413,16 +413,32 @@ async function createMatrix() {
 
   // Create frames for each column
   for (let j = 0; j < columnsCount; j++) {
-    const frame = await board.createFrame({
-      title: `Column ${j + 1}`,
-      width: 1920,
-      height: 1080,
-      x: j * 2000, // Offset each frame horizontally
-      y: 0,
-      style: {
-        fillColor: "#ffffff", // Set background color to white
-      },
-    });
+    let frame;
+    let attempts = 0;
+    const MAX_ATTEMPTS = 3;
+
+    while (attempts < MAX_ATTEMPTS) {
+      try {
+        frame = await board.createFrame({
+          title: `Column ${j + 1}`,
+          width: 1920,
+          height: 1080,
+          x: j * 2000, // Offset each frame horizontally
+          y: 0,
+          style: {
+            fillColor: "#ffffff", // Set background color to white
+          },
+        });
+        break; // Exit the loop if successful
+      } catch (error) {
+        if (error.message.includes("API rate limit")) {
+          console.error("API rate limit exceeded. Retrying in 10 seconds...");
+          await new Promise((resolve) => setTimeout(resolve, 10000)); // Wait for 10 seconds
+        } else {
+          throw error; // Rethrow if it's a different error
+        }
+      }
+    }
     g_matrix.linkColumnToFrame(j, frame.id);
   }
 
@@ -445,27 +461,53 @@ async function createMatrix() {
       const col = i % squarePositions.gridInfo.columns;
       const position = squarePositions.placement.getSquarePosition(row, col);
       const stickyNotePromise = ((currentI, currentJ) => {
-        return board
-          .createStickyNote({
-            content: `Cell ${currentI + 1},${currentJ + 1}`,
-            x:
-              frameLeft +
-              position.x +
-              squarePositions.gridInfo.effectiveSquareSize / 2,
-            y:
-              frameTop +
-              position.y +
-              squarePositions.gridInfo.effectiveSquareSize / 2,
-            width: squarePositions.gridInfo.effectiveSquareSize,
-            style: {
-              fillColor: "light_yellow",
-            },
-          })
-          .then((stickyNote) => {
-            // instead of adding to frame, we just slightly resize the frame and that's enough
-            g_matrix.setCell(currentI, currentJ, stickyNote.id);
-            return stickyNote;
-          });
+        return (async () => {
+          let sticky;
+          let attempts = 0;
+          const MAX_ATTEMPTS = 3;
+
+          while (attempts < MAX_ATTEMPTS) {
+            try {
+              sticky = await board.createStickyNote({
+                content: `Cell ${currentI + 1},${currentJ + 1}`,
+                x:
+                  frameLeft +
+                  position.x +
+                  squarePositions.gridInfo.effectiveSquareSize / 2,
+                y:
+                  frameTop +
+                  position.y +
+                  squarePositions.gridInfo.effectiveSquareSize / 2,
+                width: squarePositions.gridInfo.effectiveSquareSize,
+                style: {
+                  fillColor: "light_yellow",
+                },
+              });
+              g_matrix.setCell(currentI, currentJ, sticky.id);
+              return sticky;
+            } catch (error) {
+              if (error.message.includes("API rate limit")) {
+                console.error(
+                  `API rate limit exceeded. Retrying in ${
+                    10 * (attempts + 1)
+                  } seconds... (Attempt ${attempts + 1})`,
+                );
+                console.error(`Full error message: ${error.message}`);
+                await new Promise((resolve) =>
+                  setTimeout(resolve, 10000 * (attempts + 1)),
+                );
+                attempts++; // Increment attempts counter
+              } else {
+                console.error(`Error processing:`, error);
+                break; // Exit the retry loop on other errors
+              }
+            }
+          }
+
+          if (attempts >= MAX_ATTEMPTS) {
+            console.error("Max retry attempts reached. Operation failed.");
+          }
+        })();
       })(i, j);
 
       stickyNotePromises.push(stickyNotePromise);
@@ -477,12 +519,14 @@ async function createMatrix() {
   await board.notifications.showInfo("Attaching sticky notes to frames...");
   // Add all sticky notes to their respective frames
   for (let j = 0; j < g_matrix.columns; j++) {
-    try {
-      const frameId = g_matrix.getFrameForColumn(j);
-      if (frameId) {
-        const frame = await board.getById(frameId);
-        if (frame) {
-          for (let i = 0; i < g_matrix.rows; i++) {
+    const frameId = g_matrix.getFrameForColumn(j);
+    if (frameId) {
+      const frame = await board.getById(frameId);
+      if (frame) {
+        for (let i = 0; i < g_matrix.rows; i++) {
+          let attempts = 0; // Initialize attempts counter
+          while (attempts < 10) {
+            // Retry up to 10 times
             try {
               const cell = g_matrix.getCell(i, j);
               if (cell && cell.stickyNoteId) {
@@ -495,20 +539,34 @@ async function createMatrix() {
                   );
                 }
               }
+              break; // Exit the retry loop if successful
             } catch (error) {
-              console.error(`Error processing cell (${i}, ${j}):`, error);
+              if (error.message.includes("API rate limit")) {
+                console.error(
+                  `API rate limit exceeded. Retrying in ${
+                    10 * (attempts + 1)
+                  } seconds... (Attempt ${attempts + 1})`,
+                );
+                console.error(`Full error message: ${error.message}`);
+                attempts++; // Increment attempts counter
+                await new Promise(
+                  (resolve) => setTimeout(resolve, 10000 * attempts), // Wait for 10 seconds multiplied by attempts
+                );
+              } else {
+                console.error(`Error processing cell (${i}, ${j}):`, error);
+                break; // Exit the retry loop on other errors
+              }
             }
           }
-        } else {
-          console.error(`Frame with ID ${frameId} not found for column ${j}`);
         }
       } else {
-        console.error(`No frame ID found for column ${j}`);
+        console.error(`Frame with ID ${frameId} not found for column ${j}`);
       }
-    } catch (error) {
-      console.error(`Error processing column ${j}:`, error);
+    } else {
+      console.error(`No frame ID found for column ${j}`);
     }
   }
+  console.log("Sticky notes attached to frames successfully!");
   await board.notifications.showInfo(
     "Sticky notes attached to frames successfully!",
   );
