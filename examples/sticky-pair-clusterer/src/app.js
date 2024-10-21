@@ -559,6 +559,10 @@ async function createMatrix() {
             }
           }
         }
+        frame.style = {
+          fillColor: "#ADD8E6", // Light blue color
+        };
+        await frame.sync();
       } else {
         console.error(`Frame with ID ${frameId} not found for column ${j}`);
       }
