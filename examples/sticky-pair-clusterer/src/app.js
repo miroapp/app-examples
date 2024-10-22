@@ -93,6 +93,11 @@ let g_tagDefinitions = [
 loadMatrixFromBoard();
 getSetPredefinedTagsFromBoard();
 async function saveMatrixToBoard(matrix) {
+  const collection = board.storage.collection("benefitTraitMatrix");
+
+  // Remove the old data
+  await collection.remove("matrixData");
+
   const matrixData = JSON.stringify({
     rows: matrix.rows,
     columns: matrix.columns,
@@ -104,15 +109,31 @@ async function saveMatrixToBoard(matrix) {
       ? Object.fromEntries(matrix.columnNames)
       : undefined,
   });
-  await board.setAppData("benefitTraitMatrix", matrixData);
-  let matrixStoredData = await board.getAppData("benefitTraitMatrix");
-  console.log("Matrix read back from board:", matrixStoredData);
-  console.log("Matrix saved to board:", matrixData);
+
+  // Calculate and print the size of matrixData
+  const matrixDataSize = new Blob([matrixData]).size;
+  console.log(`Size of matrixData: ${matrixDataSize} bytes`);
+
+  if (matrixDataSize > 30 * 1024) {
+    console.warn(
+      `Warning: matrixData size (${matrixDataSize} bytes) exceeds the 30KB limit!`,
+    );
+  }
+
+  // Set the new data
+  await collection.set("matrixData", matrixData);
+
+  // Read back the stored data
+  // let matrixStoredData = await collection.get('matrixData');
+  // console.log("Matrix read back from board:", matrixStoredData);
+  // console.log("Matrix saved to board:", matrixData);
 }
 
 // Function to load the matrix from the board
 async function loadMatrixFromBoard() {
-  const storedMatrixData = await board.getAppData("benefitTraitMatrix");
+  const collection = board.storage.collection("benefitTraitMatrix");
+  const storedMatrixData = await collection.get("matrixData");
+
   if (storedMatrixData) {
     const storedMatrix = JSON.parse(storedMatrixData);
     const matrix = new Matrix(storedMatrix.rows, storedMatrix.columns);
@@ -867,3 +888,17 @@ document.getElementById("createMatrix").addEventListener("click", createMatrix);
 document
   .getElementById("assignRandomTagsToSelection")
   .addEventListener("click", assignRandomTagsToSelection);
+document.getElementById("printAppData").addEventListener("click", async () => {
+  console.log("Print App Data button clicked");
+
+  // Load the matrix from the board
+  const matrix = await loadMatrixFromBoard();
+  if (!matrix) {
+    console.error("Matrix not found in board data.");
+    return;
+  }
+  console.log("Matrix:", matrix);
+
+  // Notify user that app data has been printed
+  await board.notifications.showInfo("App data printed to console.");
+});
