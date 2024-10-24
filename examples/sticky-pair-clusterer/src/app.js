@@ -37,47 +37,6 @@
 
 const { board } = window.miro;
 
-// // Throttle function with queue
-// function throttleWithQueue(func, limit) {
-//   let lastRan;
-//   const queue = [];
-//   let isRunning = false;
-
-//   const processQueue = async () => {
-//     if (queue.length === 0 || isRunning) return;
-//     isRunning = true;
-//     const { context, args, resolve } = queue.shift();
-//     lastRan = Date.now();
-//     const result = await func.apply(context, args);
-//     resolve(result);
-//     isRunning = false;
-//     if (queue.length > 0) {
-//       setTimeout(processQueue, Math.max(0, limit - (Date.now() - lastRan)));
-//     }
-//   };
-
-//   return function(...args) {
-//     const context = this;
-//     return new Promise((resolve) => {
-//       queue.push({ context, args, resolve });
-//       if (!isRunning) {
-//         processQueue();
-//       }
-//     });
-//   };
-// }
-
-// // Wrap the board object
-// Object.keys(board).forEach(key => {
-//   if (typeof board[key] === 'function') {
-//     const originalMethod = board[key];
-//     board[key] = throttleWithQueue(async function(...args) {
-//       console.log(`Calling board.${key} with arguments:`, args);
-//       return await originalMethod.apply(this, args);
-//     }, 1); // 1 millisecond throttle for all methods
-//   }
-// });
-
 // Global definitions
 let g_matrix = null;
 let stickyNoteSize = null;
@@ -123,11 +82,6 @@ async function saveMatrixToBoard(matrix) {
 
   // Set the new data
   await collection.set("matrixData", matrixData);
-
-  // Read back the stored data
-  // let matrixStoredData = await collection.get('matrixData');
-  // console.log("Matrix read back from board:", matrixStoredData);
-  // console.log("Matrix saved to board:", matrixData);
 }
 
 // Function to load the matrix from the board
@@ -157,7 +111,6 @@ async function loadMatrixFromBoard() {
   return null;
 }
 
-//////////////////////////////////////////////////////////////////////////////////////////////////
 class MatrixCell {
   constructor(stickyNoteId) {
     this.stickyNoteId = stickyNoteId; // Reference to a sticky note
@@ -366,50 +319,6 @@ class Matrix {
   }
 }
 
-//////////////////////////////////////////////////////////////////////////////////////////////////
-// Example usage:
-// const matrix = new Matrix(3, 3);
-//
-// // Set cell values and link sticky notes
-// matrix.setCell(0, 0, 5, 'stickyNote1');
-// matrix.setCell(0, 1, 3, 'stickyNote2');
-// matrix.setCell(1, 0, 2, 'stickyNote3');
-// matrix.setCell(2, 2, 4, 'stickyNote4');
-//
-// // Link columns to frames
-// matrix.linkColumnToFrame(0, 'frame1');
-// matrix.linkColumnToFrame(1, 'frame2');
-// matrix.linkColumnToFrame(2, 'frame3');
-//
-// // Get sticky notes for a row
-// console.log(matrix.getStickyNotesForRow(0)); // ['stickyNote1', 'stickyNote2']
-//
-// // Get frame for a column
-// console.log(matrix.getFrameForColumn(0)); // 'frame1'
-//
-// // Add a new row
-// matrix.addRow();
-// console.log(matrix.rows); // 4
-//
-// // Add a new column
-// matrix.addColumn();
-// console.log(matrix.columns); // 4
-//
-// // Update row and column names
-// matrix.updateRowName(0, 'First Row');
-// matrix.updateColumnName(1, 'Second Column');
-//
-// // Get all row and column names
-// console.log(matrix.getAllRowNames());
-// console.log(matrix.getAllColumnNames());
-//
-// matrix.linkColumnToFrame(0, 'frame1');
-//
-// console.log(matrix.getStickyNotesForRow(0)); // ['stickyNote1', 'stickyNote2']
-// console.log(matrix.getFrameForColumn(0)); // 'frame1'
-//////////////////////////////////////////////////////////////////////////////////////////////////
-
-// Example usage:
 async function createMatrix() {
   console.log("Create Matrix button clicked");
 
@@ -440,7 +349,7 @@ async function createMatrix() {
     frameHeight,
     rowsCount,
   );
-  stickyNoteSize = squarePositions.gridInfo.squareSize;
+  stickyNoteSize = squarePositions.gridInfo.effectiveSquareSize;
 
   // Create frames for each column
   for (let j = 0; j < columnsCount; j++) {
@@ -666,6 +575,8 @@ board.ui.on("selection:update", async (event) => {
         if (stickyNote) {
           previouslySelectedItems.push(stickyNote.id);
           stickyNote.width = stickyNoteSize * 2;
+          // Bring the sticky note to the front
+          stickyNote.bringToFront();
           stickyNote.sync();
         }
       }
@@ -680,7 +591,7 @@ board.ui.on("selection:update", async (event) => {
     for (const prevSelectedItemId of previouslySelectedItems) {
       const prevSelectedItem = await board.getById(prevSelectedItemId);
       if (prevSelectedItem) {
-        prevSelectedItem.width /= 2;
+        prevSelectedItem.width = stickyNoteSize;
         await prevSelectedItem.sync();
         // potentially the tags have changed, so we need to update the tags for the cell
         const result = g_matrix.findCellByStickyNoteId(prevSelectedItemId);
@@ -894,11 +805,31 @@ function calculateBestSquaresInRectangle(
   };
 }
 
+async function removeAllTags() {
+  console.log("Remove All Tags button clicked");
+  const allTags = await board.get({ type: ["tag"] });
+  for (const tag of allTags) {
+    await board.remove(tag);
+    console.log(`Removed tag: ${tag.title}`);
+  }
+  await board.notifications.showInfo(`Removed all tags from board`);
+}
+
+// Add event listener for the "Remove All Tags" button
+document
+  .getElementById("removeAllTags")
+  .addEventListener("click", removeAllTags);
+
 document.getElementById("createMatrix").addEventListener("click", createMatrix);
 document
   .getElementById("assignRandomTagsToSelection")
   .addEventListener("click", assignRandomTagsToSelection);
 document.getElementById("printAppData").addEventListener("click", async () => {
+  const frames = await board.get({ type: ["frame"] });
+  for (const frame of frames) {
+    console.log("Frame title:", frame.title);
+  }
+
   console.log("Print App Data button clicked");
 
   // Load the matrix from the board
