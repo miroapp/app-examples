@@ -80,6 +80,7 @@ const { board } = window.miro;
 
 // Global definitions
 let g_matrix = null;
+let stickyNoteSize = null;
 let g_tagDefinitions = [
   { title: "Very Important", color: "red", id: null },
   { title: "Highly Important", color: "yellow", id: null },
@@ -431,6 +432,15 @@ async function createMatrix() {
   }
 
   g_matrix = new Matrix(rowsCount, columnsCount);
+  const frameWidth = 1920;
+  const frameHeight = 1080;
+
+  const squarePositions = calculateBestSquaresInRectangle(
+    frameWidth,
+    frameHeight,
+    rowsCount,
+  );
+  stickyNoteSize = squarePositions.gridInfo.squareSize;
 
   // Create frames for each column
   for (let j = 0; j < columnsCount; j++) {
@@ -442,9 +452,9 @@ async function createMatrix() {
       try {
         frame = await board.createFrame({
           title: `Column ${j + 1}`,
-          width: 1920,
-          height: 1080,
-          x: j * 2000, // Offset each frame horizontally
+          width: frameWidth,
+          height: frameHeight,
+          x: j * frameWidth, // Offset each frame horizontally
           y: 0,
           style: {
             fillColor: "#ffffff", // Set background color to white
@@ -655,8 +665,8 @@ board.ui.on("selection:update", async (event) => {
         // Add the sticky note to the previously selected items
         if (stickyNote) {
           previouslySelectedItems.push(stickyNote.id);
-          stickyNote.width *= 2;
-          await stickyNote.sync();
+          stickyNote.width = stickyNoteSize * 2;
+          stickyNote.sync();
         }
       }
     }
@@ -710,7 +720,7 @@ board.ui.on("selection:update", async (event) => {
     for (const prevSelectedItemId of previouslySelectedItems) {
       const prevSelectedItem = await board.getById(prevSelectedItemId);
       if (prevSelectedItem) {
-        prevSelectedItem.width /= 2;
+        prevSelectedItem.width = stickyNoteSize;
         await prevSelectedItem.sync();
       }
     }
