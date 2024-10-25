@@ -39,7 +39,7 @@ const { board } = window.miro;
 
 // Global definitions
 let g_matrix = null;
-let stickyNoteSize = null;
+let g_stickyNoteSize = null;
 let g_tagDefinitions = [
   { title: "Very Important", color: "red", id: null },
   { title: "Highly Important", color: "yellow", id: null },
@@ -47,11 +47,22 @@ let g_tagDefinitions = [
   { title: "Low Importance", color: "cyan", id: null },
   { title: "Not Important", color: "blue", id: null },
 ];
-// let g_tags = null;
-// Function to save the matrix to the board
+
 // app setup on load functions should be called in this order
-loadMatrixFromBoard();
-getSetPredefinedTagsFromBoard();
+async function init() {
+  console.log(
+    "##################################################################################3",
+  );
+  g_stickyNoteSize = await board.storage
+    .collection("benefitTraitMatrix")
+    .get("effectiveSquareSize");
+  console.log("line no. 42, g_stickyNoteSize:", g_stickyNoteSize);
+  loadMatrixFromBoard();
+  getSetPredefinedTagsFromBoard();
+}
+
+init();
+
 async function saveMatrixToBoard(matrix) {
   const collection = board.storage.collection("benefitTraitMatrix");
 
@@ -349,7 +360,12 @@ async function createMatrix() {
     frameHeight,
     rowsCount,
   );
-  stickyNoteSize = squarePositions.gridInfo.effectiveSquareSize;
+
+  // Store effectiveSquareSize as a number
+  g_stickyNoteSize = squarePositions.gridInfo.effectiveSquareSize;
+  board.storage
+    .collection("benefitTraitMatrix")
+    .set("effectiveSquareSize", g_stickyNoteSize);
 
   // Create frames for each column
   for (let j = 0; j < columnsCount; j++) {
@@ -574,7 +590,7 @@ board.ui.on("selection:update", async (event) => {
         // Add the sticky note to the previously selected items
         if (stickyNote) {
           previouslySelectedItems.push(stickyNote.id);
-          stickyNote.width = stickyNoteSize * 2;
+          stickyNote.width = g_stickyNoteSize * 2;
           // Bring the sticky note to the front
           stickyNote.bringToFront();
           stickyNote.sync();
@@ -591,7 +607,7 @@ board.ui.on("selection:update", async (event) => {
     for (const prevSelectedItemId of previouslySelectedItems) {
       const prevSelectedItem = await board.getById(prevSelectedItemId);
       if (prevSelectedItem) {
-        prevSelectedItem.width = stickyNoteSize;
+        prevSelectedItem.width = g_stickyNoteSize;
         await prevSelectedItem.sync();
         // potentially the tags have changed, so we need to update the tags for the cell
         const result = g_matrix.findCellByStickyNoteId(prevSelectedItemId);
@@ -631,7 +647,7 @@ board.ui.on("selection:update", async (event) => {
     for (const prevSelectedItemId of previouslySelectedItems) {
       const prevSelectedItem = await board.getById(prevSelectedItemId);
       if (prevSelectedItem) {
-        prevSelectedItem.width = stickyNoteSize;
+        prevSelectedItem.width = g_stickyNoteSize;
         await prevSelectedItem.sync();
       }
     }
