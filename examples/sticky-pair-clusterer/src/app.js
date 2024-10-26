@@ -874,10 +874,10 @@ document
 
 document.getElementById("debugButton").addEventListener("click", () => {
   console.log("Debug button clicked");
-  generate2DMatrixFromTags();
+  generateTableFromTags();
 });
 
-function generate2DMatrixFromTags(
+function generateTableFromTags(
   rowNames = g_matrix.rowNames,
   columnNames = g_matrix.columnNames,
 ) {
@@ -925,6 +925,14 @@ function generate2DMatrixFromTags(
       }
     }
   }
-  console.log("Generated 2D matrix:", matrix);
-  return matrix;
+
+  // Convert the matrix to a tab-separated string
+  const excelFormattedString = matrix.map((row) => row.join("\t")).join("\n");
+  console.log("Excel formatted matrix:\n", excelFormattedString);
+
+  // Write the excelFormattedString to clipboard
+  navigator.clipboard.writeText(excelFormattedString);
+  board.notifications.showInfo("Matrix data copied to clipboard.");
+  console.log("Matrix data copied to clipboard");
+  return excelFormattedString;
 }
