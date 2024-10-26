@@ -50,9 +50,6 @@ let g_tagDefinitions = [
 
 // app setup on load functions should be called in this order
 async function init() {
-  console.log(
-    "###########################################################################",
-  );
   g_stickyNoteSize = await board.storage
     .collection("benefitTraitMatrix")
     .get("effectiveSquareSize");
@@ -124,7 +121,6 @@ class MatrixCell {
   constructor(stickyNoteId) {
     this.stickyNoteId = stickyNoteId; // Reference to a sticky note
     this.tagIds = [];
-    this.tagTitles = [];
   }
 }
 
@@ -716,19 +712,15 @@ async function getSetPredefinedTagsFromBoard() {
   }
   return g_tagDefinitions;
 }
-function getTagTitleById(tagId) {
-  console.log("g_tagDefinitions:", g_tagDefinitions);
-  const tag = g_tagDefinitions.find((t) => t.id === tagId);
-  return tag ? tag.title : "";
-}
+// function getTagTitleById(tagId) {
+//   console.log("g_tagDefinitions:", g_tagDefinitions);
+//   const tag = g_tagDefinitions.find((t) => t.id === tagId);
+//   return tag ? tag.title : "";
+// }
 
 function updateCellTags(row, col, newTagIds) {
   if (g_matrix && g_matrix.matrix[row][col]) {
     g_matrix.matrix[row][col].tagIds = newTagIds;
-    for (const tagId of newTagIds) {
-      const tagTitle = getTagTitleById(tagId);
-      g_matrix.matrix[row][col].tagTitles.push(tagTitle);
-    }
   } else {
     console.error(
       `Cell at row ${row}, col ${col} is not a MatrixCell instance`,
