@@ -51,7 +51,7 @@ let g_tagDefinitions = [
 // app setup on load functions should be called in this order
 async function init() {
   console.log(
-    "##################################################################################3",
+    "###########################################################################",
   );
   g_stickyNoteSize = await board.storage
     .collection("benefitTraitMatrix")
@@ -75,10 +75,8 @@ async function saveMatrixToBoard(matrix) {
     data: matrix.matrix,
     columnToFrameMap: Object.fromEntries(matrix.columnToFrameMap),
     rowToStickyNotesMap: Object.fromEntries(matrix.rowToStickyNotesMap),
-    rowNames: matrix.rowNames ? Object.fromEntries(matrix.rowNames) : undefined,
-    columnNames: matrix.columnNames
-      ? Object.fromEntries(matrix.columnNames)
-      : undefined,
+    rowNames: matrix.rowNames,
+    columnNames: matrix.columnNames,
   });
 
   // Calculate and print the size of matrixData
@@ -103,7 +101,7 @@ async function loadMatrixFromBoard() {
   if (storedMatrixData) {
     const storedMatrix = JSON.parse(storedMatrixData);
     const matrix = new Matrix(storedMatrix.rows, storedMatrix.columns);
-    matrix.matrix = storedMatrix.data;
+    matrix.matrix = [...storedMatrix.data];
     matrix.columnToFrameMap = new Map(
       Object.entries(storedMatrix.columnToFrameMap),
     );
@@ -111,10 +109,10 @@ async function loadMatrixFromBoard() {
       Object.entries(storedMatrix.rowToStickyNotesMap),
     );
     if (storedMatrix.rowNames) {
-      matrix.rowNames = new Map(Object.entries(storedMatrix.rowNames));
+      matrix.rowNames = [...storedMatrix.rowNames];
     }
     if (storedMatrix.columnNames) {
-      matrix.columnNames = new Map(Object.entries(storedMatrix.columnNames));
+      matrix.columnNames = [...storedMatrix.columnNames];
     }
     g_matrix = matrix;
     return matrix;
@@ -137,6 +135,8 @@ class Matrix {
     this.matrix = Array.from({ length: rows }, () => Array(columns).fill(null));
     this.columnToFrameMap = new Map(); // Maps column index to frame ID
     this.rowToStickyNotesMap = new Map(); // Maps row index to an array of sticky note IDs
+    this.rowNames = Array(rows).fill(""); // Array to store row names
+    this.columnNames = Array(columns).fill(""); // Array to store column names
   }
 
   setCell(row, col, stickyNoteId) {
@@ -191,36 +191,30 @@ class Matrix {
   }
   setRowName(rowIndex, name) {
     if (rowIndex >= 0 && rowIndex < this.rows) {
-      if (!this.rowNames) {
-        this.rowNames = new Map();
-      }
-      this.rowNames.set(rowIndex, name);
+      this.rowNames[rowIndex] = name;
       return true;
     }
     return false;
   }
 
   getRowName(rowIndex) {
-    if (this.rowNames && rowIndex >= 0 && rowIndex < this.rows) {
-      return this.rowNames.get(rowIndex);
+    if (rowIndex >= 0 && rowIndex < this.rows) {
+      return this.rowNames[rowIndex];
     }
     return null;
   }
 
   setColumnName(colIndex, name) {
     if (colIndex >= 0 && colIndex < this.columns) {
-      if (!this.columnNames) {
-        this.columnNames = new Map();
-      }
-      this.columnNames.set(colIndex, name);
+      this.columnNames[colIndex] = name;
       return true;
     }
     return false;
   }
 
   getColumnName(colIndex) {
-    if (this.columnNames && colIndex >= 0 && colIndex < this.columns) {
-      return this.columnNames.get(colIndex);
+    if (colIndex >= 0 && colIndex < this.columns) {
+      return this.columnNames[colIndex];
     }
     return null;
   }
@@ -238,10 +232,7 @@ class Matrix {
   }
   updateRowName(rowIndex, newName) {
     if (rowIndex >= 0 && rowIndex < this.rows) {
-      if (!this.rowNames) {
-        this.rowNames = new Map();
-      }
-      this.rowNames.set(rowIndex, newName);
+      this.rowNames[rowIndex] = newName;
       return true;
     }
     return false;
@@ -249,25 +240,24 @@ class Matrix {
 
   updateColumnName(colIndex, newName) {
     if (colIndex >= 0 && colIndex < this.columns) {
-      if (!this.columnNames) {
-        this.columnNames = new Map();
-      }
-      this.columnNames.set(colIndex, newName);
+      this.columnNames[colIndex] = newName;
       return true;
     }
     return false;
   }
 
   deleteRowName(rowIndex) {
-    if (this.rowNames && rowIndex >= 0 && rowIndex < this.rows) {
-      return this.rowNames.delete(rowIndex);
+    if (rowIndex >= 0 && rowIndex < this.rows) {
+      this.rowNames[rowIndex] = "";
+      return true;
     }
     return false;
   }
 
   deleteColumnName(colIndex) {
-    if (this.columnNames && colIndex >= 0 && colIndex < this.columns) {
-      return this.columnNames.delete(colIndex);
+    if (colIndex >= 0 && colIndex < this.columns) {
+      this.columnNames[colIndex] = "";
+      return true;
     }
     return false;
   }
@@ -616,6 +606,8 @@ board.ui.on("selection:update", async (event) => {
         }
       }
     }
+    // Check if the content of the previously selected sticky note has changed
+    // safa
     if (
       previouslySelectedContent !== null &&
       previouslySelectedContent.content !==
@@ -627,13 +619,15 @@ board.ui.on("selection:update", async (event) => {
       if (result) {
         const newContent = (await board.getById(previouslySelectedContent.id))
           .content;
+        g_matrix.rowNames[result.row] = newContent;
+        console.log("g_matrix.rowNames:", g_matrix.rowNames);
         for (let col = 0; col < g_matrix.columns; col++) {
           const cell = g_matrix.matrix[result.row][col];
           if (cell && cell.stickyNoteId) {
             let stickyNote = await board.getById(cell.stickyNoteId);
             if (stickyNote) {
               stickyNote.content = newContent;
-              await stickyNote.sync();
+              stickyNote.sync();
             }
           }
         }
@@ -654,6 +648,7 @@ board.ui.on("selection:update", async (event) => {
     // Clear the previouslySelectedItems array
     previouslySelectedItems = [];
   }
+  saveMatrixToBoard(g_matrix);
 });
 
 async function assignRandomTagsToSelection() {
@@ -854,8 +849,30 @@ document.getElementById("printAppData").addEventListener("click", async () => {
     console.error("Matrix not found in board data.");
     return;
   }
-  console.log("Matrix:", matrix);
+  console.log("g_matrix:", g_matrix);
+  // console.log("Matrix:", matrix);
 
   // Notify user that app data has been printed
   await board.notifications.showInfo("App data printed to console.");
 });
+
+document
+  .getElementById("copyToClipboard")
+  .addEventListener("click", async () => {
+    // Notify user that app data has been copied to clipboard
+    const timestamp = new Date().toISOString();
+    await navigator.clipboard.writeText(timestamp);
+    await board.notifications.showInfo("App data copied to clipboard.");
+
+    const stickyNoteContent = JSON.stringify(g_matrix, null, 2);
+
+    const stickyNote = await board.createStickyNote({
+      content: stickyNoteContent,
+      x: 100,
+      y: 100,
+      width: 600,
+    });
+    await board.viewport.zoomToObject(stickyNote);
+
+    console.log("Created new sticky note with matrix content:", stickyNote);
+  });
