@@ -41,11 +41,11 @@ const { board } = window.miro;
 let g_matrix = null;
 let g_stickyNoteSize = null;
 let g_tagDefinitions = [
-  { title: "Very Important", color: "red", id: null },
-  { title: "Highly Important", color: "yellow", id: null },
-  { title: "Moderately Important", color: "light_green", id: null },
-  { title: "Low Importance", color: "cyan", id: null },
-  { title: "Not Important", color: "blue", id: null },
+  { title: "Very Important", color: "red", id: null, value: 9 },
+  { title: "Highly Important", color: "yellow", id: null, value: 3 },
+  { title: "Moderately Important", color: "light_green", id: null, value: 0 },
+  { title: "Low Importance", color: "cyan", id: null, value: -1 },
+  { title: "Not Important", color: "blue", id: null, value: -3 },
 ];
 
 // app setup on load functions should be called in this order
@@ -362,7 +362,7 @@ async function createMatrix() {
     while (attempts < MAX_ATTEMPTS) {
       try {
         frame = await board.createFrame({
-          title: `Column ${j + 1}`,
+          title: `Benefit ${j + 1}`,
           width: frameWidth,
           height: frameHeight,
           x: j * frameWidth, // Offset each frame horizontally
@@ -382,6 +382,7 @@ async function createMatrix() {
       }
     }
     g_matrix.linkColumnToFrame(j, frame.id);
+    g_matrix.columnNames[j] = frame.title;
   }
 
   // Create sticky notes for each cell in each column
@@ -411,7 +412,8 @@ async function createMatrix() {
           while (attempts < MAX_ATTEMPTS) {
             try {
               sticky = await board.createStickyNote({
-                content: `Cell ${currentI + 1},${currentJ + 1}`,
+                content: `Trait ${currentI + 1}`,
+                // content: `Cell ${currentI + 1},${currentJ + 1}`,
                 x:
                   frameLeft +
                   position.x +
@@ -426,6 +428,7 @@ async function createMatrix() {
                 },
               });
               g_matrix.setCell(currentI, currentJ, sticky.id);
+              g_matrix.setRowName(currentI, sticky.content); //TODO: move this to outside of the first while loop
               return sticky;
             } catch (error) {
               if (error.message.includes("API rate limit")) {
@@ -712,11 +715,11 @@ async function getSetPredefinedTagsFromBoard() {
   }
   return g_tagDefinitions;
 }
-// function getTagTitleById(tagId) {
-//   console.log("g_tagDefinitions:", g_tagDefinitions);
-//   const tag = g_tagDefinitions.find((t) => t.id === tagId);
-//   return tag ? tag.title : "";
-// }
+
+function getTagValueByTagId(tagId) {
+  const tag = g_tagDefinitions.find((t) => t.id === tagId);
+  return tag ? tag.value : null; // Return null if the tag is not found
+}
 
 function updateCellTags(row, col, newTagIds) {
   if (g_matrix && g_matrix.matrix[row][col]) {
@@ -868,3 +871,60 @@ document
 
     console.log("Created new sticky note with matrix content:", stickyNote);
   });
+
+document.getElementById("debugButton").addEventListener("click", () => {
+  console.log("Debug button clicked");
+  generate2DMatrixFromTags();
+});
+
+function generate2DMatrixFromTags(
+  rowNames = g_matrix.rowNames,
+  columnNames = g_matrix.columnNames,
+) {
+  const rows = rowNames.length;
+  const columns = columnNames.length;
+  const matrix = Array.from({ length: rows + 1 }, () =>
+    Array(columns + 1).fill(0),
+  );
+
+  // Set the first row with column names
+  for (let col = 1; col <= columns; col++) {
+    matrix[0][col] = columnNames[col - 1];
+  }
+
+  // Set the first column with row names
+  for (let row = 1; row <= rows; row++) {
+    matrix[row][0] = rowNames[row - 1];
+  }
+  console.log("g_tagDefinitions:", g_tagDefinitions);
+  for (let row = 0; row < rows; row++) {
+    for (let col = 0; col < columns; col++) {
+      const cell = g_matrix.matrix[row][col];
+      if (cell) {
+        console.log(`Processing cell at row ${row}, col ${col}`);
+        console.log(`Cell tagIds: ${cell.tagIds}`);
+
+        if (cell.tagIds.length > 0) {
+          const tagValues = cell.tagIds.map((tagId) => {
+            const tagValue = getTagValueByTagId(tagId);
+            console.log(`Tag ID: ${tagId}, Tag Value: ${tagValue}`);
+            return tagValue;
+          });
+
+          matrix[row + 1][col + 1] = tagValues.join(", ");
+          console.log(
+            `Assigned to matrix[${row + 1}][${col + 1}]: ${
+              matrix[row + 1][col + 1]
+            }`,
+          );
+        } else {
+          console.log(`No tags found for cell at row ${row}, col ${col}`);
+        }
+      } else {
+        console.log(`No cell found at row ${row}, col ${col}`);
+      }
+    }
+  }
+  console.log("Generated 2D matrix:", matrix);
+  return matrix;
+}
