@@ -33,6 +33,12 @@
  * TODO: Implement clustering algorithm for sticky note pairs
  * TODO: Add functionality to save and load matrix state
  * TODO: Implement undo/redo functionality for matrix operations
+ * Release Tasks:
+ * 1. Name change.
+ * 2. Icon change.
+ * 3. Added debug mode in code to visualize some buttons or not.
+ * 4. Add beautification for the UI.
+ * 5. Add Adding supoort for benefits and traits.
  */
 
 const { board } = window.miro;

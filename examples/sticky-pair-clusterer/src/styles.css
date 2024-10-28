@@ -3,73 +3,80 @@ body {
   height: 100%;
   margin: 0;
   padding: 0;
+  font-family: "Inter", sans-serif;
+  background-color: #f4f7fa;
 }
 
 .scrollable-container {
   height: 100%;
   overflow-y: auto;
-  padding-top: 30px;
-  padding-left: 23px;
-  padding-bottom: 20px;
+  padding: 30px 23px 20px;
   box-sizing: border-box;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .scrollable-content {
   height: 2000px;
   background-color: #2a79ff;
 }
-.traits-count-input {
-  width: 200px;
-  padding: 5px 10px;
-  margin-right: 10px;
+
+.input-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.input-container label {
+  min-width: 120px; /* Adjust width to ensure enough space for alignment */
+  text-align: left;
+}
+
+.input-container input {
+  width: 80px;
+  padding: 5px;
   border: 1px solid #ccc;
   border-radius: 4px;
   font-size: 14px;
   box-sizing: border-box;
   height: 30px;
-  vertical-align: middle;
+  text-align: right;
 }
 
-.create-pair-button {
+button {
   display: inline-block;
   width: 200px;
   background: none;
   border: 1px solid #4262ff;
   color: #4262ff;
-  height: 30px;
+  height: 40px; /* Increased height for larger buttons */
   box-sizing: border-box;
   border-radius: 4px;
   text-align: center;
   font-size: 14px;
   cursor: pointer;
   vertical-align: middle;
+  transition:
+    background-color 0.3s,
+    color 0.3s;
+  margin-bottom: 10px; /* Added margin for spacing between buttons */
 }
 
-.update-benefits-button {
-  display: inline-block;
-  width: 200px;
-  background: none;
-  border: 1px solid #4262ff;
-  color: #4262ff;
-  height: 30px;
-  box-sizing: border-box;
-  border-radius: 4px;
-  text-align: center;
-  font-size: 14px;
-  cursor: pointer;
-  vertical-align: middle;
+button:hover {
+  background-color: #4262ff;
+  color: #ffffff;
 }
 
-.update-benefits-button:hover {
-  background-color: #45a049;
-}
-
-.create-pair-button:hover {
-  background-color: #45a049;
+button:active {
+  background-color: #2a79ff;
+  color: #ffffff;
 }
 
 .input-button-container {
   display: flex;
   align-items: center;
   margin-bottom: 20px;
+  gap: 10px; /* Added gap for spacing between inputs and buttons */
 }
