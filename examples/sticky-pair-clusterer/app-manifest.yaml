@@ -1,0 +1,7 @@
+# See https://developers.miro.com/docs/app-manifest on how to use this
+#appName: Template Builder
+appName: Sticky notes to shapes
+sdkUri: "http://localhost:3000"
+scopes:
+  - boards:read
+  - boards:write
