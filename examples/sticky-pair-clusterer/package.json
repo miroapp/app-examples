@@ -1,0 +1,15 @@
+{
+  "name": "sticky-pair-clusterer",
+  "description": "Create a template programmatically with the Miro Web SDK. This app uses Vite.",
+  "keywords": ["Miro SDK", "Vite"],
+  "version": "0.0.0",
+  "scripts": {
+    "start": "vite",
+    "build": "vite build",
+    "serve": "vite preview"
+  },
+  "devDependencies": {
+    "@mirohq/websdk-types": "latest",
+    "vite": "2.9.17"
+  }
+}

@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title></title>
+    <link rel="stylesheet" href="/src/styles.css" />
+    <script src="https://miro.com/app/static/sdk/v2/miro.js"></script>
+  </head>
+  <body>
+    <div class="scrollable-container">
+      <div class="input-container">
+        <label for="rowsCount">No. of Traits: </label>
+        <input
+          type="number"
+          id="rowsCount"
+          class="rows-count-input"
+          min="1"
+          value="20"
+          placeholder="Number of rows"
+        />
+      </div>
+      <div class="input-container">
+        <label for="columnsCount">No. of Benefits:</label>
+        <input
+          type="number"
+          id="columnsCount"
+          class="columns-count-input"
+          min="1"
+          value="3"
+          placeholder="Number of columns"
+        />
+      </div>
+      <div>
+        <button id="createPair" class="create-pair-button">Create Pair</button>
+        <button id="updateBenefits" class="update-benefits-button">
+          Update Benefits
+        </button>
+        <button
+          id="assignRandomTagsToSelection"
+          class="assign-random-tags-to-selection-button"
+        >
+          Assign Random Tags To Selection
+        </button>
+        <button id="createMatrix" class="create-matrix-button">
+          Create Matrix
+        </button>
+        <button id="removeAllTags" class="remove-all-tags-button">
+          Remove All Tags
+        </button>
+        <button id="printAppData" class="print-app-data-button">
+          Print App Data
+        </button>
+        <button id="copyToClipboard" class="copy-to-clipboard-button">
+          Copy To Clipboard
+        </button>
+        <button id="debugButton" class="debug-button">Debug</button>
+      </div>
+    </div>
+    <div>
+      <script type="module" src="/src/app.js"></script>
+    </div>
+  </body>
+</html>
