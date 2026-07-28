@@ -1,5 +1,0 @@
-# See https://developers.miro.com/docs/app-manifest on how to use this
-appName: Python Webhooks
-sdkUri: "http://localhost:5000"
-scopes:
-  - boards:read
