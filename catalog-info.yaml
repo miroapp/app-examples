@@ -12,4 +12,4 @@ spec:
   type: library
   lifecycle: production
   criticality: low
-  owner: dev-ecosystem
+  owner: extensibility
